@@ -129,3 +129,13 @@ El proyecto corre sobre el puerto 7878 pero para acceder sobre la ip directa se 
 
 ## Configuración final
 Al traspaso de este repositorio se necesita para seguir cualquier desarrollo el cambiar el usuario al que apunta el mismo ya que de momento se hace con uno propio y para hacer la descarga se eliminarán las claves de ssh del servidor por seguridad.
+
+## Dashboard de la base de datos
+No es necesario acceder a mongo DB para visualizar la BD, el sistema de Parse cuenta con un Dashboard de visualización a través de la URL **/dashboard**
+
+Para acceder se pide acceso el cual es el siguiente:
+
+~~~
+user: admin
+pass: admin
+~~~

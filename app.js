@@ -63,8 +63,8 @@ var dashboard = new ParseDashboard({
         "appName": process.env.NAME || TESTING_ENVIRONMENT.NAME
     }],
     "users": [{
-        "user": "meeplab",
-        "pass": "meeplab5all!"
+        "user": "admin",
+        "pass": "admin"
     }]
 }, { allowInsecureHTTP: true })
 
