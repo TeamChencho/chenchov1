@@ -1,0 +1,47 @@
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalAcordeon" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal Acordeon</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Agregar Pregunta</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse" id="collapseCardExample">
+                  <div class="card-body">
+                    <form class="form-horizontal" id="form_faqs">
+                      <fieldset>
+                        <!-- Text input-->
+                        <div class="form-group row">
+                        <label for="pregunta_agregar" class="col-form-label col-sm-2">Pregunta</label>
+                          <div class="col-md-10">
+                            <input id="pregunta_agregar" name="pregunta" type="text" placeholder="¿Qué motiva a las personas a viajar?" class="form-control input-md" required="">
+                          </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Guardar</button>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,703 @@
+@media(max-width:1499px) {
+
+
+	/* Job */
+	.iq-bgjob-overlay.pt-position-left { position: absolute; bottom: -7%; left: -6%; }
+	.iq-bgjob-overlay.pt-position-topright { position: absolute; top: -18%; right: -2%; }
+	.iq-bgjob-overlay.pt-position-right { position: absolute; bottom: -8%; right: -22%; }
+	.iq-bgjob-overlay.pt-position-center { position: absolute; top: 15%; right: 11%; }
+	.iq-bgjob-overlay { position: absolute; bottom: -7%; right: -12%; }
+
+	/* Job */
+
+	/*Space*/
+	.space_tab  .tab_list span.itemDot.itemDot0 { top: 23% !important; right: 0; }
+	.space_tab  .tab_list span.itemDot.itemDot1 { top: 35% !important; right: 6.5%; }
+	.space_tab  .tab_list span.itemDot.itemDot2 { top: 47% !important; right: 8.5%; }
+	.space_tab  .tab_list pan.itemDot.itemDot3 { top: 61% !important; right: 5.5%; }
+	.space_tab  .tab_list span.itemDot.itemDot3 { top: 61% !important; right: 5.5%; }
+	.space_left_img { left: -10%; }
+
+/*Space*/ }
+@media(max-width:1399px) {
+
+	/*Space*/
+	.space_right_img { right: -12%; }
+	.space_tab .tab_list span.itemDot.itemDot0 { top: 17% !important; right: 15px; }
+	.space_tab .tab_list span.itemDot.itemDot1 { top: 28% !important; right: 11%; }
+	.space_tab .tab_list span.itemDot.itemDot2 { right: 16%; }
+	.space_tab .tab_list span.itemDot.itemDot3 { right: 11.5%; top: 65% !important; }
+	.space_tab .tab_list span.itemDot.itemDot4 { right: 0%; top: 78% !important; }
+	.iq-space-counter.wow.fadeInUp { height: 200px; width: 200px; padding: 50px 0; }
+
+
+	.owl-carousel .owl-nav .owl-prev { left: -1% }
+	.owl-carousel .owl-nav .owl-next { right: -1% }
+	.contact-block iframe { height: 344px }
+	.iq-asked-cl .wpb_wrapper { margin: 60px 60px }
+
+	/* ----------------------------- */
+	span.scan { display: none; }
+	.slideList { text-align: center; top: 62%; }
+	.slideList ul li img { width: 69%; text-align: center; margin: 0 auto; }
+	.carouselLinks img.object-img { top: 50%; width: 30% }
+	.partner-details { padding: 16px; }
+	.iq-breadcrumb-three img.vizion-img { height: 100%; }
+}
+@media(max-width:1365px) {
+
+	/* Job */
+	.back-pattern img { left: -22%; }
+
+	/* Job */
+
+	/*Insurance Homepage*/
+	.iq-insurance-overlay.pt-position-left { left: -9%; bottom: 0; }
+	.iq-insurance-overlay.pt-position-right { right: -9%; bottom: 0; }
+	.iq-insurance-overlay.pt-position-topleft { left: -9%; top: -20%; }
+	.iq-insurance-overlay.pt-position-topright { right: -9%; top: -20%; }
+
+	.frequently-asked { padding-left: 0 !important; padding-right: 0 !important }
+	.iq-accordion { margin-right: 0 }
+	.contact-block iframe { height: 312px }
+	.iq-asked-cl .wpb_wrapper { margin: 30px 15px }
+
+	/* ----------------------------------- */
+	.tech-no { display: block; margin-right: 0; margin-bottom: 30px; }
+	.grid figure { min-width: auto; }
+	.slideList ul li img { width: 60%; text-align: center; margin: 0 auto; }
+	.carouselLinks img.object-img { top: 50%; width: 26% }
+	.partner-details .media-body { padding: 0; }
+	.our-event ul.nav-pills li { margin-right: 2%; width: 15%; }
+	.our-event .nav-pills .nav-link, .our-event .nav-pills .nav-link.active, .our-event .nav-pills .show>.nav-link { padding: 10px 8px; }
+	.partner-img { width: 37%; }
+	.slider-car-nav .slick-next { right: -100px; }
+	.slider-car-nav .slick-prev { left: -100px; }
+}
+@media(max-width:1299px) {
+
+
+	/* Job */
+	.back-pattern img { position: absolute; left: -14%; }
+
+	/* Job */
+
+	/*Insurance Homepage*/
+	.iq-insurance-overlay.pt-position-left { left: -5%; bottom: 0; }
+	.iq-insurance-overlay.pt-position-right { right: -5%; bottom: 0; }
+	.iq-insurance-overlay.pt-position-topleft { left: -5%; top: -20%; }
+	.iq-insurance-overlay.pt-position-topright { right: -5%; top: -20%; }
+
+	/*Insurance Homepage*/
+
+	/*Space*/
+	.contact-block .vc_column-inner { margin-left: 0 }
+}
+@media(max-width:1199px) {
+	#iq-tooltip { width: 400px !important; }
+	.iq-car-padding.vc_column_container { padding: 30px 60px; }
+	.iq-car-padding.vc_column_container { padding: 60px 60px; }
+	.wpb_single_image.skew-image-left img, .wpb_single_image.skew-image-right img { max-width: 115%; width: 115%; }
+	.skew-image-left { margin-left: -130%; }
+	.skew-image-right { margin-right: -130%; }
+	.site-main .sf-content > .vc_row.wpb_row.vc_row-fluid.iq-car-tech::after, .iq_car_slider_bg::after { height: 45px; }
+	.slider-car-nav .slick-next { right: -60px; }
+	.slider-car-nav .slick-prev { left: -60px; }
+	.iq-accordion.faq4 .ad-details { padding: 0 15px 0 40px; }
+	.iq-accordion.faq4 .ad-title { padding: 0 20px 20px 40px; }
+	.tooltip-down.tooltip-down-0 { left: 180px !important; }
+	.tooltip-down.tooltip-down-1 { left: 320px !important; top: 50px !important; }
+	.tooltip-down.tooltip-down-2 { left: 20px !important; top: 120px !important; }
+	.tooltip-down.tooltip-down-3 { left: 190px !important; top: 140px !important; }
+
+	/*Space*/
+	.space_right_img { right: -30px; }
+	.wpb_single_image.space_right_img img { max-width: 80%; }
+	.space_tab .contentCircle { top: 300px; }
+	.space_tab .contentCircle .CirItem .space_info { padding: 100px 50px; }
+	.space_tab .tab_list span.itemDot.itemDot0 { top: 12% !important; right: 15px; }
+	.space_tab .tab_list span.itemDot.itemDot1 { top: 27% !important; right: 15%; }
+	.space_tab .tab_list span.itemDot.itemDot2 { right: 19.5%; }
+	.space_tab .tab_list span.itemDot.itemDot3 { right: 15.5%; }
+	.space_tab .tab_list span.itemDot.itemDot4 { right: 5%; }
+
+	/*Space*/
+
+	/* Job */
+	.iq-job-category .category-title h5 { font-size: 18px; }
+	#my-ajax-filter-search form { padding: 50px 50px; }
+	#my-ajax-filter-search form input#search_job { width: 56%; }
+	.iq-recent-job .office-detail h4.title { font-size: 22px; }
+	.iq-recent-job .iq-jobdetail { padding: 30px 20px; min-height: 320px; }
+	.job-feedback { padding: 50px; }
+
+	/* Job */
+
+	/*Insurance Homepage*/
+	.vizion-feature-circle .vizion-img::before { height: 400px; width: 400px; }
+	.vizion-feature-circle .vizion-img::after { height: 300px; width: 300px; top: 45px; left: -100px; }
+	.vizion-feature-circle .dot-circle { display: none; }
+	.vizion-feature-circle .main-circle { left: 40%; top: 40%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(1) { top: 17%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(3) { right: 15%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(4) { top: 45%; left: 7%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(7) { top: 60%; right: 25%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(8) { bottom: 10%; left: 30%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(6) { top: 60%; left: 0%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(5) { top: 10%; right: 24%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(2) { top: -5%; left: 32%; }
+	.iq-space-counter.wow.fadeInUp { height: 200px; width: 200px; padding: 50px 0; }
+	.iq-insurance-overlay.pt-position-left { left: -1%; bottom: 0; }
+	.iq-insurance-overlay.pt-position-right { right: -1%; bottom: 0; }
+	.iq-insurance-overlay.pt-position-topleft { left: -1%; top: -20%; }
+	.iq-insurance-overlay.pt-position-topright { right: -1%; top: -20%; }
+	.iq-objects2-4 .iq-objects-01 { left: 9%; }
+	.iq-objects2-4 .iq-objects-02 { right: 9%; }
+
+	/*Insurance Homepage*/
+
+	/*insurance*/
+	.pricing-ecom-box { padding: 30px; }
+
+	/*insurance*/
+	.widget.widget_nav_menu ul li .sub-menu, .widget ul.menu li .sub-menu { padding-left: 10px }
+	.iq-breadcrumb .title { font-size: 42px }
+	.iq-amazing-tab .nav-item { width: 15.8% }
+	table td, table th { padding: 5px; text-align: center }
+	.radius_white img { width: 94%; }
+	.holderCircle { margin: 60px 0 60px 45px }
+	.woocommerce .products li.product.last, .woocommerce-page .products li.last { margin-right: 30px; }
+	.woocommerce .products li.product:nth-child(3n) { margin-right: 0; }
+	.woocommerce .products.columns-4 li.product { width: 31.11%; }
+	.woocommerce ul.products li.first, .woocommerce-page ul.products li.first { clear: right; }
+	.woocommerce .related.products .products.columns-4 li.product { margin-bottom: 30px; }
+
+	/* ----------------------------------------- */
+
+	.iq-awards .owl-carousel .owl-item img { width: auto; }
+	.nav-pills .nav-link { padding: 10px 10px; }
+	.our-event ul.nav-pills li { margin-right: 10px; }
+	.partner-details { margin-left: 30px; }
+	.slideList ul li img { width: 44%; }
+	.carouselLinks img.object-img { top: 48%; width: 18%; }
+	.slideList { top: 65%; }
+	.iq-tab .nav-item { width: 24%; }
+	.partner-img { width: 49%; }
+
+	.clients.column-4 li.item { display: inline-block; width: 34%; }
+	.clients.column-5 li.item { display: inline-block; width: 34%; }
+	.iq-finance-services .finance-info h4 { font-size: 20px; }
+	.iq-counter.main_bg { padding: 30px 0px; }
+	.finance-vizion.vc_col-sm-6 { margin-right: 15px; margin-left: 15px; width: 47%; }
+	.iq-finance-services { padding: 30px 15px; }
+	header.header-with-searchbar .login li:last-child a { padding: 10px 20px; }
+
+	    /*Education*/
+	.iq-education-tab .nav-item {     width: 20.8%; }
+
+	.iq-health-team .iq-health-team-img  img { width: 100% }
+}
+@media(max-width:1139px) {
+	.space_tab .tab_list span.itemDot.itemDot1 { right: 15%; }
+	.space_tab .tab_list span.itemDot.itemDot2 { right: 20.5%; }
+	.space_tab .tab_list span.itemDot.itemDot3 { right: 15.5%; }
+	.space_tab .tab_list span.itemDot.itemDot4 { right: 3%; }
+}
+@media(max-width:1100px) {
+	.space_right_img { right: -56px; }
+}
+@media(max-width:992px) {
+	.iq-insuarance-box{float: inherit;}
+	.right-img img ,.left-img img{max-width: 100%}
+	#rev_slider_1_1_wrapper{padding-top: 80px !important;}
+	.container-fluid{padding: 0 30px;}
+	.right-side{padding: 50px 0;}
+	.skew-image-right{    margin-right: 0;}
+	.iq-rpb-zero{padding-bottom:0;}
+	.iq-rpt-zero{padding-top:0;}
+	header .shop_list { background: none !important; position: relative; width: auto; right: 60px; top: 0; }
+	header .navbar-toggler { right: 0; position: absolute; -webkit-box-shadow: 0px 10px 30px 0px rgba(70, 200, 148, 0.2); -moz-box-shadow: 0px 10px 30px 0px rgba(70, 200, 148, 0.2); box-shadow: 0px 10px 30px 0px rgba(70, 200, 148, 0.2); }
+	header .navbar ul.navbar-nav li { margin-right: 0; display: inline-block; position: relative; width: 100%; }
+	header .navbar .navbar-nav { max-height: 330px; overflow-y: scroll; overflow-x: hidden; }
+	header .navbar .navbar-nav .nav-item a { color: #142c4b; line-height: normal; display: inline-block; width: 100%; font-size: 16px; padding: 15px !important; z-index: inherit; text-align: left; }
+	header .navbar-collapse { position: absolute; top: 60px; line-height: 0; left: 0; display: inline-block; width: 100%; -webkit-box-shadow: 0px 10px 30px 0px rgba(70, 200, 148, 0.2); -moz-box-shadow: 0px 10px 30px 0px rgba(70, 200, 148, 0.2); box-shadow: 0px 10px 30px 0px rgba(70, 200, 148, 0.2); }
+	header .navbar ul.navbar-nav { float: left; display: inline-block; width: 100%; max-width: 100%; background: #ffffff; }
+	.skew-image-left img, .skew-image-right img { transform: skewX(0deg); }
+	.skew-image-left { margin-left: 0; }
+	.wpb_single_image.skew-image-left img, .wpb_single_image.skew-image-right img { max-width: 100%; width: 100%; }
+	.skew-image-right { margin-left: 0; }
+	.site-main .sf-content > .vc_row.wpb_row.vc_row-fluid.iq-car-tech::after, .iq_car_slider_bg::after { height: 100px; }
+	.slider-car-nav .slick-next { right: 0px; }
+	.slider-car-nav .slick-prev { left: 0px; }
+	.slider-car-nav .slick-prev, .slider-car-nav .slick-next { top: 0; }
+	.car-img-slider { padding-top: 45px; }
+
+	/*Space*/
+	.iq-space-counter.wow.fadeInUp { margin-bottom: 120px; }
+	.space_left_img { left: -15px; bottom: 0; display: none; }
+	.contentCircle .CirItem { position: relative; display: none; }
+	.contentCircle .CirItem.active { display: block; padding: 50px; }
+	.space_tab .contentCircle .CirItem .space_info { padding: 0 50px; width: 60%; }
+	.space_right_img { display: none; }
+	.space_tab .contentCircle { top: 0; left: 0; transform: none; }
+	.space_tab .tab_list .itemDot { position: relative; left: 0 !important; right: auto !important; }
+	.space_tab .tab_list span.itemDot.itemDot1, .space_tab .tab_list span.itemDot.itemDot2, .space_tab .tab_list span.itemDot.itemDot3, .space_tab .tab_list span.itemDot.itemDot4, .space_tab .tab_list span.itemDot.itemDot0 { top: auto !important; bottom: auto !important; margin: 0 0px 30px 45px; display: inline-block; vertical-align: middle; }
+	.tab_list .itemDot .forActive { margin-left: 5px; }
+	.space_tab .tab_list .itemDot .title { display: inline-block; }
+
+	/*Space*/
+
+	/*Insurance Homepage*/
+	.iq-insurance-overlay.pt-position-left { left: 0%; bottom: 0; z-index: -1; }
+	.iq-insurance-overlay.pt-position-right { right: 0%; bottom: 0%; z-index: -1; }
+	.iq-insurance-overlay.pt-position-topleft { left: 0%; top: -20%; z-index: -1; }
+	.iq-insurance-overlay.pt-position-topleft { left: 0%; top: -20%; z-index: -1; }
+
+	/*Insurance Homepage*/
+
+	/* Job */
+	.back-pattern img { display: none; }
+	.iq-job-box .step { right: 26%; }
+	.iq-job-category { min-height: 150px; }
+	#my-ajax-filter-search form input#search_job { width: 50%; }
+	.iq-padding-feed img { margin-top: 50px; }
+	.iq-padding-feed p { margin-bottom: 50px !important; }
+	.iq-bgjob-overlay.pt-position-left { display: none; }
+	.iq-bgjob-overlay.pt-position-topright { display: none; }
+	.iq-bgjob-overlay.pt-position-right { display: none; }
+	.iq-bgjob-overlay.pt-position-center { display: none; }
+	.iq-job-box { padding: 15px; }
+	.job-feedback { padding: 30px 15px; }
+	.iq-padding-feed .vc_single_image-wrapper.vc_box_border_grey { padding-left: 15px; }
+	.iq-padding-feed h2, .iq-padding-feed p { padding: 0px 15px 0px 15px; }
+
+	/* Job */
+
+	/*Ecommerce*/
+	.iq-circle-progress .iq-data { width: 50%; margin-bottom: 45px; }
+	.feedback-ecommerce .feedback_ecommerce_images { background-size: cover; padding: 150px 0px; }
+	.wpb_single_image.wpb_content_element.vc_align_left.vizion-right-img img { max-width: 100%; left: -3%; position: relative; }
+	.iq-ecom-fancybox .pimage { display: none; }
+	.pricing-ecom-box .price-blog .price .button.grey { padding: 8px 20px; }
+	.feedback-ecommerce .feedback_ecommerce_images ul li:nth-child(4) { left: 120px; }
+
+	/*Ecommerce*/
+
+	/*Health Homepage*/
+	.iq-health-services2 .iq-health-patimg .pimage { display: none; }
+	.iq-health-overlay.pt-position-center { position: absolute; bottom: -27%; right: 20%; }
+	.iq-health-second-overlay.pt-position-center { left: 0%; }
+	.iq-health-team .iq-health-team-img  img { width: 100% }
+	/*.play-car-video  a.button.button-icon.iq-video-two.popup-youtube {padding: 10px 35px;}*/
+	/*Health Homepage*/
+
+	/*Retail Homepage*/
+	.testimonial-two-divide .testimonial-image img{margin-top: 75px;}
+	.testimonial-two-divide .side-image {margin-top: 45px; margin-bottom: 75px; margin-left: 0px;}
+	.testimonial-two-divide .nav-controls {display: none;}
+	.retail-btn{padding: 0px !important;}
+
+    /*Fashion Homepage*/
+	.service-box-bgimage {margin-bottom: 65px;}
+	footer.fashion p.subscribe-contant {padding: 0 30px;}
+	footer.fashion form {padding: 0 0px;}
+	footer.fashion .iq-subs {right: 0%;}
+
+
+	.revolution_slider { margin: 0 15px; }
+	.iq-finance-services { margin: 15px 0; }
+	.services-process li:after { display: none; }
+	.services-process li { width: 50%; margin-bottom: 30px; }
+	.owl-carousel.image_slider { margin-bottom: 90px; }
+	.widget_calendar .calendar_wrap table th, .widget_calendar .calendar_wrap table td { padding: 5px }
+	.future-services { padding: 30px 15px }
+	.iq-breadcrumb .title { font-size: 38px }
+	.iq-amazing-tab .nav-item { width: 15.7% }
+	.commentlist .comment-respond .comment-form-author, .comment-respond .comment-form-email, .comment-respond .comment-form-url { width: 31.6% }
+	.iq-rmt-30 { margin-top: 30px }
+	.iq-breadcrumb-two { padding: 75px 0 }
+	.iq-breadcrumb-two nav { margin-top: 15px; float: left }
+	footer #footer-menu li a { font-size: 16px }
+	.radius_white img { border-radius: 42px; width: 30%; }
+	.holderCircle { margin: 60px auto 0; }
+	.woocommerce .products li.product:nth-child(3n) { margin-right: 30px; }
+	.woocommerce .products li.product:nth-child(2n) { margin-right: 0; }
+	.woocommerce .products.columns-4 li.product { width: 47.8%; }
+	.woocommerce a.button { padding: 3px 15px; }
+	.woocommerce-message, .woocommerce-info { line-height: 2em; padding: 15px 15px 15px 45px; }
+	.iq-product-image img { width: 100%; }
+
+	/* ----------------------------------------- */
+
+	/* header.header-with-searchbar .sub-menu li a{background: #46c894;} */
+	.iq-breadcrumb-three .col-lg-6 img { display: none; }
+
+	.vizion-breadcrumb { padding-top: 0; }
+	.iq-breadcrumb-three img.vizion-img { display: none; }
+	.iq-breadcrumb-three { background: #46c894; padding: 100px 0px; }
+	.iq-tab .nav-item { width: 24%; }
+	.cd-horizontal-timeline .events-content li { width: 86% !important; }
+	.iq-challange-box { padding: 75px 15px 30px; }
+	.info-box { margin-bottom: 0px; }
+	.our-features .grid.bg-over-black-70 figure, .our-features .grid.bg-over-black-70 figure.effect-chico img, .our-features .grid.bg-over-black-70 { width: 100% }
+	.partner-details { margin-left: 16px; }
+	.search-tick li:before { top: 2px; }
+	.tech-no { display: block; line-height: 80px; font-size: 90px; margin-right: 0; margin-bottom: 20px; }
+	.services-process li:last-child { margin-bottom: 0; }
+	.services-process li:nth-child(3) { margin-bottom: 0; }
+	.admin-bar header.header-with-transparent { top: 43px !important; }
+	.iq-finance-services { padding: 10px 10px; }
+
+	/*.iq-finance-services:last-child {margin-bottom: 0!important;}
+	.iq-finance-services::nth-child(7) {margin-bottom: 0!important;}*/
+	.finance-vizion.vc_col-sm-6 { margin-right: 15px; margin-left: 15px; width: 46%; }
+	.vizion.vc_col-sm-6 { margin-right: 15px; margin-left: 15px; width: 46%; }
+
+	.iq-design-services:before {display: none !important;}
+    .vc_custom_1576301329519 {background-image: none !important;}
+    .wpb_single_image.wpb_content_element.vc_align_left.construct-right{text-align: center;}
+    .wpb_single_image.wpb_content_element.vc_align_center.construct-left {margin-top: 35px;}
+    .iq-const-video .play-car-video a.button.button-icon.iq-video-two.popup-youtube{padding: 0px; margin-bottom: 15px;}
+    .iq-factories:before {display: none !important; }
+    .iq-manufacturing-services {position: relative!important; height: auto!important; }
+    footer.retail .widget .menu li {margin-right: 50px;}
+
+}
+@media(max-width:979px) {
+
+	/* Job */
+	#my-ajax-filter-search form input#search_job { width: 45%; }
+	/* Job */
+
+	/*Insurance Homepage*/
+	.iq-insuarance-box { margin-bottom: 45px; }
+	.iq-objects2-4 .iq-objects-01 { left: -1%; }
+	.iq-objects2-4 .iq-objects-02 { right: -1%; }
+
+	/*Insurance Homepage*/
+
+	/*Health Homepage*/
+	.play-car-video  a.button.button-icon { padding: 10px 35px; }
+	/*Health Homepage*/
+
+	.future-services { padding: 30px 5px }
+	.widget_calendar .calendar_wrap table th, .widget_calendar .calendar_wrap table td { padding: 2px }
+	.iq-amazing-tab .nav-item { width: 15.5% }
+	.iq-amazing-tab .nav-item a { font-size: 13px }
+	.commentlist .comment-respond .comment-form-author, .comment-respond .comment-form-email, .comment-respond .comment-form-url, .comment-respond .comment-form-author, .comment-respond .comment-form-email, .comment-respond .comment-form-url { width: 100%; margin-right: 0 }
+	.comment-form-cookies-consent label { padding-left: 30px; margin-top: -32px }
+	.iq-breadcrumb.text-left .breadcrumb { padding: 10px 20px; }
+
+	/* -------------------------- */
+	.iq-tab .nav-item { width: 28%; }
+	.iq-challange-box::after, .iq-challange-box:before { bottom: -14px; }
+	.slick-list .testimonial::before, .testimonial::after { bottom: -48px; }
+	.slick-list .testimonial { margin-bottom: 94px; }
+	.team-box img { width: 100%; }
+	.nav-pills .nav-link { padding: 10px 18px; }
+	.our-event ul.nav-pills { display: block; text-align: center; margin: 0 auto; float: left; width: 100%; }
+	.our-event ul.nav-pills li:last-child { margin-right: 20px; }
+	.our-event ul.nav-pills li { margin-right: 20px; text-align: center; display: inline-block; width: auto; }
+	.slick-slide { margin-right: 30px; }
+	.partner-details { margin-left: 25px; margin-right: 25px; }
+	.slick-slide .col-lg-3 img { text-align: center; margin: 0 auto; }
+	.button { padding: 15px 20px; font-size: 14px; line-height: 14px; }
+	.carousel.slides > .carouselLinks a { float: left; width: 50%; }
+	.carouselLinks li a.two:before { left: 0; }
+	.carouselLinks img.object-img { display: none; }
+	.carousel.slides .slideList ul { width: auto; }
+	.slideList { top: auto; text-align: center; left: inherit; transform: none; position: relative; margin: 0 auto; }
+	.slideList ul li img { width: 100%; }
+	.slideList li { position: relative; padding: 0 30px; width: 486px; height: 372px; }
+	.carouselLinks li:nth-child(1) { position: inherit; }
+	.carouselLinks li:nth-child(2) { position: inherit; }
+	.carouselLinks li:nth-child(3) { position: inherit; text-align: left; }
+	.carouselLinks li:nth-child(4) { position: inherit; text-align: left; }
+	.vizion.vc_col-sm-6 { margin-right: 15px; margin-left: 15px; width: 46%; }
+	.finance-vizion.vc_col-sm-6 { margin-right: 15px; margin-left: 15px; width: 46%; }
+	.admin-bar header.header-with-transparent { top: 52px !important; }
+	.admin-bar header.header-with-transparent.menu-sticky { top: 40px !important; }
+
+	    /*Education*/
+	.iq-education-tab .nav-item { width: 20.5%;}
+	.iq-education-tab .nav-item a { font-size: 13px }
+
+	.iq-const-video .vc_custom_heading.title {top: 15%;}
+	.iq-const-video .vc_custom_heading.title {top: 10%;}
+	.iq-const-video .iq-vid-btnlink {top: 30%;}
+}
+@media(max-width:767px) {
+	header ul.shop_list{display: none;}
+	article.hentry .vizion-carblog .iq-blog-box .iq-blog-image { padding: 0 15px; }
+	.slider-car-nav { padding: 0 60px; }
+	.slider-car-nav .car-feedback-img { margin-top: 0; }
+	.slider-car-nav .slick-active.slick-current .car-feedback-img { transform: scale(1); margin-top: 0; }
+
+	/*Space*/
+	.space-footerimg img { margin-bottom: 0px !important; }
+	.space_tab .contentCircle .CirItem .space_img { width: 100%; }
+	.space_tab .contentCircle .CirItem .space_info { width: 100%; padding: 45px 0 0; }
+
+	/*Space*/
+
+	/*Insurance Homepage*/
+	.iq-insurance-overlay.pt-position-left { display: none; }
+	.iq-insurance-overlay.pt-position-right { display: none; }
+	.iq-insurance-overlay.pt-position-topleft { display: none; }
+	.iq-insurance-overlay.pt-position-topleft { display: none; }
+	.iq-objects2-4 .iq-objects-01 { display: none; }
+	.iq-objects2-4 .iq-objects-02 { display: none; }
+	/*Insurance Homepage*/
+
+	/* Job */
+	.iq-job-box .step { right: 35%; }
+	#my-ajax-filter-search form input#search_job { width: 70%; margin-bottom: 30px; }
+	#my-ajax-filter-search select { width: 28%; margin-bottom: 30px; }
+	#my-ajax-filter-search .job-search { border-radius: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
+	.iq-padding-feed .vc_single_image-wrapper.vc_box_border_grey { padding-left: 15px; }
+	.iq-padding-feed h2, .iq-padding-feed p { padding: 0px 15px 0px 15px; }
+	.iq-padding-feed .vc_single_image-img.attachment-full { margin-bottom: 0px; }
+	footer.footer5  .mc4wp-form .mc4wp-form-fields input[type=submit] { margin-top: 0px; border-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; }
+	footer.footer5 input[type=email] { margin-bottom: 30px; width: 100%; }
+	/* Job */
+
+	/*Ecommerce*/
+	.iq-circle-progress .iq-data { width: 100%; margin-bottom: 45px; }
+	.verticle-slider  .slick-text { display: inherit; margin-top: 15px; }
+	/*Ecommerce*/
+
+	/*Health Homepage*/
+	.iq-health-second-overlay.pt-position-center { display: none; }
+	.iq-healthvid-btn.text-left .play-car-video { bottom: 40px; }
+	.iq-health-overlay.pt-position-center { bottom: -23%; right: 10%; }
+	footer.footer8 .footer-top .row div.col-lg-4.col-md-6.col-sm-6:nth-child(2) { padding-left: 15px; }
+	/*Health Homepage*/
+
+	.services-block li { width: 100%; border-left: none; border-top: 2px solid #ececf8; }
+	.services-block li:first-child { border-top: none; }
+	.site-main .sf-content>.vc_row.wpb_row.vc_row-fluid, .content-area .site-main, .home.blog .content-area .site-main { padding: 70px 0 }
+	article.hentry .iq-blog-box .iq-blog-detail { padding: 30px 15px }
+	.iq-blog-meta { line-height: 30px }
+	article.hentry.format-audio .iq-blog-image p:nth-child(-n+2) { padding-top: 15px; padding-left: 15px }
+	article.hentry.format-audio .iq-blog-image p { padding-left: 15px }
+	.page-numbers li .prev.page-numbers, .page-numbers li .next.page-numbers { display: none }
+	header .sub-header nav { display: none }
+	.iq-breadcrumb .text-left { text-align: center !important }
+	.error-404 .big-text { font-size: 200px }
+	footer.footer1, footer.footer2 { text-align: center !important }
+	footer .widget .menu { float: none; display: inline-block; margin-top: 0 }
+	footer .row.justify-content-between .col-auto { width: 100% }
+	footer .widget .menu li { float: none; margin-right: 15px }
+	footer hr.pt-5 { padding-top: 1rem !important }
+	.iq-counter { margin-bottom: 30px }
+	.last .iq-counter { margin-bottom: 0 }
+	.title-box .title { font-size: 40px }
+	.iq-amazing-tab .nav-item { width: 30.5%; margin: 5px 5px }
+	.iq-amazing-tab .nav-pills { border-radius: 6px }
+	.iq-blog-meta ul.list-inline li { margin: 0 7px 0 0 }
+	.contact-block .vc_column-inner, .widget-area { margin-top: 30px }
+	.commentlist .iq-comment-wrap { display: block }
+	.commentlist ol.children { padding-left: 30px }
+	.commentlist .iq-comments-photo { padding-right: 0; margin-bottom: 15px }
+	footer.footer2 { text-align: left !important }
+	.iq-asked-img { margin-top: 30px }
+	.play-video { top: 30px; left: 15px }
+	.contact-block .vc_column-inner { padding: 30px 15px !important }
+	.iq-breadcrumb .title { margin-top: 15px }
+	footer #footer-menu { float: none; margin-top: 30px }
+	footer #footer-menu li { float: none }
+	.tp-resizeme.iq-video { line-height: 1.8 !important }
+	.round { display: none; }
+	.radius_white img { width: 90%; }
+	.holderCircle { margin: 30px auto 0; }
+	.contentCircle { width: 100%; top: -130px; left: 0; transform: none; }
+	.holderCircle { height: 380px; }
+	.iq-list li i { display: inline-block; float: initial; margin-top: 0; }
+	.iq-list li span { display: initial; }
+	.works-box { margin: 30px 0; }
+	.list-group.list-group-flush { margin-bottom: 45px; }
+	.woocommerce ul.products[class*=columns-] li.product, .woocommerce-page ul.products[class*=columns-] li.product { width: 100%; }
+	.woocommerce .woocommerce-ordering, .woocommerce-page .woocommerce-ordering { float: inherit; }
+	.woocommerce .woocommerce-result-count { margin: 0px 0 15px; width: 100%; text-align: center; }
+	.yith-wcwl-add-to-wishlist { top: 40px; right: inherit; left: 15px; }
+	.woocommerce div.product .woocommerce-tabs ul.tabs li { padding: 0 15px; }
+	.woocommerce table.shop_table td { display: inline-block !important; width: 100%; }
+	.product-quantity .quantity { float: right; }
+	.woocommerce table.shop_table_responsive tbody tr:first-child td:first-child, .woocommerce-page table.shop_table_responsive tbody tr:first-child td:first-child { border-top: 1px solid rgba(0, 0, 0, .1); }
+	.woocommerce-MyAccount-navigation ul { margin: 0 0 30px 0; }
+
+	/* ------------------------------- */
+
+	.feature1 .features-img:after { display: none; }
+	.cd-horizontal-timeline .events-content li { width: 94% !important; }
+	.iq-breadcrumb-three .col-lg-6 img { display: none; }
+	.iq-breadcrumb-three { background-size: 140% 100%; padding: 66px 0; }
+	.iq-breadcrumb-three .container-fluid { padding: 0 15px; }
+	.iq-breadcrumb-three h2 { font-size: 40px; }
+	.feature-one, .feature-two { display: none; }
+	.iqr-mt-30 { margin-top: 30px; }
+	.iq-awards { padding: 20px 30px; }
+	.slick-list .testimonial { margin-bottom: 75px; }
+	.slick-list .testimonial::before, .testimonial::after { bottom: -30px; }
+	.iq-challange-box { margin-bottom: 110px; }
+	.our-partners img.partners-img { width: 50%; }
+	.iq-challange-box::after, .iq-challange-box:before { bottom: -27px; width: 51%; }
+	.iq-tab .nav-item a { font-size: 12px; }
+	.info-box { margin-bottom: 40px; }
+	.partner-details .media { display: block; }
+	.partner-img { width: 65%; }
+	.carousel.slides > .carouselLinks a { width: 100%; }
+	.slideList li { width: 300px; height: 372px; }
+	.slideList { width: 300px; height: 212px; }
+	.iq-background-overlay.skew-bg { height: 92%; }
+	.services-block .service_img { margin: 0 0 15px; }
+	.clients.column-4 li.item, .clients.column-5 li.item { width: 100% }
+	.clients.column-4 li.item .clients-box, .clients.column-5 li.item .clients-box { margin-bottom: 30px; }
+	.admin-bar header.header-with-transparent { padding: 5px 0px; }
+
+	.vc_single_image-img.attachment-full { margin-bottom: 30px; }
+	.tp-parallax-wrap { margin: 0 15px; }
+	.services-process li { width: 100%; }
+	footer.footer4 #footer-menu { margin-top: 0px; text-align: center; }
+	.owl-carousel.image_slider { margin-bottom: 45px; }
+	footer.footer4 .row.justify-content-between .col-auto { width: 100%; text-align: center; }
+	footer.footer4 .row.justify-content-between .col-auto span { font-size: 16px; }
+	.wpcf7-form { margin-top: 45px; }
+	.services-process li:last-child { margin-bottom: 0; }
+	.testtimonial:before { font-size: 370px; top: -10%; }
+	.finance-vizion.vc_col-sm-6 { width: 94%; margin-right: 0px; margin-left: 15px; }
+	.iq-counter.bg-transparent { justify-content: center; }
+	.mc4wp-form .mc4wp-form-fields input[type=submit] { position: relative; margin-top: 30px; text-align: center; right: 0; }
+	.mc4wp-form p { margin: 0; }
+	.iq-exepertise.vc_col-sm-6 { margin-top: 45px; }
+	footer.footer4 ul.info-share.d-inline li { margin-bottom: 30px; }
+	footer.footer4 .iq-contact { margin-bottom: 30px; }
+	.iq-afford-services.text- { display: block; }
+	.iq-afford-services.text- .iq-afford-img { margin-bottom: 15px; }
+	.finance-vizion { margin-bottom: 30px; }
+
+
+     /*Education*/
+	.iq-education-tab .nav-item {    width: 33.5%;margin: 5px 5px }
+	.iq-education-tab .nav-pills { border-radius: 6px }
+	.iq-education-tab .tab-cont{    padding: 30px;}
+	.iq-education-tab .tab-cont p{margin-bottom: 0px;}
+
+	.iq-const-video:before {height: 120px;}
+	.iq-const-video .vc_custom_heading.title {font-size: 30px;}
+	.iq-const-video .iq-vid-btnlink .play-car-video a {height: 70px;width: 70px;line-height: 70px;}
+
+	/*Retail*/
+	.testimonial-two-divide .carousel {padding-left: 15px; padding-right: 15px;}
+	footer.retail .footer-up .widget p.answer {margin-bottom: 30px;}
+	footer.retail .iq-subs {border-top-left-radius: 15px;border-bottom-right-radius: 15px;}
+    /*Fashion*/
+	.iq-fashion-bg-one {display: none;}
+}
+@media(max-width:479px) {
+	.slider-car-nav {
+    padding: 0 18%;
+}
+	.slick-slider.slider-car-nav .slick-list { padding: 0 0px !important;}
+	#iq-tooltip { width: 300px !important; }
+	.tooltip-down.tooltip-down-0 { left: 135px !important; }
+	.tooltip-down.tooltip-down-1 { left: 240px !important; top: 35px !important; }
+	.tooltip-down.tooltip-down-2 { left: 20px !important; top: 75px !important; }
+	.tooltip-down.tooltip-down-3 { left: 135px !important; top: 95px !important; }
+	.iq-car-padding.vc_column_container { padding: 60px 15px; }
+
+	/*Space*/
+	.vizion-feature-circle, .vizion-feature-circle .vizion-img::before, .vizion-feature-circle .vizion-img { height: 300px; width: 300px; display: inline-block; vertical-align: middle; }
+	.vizion-feature-circle .vizion-img::after { height: 200px; width: 200px; top: 50px; left: 0; right: 0; margin: 0 auto; }
+	.vizion-feature-circle .main-circle { top: 50%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(5) { right: 5%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(4) { top: 77%; }
+	.vizion-feature-circle .vizion-img ul li:nth-child(3) { right: 18%; top: 65%; }
+	.vizion-feature-circle .main-circle { left: 51%; }
+
+	/*Space*/
+
+	/* Job */
+	.iq-job-box .step { right: 25%; }
+	#my-ajax-filter-search form { padding: 30px 15px; }
+	.iq-recent-job .iq-jobdetail { padding: 30px 10px; }
+	.job-feedback { padding: 60px 15px; }
+	.iq-padding-feed img { margin-top: 60px; }
+	.iq-padding-feed p { margin-bottom: 60px !important; }
+	.job-feedback .feedback .image-box .img { width: auto; }
+	.job-feedback .feedback { display: block; }
+
+	/* Job */
+
+	/*Ecommerce*/
+	.pricing-ecom-box .price-blog .price .button.grey { padding: 6px 10px; line-height: 24px; }
+	.pricing-ecom-box { padding: 30px; }
+	.feedback-ecommerce .feedback_ecommerce_images ul li:nth-child(4) { left: 73px; }
+
+	/*Ecommerce*/
+
+	/*Health Homepage*/
+	.iq-health-overlay.pt-position-center { bottom: -35%; right: -3%; }
+
+	/*Health Homepage*/
+	.error-404 .big-text { font-size: 150px; line-height: 160px }
+	.iq-breadcrumb .title { font-size: 34px }
+	.title-box .title { font-size: 36px }
+	.iq-amazing-tab .nav-item { width: 46% }
+	footer.footer2 .info-share a { width: 36px; height: 36px; line-height: 36px }
+
+	/* -------------------------------- */
+
+	.iq-tab .nav-item { width: 47%; }
+	.testimonial::before, .testimonial::after { bottom: -20px; }
+	.slick-list .testimonial { margin-bottom: 36px; }
+	.slideList ul { padding-left: 0; }
+	.slick-list .testimonial::before, .testimonial::after { bottom: -20px; }
+	.iq-challange-box::after, .iq-challange-box:before { bottom: -20px; }
+	.slideList li { width: 280px; height: 372px; }
+	.slick-slider .slick-list { padding: 0 20px !important; }
+	.partner-img { width: 50%; }
+	.partner-details { margin: 0; }
+	.our-partners { overflow-x: hidden; }
+	.iq-star.float-right { float: left !important; }
+	.slick-slide { margin-right: 0; }
+	footer.footer3 input[type=email] { width: 58%; margin-right: 5px; font-size: 14px; }
+	header.header-with-transparent .login .login-btn { display: none; }
+	.testtimonial:before { font-size: 300px; top: 3%; }
+
+
+	.iq-const-video .vc_custom_heading.title {font-size: 20px;}
+	.iq-const-video .iq-vid-btnlink .play-car-video a {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;}
+
+    footer.retail .widget .menu li {margin-right: 30px;}
+}
+@media(max-width:359px) {
+
+	/* Job */
+	#my-ajax-filter-search form input#search_job { width: 57%; }
+	#my-ajax-filter-search select { width: 40%; }
+	.job-feedback { padding: 30px 15px; }
+	.iq-padding-feed img { margin-top: 40px; }
+	.iq-padding-feed p { margin-bottom: 40px !important; }
+	.iq-recent-job .iq-jobdetail .iq-company-logo { margin-right: 2px; }
+
+	/* Job */
+	.iq-healthvid-btn.text-left .play-car-video { bottom: 22px; }
+	.iq-health-overlay.pt-position-center { bottom: -34%; right: -2%; }
+	.sub-header { display: none }
+
+	.iq-const-video .vc_custom_heading.title {top: 5%;}
+	.iq-const-video .vc_custom_heading.title {font-size: 18px;}
+	.iq-const-video .iq-vid-btnlink {top: 23%;}
+	.iq-const-video .play-car-video a.button.button-icon.iq-video-two.popup-youtube {margin-bottom: 6px;}
+	.iq-insuarance-fancybox.bg-hide{display: block;}
+	.iq-insuarance-fancybox .insua-icon-bg {margin-bottom: 25px;}
+
+	.owl-carousel.left.our-testimonial .item.image-left .iq-testimon-detail {
+    display: block;margin-bottom: 15px;}
+
+    .service-box-bgimage {padding: 30px 30px;margin-bottom: 45px;}
+}

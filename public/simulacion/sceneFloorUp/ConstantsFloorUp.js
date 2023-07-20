@@ -1,0 +1,5 @@
+class ConstantsFloorUp{
+	constructor(config){
+		
+	}
+}

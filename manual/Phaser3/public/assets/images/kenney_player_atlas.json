@@ -1,0 +1,112 @@
+{
+    "frames": [
+        {
+            "filename": "kenney_player_0",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "kenney_player_1",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 96,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "kenney_player_2",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 0,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "kenney_player_3",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 96,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "kenney_player_4",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 192,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "kenney_player_5",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 192,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "kenney_player_6",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 288,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "kenney_player_7",
+            "frame": {
+                "w": 96,
+                "h": 96,
+                "x": 288,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

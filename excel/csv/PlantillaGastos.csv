@@ -1,0 +1,10 @@
+account,import,period,type,percentage
+Energía Eléctrica,15000,bimestral,fijo,0
+Papelería y Utilería,5000,mensual,fijo,0
+Combustibles y Lubricantes,20000,mensual,variable,5
+Agua,2500,mensual,fijo,0
+Gastos de Viaje,150000,mensual,variable,10
+Gastos de Venta,80000,mensual,variable,15
+Limpieza,5000,mensual,fijo,0
+Servicios informáticos,25000,mensual,fijo,0
+Servicios legales,30000,mensual,variable,7

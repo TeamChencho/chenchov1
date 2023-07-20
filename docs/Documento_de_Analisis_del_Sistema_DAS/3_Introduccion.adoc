@@ -1,0 +1,22 @@
+== Introducción
+=== Propósito
+El presente documento tiene como propósito detallar los requerimientos funcionales para el desarrollo del proyecto Novus.
+
+=== Alcance
+El presente documento específica los requerimientos a desarrollar en las fases posteriores del proyecto, contiene los requerimientos funcionales para los roles especificados para el sistema como son: Usuarios, Usuarios Web sin cuenta, Usuarios Web con cuenta, Usuarios Registrados, Administradores del Sistema, Estudiantes y Profesores.
+
+=== Glosario, Acrónimos y Definiciones
+Con el fin de aclarar los términos utilizados en el presente documento, se adjuntan una breve tabla de acrónimos para tecnologías, siglas y términos de uso específico.
+
+.Glosario
+|===
+|Término     | Definición
+|MVC         | Modelo Vista Controlador
+|BaaS        | Backend as a Service
+|SDK         | Software Development Kit
+|===
+
+==== Vista general del Proyecto
+El propósito del proyecto de desarrollo de software {Project}, una iniciativa a partir de profesores del Instituto Tecnológico de Monterrey, es posibilitar el desarrollo de una  sistema didáctico que mejore el proceso de aprendizaje de los estudiantes a través de una simulación sobre los conocimientos de como es el funcionamiento de la industria automotriz en el área de ensamblaje involucrando procesos de administración, operaciones y calidad.
+
+El proyecto {Project} exige que se realicen las acciones oportunas para que un sistema automatizado genere una simulación configurable para que los estudiantes puedan manejar los procesos de una empresa simulada tal y como se realizan en el mundo real, siguiendo los estándares básicos en cuanto a reglas de negocio como las proveería un ERP, el modelo de simulación es simplificado y no busca en ningún momento replicar tal cual el ERP, solo los procesos más significativos y de una manera general para que puedan ser representados como una experiencia didáctica, entretenida, visual y enriquecedora para los alumnos, así como un medio importante para mejorar el desempeño y calidad educativa de los profesores.

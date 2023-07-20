@@ -1,0 +1,917 @@
+<diagram program="umletino" version="15.1"><zoom_level>4</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>2096</x><y>876</y><w>84</w><h>140</h></coordinates><panel_attributes>Permisos
+--
+-active: Boolean
+-exists: Boolean
+-editable: Boolean
+-renombrable: Boolean
+-clave: String
+-nombre: String
+-bitacora: Array
+-bitacoraSimulacion: Array
+-datosMaestros: Array
+-alumnos: Array
+-eventos: Array
+-grupos: Array
+-moderadores: Array
+-perfil: Array
+-permisos: Array
+-simulaciones: Array
+-solicitudes: Array
+-usuariosAdministrador: Array
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1876</x><y>912</y><w>84</w><h>108</h></coordinates><panel_attributes>UsuariosSistema
+--
+-exists: Boolean
+-active: Boolean
+-apellidoMaterno: String
+-apellidoPaterno: String
+-colorRobot: String
+-contrasena: String
+-correoElectronico: String
+-matricula: String
+-nombre: String
+-permisoPtr: Permisos
+-permisoSimulacionPtr: Permisos
+-telefono: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1956</x><y>924</y><w>148</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;350;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1788</x><y>1060</y><w>84</w><h>64</h></coordinates><panel_attributes>Bitacora
+--
+-active: Boolean
+-exists: Boolean
+-actividad: String
+-usuarioPtr: UsuariosSistema
+-recurso: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1868</x><y>1016</y><w>28</w><h>76</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;170;50;170;50;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1512</x><y>788</y><w>104</w><h>80</h></coordinates><panel_attributes>SimulationsTeams
+--
+-active: Boolean
+-exists: Boolean
+-simulationPtr: Simulations
+-status: String
+-teamCurrentMoney: String
+-teamMembers: Array[ UsuariosSistema ]
+-teamName: String
+-teamOrdersAmount: Number
+-objectId: String
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1608</x><y>864</y><w>276</w><h>104</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;240;670;240</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1056</x><y>660</y><w>104</w><h>128</h></coordinates><panel_attributes>Simulations
+--
+-active: Boolean
+-exists: Boolean
+-currentDate: Number
+-depreciacion: Boolean
+-groupPtr: Grupos
+-ieps: Boolean
+-initialAmount: String
+-isr: Boolean
+-iva: Boolean
+-lock: Boolean
+-qtyEmployees: String
+-qtyTurns: String
+-salaryEmployees: String
+-simulationName: String
+-speedSimulation: Number
+-status: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1156</x><y>724</y><w>412</w><h>72</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>1010;160;1010;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1864</x><y>660</y><w>104</w><h>56</h></coordinates><panel_attributes>Grupos
+--
+-active: Boolean
+-exists: Boolean
+-codigo: String
+-nombre: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1156</x><y>688</y><w>716</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;1770;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1864</x><y>788</y><w>104</w><h>56</h></coordinates><panel_attributes>GruposUsuarios
+--
+-active: Boolean
+-exists: Boolean
+-grupoPtr: Grupos
+-usuarioPtr: UsuariosSistema
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1908</x><y>712</y><w>12</w><h>84</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;190;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1912</x><y>840</y><w>12</w><h>80</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>824</x><y>676</y><w>104</w><h>52</h></coordinates><panel_attributes>LogsDelete
+--
+-active: Boolean
+-exists: Boolean
+-simulationPtr: Simulations
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>924</x><y>708</y><w>140</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;330;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1972</x><y>1020</y><w>104</w><h>64</h></coordinates><panel_attributes>Recoveries
+--
+-active: Boolean
+-exists: Boolean
+-code: String
+-email: String
+-expirationTime: Number
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1904</x><y>1016</y><w>76</w><h>32</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>170;60;10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>516</x><y>812</y><w>104</w><h>112</h></coordinates><panel_attributes>DMActivosFijos
+--
+-active: Boolean
+-exists: Boolean
+-departamento: String
+-descripcion: String
+-fechaAdquisicion: String
+-marca: String
+-modelo: String
+-nombre: String
+-numeroSerie: String
+-precioCosto: String
+-precioVenta: String
+-tarifaDepreciacion: String
+-tiempoVida: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>692</x><y>812</y><w>104</w><h>56</h></coordinates><panel_attributes>DMActivosFijosInventario
+--
+-active: Boolean
+-exists: Boolean
+-activoFijoPtr: DMActivosFijos
+-cantidad: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>836</y><w>84</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>190;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>436</x><y>1532</y><w>104</w><h>124</h></coordinates><panel_attributes>DMClientes
+--
+-active: Boolean
+-exists: Boolean
+-apellidoMaterno: String
+-apellidoPaterno: String
+-calle: String
+-ciudad: String
+-codigoPostal: String
+-creditoMonetario: String
+-email: String
+-estado: String
+-nombre: String
+-numero: Sring
+-suburbio: String
+-telefono: Sring
+-tipoCliente: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>696</x><y>624</y><w>104</w><h>176</h></coordinates><panel_attributes>DMEmpleados
+--
+-active: Boolean
+-exists: Boolean
+-DMsalaryTabulatorPtr: DMSalaryTabulator
+-apellidoMaterno: String
+-apellidoPaterno: String
+-calle: String
+-ciudad: String
+-curp: String
+-diaInicio: String
+-email: String
+-estado: String
+-estadoCivil: String
+-fechaNacimiento: String
+-giro: String
+-idEmpleado: String
+-imss: String
+-nombre: String
+-numero: String
+-rfc: String
+-salarioHora: String
+-sexo: String
+-suburbio: String
+-telefono: String
+-trabajo: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>624</y><w>104</w><h>64</h></coordinates><panel_attributes>DMSalaryTabulator
+--
+-active: Boolean
+-exists: Boolean
+-area: String
+-department: String
+-salary: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>648</y><w>84</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>190;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>152</x><y>1536</y><w>104</w><h>56</h></coordinates><panel_attributes>DMEventPipe
+--
+-active: Boolean
+-exists: Boolean
+-event: String
+-index: Number
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>1536</y><w>104</w><h>76</h></coordinates><panel_attributes>DMGastos
+--
+-active: Boolean
+-exists: Boolean
+-cuenta: String
+-importar: String
+-periodo: String
+-porcentaje: String
+-tipo: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>756</x><y>948</y><w>104</w><h>76</h></coordinates><panel_attributes>DMMateriaPrima
+--
+-active: Boolean
+-exists: Boolean
+-categoriaPtr: DMMateriaPrimaCategoria
+-codigo: String
+-imagen: String
+-nombre: String
+-noparte: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>516</x><y>940</y><w>104</w><h>56</h></coordinates><panel_attributes>DMMateriaPrimaCategoria
+--
+-active: Boolean
+-exists: Boolean
+-abreviatura: String
+-nombre: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>976</y><w>148</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>350;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>880</x><y>980</y><w>104</w><h>56</h></coordinates><panel_attributes>DMMateriaPrimaInventario
+--
+-active: Boolean
+-exists: Boolean
+-cantidad: String
+-materaPrimaPtr: DMMateriaPrima
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>856</x><y>1000</y><w>32</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>648</x><y>1160</y><w>104</w><h>56</h></coordinates><panel_attributes>DMOrderHistory
+--
+-active: Boolean
+-exists: Boolean
+-productoPtr: DMProductoFamilia
+-quantity: Number
+_-objectId: String_
+-updatedAt: String
+-createdAt: String
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>528</x><y>1160</y><w>104</w><h>76</h></coordinates><panel_attributes>DMProductoFamilia
+--
+-active: Boolean
+-exists: Boolean
+-codigo: String
+-component: Object
+-imagen: Strig
+-nombre: String
+-videos: Array
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>628</x><y>1188</y><w>28</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>50;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>1408</y><w>104</w><h>64</h></coordinates><panel_attributes>DMPaises
+--
+-active: Boolean
+-exists: Boolean
+-abreviatura: String
+-nombre: String
+-paisEnvio: Boolen
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>680</x><y>1536</y><w>104</w><h>76</h></coordinates><panel_attributes>DMProductionLinePhases
+--
+-active: Boolean
+-exists: Boolean
+-description: String
+-fixedAssetDMPtr: Object
+-hoursFinishPhase: Number
+-name: String
+-quantityEmployees: Object
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>412</x><y>1160</y><w>104</w><h>92</h></coordinates><panel_attributes>DMProductionLineTemplates
+--
+-active: Boolean
+-exists: Boolean
+-efficiencyPercentage: Number
+-hoursFinalProduct: Number
+-hoursPhases: Array
+-name: String
+-phases: Array
+-productFamilyDMPtr: DMProductoFamilia
+-productionQuantity: Number
+-quantityFixedAssets: Array
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>512</x><y>1192</y><w>24</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;40;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>348</x><y>1044</y><w>104</w><h>104</h></coordinates><panel_attributes>DMProveedores
+--
+-active: Boolean
+-exists: Boolean
+-correoElectronico: String
+-abreviatura: String
+-cuentaBancaria: String
+-diasCredito: String
+-folio: String
+-nombre: String
+-paginaWeb: String
+-rfc: String
+-rsSocial: String
+-telefono: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>528</x><y>1044</y><w>104</w><h>68</h></coordinates><panel_attributes>DMProveedoresMP
+--
+-active: Boolean
+-exists: Boolean
+-cantidadMinima: String
+-costo:  String
+-materiaPrimaPtr: DMMateriaPrima
+-proveedorPtr: DMProveedores
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>448</x><y>1076</y><w>88</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>200;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>628</x><y>1020</y><w>152</w><h>68</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;150;360;150;360;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>848</x><y>1060</y><w>104</w><h>116</h></coordinates><panel_attributes>DMTransporte
+--
+_active: Date
+_exists: Date
+_cantidadMax: String
+_cantidadMin: String
+_diasEntrega: String
+_lugarDestino: String
+_lugarSalida: String
+_paisPtr: DMPaises
+_porcentajePrecio: String
+_precio: String
+_productoPtr: DMMateriaPrima
+_proveedorPtr: DMProveedores
+_tipoEnvio: String
+_urgente: Boolean
+__objectId: String_
+_updatedAt: Date
+_createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>448</x><y>1120</y><w>408</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>1000;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>808</x><y>1020</y><w>48</w><h>68</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>100;150;10;150;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>640</x><y>1172</y><w>252</w><h>292</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>610;10;610;710;10;710</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1104</x><y>936</y><w>104</w><h>124</h></coordinates><panel_attributes>SDMActivosFijos
+--
+-active: Boolean
+-exists: Boolean
+-departamento: String
+-descripcion: String
+-fechaAdquisicion: String
+-marca: String
+-modelo: String
+-nombre: String
+-numeroSerie: String
+-precioCosto: String
+-precioVenta: String
+-referenciaId: String
+-simulationPtr: Simulations
+-tarifaDepreciacion: String
+-tiempoVida: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1104</x><y>784</y><w>12</w><h>160</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;380;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1228</x><y>996</y><w>104</w><h>64</h></coordinates><panel_attributes>SDMActivosFijosInventario
+--
+-active: Boolean
+-exists: Boolean
+-activoFijoPtr: SDMActivosFijos
+-cantidad: String
+-simulationPtr: Simulations
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1204</x><y>1036</y><w>32</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>784</y><w>128</w><h>220</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>300;530;300;340;10;340;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1024</x><y>180</y><w>104</w><h>132</h></coordinates><panel_attributes>SDMClientes
+--
+-active: Boolean
+-exists: Boolean
+-apellidoMaterno: String
+-apellidoPaterno: String
+-calle: String
+-ciudad: String
+-codigoPostal: StringString
+-creditoMonetario: String
+-email: String
+-estado: String
+-nombre: String
+-numero: String
+-simulationPtr: Simulations
+-suburbio: String
+-telefono: String
+-tipoCliente: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1032</x><y>308</y><w>52</w><h>360</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;720;110;720;110;880</additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>384</y><w>112</w><h>188</h></coordinates><panel_attributes>SDMEmpleados
+--
+-active: Boolean
+-exists: Boolean
+-DMsalaryTabulatorPtr: DMSalaryTabulator
+-SDMsalaryTabulatorPtr: SDMSalaryTabulator
+-apellidoMaterno: String
+-apellidoPaterno: String
+-calle: String
+-ciudad: String
+-curp: String
+-diaInicio: String
+-email: String
+-estado: String
+-estadoCivil: String
+-fechaNacimiento: String
+-giro: String
+-idEmpleado: String
+-imss: String
+-nombre: String
+-numero: String
+-rfc: String
+-salarioHora: String
+-sexo: String
+-simulationPtr: Simulations
+-suburbio: String
+-telefono: String
+-trabajo: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>556</x><y>568</y><w>12</w><h>64</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>564</x><y>332</y><w>512</w><h>336</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;130;10;10;1110;20;1110;720;1260;720;1260;820</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>436</y><w>104</w><h>76</h></coordinates><panel_attributes>SDMSalaryTabulator
+--
+-active: Boolean
+-exists: Boolean
+-area: String
+-department: String
+-referenciaId: String
+-salary: String
+-simulationPtr: Simulations
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>464</y><w>428</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>1050;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>692</x><y>484</y><w>104</w><h>80</h></coordinates><panel_attributes>SDMGastos
+--
+-active: Boolean
+-exists: Boolean
+-cuenta: String
+-importar: String
+-periodo: String
+-porcentaje: String
+-simulationPtr: Simulations
+-tipo: String
+_-objectId: String_
+-createdAt: Date
+-updatedAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>792</x><y>540</y><w>272</w><h>140</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;80;10;80;320;660;330</additional_attributes></element><element><id>UMLClass</id><coordinates><x>824</x><y>740</y><w>104</w><h>68</h></coordinates><panel_attributes>SDMMateriaPrimaInventario
+--
+-active: Boolean
+-exists: Boolean
+-cantidad: String
+-materaPrimaPtr: DMMateriaPrima
+-referenciaId: String
+-simulationPtr: Simulations
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>924</x><y>752</y><w>140</w><h>12</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;330;10</additional_attributes></element><element><id>Relation</id><coordinates><x>788</x><y>784</y><w>44</w><h>172</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>90;10;50;10;50;270;10;270;10;410</additional_attributes></element><element><id>UMLClass</id><coordinates><x>824</x><y>852</y><w>104</w><h>88</h></coordinates><panel_attributes>SDMProductionLinePhases
+--
+-active: Boolean
+-exists: Boolean
+-description: String
+-fixedAssetSDMPtr: Object
+-hoursFinishPhase: Number
+-name: String
+-quantityEmployees: Object
+-referenceId: String
+-simulationPtr: Simulations
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>924</x><y>764</y><w>140</w><h>112</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;260;220;260;220;10;330;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>880</x><y>192</y><w>116</w><h>104</h></coordinates><panel_attributes>SDMProductionLineTemplates
+--
+-active: Boolean
+-exists: Boolean
+-efficiencyPercentage: Number
+-hoursFinalProduct: Number
+-hoursPhases: Array
+-name: String
+-phases: Array
+-productFamilySDMPtr: SDMProductoFamilia
+-productionQuantity: Number
+-quantityFixedAssets: Array
+-referenceId: String
+-simulationPtr: Simulations
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>836</x><y>252</y><w>228</w><h>420</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>110;10;10;10;20;970;500;970;500;1030;550;1030</additional_attributes></element><element><id>UMLClass</id><coordinates><x>860</x><y>372</y><w>76</w><h>88</h></coordinates><panel_attributes>SDMProductoFamilia
+--
+-active: Boolean
+-exists: Boolean
+-codigo: String
+-component: Object
+-imagen: String
+-nombre: String
+-referenciaId: String
+-simulationPtr: Simulatios
+-videos: Array
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>892</x><y>456</y><w>180</w><h>212</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;430;430;430;430;510</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1108</x><y>1796</y><w>116</w><h>104</h></coordinates><panel_attributes>SDMProveedores
+--
+-active: Boolean
+-exists: Boolean
+-correoElectronico: String
+-abreviatura: String
+-cuentaBancaria: String
+-diasCredito: String
+-folio: String
+-nombre: String
+-paginaWeb: String
+-rfc: String
+-rsSocial: String
+-telefono: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>56</y><w>116</w><h>68</h></coordinates><panel_attributes>SDMProveedoresMP
+--
+-active: Boolean
+-exists: Boolean
+-cantidadMinima: String
+-costo: String
+-materiaPrimaPtr: DMMateriaPrima
+-proveedorPtr: DMProveedores
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>268</x><y>120</y><w>88</w><h>996</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;2470;200;2470</additional_attributes></element><element><id>Relation</id><coordinates><x>292</x><y>120</y><w>472</w><h>912</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;20;2260;1160;2250</additional_attributes></element><element><id>UMLClass</id><coordinates><x>556</x><y>68</y><w>116</w><h>124</h></coordinates><panel_attributes>SDMTransporte
+--
+-active: Boolean
+-exists: Boolean
+-cantidadMax: String
+-cantidadMin: String
+-urgente: Boolean
+-diasEntrega: String
+-lugarDestino: String
+-lugarSalida: String
+-paisPtr: DMPaises
+-porcentajePrecio: String
+-precio: String
+-productoPtr: DMMateriaPrima
+-proveedorPtr: SDMProveedores
+-simulationPtr: Sinulations
+-tipoEnvio: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>668</x><y>88</y><w>476</w><h>580</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;11;1170;10;1170;680;1030;680;1030;1430</additional_attributes></element><element><id>Relation</id><coordinates><x>156</x><y>0</y><w>468</w><h>1464</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>1150;171;1150;10;20;10;10;3640;960;3640</additional_attributes></element><element><id>Relation</id><coordinates><x>384</x><y>124</y><w>180</w><h>928</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>430;11;20;10;10;2300</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>84</y><w>324</w><h>936</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>290;11;20;10;10;2320;790;2320</additional_attributes></element><element><id>UMLClass</id><coordinates><x>908</x><y>1644</y><w>152</w><h>76</h></coordinates><panel_attributes>SimulationsDeliveredRawMaterial
+--
+-active: Boolean
+-exists: Boolean
+-simulationOrderPurchaingPtr: SimulationsOrdersPurchasings
+-simulationOrderSupplierPtr: SimulationsOrdersSuppliers
+-simulationPtr: Simulations
+-teamPtr: SimulationsTeams
+-totalAmountRawMaterial: Number
+-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>956</x><y>776</y><w>108</w><h>876</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;2170;10;680;90;680;90;350;210;350;210;10;250;10</additional_attributes></element><element><id>Relation</id><coordinates><x>952</x><y>864</y><w>672</w><h>920</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;2140;10;2280;1660;2270;1630;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1080</x><y>1416</y><w>132</w><h>136</h></coordinates><panel_attributes>SimulationsOrdersPurchasings
+--
+-active: Boolean
+-exists: Boolean
+-datePurchase: Number
+-deliveryDate: Number
+-folioNumber: Number
+-percentagePriceTransport: String
+-priceRawMaterial: String
+-simulationPtr: Simulations
+-simulationPurchasinPtr: SimulationsPurchasing
+-status: String
+-teamPtr: SimulationsTeams
+-totalAmountRawMaterial: String
+-totalCostRawMaterial: String
+-totalCostTransport: String
+-transportAmount: String
+-transportPrice: String
+-typeTransport: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>976</x><y>1440</y><w>112</w><h>212</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;510;10;10;260;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1004</x><y>784</y><w>84</w><h>648</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>190;1600;10;1600;10;370;140;370;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1208</x><y>864</y><w>328</w><h>616</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;1520;800;1510;790;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1108</x><y>1616</y><w>152</w><h>100</h></coordinates><panel_attributes>SimulationsOrdersSuppliers
+--
+-active: Boolean
+-exists: Boolean
+-DMRawMaterialPtr: DMMateriaPrima
+-SDMSupplierPtr: SDMProveedores
+-simulationOrderPurchaingPtr: SimulationsOrdersPurchasings
+-simulationPtr: Simulation
+-teamPtr: SimulationsTeams
+-deliveryDays: String
+-status: String
+-totalAmountRawMaterial: String
+-totalDeliveryDays: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1056</x><y>1672</y><w>60</w><h>16</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;20;130;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1092</x><y>1300</y><w>152</w><h>68</h></coordinates><panel_attributes>SimulationsPurchasing
+--
+-active: Boolean
+-exists: Boolean
+-default: Boolean
+-provedorMateriaPrimaSDMPtr: SDMProveedoresMP
+-teamPtr: SimulationsTeams
+-transporteSDMPtr: SDMTransporte
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1152</x><y>1364</y><w>12</w><h>60</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1256</x><y>864</y><w>356</w><h>820</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;2030;870;2020;850;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1156</x><y>744</y><w>360</w><h>928</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>260;2300;880;2290;860;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1124</x><y>1548</y><w>12</w><h>76</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;170;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>800</x><y>1020</y><w>316</w><h>620</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>770;1530;10;1530;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1160</x><y>1712</y><w>12</w><h>92</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>1240</x><y>856</y><w>280</w><h>504</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;1240;610;1230;610;10;680;10</additional_attributes></element><element><id>Relation</id><coordinates><x>244</x><y>120</y><w>856</w><h>1236</h></coordinates><panel_attributes>lt=.&gt;
+</panel_attributes><additional_attributes>10;10;10;3070;2120;3070</additional_attributes></element><element><id>Relation</id><coordinates><x>196</x><y>12</y><w>904</w><h>1360</h></coordinates><panel_attributes>lt=.&gt;
+</panel_attributes><additional_attributes>960;141;960;10;10;10;40;3380;2240;3380</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1144</x><y>184</y><w>116</w><h>64</h></coordinates><panel_attributes>SimulationsEventPipe
+--
+-active: Boolean
+-exists: Boolean
+-event: String
+-index: Number
+-simulationPtr: Simulations
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1084</x><y>244</y><w>92</w><h>424</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>210;10;210;330;10;330;10;1040</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1272</x><y>180</y><w>116</w><h>68</h></coordinates><panel_attributes>SimulationsEvents
+--
+-active: Boolean
+-exists: Boolean
+-event: String
+-index: Number
+-simulationPtr: Simulations
+-triggerTime: Number
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1092</x><y>244</y><w>196</w><h>424</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>470;10;470;360;10;360;10;1040</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1040</x><y>1184</y><w>140</w><h>100</h></coordinates><panel_attributes>SimulationsInventory
+--
+-active: Boolean
+-exists: Boolean
+-teamPtr: SimulationsTeams
+-simulationOrdersSuppliersPtr: SimulationsOrdersSuppliers
+-simulationPtr: Simulations
+-productPtr: DMMateriaPrima
+-daysReceiptDelay: Number
+-quality: Number
+-receiptDate: Number
+-receiptFolio: Number
+-status: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>792</x><y>1020</y><w>256</w><h>256</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>620;620;10;620;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>844</y><w>344</w><h>424</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;1040;730;1030;730;10;840;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1068</x><y>784</y><w>12</w><h>404</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;990;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>1268</y><w>100</w><h>356</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;220;10;230;770;160;770;160;870</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1692</x><y>832</y><w>152</w><h>88</h></coordinates><panel_attributes>SimulationsLogs
+--
+-active: Boolean
+-exists: Boolean
+-activity: String
+-description: String
+-optionSimulation: String
+-simulationPtr: Simulations
+-teamPtr: SimulationsTeams
+-userName: String
+-userPtr: UsuariosSistema
+_-objectId:  String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>900</y><w>44</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;60;10;60;80;90;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1156</x><y>700</y><w>588</w><h>140</h></coordinates><panel_attributes>lt=.&gt;
+</panel_attributes><additional_attributes>10;20;1450;20;1450;330</additional_attributes></element><element><id>Relation</id><coordinates><x>1612</x><y>844</y><w>88</w><h>16</h></coordinates><panel_attributes>lt=.&gt;
+</panel_attributes><additional_attributes>10;20;200;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1436</x><y>180</y><w>152</w><h>88</h></coordinates><panel_attributes>SimulationsOrders
+--
+-active: Boolean
+-exists: Boolean
+-clientPtr: SDMClientes
+-expectedTime: Number
+-negotiationValue: Number
+-order: Array
+-revenue: String
+-simulationPtr: Simulations
+-teamPtr: SimulationsTeams
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1068</x><y>152</y><w>444</w><h>36</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>1090;70;1090;30;10;20;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>1100</x><y>264</y><w>356</w><h>404</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>870;10;870;400;10;400;10;990</additional_attributes></element><element><id>Relation</id><coordinates><x>1528</x><y>264</y><w>12</w><h>532</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;1310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1972</x><y>1108</y><w>104</w><h>104</h></coordinates><panel_attributes>SolicitudesUsuarios
+--
+-active: Boolean
+-exists: Boolean
+-apellidoMaterno: String
+-apellidoPaterno: String
+-comentario: String
+-correoElectronico: String
+-matricula: String
+-nombre: String
+-nombreUniversidad: String
+-numeroAlumnos: String
+-status: String
+-telefono: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1624</x><y>180</y><w>124</w><h>76</h></coordinates><panel_attributes>TDActivatedProductionLine
+--
+-active: Boolean
+-exists: Boolean
+-efficiencyPercentage: 
+-name: String
+-simulationPtr: Simulations
+-teamPtr: SimulationsTeams
+-templateSDMPtr: SDMProductionLineTemplates
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>928</x><y>136</y><w>772</w><h>64</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>1910;110;1910;20;10;20;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>1108</x><y>252</y><w>552</w><h>416</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>1360;10;1360;480;10;480;10;1020</additional_attributes></element><element><id>Relation</id><coordinates><x>1612</x><y>252</y><w>64</w><h>568</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>140;10;140;1400;10;1400</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1184</x><y>1084</y><w>124</w><h>104</h></coordinates><panel_attributes>TDMActivosFijosInventario
+--
+-active: Boolean
+-exists: Boolean
+-Cost: Number
+-LifeTime: Number 
+-amount: Number
+-datePurchasing: Number
+-depreciationRate: Number
+-fixedAssetPtr: SDMActivosFijos
+-phaseSDMPtr: SDMProductionLinePhases
+-simulationPtr: Simulations
+-teamPtr: SimulationsTeams
+-priceSale: Number
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>884</x><y>936</y><w>308</w><h>228</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>750;550;500;550;490;60;10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1084</x><y>784</y><w>108</w><h>360</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>250;880;20;880;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1304</x><y>864</y><w>252</w><h>320</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;780;610;770;600;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1132</x><y>1056</y><w>60</w><h>44</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>130;90;10;90;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1264</x><y>892</y><w>104</w><h>88</h></coordinates><panel_attributes>TDMEmployees
+--
+-active: Boolean
+-exists: Boolean
+-name: String
+-phaseSDMPtr: SDMProductionLinePhases
+-referenciIdSDM: String
+-salaryTabulatorPtr: SDMSalaryTabulator
+-shift: String
+-simulationPtr: Simulation
+-teamPtr: SimulationsTeams
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>924</x><y>896</y><w>348</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>850;30;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1132</x><y>784</y><w>140</w><h>120</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>330;280;10;280;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1364</x><y>828</y><w>156</w><h>128</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;300;240;300;240;10;370;10</additional_attributes></element><element><id>Relation</id><coordinates><x>56</x><y>508</y><w>1308</w><h>1432</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>3230;1180;3250;3560;10;3550;30;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1228</x><y>464</y><w>124</w><h>96</h></coordinates><panel_attributes>TDProductionLine
+--
+-active: Boolean
+-exists: Boolean
+-employeeTDMSprt: TDMEmployees
+-fixedAssetTDMSprt: TDMActivosFijosInventario
+-phaseSDMPtr: SDMProductionLinePhases
+-productionLineTDSptr: TDActivatedProductionLine
+-simulationPtr: Simulations
+-teamPtr: SimulationsTeams
+-templateSDMPtr: SDMProductionLineTemplates
+-type: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1348</x><y>544</y><w>60</w><h>372</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;130;10;130;910;50;910</additional_attributes></element><element><id>Relation</id><coordinates><x>1124</x><y>524</y><w>112</w><h>144</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>260;10;10;10;10;340</additional_attributes></element><element><id>Relation</id><coordinates><x>944</x><y>292</y><w>292</w><h>192</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>710;460;10;460;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1348</x><y>252</y><w>380</w><h>244</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;590;930;590;920;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1304</x><y>508</y><w>144</w><h>632</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>120;10;330;10;340;1560;10;1560</additional_attributes></element><element><id>Relation</id><coordinates><x>924</x><y>488</y><w>312</w><h>404</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>760;10;140;10;140;990;10;990</additional_attributes></element><element><id>Relation</id><coordinates><x>1304</x><y>528</y><w>124</w><h>596</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>120;10;290;10;290;1470;10;1470</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1228</x><y>568</y><w>116</w><h>88</h></coordinates><panel_attributes>TDProductoFamilia
+--
+-active: Boolean
+-exists: Boolean
+-component: Object
+-SMDproductoFamiliaPtr: SDMProductoFamilia
+-finalPrice: String
+-simulationPtr: Simulations
+-status: String
+-teamPtr: SimulationsTeams
+-totalCost: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>908</x><y>456</y><w>328</w><h>132</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>800;310;10;300;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1144</x><y>596</y><w>92</w><h>72</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>210;20;10;20;10;160</additional_attributes></element><element><id>Relation</id><coordinates><x>1340</x><y>616</y><w>188</w><h>180</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;20;450;20;450;430</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1236</x><y>768</y><w>104</w><h>96</h></coordinates><panel_attributes>TDSimulationFinancialLog
+--
+-active: Boolean
+-exists: Boolean
+-afterAmount: Number
+-amountMoney: Number
+-beforeAmount: Number
+-simulationDate: Number
+-simulationPtr: Simulations
+-status: String
+-teamPtr: SimulationsTeams
+-type: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1156</x><y>768</y><w>88</w><h>56</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>200;120;80;120;80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1336</x><y>792</y><w>184</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;30;440;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>1536</y><w>104</w><h>44</h></coordinates><panel_attributes>DMRegiones
+--
+-abreviatura: String
+-nombre: String
+_-objectId: String_
+-updatedAt: Date
+-createdAt: Date
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

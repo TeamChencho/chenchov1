@@ -1,0 +1,7 @@
+=== Submódulo de Acceso
+. [.line-through]#Permisos#
+. [.line-through]#Iniciar sesión#
+. [.line-through]#Redirección a módulo de administración#
+. [.line-through]#Redirección a módulo de profesores#
+. [.line-through]#Redirección a módulo de simulación#
+. [.line-through]#Encriptación de contraseña AES-256#

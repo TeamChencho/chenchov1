@@ -1,0 +1,125 @@
+{
+	"textures": [
+		{
+			"image": "black_car.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 514,
+				"h": 1512
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "black_car_drive_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 376
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 376
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 512,
+						"h": 376
+					}
+				},
+				{
+					"filename": "black_car_idle_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 376
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 376
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 512,
+						"h": 376
+					}
+				},
+				{
+					"filename": "black_car_drive_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 376
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 376
+					},
+					"frame": {
+						"x": 1,
+						"y": 379,
+						"w": 512,
+						"h": 376
+					}
+				},
+				{
+					"filename": "black_car_drive_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 376
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 376
+					},
+					"frame": {
+						"x": 1,
+						"y": 757,
+						"w": 512,
+						"h": 376
+					}
+				},
+				{
+					"filename": "black_car_drive_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 376
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 376
+					},
+					"frame": {
+						"x": 1,
+						"y": 1135,
+						"w": 512,
+						"h": 376
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:f724c71733aacee6da5f5cfd1d361797:96bb57d25b064e6b4f04e850fcebb54d:e2f941d69a937aad907a26ad5391795f$"
+	}
+}

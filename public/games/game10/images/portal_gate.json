@@ -1,0 +1,377 @@
+{
+	"textures": [
+		{
+			"image": "portal_gate.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 3201,
+				"h": 4692
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1065,
+						"h": 783
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 1065,
+						"h": 783
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1065,
+						"h": 783
+					},
+					"frame": {
+						"x": 1,
+						"y": 786,
+						"w": 1065,
+						"h": 783
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1065,
+						"h": 783
+					},
+					"frame": {
+						"x": 1,
+						"y": 1571,
+						"w": 1065,
+						"h": 783
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1065,
+						"h": 783
+					},
+					"frame": {
+						"x": 1,
+						"y": 2356,
+						"w": 1065,
+						"h": 783
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 1065,
+						"h": 782
+					},
+					"frame": {
+						"x": 1,
+						"y": 3141,
+						"w": 1065,
+						"h": 782
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_off_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 72,
+						"w": 1065,
+						"h": 691
+					},
+					"frame": {
+						"x": 1,
+						"y": 3925,
+						"w": 1065,
+						"h": 691
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 1065,
+						"h": 782
+					},
+					"frame": {
+						"x": 1068,
+						"y": 1,
+						"w": 1065,
+						"h": 782
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 1065,
+						"h": 782
+					},
+					"frame": {
+						"x": 1068,
+						"y": 785,
+						"w": 1065,
+						"h": 782
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 1065,
+						"h": 782
+					},
+					"frame": {
+						"x": 1068,
+						"y": 1569,
+						"w": 1065,
+						"h": 782
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 1068,
+						"y": 2353,
+						"w": 1065,
+						"h": 780
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 1068,
+						"y": 3135,
+						"w": 1065,
+						"h": 780
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 2135,
+						"y": 1,
+						"w": 1065,
+						"h": 780
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 2135,
+						"y": 783,
+						"w": 1065,
+						"h": 780
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 2135,
+						"y": 1565,
+						"w": 1065,
+						"h": 780
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 2135,
+						"y": 2347,
+						"w": 1065,
+						"h": 780
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 2135,
+						"y": 3129,
+						"w": 1065,
+						"h": 780
+					}
+				},
+				{
+					"filename": "__laboratory_portal_turquoise_portal_on_015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1065,
+						"h": 840
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 1065,
+						"h": 780
+					},
+					"frame": {
+						"x": 2135,
+						"y": 3911,
+						"w": 1065,
+						"h": 780
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:1a7ca16831b65ce5737894025c6ea7c8:7ebd221e5e4687976c2ce6a45572b494:02b155ef1730e8cb179fd8041a42d549$"
+	}
+}

@@ -1,0 +1,68 @@
+=== Opciones
+
+. Configuración de perfil básica
+. Bitácora de actividades
+. Panel competitivo (Resumen tiempo real de simulación)
+
+=== Eventos (Disparados por tiempo)
+
+. Eventos normales disparados por el sistema
+. Eventos normales disparados por el usuario
+. Eventos adversos disparados por el sistema
+. Eventos adversos disparados por el usuario
+
+=== Finanzas
+
+==== Activos Fijos 
+
+==== Centro de Costos
+
+==== Cuentas por Pagar
+
+==== Cuentas por Cobrar
+
+==== Reportes
+
+=== Ventas y Distribución
+
+==== Datos de Clientes
+
+==== Órdenes de Venta
+
+==== Manejo de Créditos
+
+==== Logística de Entregas
+
+==== Reportes
+
+=== Manejo de Materiales
+
+==== Proveedores
+
+==== Compras
+
+==== Aduana
+
+==== Almacén de Materia Prima
+
+==== Almacén de Producto Terminado
+
+==== Reportes
+
+=== Planeación de Producción
+
+==== Bill of Materials
+
+==== Calendario de Producción
+
+==== Manejo de Demanda
+
+==== Planeación a largo plazo
+
+==== Reportes
+
+=== Manejo de la Calidad
+
+==== Inspecciones de Calidad
+
+==== Reportes

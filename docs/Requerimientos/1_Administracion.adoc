@@ -1,0 +1,24 @@
+=== Submódulo de Administración
+. [.line-through]#Crear 1 administrador nuevo#
+. [.line-through]#Administración de administradores#
+. [.line-through]#Crear 1 profesor nuevo#
+. [.line-through]#Crear profesores a partir de csv#
+. [.line-through]#Administración de profesor#
+. Ajustes globales de simulaciones (BD) Partes
+. Ajustes globales de simulaciones (BD) Modelos
+. Ajustes globales de simulaciones (BD) Clientes
+. Ajustes globales de simulaciones (BD) Eventos
+. Ajustes globales de simulaciones configuración global
+. Histórico de simulaciones por profesor
+. Histórico de simulaciones por simulación
+. Condición de victoria por órdenes completas (llegar a un número de ordenes)
+. Condición de victoria por simulación por tiempo (de fecha x a fecha y)
+. Condición de finalización por simulación de tiempo (de fecha x a fecha y)
+. Condición de game over por órdenes no cumplidas (llegar a un número de ordenes)
+. Definición de roles de la simulación
+. Acceso a opciones de simulación
+
+
+=== Submódulo de Administración (Croners)
+. Manipulación de tiempo de la simulación
+. Disparador de evento cambio de día simulación

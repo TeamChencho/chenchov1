@@ -1,0 +1,32 @@
+
+
+
+=== Links de Acceso administrador Web
+
+Link de acceso administrador web: http://3.236.122.16/acceso
+
+.Relación de usuarios WEB
+[width="100%",options="header,footer"]
+|===
+| Usuario                   | Contraseña  | Permiso
+| superadmin@gmail.com      | demo        | Super Administrador
+| administrador@gmail.com   | demo        | Administrador
+| usuariosAdmin@gmail.com   | demo        | Usuarios Administrador
+| usuarioApp@gmail.com      | demo        | Usuarios Aplicación
+| recompensas@gmail.com     | demo        | Recompensas
+| panico@gmail.com          | demo        | Pánico
+| publicidad@gmail.com      | demo        | Publicidad
+| notificaciones@gmail.com  | demo        | Notificaciones
+| faqs@gmail.com            | demo        | Preguntas Frecuentes
+| estadistica@gmail.com     | demo        | Estadísticas 
+|===
+
+=== Links de Acceso Aplicación Móvil
+
+.Relación de usuarios App
+[width="50%",options="header,footer"]
+|===
+| Usuario               | Contraseña 
+| conductor@ride.com    | demo1234
+| pasajero@ride.com     | demo1234
+|===

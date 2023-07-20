@@ -1,0 +1,146 @@
+{
+	"textures": [
+		{
+			"image": "spray_red.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1466,
+				"h": 846
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "red_beam_charge_01.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 24,
+						"y": 14,
+						"w": 497,
+						"h": 448
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 497,
+						"h": 448
+					}
+				},
+				{
+					"filename": "red_beam_charge_04.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 14,
+						"w": 497,
+						"h": 448
+					},
+					"frame": {
+						"x": 500,
+						"y": 1,
+						"w": 497,
+						"h": 448
+					}
+				},
+				{
+					"filename": "red_beam_charge_02.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 27,
+						"w": 466,
+						"h": 421
+					},
+					"frame": {
+						"x": 999,
+						"y": 1,
+						"w": 466,
+						"h": 421
+					}
+				},
+				{
+					"filename": "red_beam_charge_05.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 43,
+						"y": 27,
+						"w": 466,
+						"h": 421
+					},
+					"frame": {
+						"x": 999,
+						"y": 424,
+						"w": 466,
+						"h": 421
+					}
+				},
+				{
+					"filename": "red_beam_charge_03.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 18,
+						"w": 433,
+						"h": 374
+					},
+					"frame": {
+						"x": 1,
+						"y": 451,
+						"w": 433,
+						"h": 374
+					}
+				},
+				{
+					"filename": "red_beam_charge_06.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 18,
+						"w": 433,
+						"h": 374
+					},
+					"frame": {
+						"x": 436,
+						"y": 451,
+						"w": 433,
+						"h": 374
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:4d73fe48c8e495eccfc780549dc80d9b:28aa45875afb551621217692cd923d14:be0f4f09954c524cd5a561515ffd5cb4$"
+	}
+}

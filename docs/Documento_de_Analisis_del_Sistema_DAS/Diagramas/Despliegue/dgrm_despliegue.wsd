@@ -1,0 +1,50 @@
+@startuml "dgrm_despliegue"
+actor Administrador
+actor Profesor
+actor Estudiante
+
+node "Desktop"{
+  node "Navegador Web"{
+    interface Web_Admin_Sistema
+    interface Web_Admin_Profesor
+    interface Simulador
+  }
+}
+
+cloud Internet
+
+Administrador -- Web_Admin_Sistema
+Profesor -- Web_Admin_Profesor
+Profesor -- Simulador
+Estudiante -- Simulador
+Web_Admin_Sistema -- Internet : Dominio
+Web_Admin_Profesor -- Internet : Dominio
+Simulador -- Internet : Dominio
+rectangle Proveedor_Nube <<Infraestructura>>{
+    rectangle Subred_1 <<Subnet>>{
+        node Ubuntu_Server <<Elastic Computing Cloud EC2>>{
+          component Nginx
+          node NodeJS{
+            node Express <<Framework>>{
+              node Parse_Server <<BaaS>>{
+                component Sistema
+              }
+            }
+          }
+
+          database MongoDB
+          storage Archivos<<File System>>
+
+          Nginx -- Sistema : Localhost
+        }
+
+        Sistema -- MongoDB : Mongo_URL_IP_Subred
+      }
+
+        
+
+      Sistema -- Archivos :Conexión_VPC
+}
+Internet -- Nginx : Dominio
+
+@enduml

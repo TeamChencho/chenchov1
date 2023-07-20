@@ -1,0 +1,58 @@
+<%- contentFor('head')%>
+<%- include('./../css'); %>
+
+<style type="text/css">
+    body{
+        margin:0;
+        padding:0;
+    }
+</style>
+
+<%- contentFor('body')%>
+
+<body id="page-top" class="sidebar-toggled">
+
+    <%- include('./../top-bar'); %>
+    <div class="container">
+        <%- include('./acordeon'); %>
+        <%- include('./detalle'); %>
+        <%- include('./formulario'); %>
+        <%- include('./modal_LG'); %>
+        <%- include('./tabla'); %>
+    </div>
+
+</body>
+
+<%- contentFor('scripts')%>
+<%- include('./../scripts'); %>
+<script type="text/javascript" src="js/phaser.js"></script>
+<!--<script type="text/javascript" src="assets/js/phaser.min.js"></script>-->
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+//**** PINTA GRAFICA *******
+    document.addEventListener('DOMContentLoaded', function () {
+        const chart = Highcharts.chart('grafica', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Fruit Consumption'
+            },
+            xAxis: {
+                categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                title: {
+                    text: 'Fruit eaten'
+                }
+            },
+            series: [{
+                name: 'Jane',
+                data: [1, 0, 4]
+            }, {
+                name: 'John',
+                data: [5, 7, 3]
+            }]
+        });
+    });
+</script>

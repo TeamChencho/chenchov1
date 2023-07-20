@@ -1,0 +1,188 @@
+{
+	"textures": [
+		{
+			"image": "smash.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 4503,
+				"h": 3771
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "bomb_blast_04.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 5,
+						"w": 1587,
+						"h": 1597
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 1587,
+						"h": 1597
+					}
+				},
+				{
+					"filename": "bomb_blast_03.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 35,
+						"y": 33,
+						"w": 1537,
+						"h": 1546
+					},
+					"frame": {
+						"x": 1,
+						"y": 1600,
+						"w": 1537,
+						"h": 1546
+					}
+				},
+				{
+					"filename": "bomb_blast_07.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 38,
+						"y": 0,
+						"w": 1559,
+						"h": 1535
+					},
+					"frame": {
+						"x": 1540,
+						"y": 1600,
+						"w": 1559,
+						"h": 1535
+					}
+				},
+				{
+					"filename": "bomb_blast_02.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 71,
+						"y": 67,
+						"w": 1465,
+						"h": 1473
+					},
+					"frame": {
+						"x": 1590,
+						"y": 1,
+						"w": 1465,
+						"h": 1473
+					}
+				},
+				{
+					"filename": "bomb_blast_06.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 40,
+						"y": 122,
+						"w": 1445,
+						"h": 1356
+					},
+					"frame": {
+						"x": 3057,
+						"y": 1,
+						"w": 1445,
+						"h": 1356
+					}
+				},
+				{
+					"filename": "bomb_blast.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 145,
+						"y": 142,
+						"w": 1299,
+						"h": 1289
+					},
+					"frame": {
+						"x": 3101,
+						"y": 1359,
+						"w": 1299,
+						"h": 1289
+					}
+				},
+				{
+					"filename": "bomb_blast_01.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 145,
+						"y": 142,
+						"w": 1299,
+						"h": 1289
+					},
+					"frame": {
+						"x": 3101,
+						"y": 1359,
+						"w": 1299,
+						"h": 1289
+					}
+				},
+				{
+					"filename": "bomb_blast_05.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1607,
+						"h": 1607
+					},
+					"spriteSourceSize": {
+						"x": 204,
+						"y": 226,
+						"w": 1129,
+						"h": 1120
+					},
+					"frame": {
+						"x": 3101,
+						"y": 2650,
+						"w": 1129,
+						"h": 1120
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:a1437234e5105c9e8d5631de2e00b278:608a299cfb8717e2ebece86b4734b12c:36f30e06073dcb6c6739294de039541c$"
+	}
+}

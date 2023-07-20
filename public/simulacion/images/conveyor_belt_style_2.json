@@ -1,0 +1,209 @@
+{
+	"textures": [
+		{
+			"image": "conveyor_belt_style_2.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 196,
+				"h": 192
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "conveyor_belt_style_2_center_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 62
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 64,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_center_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 62
+					},
+					"frame": {
+						"x": 1,
+						"y": 65,
+						"w": 64,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_center_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 62
+					},
+					"frame": {
+						"x": 1,
+						"y": 129,
+						"w": 64,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_left_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					},
+					"frame": {
+						"x": 67,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_left_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					},
+					"frame": {
+						"x": 132,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_left_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					},
+					"frame": {
+						"x": 67,
+						"y": 65,
+						"w": 63,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_right_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					},
+					"frame": {
+						"x": 67,
+						"y": 129,
+						"w": 63,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_right_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					},
+					"frame": {
+						"x": 132,
+						"y": 65,
+						"w": 63,
+						"h": 62
+					}
+				},
+				{
+					"filename": "conveyor_belt_style_2_right_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					},
+					"frame": {
+						"x": 132,
+						"y": 129,
+						"w": 63,
+						"h": 62
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:441d924d6fdccc1ee200b454df59a5cd:12d77761a992c1b15a942f5a0e44753f:30b36bc69ae53d050636e923591a9201$"
+	}
+}

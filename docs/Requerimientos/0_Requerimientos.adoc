@@ -1,0 +1,23 @@
+:Project: Novus Tec
+:icons: font
+:toc:
+:toclevels: 3
+:numbered:
+:title-page: Documentación de Reuqerimientos del sistema
+:title-page-subtitle: Novus Tec
+
+== Módulo de Administración
+
+include::1_Administracion.adoc[]
+
+== Módulo de Profesor
+
+include::2_Profesor.adoc[]
+
+== Módulo de Acceso
+
+include::3_Acceso.adoc[]
+
+== Módulo de Simulación
+
+include::4_Simulacion.adoc[]

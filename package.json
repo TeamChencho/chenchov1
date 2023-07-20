@@ -1,0 +1,47 @@
+{
+  "name": "meeplab-novustec",
+  "version": "1.0.0",
+  "description": "Versión del Simulador de Planta Automotriz par Novus",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://meeplab@bitbucket.org/black4ninja/meeplab-novustec.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/black4ninja/meeplab-novustec#readme",
+  "dependencies": {
+    "body-parser": "*",
+    "compression": "*",
+    "cookie-parser": "*",
+    "cors": "*",
+    "crypto-js": "*",
+    "csv-parser": "^3.0.0",
+    "csvtojson": "^2.0.10",
+    "detect-character-encoding": "^0.8.0",
+    "ejs": "2.6.1",
+    "express": "*",
+    "express-easy-zip": "*",
+    "express-ejs-layouts": "*",
+    "express-pdf": "*",
+    "faker": "^5.5.3",
+    "helmet": "*",
+    "html-pdf": "*",
+    "iconv": "^3.0.1",
+    "io-session-handler": "*",
+    "method-override": "*",
+    "moment": "*",
+    "multer": "*",
+    "node-schedule": "*",
+    "parse": "*",
+    "parse-dashboard": "*",
+    "parse-server": "*",
+    "randomstring": "^1.2.2",
+    "sendgrid": "*",
+    "socket.io": "^2.3.0",
+    "underscore": "*"
+  }
+}

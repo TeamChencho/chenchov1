@@ -1,0 +1,4 @@
+employeeID,name,lastName,lastNameMother,startDay,imss,rfc,curp,civilState,sex,street,number,suburb,state,city,salaryHr,turn,email,phone,job,bornDate
+12,Pedro,R,T,,123125-RT ,Rfc-u45 ,,,,,,,,,6000,,,213123,Obrero,
+13,Alejandro,R,T,,123126-RT ,Rfc-u45 ,,,,,,,,,6001,,,213124,Obrero,
+14,Marta,R,T,,123127-RT ,Rfc-u45 ,,,,,,,,,6002,,,213125,Obrero,

@@ -1,0 +1,22 @@
+name,description,model,costPrice,salePrice,serialNumber,brand,department,acquisitionDate,timelife,depreciation fee
+Pistolas de Soldadura,Pistola de soldadura de plástico de engrapado por calor,‎HPEVA,1453,1000,PS219,Hot Stapler Machine,Producción,11/12/21,665,12
+Banco de rodillos RR 220d,"Es un doble rodillo que permite someter a esfuerzos y trazar curvas características de potencia, torque, perdida y aceleración en una amplia gama de vehículos livianos estándar y de competición hasta 400 HP. ",RR 220d,4000,2000,BR220,AGME,Producción,11/12/21,878,12
+Módulos de abocardado de tuberías,"Para el montaje de la estructura inferior de los asientos
+",Agme PH-50,20000,5000,MAT221,AGME,Producción,11/12/21,879,12
+Máquina para montaje automático de bisagras,"Carga automática o semiautomática de componentes, conformado y calibrado de casquillos, Remachado CNC de piezas, etc …
+",AGME RR-16 ,45320,5000,MMA222,AGME,Producción,11/12/21,880,13
+Máquina para el montaje y engrasado de rótulas,"Manipulación, montaje, engrasado y control de componentes",AGME,50000,6001,MME223,AGME,Producción,11/12/21,881,14
+Máquina para inserción casquillos ,Integración de dos procesos una misma máquina: inserción de casquillos y remachado,AGME,45500,6000,MIC224,AGME,Producción,11/12/21,782,15
+Máquina especiales de control y marcaje de componentes,"Brochado y alineación de componentes. Así mismo, el marcaje láser de los piezas.",AGME,50000,6001,MEC225,AGME,Producción,11/12/21,883,16
+Maquinaria especial para la inserción de muelles,Inserción de muelles en subconjuntos previamente montados de componentes de asientos,AGME,20000,3000,MEI226,AGME,Producción,11/12/21,884,17
+Maquinaria especial para inserción de tornillos,Se consigue automatizar el proceso de enmangado,AGME,20000,3001,MEIT227,AGME,Producción,11/12/21,585,18
+Máquinas de control de estanqueidad,Para controlar la estanqueidad de válvulas ,AGME,15000,5000,MCE228,AGME,Producción,11/12/21,886,19
+Maquinaria especial para montaje de guías de asientos para coches,Puesto de doblado de jaulas con bolas; puesto de engrasado de la guía inferior; puesto de ensamblado de jaulas con bolas sobre la guía superior y ambos sobre la guía inferior.,AGME,18000,5001,MEM229,AGME,Producción,11/12/21,887,20
+Maquinaria especial para deformación de tubos," Realizar operaciones de deformación de tubos de forma rápida, eficaz y segura en un tiempo de ciclo de 7 s.",AGME,15000,5002,MED230,AGME,Producción,11/12/21,888,21
+Maquinaria ensamblaje automático de componentes de automoción,Robots integrados para su automatización,AGME,40000,5003,MEM231,AGME,Producción,11/12/21,5000,22
+Maquinaria de ensamblaje de bisagras para coches,"Alimentación de componentes, rebordeado de casquillos, remachado de bisagras, control de presencia y posición de los componentes, control de par de giro, presión y recorrido, marcaje y selección de piezas buenas y malas.",AGME,75000,5004,MEM232,AGME,Producción,11/12/21,890,23
+Sistema de robot para pintura,"Integrando el cambiador de color y las válvulas de control de fluido, se reduce las pérdidas de pintura y el tiempo de cambio de color, mejorándose el tiempo de ciclo. ",P-200E,60500,2000,PSP233,AGME,Producción,11/12/21,1200,24
+Transportador para la industria del automóvil,Se realiza en el plano aéreo y está diseñado en principio para el transporte de mercancía en perchas.,KNAPP,80000,2000,TIA234,KNAPP,Producción,12/12/21,892,25
+Transportador con cadena,ransporta automóviles que se encuentran en distintas etapas de la producción dentro de una fábrica. Puede usar monorriel aéreo o sobre el suelo. ,Ramrun,90000,20000,TCA235,Ramrun,Producción,13/12/21,793,26
+Transportador de banda,"transportadores de rodillos, transportadores de cadena, transportadores de banda, transportadores de suelo, transportadores inclinados",THIMON,70000,39000,TBT236,THIMON,Producción,14/12/21,894,27
+cuba de pintura,Construida en acero revestida interiormente con un aislante eléctrico,O01,20000,3000,CUB237,O01,Producción,15/12/21,9000,10

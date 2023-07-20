@@ -1,0 +1,11 @@
+.Control de Cambios
+|===
+|Nombre                 | Acción   | Fecha (DD/MM/YYYY)
+|Ing. Denisse Maldonado | Revisión | 01/12/2020
+|===
+
+.Versiones
+|===
+|No. Versión | Fecha Ver. | Actualizado por | Descripción
+|1.0.0       | Revisión   | Ing. Alejandro Fernández | Versión Inicial
+|===

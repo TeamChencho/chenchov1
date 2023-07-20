@@ -1,0 +1,1448 @@
+{
+	"textures": [
+		{
+			"image": "blue_robot-0.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 7592,
+				"h": 6678
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "__blue_robot_die_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_die_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_die_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_die_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_die_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_hurt_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_hurt_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_hurt_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_hurt_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_hurt_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 742,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_009.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_010.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_011.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_012.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_013.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 1484,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_014.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_015.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_016.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_017.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_018.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_idle_019.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 2226,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_push_009.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 2968,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 3710,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_run_009.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 4452,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_shoot_009.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 3796,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 4745,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 5694,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 6643,
+						"y": 5194,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 0,
+						"y": 5936,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 949,
+						"y": 5936,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 1898,
+						"y": 5936,
+						"w": 949,
+						"h": 742
+					}
+				},
+				{
+					"filename": "__blue_robot_walk_009.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 949,
+						"h": 742
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 949,
+						"h": 742
+					},
+					"frame": {
+						"x": 2847,
+						"y": 5936,
+						"w": 949,
+						"h": 742
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:c6c4905b4ae693f405fac176624d9509:9611c54f1730531020609dd1904b6189:1cc08a3fe520e8a0ce8245659caa417c$"
+	}
+}

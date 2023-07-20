@@ -1,0 +1,188 @@
+{
+	"textures": [
+		{
+			"image": "flash.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 7001,
+				"h": 7726
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "__mine_explode_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 590,
+						"y": 0,
+						"w": 2665,
+						"h": 2638
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 2665,
+						"h": 2638
+					}
+				},
+				{
+					"filename": "__mine_explode_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 630,
+						"y": 49,
+						"w": 2513,
+						"h": 2581
+					},
+					"frame": {
+						"x": 1,
+						"y": 2641,
+						"w": 2513,
+						"h": 2581
+					}
+				},
+				{
+					"filename": "__mine_explode_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 618,
+						"y": 13,
+						"w": 2500,
+						"h": 2519
+					},
+					"frame": {
+						"x": 2668,
+						"y": 1,
+						"w": 2500,
+						"h": 2519
+					}
+				},
+				{
+					"filename": "__mine_explode_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 624,
+						"y": 17,
+						"w": 2492,
+						"h": 2501
+					},
+					"frame": {
+						"x": 1,
+						"y": 5224,
+						"w": 2492,
+						"h": 2501
+					}
+				},
+				{
+					"filename": "__mine_explode_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 682,
+						"y": 131,
+						"w": 2388,
+						"h": 2426
+					},
+					"frame": {
+						"x": 2516,
+						"y": 2641,
+						"w": 2388,
+						"h": 2426
+					}
+				},
+				{
+					"filename": "__mine_explode_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 845,
+						"y": 354,
+						"w": 2094,
+						"h": 2061
+					},
+					"frame": {
+						"x": 4906,
+						"y": 2522,
+						"w": 2094,
+						"h": 2061
+					}
+				},
+				{
+					"filename": "__mine_explode_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 718,
+						"y": 192,
+						"w": 2273,
+						"h": 2339
+					},
+					"frame": {
+						"x": 2516,
+						"y": 5069,
+						"w": 2273,
+						"h": 2339
+					}
+				},
+				{
+					"filename": "__mine_explode_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 3755,
+						"h": 2638
+					},
+					"spriteSourceSize": {
+						"x": 815,
+						"y": 233,
+						"w": 2150,
+						"h": 2259
+					},
+					"frame": {
+						"x": 4791,
+						"y": 5069,
+						"w": 2150,
+						"h": 2259
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:ad3b509d52a8e9a655ec7ff392f8f0a9:2d9cbaef195a853a09e28739e1efa24c:1b7eb8c241b9e490e3e7e1d35ac03eb4$"
+	}
+}

@@ -1,0 +1,12 @@
+=== Submódulo de Profesor
+. Crear grupo nuevo
+. Crear 1 alumno nuevo 
+. Crear alumnos a partir de csv
+. Crear simulación [sanbox, normal], [roles o sin roles]
+. Configuración de simulación
+. Acceso a simulación (sólo si se creó acceso propio) *según modo
+. Histórico de simulaciones por simulación
+. Estadísticas
+. Pausar simulación
+. Bitácora de simulación
+. Acceso a opciones de simulación

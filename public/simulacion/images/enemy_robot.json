@@ -1,0 +1,2540 @@
+{
+	"textures": [
+		{
+			"image": "enemy_robot.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 15526,
+				"h": 5395
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "__square_droid_activated_shoot_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 198,
+						"y": 11,
+						"w": 889,
+						"h": 1032
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 889,
+						"h": 1032
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 11,
+						"w": 842,
+						"h": 1024
+					},
+					"frame": {
+						"x": 1,
+						"y": 1035,
+						"w": 842,
+						"h": 1024
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 11,
+						"w": 842,
+						"h": 1022
+					},
+					"frame": {
+						"x": 1,
+						"y": 2061,
+						"w": 842,
+						"h": 1022
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 11,
+						"w": 842,
+						"h": 1022
+					},
+					"frame": {
+						"x": 1,
+						"y": 3085,
+						"w": 842,
+						"h": 1022
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 11,
+						"w": 842,
+						"h": 1017
+					},
+					"frame": {
+						"x": 1,
+						"y": 4109,
+						"w": 842,
+						"h": 1017
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 11,
+						"w": 842,
+						"h": 1017
+					},
+					"frame": {
+						"x": 1,
+						"y": 4109,
+						"w": 842,
+						"h": 1017
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 11,
+						"w": 842,
+						"h": 1017
+					},
+					"frame": {
+						"x": 1,
+						"y": 4109,
+						"w": 842,
+						"h": 1017
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 153,
+						"y": 11,
+						"w": 842,
+						"h": 1017
+					},
+					"frame": {
+						"x": 845,
+						"y": 1035,
+						"w": 842,
+						"h": 1017
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 152,
+						"y": 11,
+						"w": 842,
+						"h": 1016
+					},
+					"frame": {
+						"x": 892,
+						"y": 1,
+						"w": 842,
+						"h": 1016
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_019.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 152,
+						"y": 11,
+						"w": 842,
+						"h": 1016
+					},
+					"frame": {
+						"x": 845,
+						"y": 2054,
+						"w": 842,
+						"h": 1016
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 11,
+						"w": 842,
+						"h": 1016
+					},
+					"frame": {
+						"x": 845,
+						"y": 3072,
+						"w": 842,
+						"h": 1016
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 154,
+						"y": 11,
+						"w": 841,
+						"h": 1016
+					},
+					"frame": {
+						"x": 845,
+						"y": 4090,
+						"w": 841,
+						"h": 1016
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_018.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 154,
+						"y": 11,
+						"w": 841,
+						"h": 1016
+					},
+					"frame": {
+						"x": 1688,
+						"y": 4090,
+						"w": 841,
+						"h": 1016
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 156,
+						"y": 11,
+						"w": 840,
+						"h": 1016
+					},
+					"frame": {
+						"x": 1689,
+						"y": 1019,
+						"w": 840,
+						"h": 1016
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_017.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 156,
+						"y": 11,
+						"w": 840,
+						"h": 1016
+					},
+					"frame": {
+						"x": 1736,
+						"y": 1,
+						"w": 840,
+						"h": 1016
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 158,
+						"y": 11,
+						"w": 840,
+						"h": 1015
+					},
+					"frame": {
+						"x": 1689,
+						"y": 2037,
+						"w": 840,
+						"h": 1015
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 159,
+						"y": 11,
+						"w": 839,
+						"h": 1015
+					},
+					"frame": {
+						"x": 1689,
+						"y": 3054,
+						"w": 839,
+						"h": 1015
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 160,
+						"y": 11,
+						"w": 839,
+						"h": 1015
+					},
+					"frame": {
+						"x": 2530,
+						"y": 3054,
+						"w": 839,
+						"h": 1015
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 161,
+						"y": 11,
+						"w": 838,
+						"h": 1015
+					},
+					"frame": {
+						"x": 2531,
+						"y": 4071,
+						"w": 838,
+						"h": 1015
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 162,
+						"y": 11,
+						"w": 839,
+						"h": 1014
+					},
+					"frame": {
+						"x": 2531,
+						"y": 1019,
+						"w": 839,
+						"h": 1014
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 163,
+						"y": 11,
+						"w": 838,
+						"h": 1014
+					},
+					"frame": {
+						"x": 2578,
+						"y": 1,
+						"w": 838,
+						"h": 1014
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 164,
+						"y": 11,
+						"w": 838,
+						"h": 1013
+					},
+					"frame": {
+						"x": 2531,
+						"y": 2035,
+						"w": 838,
+						"h": 1013
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 165,
+						"y": 11,
+						"w": 837,
+						"h": 1013
+					},
+					"frame": {
+						"x": 3371,
+						"y": 2035,
+						"w": 837,
+						"h": 1013
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 167,
+						"y": 11,
+						"w": 837,
+						"h": 1013
+					},
+					"frame": {
+						"x": 3372,
+						"y": 1017,
+						"w": 837,
+						"h": 1013
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 167,
+						"y": 11,
+						"w": 837,
+						"h": 1013
+					},
+					"frame": {
+						"x": 3418,
+						"y": 1,
+						"w": 837,
+						"h": 1013
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 169,
+						"y": 11,
+						"w": 836,
+						"h": 1012
+					},
+					"frame": {
+						"x": 3371,
+						"y": 3050,
+						"w": 836,
+						"h": 1012
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 169,
+						"y": 11,
+						"w": 836,
+						"h": 1012
+					},
+					"frame": {
+						"x": 3371,
+						"y": 4064,
+						"w": 836,
+						"h": 1012
+					}
+				},
+				{
+					"filename": "__square_droid_activated_idle_010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 171,
+						"y": 11,
+						"w": 835,
+						"h": 1011
+					},
+					"frame": {
+						"x": 4209,
+						"y": 3050,
+						"w": 835,
+						"h": 1011
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 198,
+						"y": 11,
+						"w": 996,
+						"h": 1003
+					},
+					"frame": {
+						"x": 4210,
+						"y": 2032,
+						"w": 996,
+						"h": 1003
+					}
+				},
+				{
+					"filename": "__square_droid_activated_shoot_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 198,
+						"y": 11,
+						"w": 995,
+						"h": 923
+					},
+					"frame": {
+						"x": 4211,
+						"y": 1016,
+						"w": 995,
+						"h": 923
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 198,
+						"y": 51,
+						"w": 889,
+						"h": 833
+					},
+					"frame": {
+						"x": 4257,
+						"y": 1,
+						"w": 889,
+						"h": 833
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 51,
+						"w": 842,
+						"h": 825
+					},
+					"frame": {
+						"x": 5148,
+						"y": 1,
+						"w": 842,
+						"h": 825
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 51,
+						"w": 842,
+						"h": 824
+					},
+					"frame": {
+						"x": 4209,
+						"y": 4063,
+						"w": 842,
+						"h": 824
+					}
+				},
+				{
+					"filename": "__small_droid_dead_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 165,
+						"w": 894,
+						"h": 505
+					},
+					"frame": {
+						"x": 4209,
+						"y": 4889,
+						"w": 894,
+						"h": 505
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 51,
+						"w": 842,
+						"h": 823
+					},
+					"frame": {
+						"x": 5046,
+						"y": 3037,
+						"w": 842,
+						"h": 823
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 153,
+						"y": 51,
+						"w": 842,
+						"h": 819
+					},
+					"frame": {
+						"x": 5053,
+						"y": 3862,
+						"w": 842,
+						"h": 819
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 197,
+						"y": 127,
+						"w": 890,
+						"h": 675
+					},
+					"frame": {
+						"x": 5105,
+						"y": 4683,
+						"w": 890,
+						"h": 675
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 51,
+						"w": 842,
+						"h": 818
+					},
+					"frame": {
+						"x": 5208,
+						"y": 828,
+						"w": 842,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 51,
+						"w": 842,
+						"h": 818
+					},
+					"frame": {
+						"x": 5208,
+						"y": 828,
+						"w": 842,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 51,
+						"w": 842,
+						"h": 818
+					},
+					"frame": {
+						"x": 5208,
+						"y": 828,
+						"w": 842,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 152,
+						"y": 51,
+						"w": 842,
+						"h": 818
+					},
+					"frame": {
+						"x": 5992,
+						"y": 1,
+						"w": 842,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_019.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 152,
+						"y": 51,
+						"w": 842,
+						"h": 818
+					},
+					"frame": {
+						"x": 5208,
+						"y": 1648,
+						"w": 842,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 197,
+						"y": 127,
+						"w": 996,
+						"h": 567
+					},
+					"frame": {
+						"x": 5208,
+						"y": 2468,
+						"w": 996,
+						"h": 567
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 51,
+						"w": 842,
+						"h": 818
+					},
+					"frame": {
+						"x": 5890,
+						"y": 3037,
+						"w": 842,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 154,
+						"y": 51,
+						"w": 841,
+						"h": 818
+					},
+					"frame": {
+						"x": 5897,
+						"y": 3857,
+						"w": 841,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__round_droid_dead_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 81,
+						"w": 963,
+						"h": 671
+					},
+					"frame": {
+						"x": 5997,
+						"y": 4677,
+						"w": 963,
+						"h": 671
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_018.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 154,
+						"y": 51,
+						"w": 841,
+						"h": 818
+					},
+					"frame": {
+						"x": 6052,
+						"y": 821,
+						"w": 841,
+						"h": 818
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 156,
+						"y": 51,
+						"w": 840,
+						"h": 817
+					},
+					"frame": {
+						"x": 6836,
+						"y": 1,
+						"w": 840,
+						"h": 817
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 158,
+						"y": 51,
+						"w": 840,
+						"h": 817
+					},
+					"frame": {
+						"x": 6052,
+						"y": 1641,
+						"w": 840,
+						"h": 817
+					}
+				},
+				{
+					"filename": "__small_droid_dead_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 97,
+						"w": 894,
+						"h": 573
+					},
+					"frame": {
+						"x": 6206,
+						"y": 2460,
+						"w": 894,
+						"h": 573
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 158,
+						"y": 51,
+						"w": 840,
+						"h": 817
+					},
+					"frame": {
+						"x": 6894,
+						"y": 1641,
+						"w": 840,
+						"h": 817
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_017.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 156,
+						"y": 51,
+						"w": 840,
+						"h": 817
+					},
+					"frame": {
+						"x": 6895,
+						"y": 820,
+						"w": 840,
+						"h": 817
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 162,
+						"y": 51,
+						"w": 839,
+						"h": 816
+					},
+					"frame": {
+						"x": 7678,
+						"y": 1,
+						"w": 839,
+						"h": 816
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 160,
+						"y": 51,
+						"w": 839,
+						"h": 816
+					},
+					"frame": {
+						"x": 6734,
+						"y": 3035,
+						"w": 839,
+						"h": 816
+					}
+				},
+				{
+					"filename": "__small_droid_dead_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 101,
+						"w": 894,
+						"h": 569
+					},
+					"frame": {
+						"x": 7102,
+						"y": 2460,
+						"w": 894,
+						"h": 569
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 161,
+						"y": 51,
+						"w": 838,
+						"h": 816
+					},
+					"frame": {
+						"x": 7736,
+						"y": 1639,
+						"w": 838,
+						"h": 816
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 163,
+						"y": 51,
+						"w": 838,
+						"h": 816
+					},
+					"frame": {
+						"x": 7737,
+						"y": 819,
+						"w": 838,
+						"h": 816
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 165,
+						"y": 51,
+						"w": 837,
+						"h": 815
+					},
+					"frame": {
+						"x": 8519,
+						"y": 1,
+						"w": 837,
+						"h": 815
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 165,
+						"y": 51,
+						"w": 837,
+						"h": 815
+					},
+					"frame": {
+						"x": 6740,
+						"y": 3853,
+						"w": 837,
+						"h": 815
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 167,
+						"y": 51,
+						"w": 837,
+						"h": 814
+					},
+					"frame": {
+						"x": 7575,
+						"y": 3031,
+						"w": 837,
+						"h": 814
+					}
+				},
+				{
+					"filename": "__small_droid_dead_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 103,
+						"w": 894,
+						"h": 567
+					},
+					"frame": {
+						"x": 7998,
+						"y": 2457,
+						"w": 894,
+						"h": 567
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 167,
+						"y": 51,
+						"w": 837,
+						"h": 814
+					},
+					"frame": {
+						"x": 8576,
+						"y": 1637,
+						"w": 837,
+						"h": 814
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 169,
+						"y": 51,
+						"w": 836,
+						"h": 814
+					},
+					"frame": {
+						"x": 8577,
+						"y": 818,
+						"w": 836,
+						"h": 814
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 169,
+						"y": 51,
+						"w": 836,
+						"h": 814
+					},
+					"frame": {
+						"x": 9358,
+						"y": 1,
+						"w": 836,
+						"h": 814
+					}
+				},
+				{
+					"filename": "__small_droid_dead_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 963,
+						"h": 670
+					},
+					"frame": {
+						"x": 6962,
+						"y": 4670,
+						"w": 963,
+						"h": 670
+					}
+				},
+				{
+					"filename": "__round_droid_activated_idle_010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 171,
+						"y": 51,
+						"w": 835,
+						"h": 813
+					},
+					"frame": {
+						"x": 7579,
+						"y": 3847,
+						"w": 835,
+						"h": 813
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 198,
+						"y": 51,
+						"w": 995,
+						"h": 725
+					},
+					"frame": {
+						"x": 7927,
+						"y": 4662,
+						"w": 995,
+						"h": 725
+					}
+				},
+				{
+					"filename": "__round_droid_activated_shoot_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 198,
+						"y": 51,
+						"w": 996,
+						"h": 805
+					},
+					"frame": {
+						"x": 8414,
+						"y": 3026,
+						"w": 996,
+						"h": 805
+					}
+				},
+				{
+					"filename": "__small_droid_dead_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 63,
+						"y": 111,
+						"w": 900,
+						"h": 559
+					},
+					"frame": {
+						"x": 8894,
+						"y": 2453,
+						"w": 900,
+						"h": 559
+					}
+				},
+				{
+					"filename": "__square_droid_dead_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 158,
+						"w": 963,
+						"h": 752
+					},
+					"frame": {
+						"x": 8416,
+						"y": 3833,
+						"w": 963,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 158,
+						"w": 953,
+						"h": 752
+					},
+					"frame": {
+						"x": 8924,
+						"y": 4587,
+						"w": 953,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 29,
+						"y": 158,
+						"w": 934,
+						"h": 752
+					},
+					"frame": {
+						"x": 9381,
+						"y": 3833,
+						"w": 934,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 158,
+						"w": 926,
+						"h": 752
+					},
+					"frame": {
+						"x": 9879,
+						"y": 4587,
+						"w": 926,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 63,
+						"y": 158,
+						"w": 900,
+						"h": 752
+					},
+					"frame": {
+						"x": 9412,
+						"y": 3014,
+						"w": 900,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 158,
+						"w": 894,
+						"h": 752
+					},
+					"frame": {
+						"x": 9415,
+						"y": 817,
+						"w": 894,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 158,
+						"w": 894,
+						"h": 752
+					},
+					"frame": {
+						"x": 10196,
+						"y": 1,
+						"w": 894,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 158,
+						"w": 894,
+						"h": 752
+					},
+					"frame": {
+						"x": 9415,
+						"y": 1571,
+						"w": 894,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 127,
+						"w": 842,
+						"h": 667
+					},
+					"frame": {
+						"x": 9796,
+						"y": 2325,
+						"w": 842,
+						"h": 667
+					}
+				},
+				{
+					"filename": "__square_droid_dead_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 158,
+						"w": 894,
+						"h": 752
+					},
+					"frame": {
+						"x": 10314,
+						"y": 2994,
+						"w": 894,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__square_droid_dead_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 158,
+						"w": 894,
+						"h": 752
+					},
+					"frame": {
+						"x": 10317,
+						"y": 3748,
+						"w": 894,
+						"h": 752
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 127,
+						"w": 842,
+						"h": 666
+					},
+					"frame": {
+						"x": 10807,
+						"y": 4502,
+						"w": 842,
+						"h": 666
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 127,
+						"w": 842,
+						"h": 665
+					},
+					"frame": {
+						"x": 10311,
+						"y": 755,
+						"w": 842,
+						"h": 665
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 153,
+						"y": 127,
+						"w": 842,
+						"h": 661
+					},
+					"frame": {
+						"x": 11092,
+						"y": 1,
+						"w": 842,
+						"h": 661
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 127,
+						"w": 842,
+						"h": 660
+					},
+					"frame": {
+						"x": 10311,
+						"y": 1422,
+						"w": 842,
+						"h": 660
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 127,
+						"w": 842,
+						"h": 660
+					},
+					"frame": {
+						"x": 10311,
+						"y": 1422,
+						"w": 842,
+						"h": 660
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 127,
+						"w": 842,
+						"h": 660
+					},
+					"frame": {
+						"x": 10311,
+						"y": 1422,
+						"w": 842,
+						"h": 660
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 152,
+						"y": 127,
+						"w": 842,
+						"h": 660
+					},
+					"frame": {
+						"x": 10640,
+						"y": 2084,
+						"w": 842,
+						"h": 660
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_019.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 152,
+						"y": 127,
+						"w": 842,
+						"h": 660
+					},
+					"frame": {
+						"x": 11210,
+						"y": 2746,
+						"w": 842,
+						"h": 660
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 150,
+						"y": 127,
+						"w": 842,
+						"h": 659
+					},
+					"frame": {
+						"x": 11213,
+						"y": 3408,
+						"w": 842,
+						"h": 659
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 154,
+						"y": 127,
+						"w": 841,
+						"h": 659
+					},
+					"frame": {
+						"x": 11651,
+						"y": 4069,
+						"w": 841,
+						"h": 659
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_018.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 154,
+						"y": 127,
+						"w": 841,
+						"h": 659
+					},
+					"frame": {
+						"x": 11651,
+						"y": 4730,
+						"w": 841,
+						"h": 659
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 156,
+						"y": 127,
+						"w": 840,
+						"h": 659
+					},
+					"frame": {
+						"x": 11155,
+						"y": 664,
+						"w": 840,
+						"h": 659
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 158,
+						"y": 127,
+						"w": 840,
+						"h": 659
+					},
+					"frame": {
+						"x": 11936,
+						"y": 1,
+						"w": 840,
+						"h": 659
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_017.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 156,
+						"y": 127,
+						"w": 840,
+						"h": 659
+					},
+					"frame": {
+						"x": 11155,
+						"y": 1325,
+						"w": 840,
+						"h": 659
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 158,
+						"y": 127,
+						"w": 840,
+						"h": 658
+					},
+					"frame": {
+						"x": 11484,
+						"y": 1986,
+						"w": 840,
+						"h": 658
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 162,
+						"y": 127,
+						"w": 839,
+						"h": 658
+					},
+					"frame": {
+						"x": 12054,
+						"y": 2646,
+						"w": 839,
+						"h": 658
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 160,
+						"y": 127,
+						"w": 839,
+						"h": 658
+					},
+					"frame": {
+						"x": 12057,
+						"y": 3306,
+						"w": 839,
+						"h": 658
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 161,
+						"y": 127,
+						"w": 838,
+						"h": 658
+					},
+					"frame": {
+						"x": 11997,
+						"y": 662,
+						"w": 838,
+						"h": 658
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 163,
+						"y": 127,
+						"w": 838,
+						"h": 657
+					},
+					"frame": {
+						"x": 12778,
+						"y": 1,
+						"w": 838,
+						"h": 657
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 165,
+						"y": 127,
+						"w": 837,
+						"h": 657
+					},
+					"frame": {
+						"x": 11997,
+						"y": 1322,
+						"w": 837,
+						"h": 657
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 165,
+						"y": 127,
+						"w": 837,
+						"h": 657
+					},
+					"frame": {
+						"x": 12326,
+						"y": 1981,
+						"w": 837,
+						"h": 657
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 167,
+						"y": 127,
+						"w": 837,
+						"h": 656
+					},
+					"frame": {
+						"x": 12836,
+						"y": 1322,
+						"w": 837,
+						"h": 656
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 167,
+						"y": 127,
+						"w": 837,
+						"h": 656
+					},
+					"frame": {
+						"x": 12837,
+						"y": 660,
+						"w": 837,
+						"h": 656
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 169,
+						"y": 127,
+						"w": 836,
+						"h": 656
+					},
+					"frame": {
+						"x": 13618,
+						"y": 1,
+						"w": 836,
+						"h": 656
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 169,
+						"y": 127,
+						"w": 836,
+						"h": 656
+					},
+					"frame": {
+						"x": 12895,
+						"y": 2640,
+						"w": 836,
+						"h": 656
+					}
+				},
+				{
+					"filename": "__small_droid_activated_idle_010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 171,
+						"y": 127,
+						"w": 835,
+						"h": 655
+					},
+					"frame": {
+						"x": 13165,
+						"y": 1980,
+						"w": 835,
+						"h": 655
+					}
+				},
+				{
+					"filename": "__small_droid_activated_shoot_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 197,
+						"y": 127,
+						"w": 997,
+						"h": 647
+					},
+					"frame": {
+						"x": 13675,
+						"y": 1318,
+						"w": 997,
+						"h": 647
+					}
+				},
+				{
+					"filename": "__round_droid_dead_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 110,
+						"w": 953,
+						"h": 642
+					},
+					"frame": {
+						"x": 13676,
+						"y": 659,
+						"w": 953,
+						"h": 642
+					}
+				},
+				{
+					"filename": "__round_droid_dead_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 129,
+						"w": 894,
+						"h": 623
+					},
+					"frame": {
+						"x": 14631,
+						"y": 1,
+						"w": 894,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__round_droid_dead_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 129,
+						"w": 894,
+						"h": 623
+					},
+					"frame": {
+						"x": 14631,
+						"y": 626,
+						"w": 894,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__small_droid_dead_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 28,
+						"w": 953,
+						"h": 642
+					},
+					"frame": {
+						"x": 14002,
+						"y": 1967,
+						"w": 953,
+						"h": 642
+					}
+				},
+				{
+					"filename": "__round_droid_dead_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 29,
+						"y": 129,
+						"w": 934,
+						"h": 623
+					},
+					"frame": {
+						"x": 14002,
+						"y": 2611,
+						"w": 934,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__round_droid_dead_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 129,
+						"w": 926,
+						"h": 623
+					},
+					"frame": {
+						"x": 12494,
+						"y": 3966,
+						"w": 926,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__round_droid_dead_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 63,
+						"y": 129,
+						"w": 900,
+						"h": 623
+					},
+					"frame": {
+						"x": 12898,
+						"y": 3298,
+						"w": 900,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__round_droid_dead_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 129,
+						"w": 894,
+						"h": 623
+					},
+					"frame": {
+						"x": 12494,
+						"y": 4591,
+						"w": 894,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__round_droid_dead_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 129,
+						"w": 894,
+						"h": 623
+					},
+					"frame": {
+						"x": 13390,
+						"y": 4591,
+						"w": 894,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__round_droid_dead_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 921
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 129,
+						"w": 894,
+						"h": 623
+					},
+					"frame": {
+						"x": 13422,
+						"y": 3923,
+						"w": 894,
+						"h": 623
+					}
+				},
+				{
+					"filename": "__small_droid_dead_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 29,
+						"y": 61,
+						"w": 934,
+						"h": 609
+					},
+					"frame": {
+						"x": 13800,
+						"y": 3236,
+						"w": 934,
+						"h": 609
+					}
+				},
+				{
+					"filename": "__small_droid_dead_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 74,
+						"w": 926,
+						"h": 596
+					},
+					"frame": {
+						"x": 14286,
+						"y": 4548,
+						"w": 926,
+						"h": 596
+					}
+				},
+				{
+					"filename": "__small_droid_dead_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1197,
+						"h": 839
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 162,
+						"w": 894,
+						"h": 508
+					},
+					"frame": {
+						"x": 14318,
+						"y": 3847,
+						"w": 894,
+						"h": 508
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:d3c922d1e38df3e6bc56dafa9e687409:60ec41fad53256ba6b502eeacdf324b2:8228b3057b3fbe771ad7c165e458301e$"
+	}
+}

@@ -1,0 +1,3 @@
+name,lastName,lastNameMother,street,number,suburb,postalCode,city,state,phone,email,creditMoney,clientType
+Albert,López,López,Benito Juárez ,4,colonia francesa,69500,mexico,Oaxaca,9541234578,Albert@gmailc.com,12345,potencial
+Julio,López,López,Benito Juárez ,8,colonia francesa,69500,mexico,Oaxaca,9973763558,Albert@gmailc.com,12345,potencial

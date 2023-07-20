@@ -1,0 +1,35 @@
+extends: default
+base:
+  font-family: Helvetica
+footer:
+  height: $base-line-height-length * 4
+  recto:
+    right:
+      content: '{chapter-title} | *{page-number}*'
+    left: 
+      content: 'Las páginas de este documento tienen información confidencial por lo que su contenido no podrá ser duplicado, copiado, publicado o transmitido a ninguna otra entidad que no sea el legítimo destinatario de este documento.'
+  verso:
+    right:
+      content: '{chapter-title} | *{page-number}*'
+    left: 
+      content: 'Las páginas de este documento tienen información confidencial por lo que su contenido no podrá ser duplicado, copiado, publicado o transmitido a ninguna otra entidad que no sea el legítimo destinatario de este documento.'
+page: 
+  margin: [1.1in, 0.67in, 0.67in, 0.67in]
+header:
+  height: $base_line_height_length * 5
+  border_color: dddddd
+  border_width: 0.25
+  recto:
+    center:
+      content: image:header_tec.png[]
+  verso:
+    center:
+      content: image:header_tec.png[]
+title-page:
+  align: center
+  font-size: 18
+  logo:
+    image: image:logotec.png[]
+    top: 15%
+  subtitle:
+    font-color: #111

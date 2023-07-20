@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "grabber.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 240,
+				"h": 308
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "grabber_01.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 149
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 238,
+						"h": 60
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 238,
+						"h": 60
+					}
+				},
+				{
+					"filename": "grabber_02.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 149
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 1,
+						"w": 206,
+						"h": 97
+					},
+					"frame": {
+						"x": 1,
+						"y": 63,
+						"w": 206,
+						"h": 97
+					}
+				},
+				{
+					"filename": "grabber_03.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 149
+					},
+					"spriteSourceSize": {
+						"x": 49,
+						"y": 1,
+						"w": 139,
+						"h": 136
+					},
+					"frame": {
+						"x": 1,
+						"y": 162,
+						"w": 139,
+						"h": 136
+					}
+				},
+				{
+					"filename": "grabber_04.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 149
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 1,
+						"w": 90,
+						"h": 145
+					},
+					"frame": {
+						"x": 142,
+						"y": 162,
+						"w": 90,
+						"h": 145
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:6834fac3ec580fb8bb24a75b69c666f6:861e1a33dc6075958c3af19eb5b8169c:d6c2f1d0625ce4be24864d35c1c32dd0$"
+	}
+}

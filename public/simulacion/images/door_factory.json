@@ -1,0 +1,209 @@
+{
+	"textures": [
+		{
+			"image": "door_factory.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 2044,
+				"h": 882
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "door_idle_01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 1,
+						"y": 442,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_03.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 512,
+						"y": 1,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_04.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 512,
+						"y": 442,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_05.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 1023,
+						"y": 1,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_06.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 1534,
+						"y": 1,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_07.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 1023,
+						"y": 442,
+						"w": 509,
+						"h": 439
+					}
+				},
+				{
+					"filename": "door_open_08.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 509,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 509,
+						"h": 439
+					},
+					"frame": {
+						"x": 1534,
+						"y": 442,
+						"w": 509,
+						"h": 439
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:f0841a10c019f41e487bea67bad6a6ef:52713bb279bddf8f15ff5f9d6121f2e0:432c3b5b9126c76ae7b76e1fff2b26de$"
+	}
+}

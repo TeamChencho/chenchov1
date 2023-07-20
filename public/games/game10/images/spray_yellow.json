@@ -1,0 +1,146 @@
+{
+	"textures": [
+		{
+			"image": "spray_yellow.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1466,
+				"h": 846
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "yellow_beam_charge_01.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 24,
+						"y": 14,
+						"w": 497,
+						"h": 448
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 497,
+						"h": 448
+					}
+				},
+				{
+					"filename": "yellow_beam_charge_04.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 14,
+						"w": 497,
+						"h": 448
+					},
+					"frame": {
+						"x": 500,
+						"y": 1,
+						"w": 497,
+						"h": 448
+					}
+				},
+				{
+					"filename": "yellow_beam_charge_02.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 27,
+						"w": 466,
+						"h": 421
+					},
+					"frame": {
+						"x": 999,
+						"y": 1,
+						"w": 466,
+						"h": 421
+					}
+				},
+				{
+					"filename": "yellow_beam_charge_05.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 43,
+						"y": 27,
+						"w": 466,
+						"h": 421
+					},
+					"frame": {
+						"x": 999,
+						"y": 424,
+						"w": 466,
+						"h": 421
+					}
+				},
+				{
+					"filename": "yellow_beam_charge_03.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 18,
+						"w": 433,
+						"h": 374
+					},
+					"frame": {
+						"x": 1,
+						"y": 451,
+						"w": 433,
+						"h": 374
+					}
+				},
+				{
+					"filename": "yellow_beam_charge_06.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 532,
+						"h": 469
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 18,
+						"w": 433,
+						"h": 374
+					},
+					"frame": {
+						"x": 436,
+						"y": 451,
+						"w": 433,
+						"h": 374
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:e12d1a8099c94f192b75a3646fd72e4a:6a5b7348241c62d9fcb9d84cce3bf1b9:c1d007b2aa25dd3efe8f4e3e9992f986$"
+	}
+}
