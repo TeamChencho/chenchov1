@@ -1,0 +1,185 @@
+<script>
+  $("#sales_btn").on('click', function(e) {
+    if(simulationStarted && simulationStarted === "STARTED"){
+        windowOpened = true
+
+        messageLoadingSale()
+        $("#messageSales").show()
+        
+        $("#form_sales").hide()
+        getData()
+        $("#salesModal").modal("show")
+    }
+  })
+
+  $('#salesModal').on('hidden.bs.modal', function(e) {
+    log("Cerrando")
+    windowOpened = false
+  })
+</script>
+
+<!--Obtener los datos de la base de datos-->
+<script type="text/javascript">
+    function getData(){
+        $.ajax({
+            type: "GET",
+            url: "/simulation/<%= simulation.id %>/<%= team.id %>/sales/data",
+            success: function(response) {
+                log('response')
+                if(response.data.length==0){
+                    $("#btn_submit_sales").hide()
+                    messageNotSaveSale()
+                }else{
+                    $("#btn_submit_sales").show()
+                    $("#messageSales").hide()
+                }
+                createDataTable(response.data)
+                $("#form_sales").show()
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                log(textStatus)
+                messageErrorSale()
+            }
+        })
+    }
+</script>
+
+<!--Crear la tabla para ser asignada al form en el modal de sales-->
+<script>
+    function createDataTable(dataSales){
+        if($.fn.DataTable.isDataTable("#dataTableSales")){
+            //$("#table_report").DataTable().clear().draw();
+            $("#dataTableSales").dataTable().fnDestroy();
+            //$("#table_report").dataTable();
+            $('#dataTableSales').empty();
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Product</th>'
+                thead += '<th>Cost</th>'
+                thead += '<th>Final price</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Product</th>'
+                tfooter += '<th>Cost</th>'
+                tfooter += '<th>Final price</th>'
+            tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $('#dataTableSales').append(thead);
+        $('#dataTableSales').append(tfooter);
+
+        $.fn.dataTable.moment('DD-MM-YYYY');
+        $('#dataTableSales').dataTable({
+            processing: true,
+            lengthMenu: [100, 50, 75],
+            order: [
+                [0, "asc"]
+            ],
+            deferRender: true,
+            data: dataSales,
+            columns: [{
+                    data: null,
+                    render: function(data, type, row) {
+                        return data["SMDproductoFamiliaPtr"]["nombre"]
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return formatter.format(data["totalCost"])
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+
+                        var price = parseInt(data["finalPrice"])
+                        if( parseInt(data["finalPrice"]) < parseInt(data["totalCost"]) ){ price = data["totalCost"]}
+                        var input = ''
+
+                        input += '<div class="input-group mb-3">'
+                            input += '<div class="input-group-prepend">'
+                                input += '<span class="input-group-text">$</span>'
+                            input += '</div>'
+                            input += '<input type="number" class="form-control" aria-describedby="inputGroupPrepend" name="'+data["objectId"]+'" min="'+parseInt(data["totalCost"])+'" value="'+parseInt(price)+'" required>'
+                            input += '<div class="input-group-append">'
+                                input += '<span class="input-group-text">.00</span>'
+                            input += '</div>'
+                        input += '</div>'
+                        
+                        return input
+                    }
+                }
+            ]
+        });
+
+    }
+</script>
+
+<!--Se guardan los precios finales de los productos-->
+<script>
+    $("#form_sales").submit( function( event ) {
+        event.preventDefault();
+
+        $("#btn_submit_sales").hide()
+        messageLoadingSale()
+        $("#messageSales").show()
+
+        $.ajax({
+            type: "POST",
+            url: "/simulation/<%= simulation.id %>/<%= team.id %>/sales/save",
+            data: $(this).serialize(),
+            success: function(response) {
+                log('response')
+                //$("#messageSales").hide()
+                messageSaveSale()
+                $("#btn_submit_sales").show()
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                log(textStatus)
+                messageErrorSale()
+            }
+        })
+    })
+</script>
+
+<script>
+    function messageLoadingSale(){
+       $("#messageSales").removeClass("bg-danger")
+       $("#messageSales").removeClass("bg-success")
+       $("#messageSales").addClass("bg-info")  
+       $("#messageSales").text("")
+       $("#messageSales").text("Loading...")
+    }
+
+    function messageErrorSale(){
+       $("#messageSales").removeClass("bg-info")
+       $("#messageSales").removeClass("bg-success")
+       $("#messageSales").addClass("bg-danger")  
+       $("#messageSales").text("")
+       $("#messageSales").text("*Sorry, there was an error try again")
+    }
+
+    function messageSaveSale(){
+       $("#messageSales").removeClass("bg-info")
+       $("#messageSales").removeClass("bg-danger")
+       $("#messageSales").addClass("bg-success")  
+       $("#messageSales").text("")
+       $("#messageSales").text("*Data updated correctly, you can make use of it")
+    }
+
+    function messageNotSaveSale(){
+       $("#messageSales").removeClass("bg-info")
+       $("#messageSales").removeClass("bg-success")
+       $("#messageSales").addClass("bg-danger")    
+       $("#messageSales").text("")
+       $("#messageSales").text("*You have not explosion of materials in the BOM, please do that first")
+    }
+</script>

@@ -1,0 +1,58 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+  <div class="card shadow mb-4">
+    <a href="#collapseCardExampleFixAssetsInventory" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExampleFixAssetsInventory">
+      <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-plus-circle"></i> Update Fix Assets Inventary</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse" id="collapseCardExampleFixAssetsInventory">
+      <div class="card-body">
+        <form class="form-horizontal" id="form_inventario_activo_fijo">
+          <fieldset>
+            <div id="FixAssetsInventoryCollapse" class="form-group row">
+              
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-12">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Update</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editModalInventarioActivoFijo" tabindex="-1" role="dialog" aria-labelledby="editModalInventarioActivoFijoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalInventarioActivoFijoLabel">Edit Fix Assets Inventory</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_edit_modal_fix_assets_inventory">
+
+        <div class="modal-body">
+
+          <input type="hidden" id="activo_fijo_inventario_id_editar" name="objectId">
+
+          <div class="form-group row">
+            <label for="activo_fijo_inventario_cantidad_editar" class="col-form-label col-sm-2">Quantity</label>
+            <div class="col-md-10">
+              <input id="activo_fijo_inventario_cantidad_editar" name="cantidad" min="1" type="number" class="form-control input-md" required="">
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

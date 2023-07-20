@@ -1,0 +1,230 @@
+<script type="text/javascript">
+    var startDateFinancialLog   = ''
+    var endDateFinancialLog     = ''   
+</script>
+
+<script type="text/javascript">
+    $("#financial_log_btn").on("click",function(){
+        $("#financialLog").modal("show")
+        initializeDateRangerPicker (simulacionDateCurrentFinancialLog)
+        reloadTableFinancialLog ([])
+        createGraph ( [], [] )
+    })
+
+    $('#financialLog').on('hidden.bs.modal', function(e) {
+        windowOpened = false
+    })
+</script>
+<script type="text/javascript">
+    function initializeDateRangerPicker (dateTimer) {
+        var start = moment(dateTimer).startOf('month')//moment().subtract(29, 'days')
+        var end = moment(dateTimer).endOf('month')// moment(dateTimer);
+
+        $('#reportrange').daterangepicker({
+            //showDropdowns: true,
+            minDate: moment(dateTimer).subtract(1, 'years'),
+            maxDate: moment(dateTimer),
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(dateTimer), moment(dateTimer)],
+                'Yesterday': [moment(dateTimer).subtract(1, 'days'), moment(dateTimer).subtract(1, 'days')],
+                'Last 7 Days': [moment(dateTimer).subtract(6, 'days'), moment(dateTimer)],
+                'Last 30 Days': [moment(dateTimer).subtract(29, 'days'), moment(dateTimer)],
+                'This Month': [moment(dateTimer).startOf('month'), moment(dateTimer).endOf('month')],
+                'Last Month': [moment(dateTimer).subtract(1, 'month').startOf('month'), moment(dateTimer).subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+
+        cb(start, end);
+        
+        startDateFinancialLog   = start
+        endDateFinancialLog     = end
+    }
+
+    function cb(start, end) {
+        //log("start : "+start)
+        //log("end : "+end)
+        startDateFinancialLog   = start
+        endDateFinancialLog     = end
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+</script>
+
+<script>
+    $("#search_range_financial_log").on("click",function(e){
+        e.preventDefault()
+        var type    = $("#select_type_modal_financial_log_simulation").val()
+        var status  = $("#select_status_modal_financial_log_simulation").val()
+        
+        $.ajax({
+            type    : "POST",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/finanacial_log/search",
+            data    : {
+                        "messageLogs":'Made a query of type "'+type+'" and status "'+status+'" of the date '+startDateFinancialLog.format('MMMM D, YYYY') + ' - ' + endDateFinancialLog.format('MMMM D, YYYY'),
+                        "startDateFinancialLog" : Number(startDateFinancialLog), 
+                        "endDateFinancialLog"   : Number(endDateFinancialLog),
+                        "type"                  : type,
+                        "status"                : status
+                        },
+            success : function( response ) {
+                //log(response)
+                reloadTableFinancialLog ( response.data )
+                createGraph ( response.dataGraph["xAxis"], response.dataGraph["series"] )
+            },
+            error   : function( XMLHttpRequest, textStatus, errorThrown ) {
+                log(textStatus)
+            }
+        })
+    })
+
+    function reloadTableFinancialLog (data) {
+        if($.fn.DataTable.isDataTable("#dataTableFinacialLog")){
+            $("#dataTableFinacialLog").dataTable().fnDestroy()
+            $("#dataTableFinacialLog").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Type</th>'
+                thead += '<th>Status</th>'
+                thead += '<th>Date</th>'
+                thead += '<th>Before Amount</th>'
+                thead += '<th>Amount Expense/Income</th>'
+                thead += '<th>After Amount</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Type</th>'
+                tfooter += '<th>Status</th>'
+                tfooter += '<th>Date</th>'
+                tfooter += '<th>Before Amount</th>'
+                tfooter += '<th>Amount Expense/Income</th>'
+                tfooter += '<th>After Amount</th>'
+            tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $("#dataTableFinacialLog").append(thead)
+        $("#dataTableFinacialLog").append(tfooter)
+
+        $.fn.dataTable.moment('DD-MM-YYYY');
+        $('#dataTableFinacialLog').dataTable({
+            processing: true,
+            lengthMenu: [100, 50, 75],
+            order: [
+                [2, "desc"]
+            ],
+            deferRender: true,
+            data: data,
+            columns: [{
+                    data: null,
+                    render: function(data, type, row) {
+                        var type = ''
+                        switch (data["type"]){
+                            case "EXPENSE" :
+                                type = '<span class="font-weight-bold" style="color:#cc0000;">Expense</span>'
+                                break
+                            case "INCOME" :
+                                type = '<span class="font-weight-bold" style="color:#8fce00;">Income</span>'
+                                break
+                        }
+                        return type
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        var status = ''
+                        switch (data["status"]){
+                            case "PURCHASING RAW MATERIAL" :
+                                status = "Purchasing Raw Material"
+                                break
+                            case "PURCHASING FIXED ASSET" :
+                                status = "Purchasing Fixed Asset"
+                                break
+                            case "SALE FIXED ASSET" :
+                                status = "Sale Fixed Asset"
+                                break
+                            case "SALARIES WORKERS" :
+                                status = "Salaries Workers"
+                                break
+                        }
+                        return status
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        let afterAmount = moment(Number(data["simulationDate"]))
+                        return afterAmount.format("DD/MM/YYYY HH:mm")
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return formatter.format( data["beforeAmount"] )
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return formatter.format( data["amountMoney"] )
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return formatter.format( data["afterAmount"] )
+                    }
+                }
+            ]
+        });
+    }
+
+    function createGraph ( dataXAxis, dataSeries ) {
+        var categories  = dataXAxis//data["xAxis"]
+        var series      = dataSeries//data["series"]
+        Highcharts.chart('container_graph_financial_log', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Historic Expenses / Income'
+            },
+            xAxis: {
+                categories: categories,
+                title: {
+                    text: "Months"
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function() {
+                            return  "$ "+Highcharts.numberFormat(this.y, 2, '.');
+                        }
+                    }
+                }
+            },
+            yAxis: {
+                min: 0, 
+                labels: {
+                    formatter: function () {
+                        return formatter.format( this.value );
+                    }
+                }
+            },
+             tooltip: {
+                pointFormatter: function (){
+                    return  '<span style="color:' + this.series.color + ';">\u25CF </span> '+ this.series.name +': <b>$ ' + this.y + '</b>' ;
+                }
+            },
+            series: series
+        });
+    }
+</script>

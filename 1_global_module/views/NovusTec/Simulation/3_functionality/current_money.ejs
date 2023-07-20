@@ -1,0 +1,28 @@
+<script type="text/javascript">
+(function(){  
+    
+})
+
+function reloadCurrencyMoney () {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    })
+
+    $.ajax({
+        type    : "GET",
+        url     : "/simulation/<%= simulation.id %>/<%= team.id %>/currency_money/data",
+        success : function( response ) {
+            //console.log(response)
+             if( response.data["teamCurrentMoney"] == undefined || Number( response.data["teamCurrentMoney"] ) <= 0){
+                $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(0))
+             }else{
+                $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(response.data["teamCurrentMoney"]))
+             }
+        },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+            log(textStatus.responseJSON.error)
+        }
+    })
+}
+</script>

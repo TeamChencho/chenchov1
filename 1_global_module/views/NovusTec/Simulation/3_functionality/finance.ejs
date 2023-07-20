@@ -1,0 +1,701 @@
+<!--Variables Globales para Finance-->
+<script type="text/javascript">
+    $(".tabulator-footer").hide()
+
+    var shoppingCartfixedAsset = []  
+
+    var printIconDeleteFixedAsset = function(cell, formatterParams, onRendered){
+        return '<i class=" btn btn-danger fas fa-trash-alt text-white"></i>';
+    }; 
+
+    var dataPurchasingFixedAsset = new Tabulator("#table_Purchasing_Cart_Fixed_Asset", {
+        height      :"310px",
+        data        :shoppingCartfixedAsset, 
+        fitColumns  :true,
+        placeholder :"Nothing in the purchasing cart",
+        columns     :[
+            { title : "Asset name", field : "name", headerSort : false },
+            { title : "Total cost", field :"totalCost", headerSort : false, width : 100, topCalc : function(values, data, calcParams){
+                    let totalCostRM     =   0
+                    values.forEach(function(value){ totalCostRM   +=  parseFloat(value) });
+                    $("#totalCostPurchasingFixedAsset").text(formatter.format(totalCostRM))
+                }, formatter : "money", formatterParams : {
+                    symbol:"$"
+                }
+            },
+            { title : "Total amount", field : "totalAmount", headerSort : false, formatter:"money", formatterParams:{
+                decimal:",",
+                precision:false,
+            }},
+            { title : "", headerSort : false, width : 100, formatter : printIconDeleteFixedAsset, cellClick : function(e, cell){
+                    shoppingCartfixedAsset  = shoppingCartfixedAsset.filter(shoppingCart => shoppingCart.objectId != cell.getRow().getData().objectId);
+                    cell.getRow().delete()
+                }
+            },
+        ],
+    }); 
+
+</script>
+
+<!--Funciones abrir y cerrar modal finance-->
+<script type="text/javascript">
+        //Abrir
+    $("#finance_btn").on('click', function(e) {
+        if(simulationStarted && simulationStarted === "STARTED"){
+            $("#text_message_fixed_Asset").hide()
+            $("#financeModal").modal("show")
+
+            cleanComponents()
+            getFixedAssetInvetory()
+            getFixedAsset()
+            windowOpened = true
+        }
+    })
+
+        //Cerrar
+    $('#purchasingModal').on('hidden.bs.modal', function(e) {
+
+        $("#financeModal").modal("hide")
+        windowOpened = false
+    })
+</script>
+
+<!--Función para obtener todos los activos fijos de la empresa y recargar la data Table-->
+<script type="text/javascript">
+    function getFixedAssetInvetory () {
+        $("#text_message_fixed_Asset").show()
+        loadingTextFixedAsset()
+        $.ajax({
+            type : "GET",
+            url: "/simulation/<%= simulation.id %>/<%= team.id%>/finance/fixed_asset_inventary/data",
+            success: function ( response ) {
+                //log(response)
+                reloadTableFixedAssetInventory( response.data, response.dataProductionLine )
+                createSelectSalaryTabulator (response.dataPhase)
+                succesTextFixedAsset ()
+                /*setTimeout(function() {
+                    $("#text_message_fixed_Asset").hide()
+                },4000);*/
+            },error: function ( XMLHttpRequest, textStatus, errorThrown ) {
+                log(textStatus)
+            }
+        })
+    }
+
+    function reloadTableFixedAssetInventory ( data, dataProductionLine ) {
+        var porcentegeInfo  = 0
+        var priceSaleInfo   = 0 
+        var acquisitionDate = '' 
+        var daysPassedInfo  = 0
+        if ($.fn.DataTable.isDataTable("#financeFixedAssetInventoryDataTable")) {
+            //$("#table_report").DataTable().clear().draw();
+            $("#financeFixedAssetInventoryDataTable").dataTable().fnDestroy();
+            //$("#table_report").dataTable();
+            $('#financeFixedAssetInventoryDataTable').empty();
+        }
+
+        var thead = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Asset Name</th>'
+                thead += '<th>Quatity</th>'
+                thead += '<th>Price Sale</th>'
+                thead += '<th>Price Cost</th>'
+                thead += '<th>Time Life Days</th>'
+                thead += '<th>Purchase Date</th>'
+                thead += '<th>Days Passed</th>'
+                thead += '<th>Depreciation Rate</th>'
+                thead += '<th>Prodcution Line</th>'
+                thead += '<th>Prodcution Line Phase</th>'
+                thead += '<th>Actions</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Asset Name</th>'
+                tfooter += '<th>Quantity</th>'
+                tfooter += '<th>Price Sale</th>'
+                tfooter += '<th>Price Cost</th>'
+                tfooter += '<th>Time Life Days</th>'
+                tfooter += '<th>Purchase Date</th>'
+                tfooter += '<th>Days Passed</th>'
+                tfooter += '<th>Depreciation Rate</th>'
+                tfooter += '<th>Prodcution Line</th>'
+                tfooter += '<th>Prodcution Line Phase</th>'
+                tfooter += '<th>Actions</th>'
+            tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $("#financeFixedAssetInventoryDataTable").append(thead)
+        $("#financeFixedAssetInventoryDataTable").append(tfooter)
+
+        $.fn.dataTable.moment('DD-MM-YYYY');
+        $("#financeFixedAssetInventoryDataTable").dataTable({
+            processing: true,
+            lengthMenu: [ 10, 25, 50, 75, 100 ],
+            order: [[ 6, "desc" ]],
+            deferRender: true,
+            data: data,
+            columns: [
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return data["fixedAssetPtr"]["nombre"]
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return new Intl.NumberFormat().format( data["amount"] )
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+
+                        let start               = Number(data["datePurchasing"])
+                        let end                 = simulacionDateCurrentFinancialLog
+                        let depreciationDays    = data["LifeTime"]//data["fixedAssetPtr"]["tiempoVida"]
+                        let costFixedAsset      = data["Cost"]//data["fixedAssetPtr"]["precioCosto"]
+                        //log("days depreciation = "+depreciationDays)
+
+                        let daysDiff            = getDateDays( start, end )
+                        //log("days diff = " +daysDiff)
+
+                        let percentageDays      = ( daysDiff * 100 ) / depreciationDays
+                        //log("percentage days : ( "+daysDiff+" * 100% ) / "+depreciationDays+" = "+percentageDays.toFixed(2))+"%"
+
+                        let amountDepreciation  =   ( costFixedAsset * percentageDays.toFixed(2)) / 100 
+                        //log("amount depreciation :  "+costFixedAsset+" * "+percentageDays.toFixed(2)+"%) / 100%  = "+amountDepreciation.toFixed(2))
+
+                        let priceSale            = costFixedAsset - amountDepreciation.toFixed(2)
+                        //log("price sale : "+costFixedAsset+" - "+amountDepreciation.toFixed(2)+" = "+ priceSale)
+
+                        if(priceSale <= 0) priceSale = 0
+                        
+                        //log("___*_*_*_*_*_*_*__*_*_*_")
+
+                        priceSaleInfo   = priceSale
+                        daysPassedInfo  = daysDiff
+
+                        return formatter.format(priceSale)
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return formatter.format(data["Cost"])
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return new Intl.NumberFormat().format( data["LifeTime"] )
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return moment(Number(data["datePurchasing"])).format('L')
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        //return moment(simulacionDateCurrentFinancialLog).format('L')
+                        return new Intl.NumberFormat().format( daysPassedInfo )
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        let start    = Number(data["datePurchasing"])
+                        let end      = simulacionDateCurrentFinancialLog
+                        let depreciationDays = data["LifeTime"]
+                        let daysDiff = getDateDays( start, end )
+
+                        let percentageDays = ( daysDiff * 100 ) / depreciationDays
+                        //return data["fixedAssetPtr"]["tarifaDepreciacion"]
+
+                        if(percentageDays >= 100 ){ percentageDays = 100}
+                        porcentegeInfo = percentageDays.toFixed(2)+"%"
+                        
+                        return percentageDays.toFixed(2) + "%"
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        var elementFound = dataProductionLine.find(current => current["fixedAssetTDMSprt"]["objectId"] == data["objectId"])
+                        if(elementFound){
+                            return '<span class="text-center text-success font-weight-bold">'+elementFound["productionLineTDSptr"]["name"]+'</span>'
+                        }else{
+                            return '<span class="text-center text-danger font-weight-bold">This fixed asset is not assigned to a production line</span>'
+                        }
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        if(data["phaseSDMPtr"]){
+                            return '<span class="text-center text-success font-weight-bold">'+data["phaseSDMPtr"]["name"]+'</span>'
+                        }else{
+                            return '<span class="text-center text-danger font-weight-bold">Not assigned</span>'
+                        }
+                    }
+                },
+                 {
+                    data: null,
+                    render: function(data, type, row) {
+                        acquisitionDate = moment(Number(data["datePurchasing"])).format('L')
+                        var button = ""
+                        var exists = true
+                    
+                            button += "<div class='row ml-2 mr-4' style='width:180px'>"
+                                
+                            if(data["phaseSDMPtr"]){
+                                var elementFound = dataProductionLine.find(current => current["fixedAssetTDMSprt"]["objectId"] == data["objectId"])
+                                if(elementFound == undefined){ exists = false } 
+                            } else { exists = false }
+
+                            if (exists) {
+                                button += "<div class='col-md-3'>"
+                                    button += '<span data-toggle="modal"> <button type"button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="To Assign Phase" disabled><i class="fas fa-cogs"></i></button> </span>'
+                                button += "</div>"
+                            }else{
+                                button += "<div class='col-md-3'>"
+                                    button += '<span data-toggle="modal" data-target="#modalPhasesFixedAsset" data-id="'+data["objectId"]+'" data-name="'+data["fixedAssetPtr"]["nombre"]+'"> <button type"button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="To Assign Phase"><i class="fas fa-cogs"></i></button> </span>'
+                                button += "</div>"
+                            }
+
+                                button += "<div class='col-md-3'>"
+                                    button += '<span data-toggle="modal" data-target="#detailsAsset" data-nameAsset = "'+data["fixedAssetPtr"]["nombre"]+'" data-dataAdquisition = "'+acquisitionDate+'" data-serialNumber = "'+data["fixedAssetPtr"]["numeroSerie"]+'" data-model = "'+data["fixedAssetPtr"]["modelo"]+'" data-priceSale = "'+priceSaleInfo+'" data-timeLife = "'+data["fixedAssetPtr"]["tiempoVida"]+'" data-description = "'+data["fixedAssetPtr"]["descripcion"]+'" data-priceCoste = "'+data["fixedAssetPtr"]["precioCosto"]+'" data-mark = "'+data["fixedAssetPtr"]["marca"]+'" data-depreciationRate = "'+porcentegeInfo+'"> <button type"button" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Asset Details"><i class="fas fa-search"></i></button> </span>'
+                                button += "</div>"
+
+                                button += "<div class='col-md-3'>"
+                                    button += '<span data-toggle="modal" data-target=""> <button type"button" onClick="saleFixedAsset(\'' + priceSaleInfo + '\',\'' + data["objectId"] + '\',\'' + data["fixedAssetPtr"]["nombre"] + '\')" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Sale of fixed assets"><i class="fas fa-cash-register"></i></button> </span>'
+                                button += "</div>"
+                            button += "</div>"
+
+                        return button
+                    }
+                }
+            ],
+            rowCallback: function(row, data, index){
+                let start    = Number(data["datePurchasing"])
+                let end      = simulacionDateCurrentFinancialLog
+                let depreciationDays = data["LifeTime"]
+                let daysDiff = getDateDays( start, end )
+
+                let percentageDays = ( daysDiff * 100 ) / depreciationDays
+
+                if(percentageDays >= 100 ){ 
+                    //$('td', row).css('background-color', 'red');
+                    $(row).find('td:eq(2)').css('background-color', '#e4605e');
+                    $(row).find('td:eq(2)').css('color', '#ffffff');
+                }
+            }
+        })
+    }
+
+    function createSelectSalaryTabulator (data){
+        let options = ''
+        $("#select_production_line_phase_fixed_asset").empty()
+        var selectOption
+        for (let i = 0; i < data.length; i++) {
+            if( i == 0 ){
+                selectOption = data[i]["objectId"]
+            }
+            options += '<option value="' + data[i]["objectId"] + '" >' + data[i]["name"]+'</option>'
+        }
+        $("#select_production_line_phase_fixed_asset").html(options).selectpicker('refresh')
+        $("#select_production_line_phase_fixed_asset").selectpicker('val',selectOption).selectpicker('refresh')
+    }
+
+    $("#modalPhasesFixedAsset").on("show.bs.modal",function(e){
+        var id = $(e.relatedTarget).data("id")
+        var name = $(e.relatedTarget).data("name") 
+        $("#input_fixed_asset_ptr").val(id)
+        $("#name_fixed_asset_ptr").val(name)
+    })
+
+    $("#form_Phases_Fixed_Asset").submit(function( event) {
+        var nameFA = $("#name_fixed_asset_ptr").val()
+        var phase = $( "#select_production_line_phase_fixed_asset option:selected" ).text()
+        event.preventDefault();
+        $("#text_message_fixed_Asset").show()
+        loadingTextFixedAsset ()
+        $.ajax({
+            type    : "POST",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/finance/fixed_asset_inventary/to_assign_phase",
+            data    : $(this).serialize()+'&messageLogs=Assigns the '+nameFA+' fixed asset to the '+phase+' phase',
+            success : function( response ) {
+                $("#modalPhasesFixedAsset").modal('hide')
+                //log(response)
+                getFixedAssetInvetory()
+            },error : function ( XMLHttpRequest, textStatus, errorThrown ) {
+                log(textStatus)
+            }
+        })
+    })
+</script>
+
+<!--Agregar datos a los componentes del modal-->
+<script type="text/javascript">
+    $("#detailsAsset").on('show.bs.modal', function (e) {
+        var nameAsset           =   $(e.relatedTarget).data('nameasset')
+        var dataAdquisition     =   $(e.relatedTarget).data('dataadquisition')
+        var serialNumber        =   $(e.relatedTarget).data('serialnumber')
+        var model               =   $(e.relatedTarget).data('model')
+        var priceSale           =   $(e.relatedTarget).data('pricesale')
+        var timeLife            =   $(e.relatedTarget).data('timelife')
+        var description         =   $(e.relatedTarget).data('description')
+        var priceCoste          =   $(e.relatedTarget).data('pricecoste')
+        var mark                =   $(e.relatedTarget).data('mark')
+        var depreciationRate    =   $(e.relatedTarget).data('depreciationrate')
+        $("#assetNameFAI").text(nameAsset)
+        $("#acquisitionDateFAI").text(dataAdquisition)
+        $("#serialNumberFAI").text(serialNumber)
+        $("#modelFAI").text(model)
+        $("#markFAI").text(mark)
+        $("#descriptionFAI").text(description)
+        $("#priceSaleFAI").text(formatter.format(priceSale))
+        $("#priceCosteFAI").text(formatter.format(priceCoste))
+        $("#timeLifeFAI").text(timeLife)
+        $("#depreciationRateFAI").text(depreciationRate)
+    })
+</script>
+
+<!--Obtener los activos fijos y pintarlos en la tabla-->
+<script type="text/javascript">
+    function getFixedAsset () {
+        $.ajax({
+            type    : "GET",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/finance/fixed_asset/data",
+            success : function( response)  {
+                //log( response )
+                reloadFixedAssetTable(response.data)
+                if(response.money == undefined || Number( response.money ) <= 0 ){
+                    $("#span_money_team_purchasing_fixed_asset").text( formatter.format( 0 ) )
+                    $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(0))
+                }else{
+                    $("#span_money_team_purchasing_fixed_asset").text( formatter.format( response.money ) )
+                    $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format( response.money ))
+                }
+                $("#text_message_fixed_Asset").hide()
+            },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                log(textStatus)
+            }
+        })
+    }
+
+    function reloadFixedAssetTable ( data ) {
+        if($.fn.DataTable.isDataTable("#purchasingFixedAssetDataTable")){
+            $("#purchasingFixedAssetDataTable").dataTable().fnDestroy()
+            $("#purchasingFixedAssetDataTable").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Asset name</th>'
+                thead += '<th>Price</th>'
+                thead += '<th>Total cost</th>'
+                thead += '<th>Amount</th>'
+                thead += '<th>Action</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Asset name</th>'
+                tfooter += '<th>Price</th>'
+                tfooter += '<th>Total cost</th>'
+                tfooter += '<th>Amount</th>'
+                tfooter += '<th>Action</th>'
+            tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $("#purchasingFixedAssetDataTable").append( thead )
+        $("#purchasingFixedAssetDataTable").append( tfooter )
+
+        var tableFixedAsset = $("#purchasingFixedAssetDataTable").DataTable({
+            processing  : true,
+            lengthMenu  : [ 100, 10, 25, 50, 75, ],
+            order       : [ 0, "asc" ],
+            deferRender : true,
+            data        : data,
+            columns     : [
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return data["nombre"]
+                    } 
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<span name="" id="span_fixedAsset_price_' + data["objectId"]  + '">' + formatter.format( data["precioCosto"] ) + '</span>'
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<span name="'+data["objectId"]+'" id="span_fixedAsset_costTotal_' + data["objectId"] + '">' + formatter.format( data["precioCosto"] ) + '</span>'
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<input class="form-control" min="1" type="number" name="' + data["objectId"] + '" id="input_fixedAsset_' + data["objectId"] + '" value="1">'
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<button type="button" class="addTaCartFixedAsset btn btn-primary font-weight-bold" data-toggle="tooltip" data-placement="bottom" title="Add to cart"> <i class="fas fa-cart-plus"></i></button>'
+                    }
+                }
+            ]
+        })
+
+        $( "#purchasingFixedAssetDataTable tbody" ).on( ' change keydown keypress keyup ', ' input ', function (e) {
+
+                var  id             = $( this ).attr( "id" ).substr( 17, $( this ).attr( "id" ).length )
+                var priceFixedAsset = parseInt( deleteCommaCostoFixedAsset( $( '#span_fixedAsset_price_' + id ).text().substr(1,$( '#span_fixedAsset_price_' + id ).text().length) ) )
+
+            if( $( this ).val() != "" || $( this ).val() != 0 || parseInt( $( this ).val() ) > 0 ){
+                let amount          = parseInt( $( this ).val() )
+                $("#span_fixedAsset_costTotal_" + id).text( formatter.format( amount * priceFixedAsset ) )
+            }else{
+                priceFixedAsset     = parseInt( deleteCommaCostoFixedAsset( $( '#span_fixedAsset_price_' + id).text().substr(1,$( '#span_fixedAsset_price_' + id ).text().length) ) )
+                $( "#span_fixedAsset_costTotal_" + id ).text( formatter.format( priceFixedAsset ) )
+                $( "#input_fixedAsset_" + id ).val( "1" )
+            }
+        })
+
+        $( "#purchasingFixedAssetDataTable tbody" ).on( ' click ', ' button.addTaCartFixedAsset ', function (e){
+            var data        = tableFixedAsset.row($(this).parents('tr')).data();
+            var amount      = $( '#input_fixedAsset_' + data["objectId"] ).val()
+            var totalCost   = deleteCommaCostoFixedAsset( $( '#span_fixedAsset_costTotal_' + data["objectId"] ).text().substr(1,$( '#span_fixedAsset_costTotal_' + data["objectId"] ).text().length) )
+            var notFound    = false 
+
+            var fixedAssetFoundInCart  = shoppingCartfixedAsset.filter(function(current){
+                return current["objectId"] == data["objectId"]
+            })
+
+            if(fixedAssetFoundInCart.length == 0){
+                shoppingCartfixedAsset.forEach(element => {
+                    if( element["objectId"] == data["objectId"]){
+                        //notFound                = true
+                        element ["totalAmount"] = parseFloat( element ["totalAmount"] )  +   parseFloat(amount)
+                        element ["totalCost"]   = parseFloat( element ["totalCost"] )    +   parseFloat(totalCost)
+                    }
+                })
+                var object =  {
+                                objectId         : data["objectId"],
+                                name             : data["nombre"],
+                                totalAmount      : amount,
+                                LifeTime         : data["tiempoVida"],
+                                Cost             : data["precioCosto"],
+                                priceSale        : data["precioVenta"],
+                                depreciationRate : data["tarifaDepreciacion"],
+                                datePurchasing   : Number(simulacionDateCurrentFinancialLog),
+                                totalCost        : totalCost
+                            }
+                shoppingCartfixedAsset.push(object)
+                addPurchasingFixedAsset(shoppingCartfixedAsset)
+            }else{
+                Swal.fire({
+                    title: 'Sorry!',
+                    text:'This fixed asset already exists in the cart, do you want to add more of this fixed asset?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Ok'
+                }).then((result)=>{
+                    if(result.isConfirmed){
+                        shoppingCartfixedAsset.forEach(element => {
+                            if( element["objectId"] == data["objectId"]){
+                                notFound                = true
+                                element ["totalAmount"] = parseFloat( element ["totalAmount"] )  +   parseFloat(amount)
+                                element ["totalCost"]   = parseFloat( element ["totalCost"] )    +   parseFloat(totalCost)
+                            }
+                        })
+                        addPurchasingFixedAsset(shoppingCartfixedAsset)
+                    }
+                })
+            }
+            
+        })
+    }
+
+    function addPurchasingFixedAsset (shoppingCartfixedAssets) {
+        dataPurchasingFixedAsset.clearData()
+        dataPurchasingFixedAsset.addRow(shoppingCartfixedAssets)
+    }
+
+    function deleteCommaCostoFixedAsset(data){
+        var dataWithoutComma   = ''
+        for ( var i  = 0 ; i <  data.length;  i++ ){
+            if( data[i] != "," ){
+                dataWithoutComma  += data[i] 
+            }
+        }
+        return dataWithoutComma
+    }
+
+</script>
+
+<!--Función del botón de envío para crear la compra de los activos fijos-->
+<script type="text/javascript">
+    $( "#create_order_purchasing_fixed_asset" ).on( 'click', function (e) {
+        let spanMoney           = $("#span_money_team_purchasing_fixed_asset").text()
+        var currentMoney        = parseFloat( deleteCommaCostoFixedAsset( spanMoney.substr( 1, spanMoney.length ) ) )
+        let labelCostTotal      = $("#totalCostPurchasingFixedAsset").text()
+        var currentCostTotal    = parseFloat( deleteCommaCostoFixedAsset( labelCostTotal.substr( 1, labelCostTotal.length ) ) )
+        var dataFinancialLog    = crarObjectFinacialLog( currentCostTotal, currentMoney, currentMoney - currentCostTotal, 'EXPENSE', 'PURCHASING FIXED ASSET'  ) 
+        if(currentCostTotal < currentMoney){
+            
+            if (shoppingCartfixedAsset.length > 0 ){
+                $("#text_message_fixed_Asset").show()
+                loadingTextFixedAsset()
+                $.ajax({
+                    type    : "POST",
+                    url     : "/simulation/<%= simulation.id %>/<%= team.id %>/finance/fixed_asset/save",
+                    data    : { "json" : shoppingCartfixedAsset, "totalCost" : currentCostTotal, "dataFinancialLog" : dataFinancialLog, messageLogs:'Made a purchase order for '+formatter.format(currentCostTotal)+' in fixed assets'},
+                    success : function( response ) {
+
+                        if( response.money == undefined || Number( response.money ) <= 0){
+                            $("#span_money_team_purchasing_fixed_asset").text(formatter.format(0))
+                            $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(0))
+                        }else{
+                            $("#span_money_team_purchasing_fixed_asset").text(formatter.format(response.money))
+                            $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(response.money))
+                        }
+                        
+                        getFixedAssetInvetory()
+                        Swal.fire(
+                            "Succes!",
+                            'Successful purchase',
+                            'success'
+                        )
+                        $("#text_message_fixed_Asset").hide()
+                        cleanComponents ()
+                    },
+                    error   : function( XMLHttpRequest, textStatus, errorThrown ) {
+                        $("#text_message_fixed_Asset").hide()
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while performing the action, please try again',
+                            'error'
+                        )
+                        log(textStatus)
+                    }
+                })
+            }else{
+                Swal.fire(
+                    "We're sorry!",
+                    'There are no fixed assets in the shopping cart',
+                    'warning'
+                )
+            }
+
+        }else{
+            Swal.fire(
+                    "We're sorry!",
+                    'Money is not enough to buy',
+                    'warning'
+                )
+        }
+        
+    })
+</script>
+
+<!--Funcion de mensajes-->
+<script type="text/javascript">
+    function loadingTextFixedAsset (){
+        $("#text_message_fixed_Asset").empty()
+        $("#text_message_fixed_Asset").removeClass("bg-success")
+        $("#text_message_fixed_Asset").addClass("bg-info")
+        $("#text_message_fixed_Asset").text("Loading...")
+    }
+
+    function succesTextFixedAsset (){
+        $("#text_message_fixed_Asset").empty()
+        $("#text_message_fixed_Asset").removeClass("bg-info")
+        $("#text_message_fixed_Asset").addClass("bg-success")
+        $("#text_message_fixed_Asset").text("successful action")
+    }
+</script>
+
+<!--Función para limpiar los componentes de la compra-->
+<script type="text/javascript">
+    function cleanComponents () {
+        shoppingCartfixedAsset  = []
+        dataPurchasingFixedAsset.clearData();   
+        $("#totalCostPurchasingFixedAsset").text(formatter.format(0))
+    }
+</script>
+
+<!--Función para obtener lod días de depreciasion-->
+<script type="text/javascript">
+    function getDateDays (initialDate, currentDate ) {
+        var startDate = moment(initialDate)
+        var endDate = moment(currentDate).format('L')
+        
+        var dayCount = 0;
+
+        while( startDate.format('L') != endDate ) {
+            //log(startDate +"!="+ endDate )
+            dayCount++;
+            startDate= moment(startDate).add(1, 'day')
+        }
+
+        return dayCount; 
+    }
+</script>
+
+<!--Función para vender un activo fijo-->
+<script type="text/javascript">
+    function saleFixedAsset ( priceSale, objectId, nameFA ) {
+         Swal.fire({
+        title: 'Sale!',
+        text: "Do you want to sale this fixed asset?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Sale'
+        }).then((result) => {
+            if (result.value) {
+                let spanMoney           = $("#span_money_team_purchasing_fixed_asset").text()
+                let currentMoney        = parseFloat( deleteCommaCostoFixedAsset( spanMoney.substr( 1, spanMoney.length ) ) )
+                let dataFinancialLog    = crarObjectFinacialLog( priceSale, currentMoney, currentMoney + parseFloat(priceSale), 'INCOME', 'SALE FIXED ASSET'  ) 
+                $.ajax({
+                    type    : "POST",
+                    url     : "/simulation/<%= simulation.id %>/<%= team.id %>/finance/fixed_asset/sale",
+                    data    : { "objectId": objectId, "dataFinancialLog" : dataFinancialLog, messageLogs:'Make a sale of the '+nameFA+' product in '+formatter.format(priceSale)},
+                    success : function( response ) {
+                        Swal.fire(
+                            'success!',
+                            'The sale was successful',
+                            'success'
+                        )
+                        getFixedAssetInvetory()
+                        getFixedAsset()
+                    },error : function ( XMLHttpRequest, textStatus, errorThrown ) {
+                        log(textStatus)
+                        Swal.fire(
+                            'Error!',
+                            XMLHttpRequest.responseJSON.error +', please try again',
+                            'error'
+                        )
+                    }
+                })
+            }
+        })
+    }
+</script>

@@ -1,0 +1,129 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+  <div class="card shadow mb-4" hidden>
+    <a href="#collapseImportarSMP" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportarSMP">
+      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Supplier - Raw Material</h6>
+    </a>
+
+    
+    <div class="collapse" id="collapseImportarSMP">
+      <div class="card-header">
+        <div class="col-md-12">
+          <a href="/templates/PlantillaProveedorMateriaPrima.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal" id="form_importar_suppliers_raw_material" action="/advisers/simulations/master_data/suppliers_raw_material/importar_proveedores_materia_prima/<%= simulation.id %>" method="POST" enctype="multipart/form-data">
+          <fieldset>
+            <div class="form-group row">
+              <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+              <div class="col-md-9">
+                <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md " data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <div class="card shadow mb-4">
+    <a href="#collapseCardExamplePMP" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExamplePMP">
+      <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-plus-circle"></i> Supplier - Raw Material</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse" id="collapseCardExamplePMP">
+      <div class="card-body">
+        <form class="form-horizontal" id="form_proveedor_materia_prima">
+          <fieldset>
+            <div id="" class="form-group row">
+              <label for="selecteProveedorMateriaPrima" class="col-form-label col-sm-2">Suppliers</label>
+              <div class="col-md-10">
+                <select id="selecteProveedorMateriaPrima" name="Provedores" class="form-control selectpicker" data-live-search="true" data-none-selected-tex required>
+
+                </select>
+              </div>
+            </div>
+            <div id="proveedorMateriaPrima" class="form-group row">
+
+              <div class='col-form-label col-sm-3 font-weight-bold center-block'>
+                <p align="center">Raw material</p>
+              </div>
+              <div class='col-form-label col-sm-3 font-weight-bold'>
+                <p align="center">Selection</p>
+              </div>
+              <div class='col-form-label col-sm-3 font-weight-bold'>
+                <p align="center">Cost</p>
+              </div>
+              <div class='col-form-label col-sm-3 font-weight-bold'>
+                <p align="center">Minimum quantity</p>
+              </div>
+            </div>
+
+            <!-- Opcion -->
+            <div id="materiaPrima">
+
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-12">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editModalProveedorMateriaPrima" tabindex="-1" role="dialog" aria-labelledby="editModalProveedorMateriaPrimaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalProveedorMateriaPrimaLabel">Edit Raw Material Inventory</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_proveedor_materia_prima">
+
+        <div class="modal-body">
+
+          <input type="hidden" id="proveedor_materia_prima_id_editar" name="objectId">
+
+          <div class="form-group row">
+            <label for="proveedor_materia_prima_costo_editar" class="col-form-label col-sm-2">Cost</label>
+            <div class="input-group col-md-10">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input id="proveedor_materia_prima_costo_editar" min="1" name="costo" type="number" class="form-control input-md" required="">
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="proveedor_materia_prima_cantidadMinima_editar" class="col-form-label col-sm-2">Minimum Amount</label>
+            <div class="col-md-10">
+              <input id="proveedor_materia_prima_cantidadMinima_editar" min="1" name="cantidadMinima" type="number" class="form-control input-md" required="">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<%- contentFor('head')%>
+<% include ./css %>
+
+<%- contentFor('body')%>
+<body class="nk-body body-wider bg-light-alt">
+  <div class="nk-wrap">
+    
+    <main class="nk-pages nk-pages-centered bg-theme">
+      <div class="ath-container">
+
+        <div class="row">
+          <div class="col-md-12">
+            <% if(error){ %>
+            <div class="alert alert-danger alert-dismissable">
+              <strong>¡Error!</strong> <%= error %>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="ath-body">
+          <h5 class="ath-heading title">Acceso<small class="tc-default">Alumnos</small></h5>
+          <form action="/acceso/iniciar_sesion" method="POST">
+              <div class="field-item">
+                  <div class="field-wrap">
+                      <input name="correo" type="text" class="input-bordered" placeholder="Correo Electrónico">
+                  </div>
+              </div>
+              <div class="field-item">
+                  <div class="field-wrap">
+                      <input name="contrasena" type="password" class="input-bordered" placeholder="Contraseña">
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block btn-md">Iniciar Sesión</button>
+              <hr>
+              <!--<div class="text-center">
+                <a class="small" href="#">Olvidé mi contraseña</a>
+              </div>-->
+          </form>
+        </div>
+        
+      </div>
+
+    </main>
+    
+  </div>
+  <div class="preloader"><span class="spinner spinner-round"></span></div>
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./scripts %>

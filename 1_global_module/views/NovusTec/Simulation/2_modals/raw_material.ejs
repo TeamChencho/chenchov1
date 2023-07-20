@@ -1,0 +1,66 @@
+<!-- Modal -->
+<div class="modal fade" id="rawMaterialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rawMaterialModalTitle"></h5>
+         <div class="ml-5">
+          <ul class="nav nav-pills mb-3" id="pills-tab-inventory-receive-raw-material" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="pills-inventory-raw-material-modal-inventory-simluation-tab" data-toggle="pill" data-info="raw_material_inventory_simulation_modal_raw_material" href="#pills-inventory-raw-material-modal-simluation" role="tab" aria-controls="pills-inventory-raw-material-modal-inventory-simluation" aria-selected="true">Raw Material</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-receive-orders-raw-material-modal-tab-simluation" data-toggle="pill" data-info="receive_orders_raw_material_simulation_modal_raw_material" href="#pills-receive-orders-raw-material-modal-simulation" role="tab" aria-controls="pills-receive-orders-raw-material-modal-simluation" aria-selected="false">Receive Orders</a>
+            </li>
+          </ul>
+         </div>
+        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>-->
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center bg-info font-weight-bold text-white" style="width:100%;" id="messageRawMaterialIncentory"></p>
+        <div class="tab-content" id="pills-tabContent">
+            <!--Panel de Raw Material-->
+          <div class="tab-pane fade show active" id="pills-inventory-raw-material-modal-simluation" role="tabpanel" aria-labelledby="pills-inventory-raw-material-modal-inventory-simluation-tab">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div id="rawMaterialModalTableDiv" style="display:none;">
+                  <div class="table-responsive">
+                      <table class="table table-bordered" id="rawMaterialModalDataTable" width="100%" cellspacing="0">
+                        
+                      </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+            <!--Panel Receive Orders-->
+          <div class="tab-pane fade" id="pills-receive-orders-raw-material-modal-simulation" role="tabpanel" aria-labelledby="pills-receive-orders-raw-material-modal-simulation-tab">
+            <!--<div class="row">
+              <div class="col-md-12">-->
+                  <div class="table-responsive">
+                      <table class="table table-bordered" id="rawMaterialModalDataTableReceiveOrders" width="100%" cellspacing="0">
+                        
+                      </table>
+                    </div>
+             <!-- </div>
+            </div>-->
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>

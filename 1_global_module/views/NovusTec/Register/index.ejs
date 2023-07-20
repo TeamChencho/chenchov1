@@ -1,0 +1,402 @@
+<%- contentFor('head')%>
+<% include ./css %>
+
+<%- contentFor('body')%>
+
+<body class="nk-body body-wider bg-light-alt">
+  <div class="nk-wrap">
+
+    <main class="nk-pages nk-pages-centered bg-theme">
+      <div class="ath-container">
+
+        <div class="row">
+          <div class="col-md-12">
+            <% if(error){ %>
+            <div class="alert alert-danger alert-dismissable">
+              <strong>¡Error!</strong> <%= error %>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="ath-body">
+          <!--Titulo-->
+          <h5 class="ath-heading title mb-1">Register <small id="texto_inicio" class="tc-default">Users <%= environment %></small>
+            <small id="texto_error" class="text-danger"></small>
+            <small id="texto_mostrar" class="tc-default"></small>
+          </h5>
+          <div class="text-center mb-3">
+            <i id="boton_regreso" onclick="botonRegreso()" class="fas fa-arrow-circle-left fa-2x text-center text-primary" style="cursor:pointer;"></i>
+          </div>
+          <form id="registro_de_datos" class="form-group" with="50%">
+
+            <div id="labe_uno" class="text-center"><label for="">Personal information</label>
+              <hr class="m-0 mb-4">
+            </div>
+
+            <!--Nombre usuario-->
+            <div id="agregar_nombre" class="field-item">
+              <div class="field-wrap">
+                <input id="nombre" name="nombre" type="text" class="input-bordered" placeholder="Username">
+              </div>
+            </div>
+            <!--Apellido paterno-->
+            <div id="agregar_apellidoP" class="field-item">
+              <div class="field-wrap">
+                <input id="apellidoP" name="apellidoP" type="text" class="input-bordered" placeholder="Last name">
+              </div>
+            </div>
+            <!--Apellido materno-->
+            <div id="agregar_apellidoM" class="field-item">
+              <div class="field-wrap">
+                <input id="apellidoM" name="apellidoM" type="text" class="input-bordered" placeholder="Second Last name">
+              </div>
+            </div>
+            <!--Teléfon-->
+            <span id="mensaje_error_telefon" class="text-danger"></span>
+            <div id="agregar_telefono" class="field-item mb-0 pb-2">
+              <div class="field-wrap">
+                <input id="telefono" name="telefono" type="tel" class="input-bordered" placeholder="Phone" title="Only numbers are accepted">
+              </div>
+            </div>
+            <div id="label_dos" class="text-center m-0 mt-2 p-0"><label for=""> University/Company Data</label>
+              <hr class="m-0 mb-4">
+            </div>
+
+            <!--Nombre de universidad-->
+            <div id="agregar_nombre_universidad" class="field-item">
+              <div class="field-wrap">
+                <input id="nombreUniversidad" name="nombreUniversidad" type="text" class="input-bordered" placeholder="Name University / Company ">
+              </div>
+            </div>
+            <!--Matrícula-->
+            <div id="agregar_matricula" class="field-item">
+              <div class="field-wrap">
+                <input id="matricula" name="matricula" type="text" class="input-bordered" placeholder="Registration/Employing ID of the applicant">
+              </div>
+            </div>
+            <!--Número de alumnos-->
+            <div id="agregar_numero_usuarios" class="field-item">
+              <div class="field-wrap">
+                <input id="numeroAlumnos" name="numeroAlumnos" type="number" min="1" class="input-bordered" placeholder="Number of Students/Users ">
+              </div>
+            </div>
+            <!--Correo electronico-->
+            <div id="agregar_correo" class="field-item">
+              <div class="field-wrap">
+                <input id="correo" name="correo" type="email" class="input-bordered" placeholder="Email">
+              </div>
+            </div>
+            <!--Contraseña-->
+            <div id="agregar_contrasena" class="field-item">
+              <div class="field-wrap">
+                <input id="contrasena" name="contrasena" type="password" class="input-bordered" placeholder="Password" title="The password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 characters.">
+              </div>
+            </div>
+            <!--Confirmar Contraseña-->
+            <div id="agregar_confirmar_contrasena" class="field-item">
+              <div class="field-wrap">
+                <input id="confimar_contrasena" type="password" class="input-bordered" placeholder="Confirm Password" title="The password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 characters.">
+              </div>
+            </div>
+            <!--Comentarios-->
+            <div id="agregar_comentario" class="field-item">
+              <div class="field-wrap">
+                <textarea rows="" cols="" placeholder="Add your comments" class="input-bordered" name="comentario" id="comentario"></textarea>
+              </div>
+            </div>
+
+            <input id="IdUsuario" type="text" name="IdUsuario" value="" hidden>
+
+            <!--Botón de acción del formulario-->
+            <button id="boton_formulario" type="submit" class="btn btn-primary btn-block btn-md">Verify User</button>
+            <button id="boton_guardarContrasena" onclick="GuardarContrasena()" type="button" class="btn btn-primary btn-block btn-md">Save Password</button>
+            <button id="boton_enviarSolicitud" onclick="EnviarSolicitud()" type="button" class="btn btn-primary btn-block btn-md">Send request</button>
+          </form>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+  <div class="preloader"><span class="spinner spinner-round"></span></div>
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./scripts %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    ocultarElemtosAlCargarVista()
+  })
+</script>
+<script type="text/javascript">
+  var log = console.log
+  $("#registro_de_datos").on("submit", function(e) {
+    e.preventDefault();
+    verificarRegistro($(this).serialize())
+  })
+
+  async function verificarRegistro(data) {
+    try {
+      const response = await verificarUsuarioAjax(data)
+      console.log("response here")
+      console.log(response)
+      if (response.usuarioSistema == false && response.existeContrasena == false) {
+          mostrarTodosLosComponentes()
+        }
+        if (response.usuarioSistema == true && response.existeContrasena == true) {
+
+          setTimeout(function() {
+            $("#texto_error").show()
+            $("#texto_error").text('Sorry the user already exists and is in use')
+            //$("#texto_inicio").hide()
+          }, 1000);
+
+          // setTimeout(function() {
+          //   $("#texto_error").hide()
+          //   $("#texto_inicio").show()
+          // }, 4000);
+          //$("#texto_error").hide()
+          //$("#texto_inicio").show()
+        }
+        if (response.usuarioSistema == true && response.existeContrasena == false) {
+          mostrarCamposParaGuardarContrasena()
+          $("#IdUsuario").val(response.data["objectId"])
+        }
+    } catch(err) {
+      Swal.fire(
+        '¡Error!',
+        'An error occurred while performing the action, please try again',
+        'error'
+      )
+      console.log(err);
+    }
+  }
+
+  function verificarUsuarioAjax(data) { 
+    return $.ajax({
+      type: "POST",
+      data: data,
+      url: "/registro/verificar_usuario",
+    });
+  };
+</script>
+<script type="text/javascript">
+  function ocultarElemtosAlCargarVista() {
+    $("#texto_inicio").show()
+    $("#texto_mostrar").hide()
+    $("#boton_regreso").hide()
+    $("#labe_uno").hide()
+    $("#agregar_nombre").hide()
+    $("#agregar_apellidoP").hide()
+    $("#agregar_apellidoM").hide()
+    $("#agregar_telefono").hide()
+    $("#label_dos").hide()
+    $("#agregar_nombre_universidad").hide()
+    $("#agregar_numero_usuarios").hide()
+    $("#agregar_matricula").hide()
+    $("#agregar_correo").show()
+    $("#agregar_contrasena").hide()
+    $("#agregar_confirmar_contrasena").hide()
+    $("#agregar_comentario").hide()
+    $("#boton_formulario").show()
+    $("#boton_guardarContrasena").hide()
+    $("#boton_enviarSolicitud").hide()
+    $("#texto_error").hide()
+    $("#mensaje_error_telefon").hide()
+
+  }
+</script>
+<script type="text/javascript">
+  function mostrarTodosLosComponentes() {
+    $("#texto_inicio").hide()
+    $("#texto_mostrar").show()
+    $("#texto_mostrar").text("Enter your data for the registration request")
+    $("#boton_regreso").show()
+    $("#labe_uno").show()
+    $("#agregar_nombre").show()
+    $("#agregar_apellidoP").show()
+    $("#agregar_apellidoM").show()
+    $("#agregar_telefono").show()
+    $("#label_dos").show()
+    $("#agregar_nombre_universidad").show()
+    $("#agregar_numero_usuarios").show()
+    $("#agregar_matricula").show()
+    $("#agregar_comentario").show()
+    //$("#agregar_correo").show()
+    //$("#agregar_contrasena").show()
+    //$("#agregar_confirmar_contrasena").show()
+    $("#boton_formulario").hide()
+    $("#boton_guardarContrasena").hide()
+    $("#boton_enviarSolicitud").show()
+  }
+</script>
+<script type="text/javascript">
+  async function botonRegreso() {
+    // Verificar si el usuario está haciendo una solicitud de registro o set de contraseña
+    if($("#boton_enviarSolicitud").is(':visible')) {
+      ocultarElemtosAlCargarVista()
+      limpiar()
+    } else {
+      // Verificar que el usuario ha creado una contraseña
+      try {
+        const response = await verificarUsuarioAjax({'correo': $("#correo").val() })
+        if (response.existeContrasena == false) {
+          // Alerta de verificación si está seguro que desea salir sin setear contraseña    
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "Your account doesn't have a password yet. You won't be able to use the system!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, go back!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              ocultarElemtosAlCargarVista()
+              limpiar()
+            }
+          })
+        }
+      } catch(err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong! Please check your internet connection',
+          footer: ''
+        })
+      }
+    }
+  }
+
+  function limpiar() {
+    $("#nombre").val('')
+    $("#apellidoP").val('')
+    $("#apellidoM").val('')
+    $("#telefono").val('')
+    $("#matricula").val('')
+    $("#correo").val('')
+    $("#contrasena").val('')
+    $("#confimar_contrasena").val('')
+    $("#nombreUniversidad").val('')
+    $("#numeroAlumnos").val('')
+    $("#comentario").val('')
+  }
+</script>
+<script type="text/javascript">
+  function mostrarCamposParaGuardarContrasena() {
+    $("#texto_inicio").hide()
+    $("#boton_regreso").show()
+    $("#texto_mostrar").show()
+    $("#agregar_correo").hide()
+    $("#texto_mostrar").text("The email has already been added, you must assign a password. The password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 characters")
+    $("#agregar_contrasena").show()
+    $("#agregar_confirmar_contrasena").show()
+    $("#boton_guardarContrasena").show()
+    $("#boton_formulario").hide()
+  }
+</script>
+<script type="text/javascript">
+  function GuardarContrasena() {
+    var contrasena1 = $("#contrasena").val()
+    var contrasena2 = $("#confimar_contrasena").val()
+
+    var expreRegular = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+    if (contrasena1 == "" || contrasena2 == "") {
+      return mensajeErrorContasena("A field is empty")
+    }
+    if (expreRegular.test(contrasena1) == false && expreRegular.test(contrasena2) == false) {
+      return mensajeErrorContasena("The password does not have the indicated format, the password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 characters.")
+    }
+    if (contrasena1 != contrasena2) {
+      return mensajeErrorContasena("Passwords do not match")
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "/registro/contrasena",
+      data: {
+        "idUsuario": $("#IdUsuario").val(),
+        "contrasena": $("#contrasena").val()
+      },
+      success: function(response) {
+        Swal.fire(
+          'Edited!',
+          'Password has been added successfully, please login',
+          'success'
+        ).then(() => {
+          window.location.href = "/acceso"
+        });
+      },
+      error: function(XMLHttpRequest, TextStatus, errorThrown) {
+        Swal.fire(
+          'Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  }
+</script>
+<script type="text/javascript">
+  function mensajeErrorContasena(texto) {
+
+    setTimeout(function() {
+      //$("#texto_mostrar").hide()
+      $("#texto_error").show()
+      $("#texto_error").text(texto)
+    }, 1000);
+
+    /*setTimeout(function() {
+      $("#texto_mostrar").show()
+      $("#texto_error").hide()
+    }, 9000);*/
+  }
+</script>
+<script type="text/javascript">
+  function EnviarSolicitud() {
+
+    var numero = $("#telefono").val()
+    var expresionTelefono = /^[0-9.]+$/
+
+    if (!expresionTelefono.test(numero)) {
+      $("#mensaje_error_telefon").show()
+      return $("#mensaje_error_telefon").text("Only numbers required")
+
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "/registro/solicitud",
+      data: {
+        "nombre": $("#nombre").val(),
+        "apellidoP": $("#apellidoP").val(),
+        "apellidoM": $("#apellidoM").val(),
+        "telefono": $("#telefono").val(),
+        "matricula": $("#matricula").val(),
+        "correo": $("#correo").val(),
+        "nombreUniversidad": $("#nombreUniversidad").val(),
+        "numeroAlumnos": $("#numeroAlumnos").val(),
+        "comentario": $("#comentario").val()
+      },
+      success: function(response) {
+        Swal.fire(
+          'Thank you for your request!',
+          'The administrator will contact you soom',
+          'success'
+        ).then(() => {
+          window.location.href = "/acceso"
+        });
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        Swal.fire(
+          'Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  }
+</script>

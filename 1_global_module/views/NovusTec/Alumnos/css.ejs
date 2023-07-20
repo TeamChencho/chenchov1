@@ -1,0 +1,343 @@
+<!-- Custom fonts for this template-->
+<link href="/assets/admin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="/assets/admin2/css/sb-admin-2.css" rel="stylesheet">
+<link href="/assets/admin2/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+
+<style>
+  .vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    /* This makes sure that we can still click outside of the modal to close it */
+  }
+
+  .vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
+  }
+
+  #modal-content-spinner {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width: inherit;
+    max-width: inherit;
+    /* For Bootstrap 4 - to avoid the modal window stretching full width */
+    height: inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+  }
+
+  .cabeceras .btn-sm {
+    padding: 5px 2px !important;
+    font-size: 14px !important;
+  }
+
+  .cabeceras_ocultas .btn-sm {
+    padding: 0px 2px !important;
+    font-size: 14px !important;
+  }
+
+  .botones_accion .accion {
+    padding-left: 7px !important;
+  }
+  
+  .contenedor {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .centrado {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #666;
+    position: absolute;
+    left: calc(80% - 90px);
+    top: -70px;
+  }
+
+  #seleccion_avatars {
+    margin-left: 4%;
+    width: 70%;
+    height: 70%;
+    border: 31px;
+    /*border-radius: 50%;*/
+    /*border: 2px solid #666;*/
+  }
+
+  #divOpciones {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+  }
+
+  #divOpciones:hover {
+    background: #36b9cc;
+  }
+
+  #icono:hover {
+    background: #36b9cc;
+  }
+
+  .height_cards {
+    height: 510px;
+    border-radius: 7px;
+  }
+  
+  .frontLoadingModalProfile{
+    background-color: rgba(0, 0, 0, 0.5);
+    position:fixed;
+    z-index: 1;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+  }
+
+  /* Extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) {
+    .height_cards {
+      margin-bottom:2%;
+    }
+  }
+</style>
+<style>
+  @media only screen and (min-width: 320px) and (max-device-width: 768px) {
+
+    /* Force table to not be like tables anymore */
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+      text-align: center;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 1px solid #ccc;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 35%;
+    }
+
+    td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      left: 6px;
+      width: 25%;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+
+    /*
+    Label the data
+    */
+
+  }
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    body {
+      padding: 0;
+      margin: 0;
+      /*width: 320px; */
+    }
+
+    .tarjetitas {
+      /*height: 310px !important;*/
+      /*height: 410px !important;*/
+    }
+
+    #tbody_tarjetas tr td {
+      padding: 0px !important;
+    }
+  }
+
+  /* iPads (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 481px) and (max-device-width: 768px) {
+
+    /*body {
+      width: 495px;
+    }*/
+    .tarjetitas {
+      /*height: 275px !important;*/
+      /*height: 340px !important;*/
+    }
+
+    #tbody_tarjetas tr td {
+      padding: 0px !important;
+    }
+  }
+</style>
+
+<style type="text/css">
+  .input-color {
+    position: relative;
+  }
+
+  .input-color input {
+    padding-left: 20px;
+  }
+
+  .input-color .color-box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-color: #ccc;
+    left: 5px;
+    top: 5px;
+  }
+
+  /* ocultando columnas  de id para la tabla de prospectos*/
+  #idoculto,
+  #idoculto2 {
+    display: ;
+  }
+</style>
+
+<style type="text/css">
+  .funkyradio div {
+    overflow: hidden;
+  }
+
+  .funkyradio label {
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #D1D3D4;
+    font-weight: normal;
+  }
+
+  .funkyradio input[type="radio"]:empty,
+  .funkyradio input[type="checkbox"]:empty {
+    display: none;
+  }
+
+  .funkyradio input[type="radio"]:empty~label,
+  .funkyradio input[type="checkbox"]:empty~label {
+    position: relative;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    margin-top: 2em;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .funkyradio input[type="radio"]:empty~label:before,
+  .funkyradio input[type="checkbox"]:empty~label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .funkyradio input[type="radio"]:hover:not(:checked)~label,
+  .funkyradio input[type="checkbox"]:hover:not(:checked)~label {
+    color: #888;
+  }
+
+  .funkyradio input[type="radio"]:hover:not(:checked)~label:before,
+  .funkyradio input[type="checkbox"]:hover:not(:checked)~label:before {
+    content: '\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
+  }
+
+  .funkyradio input[type="radio"]:checked~label,
+  .funkyradio input[type="checkbox"]:checked~label {
+    color: #777;
+  }
+
+  .funkyradio input[type="radio"]:checked~label:before,
+  .funkyradio input[type="checkbox"]:checked~label:before {
+    content: '\2714';
+    text-indent: .9em;
+    color: #333;
+    background-color: #ccc;
+  }
+
+  .funkyradio input[type="radio"]:focus~label:before,
+  .funkyradio input[type="checkbox"]:focus~label:before {
+    box-shadow: 0 0 0 3px #999;
+  }
+
+  .funkyradio-default input[type="radio"]:checked~label:before,
+  .funkyradio-default input[type="checkbox"]:checked~label:before {
+    color: #333;
+    background-color: #ccc;
+  }
+
+  .funkyradio-primary input[type="radio"]:checked~label:before,
+  .funkyradio-primary input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #337ab7;
+  }
+
+  .funkyradio-success input[type="radio"]:checked~label:before,
+  .funkyradio-success input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #5cb85c;
+  }
+
+  .funkyradio-danger input[type="radio"]:checked~label:before,
+  .funkyradio-danger input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #d9534f;
+  }
+
+  .funkyradio-warning input[type="radio"]:checked~label:before,
+  .funkyradio-warning input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #f0ad4e;
+  }
+
+  .funkyradio-info input[type="radio"]:checked~label:before,
+  .funkyradio-info input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #5bc0de;
+  }
+</style>

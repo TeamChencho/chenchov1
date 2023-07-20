@@ -1,0 +1,105 @@
+<!-- Modal -->
+<div class="modal fade" id="productionLinesModalSimulation" tabindex="-1" role="dialog"
+  aria-labelledby="productionLinesModalSimulationLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productionLinesModalSimulationTitle">Production Line</h5>
+        <div class="ml-5">
+          <ul class="nav nav-pills" id="pills-tabs-production-line-template" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="pills-production-line-template-activated-template-tab" data-toggle="pill"
+                href="#pills-production-line-template-activated-template" role="tab"
+                aria-controls="pills-production-line-template-activated-template" aria-selected="true">Activated
+                Templates</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-production-line-template-template-to-active-tab" data-toggle="pill"
+                href="#pills-production-line-template-template-to-active" role="tab"
+                aria-controls="pills-production-line-template-template-to-active" aria-selected="false">Templates To
+                Active</a>
+            </li>
+          </ul>
+        </div>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        <!--<span aria-hidden="true" style="margin-top: -13px;margin-left: -7px;">&times;</span>-->
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="tab-content" id="pills-tabContent-production-line">
+          <div class="tab-pane fade show active" id="pills-production-line-template-activated-template" role="tabpanel"
+            aria-labelledby="pills-production-line-template-activated-template-tab">
+            <p class="text-center bg-info font-weight-bold text-white" style="width:100%;" id="messageProductionLineActivatedTemplate">Loading...</p>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTableProductionLineTemplate" width="100%" cellspacing="0">
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="pills-production-line-template-template-to-active" role="tabpanel"
+            aria-labelledby="pills-production-line-template-template-to-active-tab">
+            <div class="row" id="component_production_line_template">
+              <div class="col-3  border border-left-0 border-top-0 border-bottom-0 mb-3 shadow" style="height:100%;">
+                <div class="nav flex-column nav-pills" id="production-line-template-modal-simulation-pills-tab"
+                  role="tablist" aria-orientation="vertical">
+                  <!--<a class="nav-link active" id="v-pills-Opcion1-tab" data-toggle="pill" href="#production-line-template-modal-simulation-pills-Opcion1" role="tab" aria-controls="v-pills-Opcion1" aria-selected="true">Home</a>-->
+                </div>
+              </div>
+              <div class="col-9">
+                <p class="text-center bg-info font-weight-bold text-white" style="width:100%;"
+                  id="messageProductionTemplate"></p>
+                <div class="form-group row pl-3">
+                  <label for="nameTemplate" class="col-sm-3 col-form-label">Add new name :</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" value="" id="nameTemplate" placeholder="Name">
+                  </div>
+                </div>
+                <div class="tab-content" id="production-line-template-modal-simulation-pills-tabContent">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="phasesTemplate" tabindex="-1" role="dialog" aria-labelledby="phasesTemplateTitle" aria-hidden="true" style="background-color: rgba(0,0,0,0.7)">
+  <div class="modal-dialog modal-lg" role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Phases</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row" id="component_production_line_template">
+
+          <div class="col-3  border border-left-0 border-top-0 border-bottom-0 mb-3 shadow pt-3" style="height:100%;">
+            <div class="nav flex-column nav-pills" id="production-line-template-phases-modal-simulation-pills-tab"
+              role="tablist" aria-orientation="vertical">
+            </div>
+          </div>
+  
+          <div class="col-9" style="height:100%;">
+            <p class="text-center bg-info font-weight-bold text-white" style="width:100%;" id="messagePhases">Loading...</p>
+            <div class="tab-content" id="production-line-template-phases-modal-simulation-pills-tabContent">
+            </div>
+            <div class="table-responsive mt-4">
+              <table class="table table-bordered" id="dataTablePhases" width="100%" cellspacing="0">
+
+              </table>
+            </div>
+          </div>
+  
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+</div>

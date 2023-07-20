@@ -1,0 +1,37 @@
+<div class="modal fade" id="editSalary" tabindex="-1" role="dialog" aria-labelledby="editSalaryLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="department_salary"></h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_salary_tabulator">
+        <div class="modal-body">
+          <input id="id_salary" name="salaryTabulatorPtr" type="hidden" class="form-control input-md" val="" required="">
+          <!-- Text input-->
+          <div class="form-group row">
+            <label for="input_salary_tabulator" class="col-form-label col-sm-2">Salary</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group" style="width: 100%;">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input id="input_salary_tabulator" min="1" name="salary" type="number" class="form-control input-md" required="">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

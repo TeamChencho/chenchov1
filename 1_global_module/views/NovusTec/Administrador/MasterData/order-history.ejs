@@ -1,0 +1,110 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+  <!-- <div class="card shadow mb-4">
+    <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Orders History</h6>
+    </a>
+
+    <div class="collapse" id="collapseImportar">
+      <div class="card-header">
+        <div class="col-md-12">
+          <a href="/templates/PlantillaProveedores.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal" id="form_importar_suppliers" action="/administrador/master_data/orders_history/importar_historial_ordenes"  method="POST" enctype="multipart/form-data">
+          <fieldset>
+            <div class="form-group row">
+              <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+              <div class="col-md-9">
+                <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md "  data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="card shadow mb-4">
+    <a href="#collapseCardExamplePMP" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExamplePMP">
+      <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-plus-circle"></i> Order History</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse" id="collapseCardExamplePMP">
+      <div class="card-body">
+        <form class="form-horizontal" id="form_order_history">
+          <fieldset>
+            <div id="" class="form-group row">
+              <label for="selectProducts" class="col-form-label col-sm-2">Products</label>
+              <div class="col-md-4">
+                <select id="selectProducts" name="products" class="form-control selectpicker" data-live-search="true" data-none-selected-text required>
+
+                </select>
+              </div>
+              <label for="qtyProducts" class="col-form-label col-sm-2">Quantity</label>
+              <div class="col-md-4">
+                <input type="text" name="qty" class="form-control">
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-12">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModalOrderHistory" tabindex="-1" role="dialog" aria-labelledby="editModalOrderHistoryLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalOrderHistoryLabel">Edit Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_orders_history">
+        <div class="modal-body">
+          <input type="hidden" id="objectId_orders_history_editar" name="objectId">
+          <!-- Text input-->
+          <div class="form-group row">
+            <label for="abreviatura_editar" class="col-form-label col-sm-2">Product</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                <input id="product_editar" name="producto" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="cantidad_editar" class="col-form-label col-sm-2">Quantity</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                <input id="cantidad_editar" name="cantidad" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

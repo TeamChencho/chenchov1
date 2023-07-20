@@ -1,0 +1,309 @@
+<%- contentFor('head')%>
+<% include ./css %>
+
+<%- contentFor('body')%>
+
+<body>
+
+    <header>
+      <div class="collapse bg-white" id="navbarHeader">
+        <div class="container">
+          <!--<div class="row pt-1 pb-1" style="border: 1px solid #e5e6e8;">-->
+          <div class="row pt-1 pb-1" style="">
+            <div class="col-sm-2 col-md-1">
+            </div>
+            <div class="col-sm-8 offset-md-1">
+              <div class="row align-items-center justify-content-center text-center">
+                <button type="button" class="btn_header m-1" onclick="goElement('text_DEVELOPERS')" style="text-align: justify;  line-height: 2; border:0px; background:white; outline:none;">DEVELOPERS</button>
+                <button type="button" class="btn_header m-1" onclick="goElement('text_SUMMARY')" style="text-align: justify;  line-height: 2; border:0px; background:white; outline:none;">ABSTRACT</button>
+                <!--<button type="button" class="btn_header m-1" onclick="goElement('text_OBJECTIVE')" style="text-align: justify;  line-height: 2; border:0px; background:white; outline:none;">OBJECTIVE</button>
+                <button type="button" class="btn_header m-1" onclick="goElement('text_COURSE')" style="text-align: justify;  line-height: 2; border:0px; background:white; outline:none;">COURSE</button>-->
+                <button type="button" class="btn_header m-1" onclick="goElement('text_LOCATION')" style="text-align: justify;  line-height: 2; border:0px; background:white; outline:none;">LOCATION</button>
+              </div>
+            </div>
+            <div class="col-sm-2 col-md-1">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-light bg-white box-shadow" style="border-bottom: 1px solid #d5d5d5; border: 1px solid #e5e6e8" >
+        <div class="container p-0 ml-5 m-0 d-flex justify-content-between col">
+          
+          <a href="/" class="navbar-brand d-flex align-items-left">
+            <div class="row">
+              <div class=" mt-2">
+                <img  hidden src="/images/Logo_del_ITESM.svg" alt="" style="width: 40px; height: 40px;">
+              </div>
+              <div class="col-md-3 border-right border-dark mt-2 pt-2 pb-1 pr-4">
+                <span style=" position: top; font-family: Adelle W01 Regular; font-size:2.2rem; line-height: 1.75rem; color: #272727;" class="text-dark font-weight-bold mr-5 pr-5">NOVUS</span>
+                <span hidden style=" position: top; font-family: Adelle W01 Regular; font-size:2.2rem; line-height: 1.75rem; color: #272727;" class="text-dark">ITESM</span>
+              </div>
+              <div class="col-md-6 pr-0">
+                  <span style=" position: top; font-family: Adelle W01 Regular; font-size:0.875rem; color: #272727;" class="text-dark">Instituto Tecnológico y de Estudios Superiores de Monterrey</span>
+                  <span style=" position: top; font-family: Adelle W01 Regular; font-size:0.875rem; color: #272727;" class="text-dark row pl-3">Campus Querétaro</span>
+              </div>
+            </div>
+          </a>
+          <!--
+            <div class="bg-white collapse show" id="navbarHeader" style="margin-left: -10%;">
+            <div class="row pt-1 pb-1">
+              <div class="col-sm-12 offset-md-1">
+                <div class="row align-items-center justify-content-center text-center">
+                  <button type="button" class="btn_header m-1" style="text-align: justify;  line-height: 2; border:0px; background:white;">SUMMARY</button>
+                  <button type="button" class="btn_header m-1" style="text-align: justify;  line-height: 2; border:0px; background:white;">OBJECTIVE</button>
+                  <button type="button" class="btn_header m-1" style="text-align: justify;  line-height: 2; border:0px; background:white;">COURSE</button>
+                  <button type="button" class="btn_header m-1" style="text-align: justify;  line-height: 2; border:0px; background:white;">LOCATION</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <div class="justify-content-right"> 
+            <button hidden class="navbar-toggler collapsed mr-2" id="menu_header" style=" padding: 0.575rem 0.8rem; margin: 0 0 0.225rem; font-size: 1rem;" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="true" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="/acceso"class="mit--cta--header" id="btn_start_header" target="_blank" style=" border: 1PX solid rgba(0,0,0,.1);border-radius: 5px;">
+              PLAY THE SIMULATION <span class="arrow_header">&xrarr;</span>
+            </a>
+          </div>
+          
+        </div>
+      </div>
+      <div class="d-block" style="background:#ffff;color:#ffff; box-shadow:inset -1px 2px 5px #dee3ed; width: 1000%;" id="componentShadown">sombra</div>
+    </header>
+
+    <!--<section class="jumbotron text-center">
+      <div class="container">-->
+        <img src="/images/Ensamble_robots.png" class="" style="width:100%; height:45rem; ">
+      <!-- </div>
+    </section>-->
+    
+    <div class="album py-5 bg-light" style="margin-top:-120px; position:sticky; width:96%;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-0 ml-5">
+            <div class="d-none d-lg-block d-xl-none d-xl-block d-lg-none" style=" margin-left:45%; border-left: 3px solid #cecece; width:1px;  height:106px;">
+
+            </div>
+            <i class="fas fa-university mt-2"></i>
+          </div>
+          <div class="col-md-11">
+            <p class="p-0 m-0">Tec Resources</p>
+            <h1 class="p-0 m-0 font-weight-bold" style="font-weight: 100; font-size: 2rem; text-decoration-skip: ink; text-decoration:underline;">The Mixed reality Enterprise Planning,  MxREP  “A manufacturing process simulation”</h1>
+            <p class="mr-5 mt-2" style="padding-left: 5px; border-left: 2px solid rgb(214, 206, 206) ;"> Mar 4, 2022</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container " style="width:60%;">
+        <div class="row justify-content-center">
+          <div class="col-aut mt-5 pt-3 ml-5 pl-5">
+            <div class="row" >
+              <h2 class="font-weight-bold">A NOVUS Initiative.</h2>
+            </div>
+            <div class="row mt-4">
+              <h3 class="font-weight-bold text-uppercase " id="text_DEVELOPERS">Developers</h3>
+            </div>
+            <div class="row">
+              <p class="font-weight-normal" style="text-align: justify;  line-height: 2;">
+              
+              Carlos Alberto González Almaguer PhD, Verónica Saavedra Gastélum Phd, Eduardo Caballero Montes MC, Pedro Oscar Pérez Murueta PhD
+              </p>
+            </div>
+            <div class="row align-items-center justify-content-center text-center">
+              <div class="ml-1 mr-1">
+                <img src="/images/Carles.png" alt="" style="width: 200px; height: 250px;" title="Carlos Alberto González Almague">
+              </div>
+              <div class="ml-1 mr-1">
+                <img src="/images/Vero.png" alt="" style="width: 200px; height: 250px;" title="Verónica Saavedra Gastélum">
+              </div>
+              <div class="ml-1 mr-1">
+                <img src="/images/Lalo.png" alt="" style="width: 200px; height: 250px;" title="Eduardo Caballero Montes">
+              </div>
+              <div class="ml-1 mr-1">
+                <img src="/images/Peter.png" alt="" style="width: 200px; height: 250px;" title="Pedro Oscar Pérez Murueta">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <p class="font-weight-normal" style="text-align: justify;  line-height: 2;">
+                All of them are professors at Tecnologico de Monterrey and are also members of the Innovative Education Research Group
+              </p>
+            </div>
+            <div class="row mt-4">
+              <h3 class="font-weight-bold text-uppercase" id="text_SUMMARY">Abstract</h3>
+            </div>
+            <div class="row">
+              <p class="font-weight-normal" style="text-align: justify;  line-height: 2;">
+              The MxREP is a manufacturing process simulator based on an ERP (Enterprise Resource Planning) system that lies upon the educational board game "Tec21 Car Assembler." Using virtual and augmented reality, the student can apply the virtual classroom's theoretical learning to practice, guided by an academic figure who collaborates with training partners from companies and institutions associated with Tecnologico de Monterrey to transfer knowledge to students.
+              </p>
+              <div class="col-md-6 align-items-center justify-content-center text-center">
+                <div class="ml-1 mr-1">
+                  <img src="/images/2020-12-09_09h35_30.png" alt="" style="width: 100%; height: 100%; image-rendering: -webkit-optimize-contrast;">
+                </div>
+              </div>
+              <div class="col-md-6 align-items-center justify-content-center text-center">
+                <div class="ml-1 mr-1">
+                  <img src="/images/2020-12-09_09h34_24.png" alt="" style="width: 100%; height: 100%; image-rendering: -webkit-optimize-contrast;">
+                </div>
+              </div>
+
+              <p class="font-weight-normal mt-3" style="text-align: justify;  line-height: 2;">
+                The simulator is running on a Gamification platform, is based on an automotive assembly plant using Meccanos devices with Virtual and Augmented Reality lessons.
+              </p>
+
+              <div class="col-md-6 align-items-center justify-content-center text-center">
+                <div class="ml-1 mr-1">
+                  <img src="/images/Chencho_PEV.png" alt="" style="width: 100%; height: 250px; image-rendering: -webkit-optimize-contrast;">
+                </div>
+              </div>
+              <div class="col-md-6 align-items-center justify-content-center text-center">
+                <div class="ml-1 mr-1">
+                  <img src="/images/Carles_Virtual.jpg" alt="" style="width: 100%; height: 250px; image-rendering: -webkit-optimize-contrast;">
+                </div>
+              </div>
+
+            </div>
+            <!--
+            <div class="row mt-4">
+              <h3 class="font-weight-bold" id="text_OBJECTIVE">LEARNING OBJECTIVE</h3>
+            </div>
+            <div class="row">
+              <p class="font-weight-normal" style="text-align: justify; line-height: 2;">
+                Allow students to acquire knowledge about the difficulties that a company has in the workplace, using technology for a realistic form of a factory.
+              </p>
+            </div>
+            <div class="row mt-4">
+              <h3 class="font-weight-bold" id="text_COURSE">IT CAN BE TEACHED IN THE FOLLOWING COURSES</h3>
+            </div>
+          </div>-->
+        </div>
+
+        <div class="row">
+          <div class="col-aut mt-5 pt-5 ml-5 pl-5">
+            <a href="/acceso"class="mit--cta" id="btn_start" target="_blank">
+              PLAY THE SIMULATION <span class="arrow">&xrarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="container pl-4 pt-5 mt-5" style="border-top: 1px solid #e5e6e8;">
+      <div class="row ">
+        <div class="col-md-6">
+          <div class="row">
+            <h5>THE MISSION</h5>
+          </div>
+          <div class="row">
+            
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <h5>FIND US</h5>
+          </div>
+          <div class="row">
+            <div class="col" id="text_LOCATION">
+              <strong class="row">Instituto Tecnológico y de Estudios Superiores de Monterrey</strong>
+              <span class="row ">Epigmenio González 500 Fracc.</span>
+              <span class="row ">San Pablo 76130 Querétaro, Qro.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside style="width: 4%; position: fixed; bottom: 0; right: 0; top: 204px; z-index: 1;">
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#" class="mr-4"><i class="fab fa-facebook-f"></i></a></li>
+        <li class="list-group-item"><a href="#" class="mr-4"><i class="fab fa-twitter"></i></a></li>
+        <li class="list-group-item"><a href="#" class="mr-4"><i class="fab fa-linkedin-in"></i></a></li>
+        <li class="list-group-item"><a href="#" class="mr-4"><i class="fas fa-envelope"></i></a></li>
+      </ul>
+    </aside>
+
+    <footer class="text-muted mt-5" >
+      <div class="container pt-3" style="border-top: 1px solid #e5e6e8;">
+        <p class="float-right">
+          <a href="#" class="mr-4"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="mr-4"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="mr-4"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="mr-4"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="mr-4"><i class="fab fa-linkedin-in"></i></a>
+        </p>
+        <p style="vertical-align: inherit;">©2022 Organization NOVUS Tec, Developed By <a href="https://meeplab.com/">Meeplab</a> </p>
+      </div>
+    </footer>
+  </body>
+
+<%- contentFor('scripts')%>
+<% include ./scripts %>
+
+<script type="text/javascript">
+  var log = console.log
+  var lastScrollTop = 0;
+
+  $(document).ready(function(e){
+    functionCollapse()
+    $(window).scroll(function(){
+      window_y = $(window).scrollTop();
+      scroll_critical = parseInt($("#navbarHeader").height()); 
+      if (window_y ==  0) {
+        $("#componentShadown").attr('class','d-block')
+        $("#componentShadown").removeAttr("hidden")
+        //document.getElementById("componentShadown").style.display = "none"
+      } else {
+        $("#componentShadown").removeAttr("class")
+        $("#componentShadown").attr("hidden","true")
+        //document.getElementById("componentShadown").style.display = "inline"
+      }
+
+      if (window_y <  120) {
+        $("#menu_header").attr("hidden","true")
+        $('#navbarHeader').collapse('show')
+      } else {
+        $("#menu_header").removeAttr("hidden")
+        $('#navbarHeader').collapse('hide')
+      }
+    });
+
+    $(window).bind('scroll', function(){
+      let navHeight = $(window).height()-360;
+      //log($(window).scrollTop() +'>'+ navHeight)
+      if($(window).scrollTop() > navHeight){
+        $('aside').addClass('scrollFix')
+      }else{
+        $('aside').removeClass('scrollFix')
+      }
+    })
+
+  })
+
+  function functionCollapse() {
+    $('#navbarHeader').collapse('show')
+  }
+  
+  $( "#btn_start" ).mouseover(function() {
+    $(".arrow").css('font-size','1.1rem').css('right','5em')
+  }).mouseleave(function() {
+    $(".arrow").css('font-size','0.7rem')
+  });
+
+  $( "#btn_start_header" ).mouseover(function() {
+    $("#btn_start_header").css('border-color', '#A31F34')
+    $(".arrow_header").css('font-size','1.1rem').css('right','5em')
+  }).mouseleave(function() {
+    $("#btn_start_header").css('border', '1PX solid rgba(0,0,0,.1)')
+    
+    $(".arrow_header").css('font-size','0.7rem')
+  });
+
+  function goElement (name){
+    $('html, body').animate({
+      scrollTop: $("#"+name).offset().top-100
+    }, 1000);
+  }
+  
+</script>

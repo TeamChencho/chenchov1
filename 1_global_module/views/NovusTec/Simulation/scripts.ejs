@@ -1,0 +1,100 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="/assets/admin2/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/admin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/assets/admin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/assets/admin2/js/sb-admin-2.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script src="/assets/admin2/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/assets/admin2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.0.7/js/tabulator.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.52.0/phaser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/0.5.12/MinFaker.js" integrity="sha512-+qHsuYJbatsUfmvRdKj5xyKJO1othF3ZeK/X6ap2pNJrHYtSdrNmZFTisz79wr+ddh1XIJs3EpsISWYkJEguwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src = "/js/faker.min.js" type = "text/javascript"></script>
+
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/underscore@1.13.2/underscore-umd-min.js"></script>
+
+<!-- GAME DATA -->
+ <script type="text/javascript">
+  let log              = console.log
+  let portalOpened     = false
+  let windowOpened     = false
+
+  let robot            = null
+  let portalGroup      = null //Portals
+  let metalComputer    = null
+  let assemblyComputer = null
+  let constructionComputer = null
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" crossorigin="anonymous"></script>
+<script src="/simulacion/sceneMain.js"></script>
+<script src="/simulacion/sceneFloorUp.js"></script>
+<script src="/simulacion/sceneFloorMain.js"></script>
+<!--Start Main template scripts -->
+<script src="/simulacion/util/UiBlock.js"></script>
+<script src="/simulacion/util/align.js"></script>
+<script src="/simulacion/util/alignGrid.js"></script>
+<script src="/simulacion/util/TextUtil.js"></script>
+<!--Game Settings-->
+<script src="/simulacion/scene1/GameConfig.js"></script>
+<script src="/simulacion/scene1/Constants.js"></script>
+<script src="/simulacion/scene1/LoadAssets.js"></script>
+<script src="/simulacion/sceneFloorUp/GameConfigFloorUp.js"></script>
+<script src="/simulacion/sceneFloorUp/ConstantsFloorUp.js"></script>
+<script src="/simulacion/sceneFloorUp/LoadAssetsFloorUp.js"></script>
+<script src="/simulacion/sceneFloorMain/GameConfigFloorMain.js"></script>
+<script src="/simulacion/sceneFloorMain/ConstantsFloorMain.js"></script>
+<script src="/simulacion/sceneFloorMain/LoadAssetsFloorMain.js"></script>
+<!--Characters-->
+<script src="/simulacion/globalObjects/BlueRobotPlayer.js"></script>
+<script src="/simulacion/globalObjects/GamePad.js"></script>
+<script src="/simulacion/globalObjects/EventDispatcher.js"></script>
+<script src="/simulacion/scene1/objects/Background.js"></script>
+<script src="/simulacion/scene1/objects/Floor.js"></script>
+<script src="/simulacion/scene1/objects/Factory.js"></script>
+<script src="/simulacion/scene1/objects/Bluerobot.js"></script>
+<script src="/simulacion/scene1/objects/Car.js"></script>
+<script src="/simulacion/scene1/objects/SceneText.js"></script>
+<script src="/simulacion/sceneFloorMain/objects/FactoryBackground.js"></script>
+<script src="/simulacion/sceneFloorMain/objects/FloorFactoryFloorMain.js"></script>
+<script src="/simulacion/sceneFloorMain/objects/PortalGate.js"></script>
+<script src="/simulacion/sceneFloorMain/objects/MetalGroup.js"></script>
+<script src="/simulacion/sceneFloorMain/objects/AssembleGroup.js"></script>
+<script src="/simulacion/sceneFloorMain/objects/ConstructionGroup.js"></script>
+<!--End Main template scripts-->
+<script src="/simulacion/main.js"></script>

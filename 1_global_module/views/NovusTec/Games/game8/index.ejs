@@ -1,0 +1,34 @@
+<%- contentFor('head')%>
+<% include ./../css %>
+<style type="text/css">
+body,
+	#game-container {
+		margin: 0;
+		padding: 0;
+	}
+
+	#game-container {
+		min-width: 100vw;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#game-container>canvas {
+		border-radius: 5px;
+	}
+</style>
+<%- contentFor('body')%>
+<body>
+	<div id="game-container"></div>
+
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script src="/games/game8/game_requires.js"></script>
+<script src="/games/game8/game_constants.js"></script>
+<script src="/games/game8/game_scene1.js"></script>
+<script src="/games/game8/game_scene2.js"></script>
+<script src="/games/game8/game.js"></script>

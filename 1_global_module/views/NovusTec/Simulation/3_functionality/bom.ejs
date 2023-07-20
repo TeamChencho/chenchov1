@@ -1,0 +1,607 @@
+<!--Obtener la información de familia de productos-->
+<script type="text/javascript">
+  
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
+
+  var arrayDataPurchasing = []
+  var nombreForm          = ''
+
+  $("#bom_btn").on('click', function(e) {
+    if(simulationStarted && simulationStarted === "STARTED"){
+      windowOpened = true
+      $("#component_BOM").hide()
+      $("#bomModal").modal("show")
+      $("#messageLoading").show()
+      messageLoadingFunction()
+      crearComponentesModal()
+    }
+  })
+
+  $('#bomModal').on('hidden.bs.modal', function (e) {
+    log("Cerrando")
+    windowOpened = false
+  })
+
+  function crearComponentesModal(){
+    $.ajax({
+      type: "GET",
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/bom",
+      success: function(response) {
+        log('response')
+        arrayDataPurchasing = response.dataPurchasing
+          
+        createSidebarBom(response.data)
+        createContentBom(response.data)
+        createHeadeContentBom(response.data, response.dataMateriaPrima)
+        $("#messageLoading").hide()
+        $("#component_BOM").show()
+       
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        log(textStatus)
+      }
+    })
+  }
+</script>
+
+<script type="text/javascript">
+  function createSidebarBom(data) {
+    $("#v-pills-tab").empty()
+    var sidebar = ''
+    for (var i = 0; i < data.length; i++) {
+      if (i == 0) {
+        sidebar += '<a class="nav-link active mb-2" id="v-pills-' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '-tab" data-toggle="pill" href="#v-pills-' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '" role="tab" aria-controls="v-pills-' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '" aria-selected="true">' + data[i]["SMDproductoFamiliaPtr"]["nombre"] + '</a>'
+      } else {
+        sidebar += '<a class="nav-link mb-2" id="v-pills-' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '-tab" data-toggle="pill" href="#v-pills-' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '" role="tab" aria-controls="v-pills-' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '" aria-selected="true">' + data[i]["SMDproductoFamiliaPtr"]["nombre"] + '</a>'
+      }
+    }
+    $("#v-pills-tab").append(sidebar)
+  }
+</script>
+
+<script>
+  function createContentBom(data) {
+    //v-pills-tabContent
+    var contentSidebar = ''
+    $("#v-pills-tabContent").empty()
+
+    for (var i = 0; i < data.length; i++) {
+      if (i == 0) {
+        contentSidebar += '<div class="tab-pane fade show active" id="v-pills-'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" role="tabpanel" aria-labelledby="v-pills-'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'-tab">'+
+                            '<div id="content-pane-'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'">'+
+                                '<form id="form_'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'">'+
+                                '</form>'+
+                            '</div>'+
+                          '</div>'
+      }else{
+           contentSidebar +=    '<div class="tab-pane fade show " id="v-pills-'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" role="tabpanel" aria-labelledby="v-pills-'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'-tab">'+
+                                    '<div id="content-pane-'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'">'+
+                                        '<form id="form_'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'">'+
+                                        '</form>'+
+                                    '</div>'+
+                                '</div>'
+      }
+    }
+    $("#v-pills-tabContent").append(contentSidebar)
+  }
+</script>
+
+<script>
+  function createHeadeContentBom(data, dataMateriaPrima){
+    
+    var teamId      = $("#teamId").val()
+    var simulacioId = $("#simulacioId").val()
+
+    for (var i = 0; i < data.length; i++) {
+      //log(data[i])
+      var productFamiliComplete = verificarMateriprimaProveedor( data[i], dataMateriaPrima, arrayDataPurchasing)
+      var vMP = arregloMateriprimaProveedorNoEncontrado( data[i], dataMateriaPrima, arrayDataPurchasing)
+
+      var content                 = ''
+      var butonBotton             = ''
+      var inputComponent          = ''
+      var component               = data[i]["SMDproductoFamiliaPtr"]["component"]
+      var tamañoDiv1              = "3"
+      var tamañoDiv2              = "3"
+      var disabled                = "disabled"
+      var disableHidden           = "hidden"
+      var mesageWarningExplosion  = ""
+
+      if(data[i]["status"]=="guardado"){
+        component = data[i]["component"]
+      }
+
+      if(productFamiliComplete ){
+        tamañoDiv1              = "2"
+        tamañoDiv2              = "1"
+        disabled                = ''
+        disableHidden           = ''
+        mesageWarningExplosion  = 'hidden'
+      }
+
+      content += '<input type="hidden" name="objectIdTDMateriPrima" value="'+data[i]["objectId"]+'">'
+      content += '<div class="">'
+      if(data[i]["status"]=="guardado"){
+       if(data[i]["active"]==true){
+          content += '<p id="messageLoadingSave'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" class="text-center bg-success font-weight-bold text-white">* Product is available for sale</p>'
+        }else{
+          content += '<p id="messageLoadingSave'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" class="text-center bg-danger font-weight-bold text-white">* Product is Not available for sale</p>'
+        }
+      }
+      if(productFamiliComplete == false){
+        content += '<p id="messageLoadingSave'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" class="text-center bg-danger font-weight-bold text-white">* Product is Not available for sale</p>'
+      }
+      content += '</div>'
+      content += '<div class="form-group form-row">'
+
+        var widthCol = 'col-md-4'
+        /*if(productFamiliComplete == false){
+          widthCol = 'col-md-4'
+        }*/
+
+        content += '<div class=" '+widthCol+' ">'
+            content += '<div class="form-row text-center justify-content-center">'
+                content += '<h5 class="font-weight-bold">' + data[i]["SMDproductoFamiliaPtr"]["nombre"] + ' - ' + data[i]["SMDproductoFamiliaPtr"]["codigo"] + '</h5>'
+            content += '</div>'
+            content += '<div class="form-row justify-content-center">'
+                content += '<img src="'+ data[i]["SMDproductoFamiliaPtr"]["imagen"].slice(6,data[i]["SMDproductoFamiliaPtr"]["imagen"].length) +'" alt="" width="35%" height="35%">'
+            content += '</div>'
+            content += '<div class="form-row justify-content-center mt-2 bt-2 bg-info border-0">'
+                    var precioTotalProducto = 0
+                    if(data[i]["totalCost"]!=undefined){
+                      if(data[i]["status"]=="guardado"){
+                        precioTotalProducto = data[i]["totalCost"]
+                      }
+                    }
+                    content += '<div class="font-weight-bold text-white text-center">Cost Total <p class=" h6 text-center text-white bg-info border-0 " id="totalProductPrice_'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" style="width: 70%; height:20%;">'+formatter.format(precioTotalProducto)+'</p></div>'
+                    content += '<input type="hidden" name="" id="inputTotalProductPrice_'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" value="">'
+                    //totalProductPrice_'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'  
+            content += '</div>'
+        content += '</div>'
+
+        content += '<div class="col">'
+          if(productFamiliComplete != false){
+            content += '<div class="row d-flex align-items-end flex-column">'
+                if(data[i]["status"]=="guardado"){
+                  if(data[i]["active"]==true){
+                    content += '<button type="button" onclick="archivar(\'' + data[i]["objectId"] + '\',\'' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '\',false)" class="btn btn-warning mr-2" title="Deactivate" style="width: 50%;">Deactivate</button>'
+                  }
+                  else{
+                    content += '<button type="button" onclick="archivar(\'' + data[i]["objectId"] + '\',\'' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '\',true)" class="btn btn-success mr-2" title="Activate" style="width: 50%;">Activate</button>'
+                  }
+                }
+
+            content += '</div>'
+            content += '<div id="content_btn_'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')+'" class="row d-flex align-items-end flex-column mt-2">'
+              if(data[i]["status"]=="noguardado"){
+                content += '<button type="button" onclick="guardar(\'' + data[i]["objectId"] + '\',\'' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '\')" class="btn btn-primary mr-2" style="width: 50%;"> Save</button>'              
+                butonBotton += '<div class="col-sm-4"> <button type="button" onclick="guardar(\'' + data[i]["objectId"] + '\',\'' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '\')" class="btn btn-primary " style="width: 100%;"> Save</button> </div>'
+              }else{
+                content += '<button type="button" onclick="editarActivarInputs(\'' + data[i]["objectId"] + '\',\'' + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') + '\')" class="btn btn-primary mr-2" style="width: 50%;"> Edit</button>'
+              }
+            content += '</div>'
+            
+            //log(typeof(data[i]["SMDproductoFamiliaPtr"]["videos"]))
+            if(data[i]["SMDproductoFamiliaPtr"]["videos"] != undefined && data[i]["SMDproductoFamiliaPtr"]["videos"].length > 0){
+              content += '<div id="content_btn_video_'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') +'" class="row d-flex align-items-end flex-column mt-2">'
+                content += '<span type="button" data-toggle="modal" onclick="watchVideos(\''+data[i]["SMDproductoFamiliaPtr"]["videos"]+'\')" data-target="#watchVideos" data-video="'+data[i]["SMDproductoFamiliaPtr"]["videos"]+'" class="btn btn-info-modified mr-2" style=""> Videos</span>'              
+              content += '</div>'
+            }
+            
+            content += '<div id="content_explosion_btn'+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') +'" class="row d-flex align-items-end flex-column mt-2">'
+              if(data[i]["status"]=="guardado"){
+                content += '<button type="button" '+disabled+' '+disableHidden+' onclick="explosionRM(\'' + data[i]["objectId"] + '\',\''+data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '') +'\')" id="btn_explosio_'+ data[i]["objectId"]+'" class="btn btn-secondary mr-2" style="width: 50%;"> Explosion RM</button>'
+                content += '<p class="text-danger font-weight-bold text-center mr-2" style="width: 50%;" '+mesageWarningExplosion+'>*You can not make the explosion of materials, until you have default suppliers</p>'
+              }
+            content += '</div>'
+          }else{
+            content += '<div class="row d-flex align-items-end flex-column">'
+              content += '<p class="text-danger font-weight-bold text-center mr-2" style="width: 50%;" >*You cannot make any movement with this product, until you have predetermined suppliers for its raw materials.</p>'
+            content += '</div>'
+          }
+        content += '</div>'
+
+      content += '</div>'
+      content += '<hr class="hr">'
+      
+      inputComponent  += '<div class="form-group row">'
+        inputComponent  +=  "<div class='col-form-label col-sm-"+tamañoDiv1+" font-weight-bold d-none d-lg-block' ><p>Image</p></div>"
+        inputComponent  +=  "<div class='col-form-label col-sm-"+tamañoDiv2+" font-weight-bold' ><p># Part</p></div>"
+        inputComponent  +=  "<div class='col-form-label col-sm-"+tamañoDiv1+" font-weight-bold' ><p>Name</p></div>"
+        inputComponent  +=  "<div class='col-form-label col-sm-"+tamañoDiv1+" font-weight-bold' ><p>Quantity</p></div>"
+        if(productFamiliComplete){
+          inputComponent  +=  "<div class='col-form-label col-sm-2 font-weight-bold' ><p>Cost</p></div>"
+          inputComponent  +=  "<div class='col-form-label col-sm-2 font-weight-bold' ><p>Total</p></div>"
+        }
+
+        for (var key in component) {
+          var vMPT = vMP.find((obj)=>{ return obj["objectId"] == key } )
+
+          var materiaPrima = dataMateriaPrima.find((obj)=>{ return obj["objectId"] == key});
+          //if(materiaPrima != undefined ){
+            if(productFamiliComplete){
+              var dataPurchasing = arrayDataPurchasing.find((obj)=> {return obj["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] == key})
+            }
+            var image = ""
+            if (materiaPrima["imagen"] == undefined) image = "Image not available"
+            else if (materiaPrima["imagen"].length == 0) image = "Image not available"
+            else image = "<img style='width: 30%' src='" + materiaPrima["imagen"].replace('public', '') + "'>"
+
+            inputComponent  +=  "<div class='col-form-label col-sm-"+tamañoDiv1+" d-none d-lg-block' ><p>"+image+"</p></div>"
+            inputComponent  +=  "<div class='col-form-label col-sm-"+tamañoDiv2+"' ><p>"+materiaPrima["noparte"]+"</p></div>"
+            inputComponent  +=  "<div class='col-form-label col-sm-"+tamañoDiv1+"' ><p>"+materiaPrima["nombre"]+"</p></div>"
+
+            if(!vMPT){
+              if(productFamiliComplete){
+                if(data[i]["status"]=="noguardado"){
+                inputComponent += "<div class='col-form-label col-sm-"+tamañoDiv1+"' style='text-align:center'><input class='form-control' type='number' min='1' value='"+component[key]+"' name='"+key+"'  id='"+key+"' required></div>"
+                }else{
+                  inputComponent += "<div class='col-form-label col-sm-"+tamañoDiv1+"' style='text-align:center'><input class='form-control' type='number' min='1' value='"+component[key]+"' name='"+key+"'  id='"+key+"' required disabled=false></div>"
+                }
+                
+                inputComponent += "<div class='col-form-label col-sm-2' style='text-align:center'><input class='form-control' type='text' value='"+formatter.format(dataPurchasing["provedorMateriaPrimaSDMPtr"]["costo"])+"' required disabled=false></div>"
+                if (data[i]["status"]=="noguardado"){
+                inputComponent += "<div class='col-form-label col-sm-2' style='text-align:center'><input class='form-control' type='text' value='"+formatter.format(0)+"' id='id_explosion_input"+key+"' required disabled=false></div>"
+                }else{
+                  inputComponent += "<div class='col-form-label col-sm-2' style='text-align:center'><input class='form-control' type='text' value='"+formatter.format( parseInt(component[key]) * parseInt( dataPurchasing["provedorMateriaPrimaSDMPtr"]["costo"] ))+"' id='id_explosion_input"+key+"' required disabled=false></div>"
+                }
+              }else{
+                inputComponent += "<div class='col-form-label col-sm-"+tamañoDiv1+"' style='text-align:center'><p class='text-success font-weight-bold' > Supplier available </p></div>"
+              }
+            }else{
+              inputComponent += "<div class='col-form-label col-sm-"+tamañoDiv1+"' style='text-align:center'><p class='text-danger font-weight-bold' >*Supplier not available </p></div>"
+            }
+            
+          //}     
+        }
+      inputComponent += '</div>'
+
+      inputComponent += '<div id="content_purchasing_'+data[i]["objectId"] +'" class="row d-flex align-items-end flex-column mt-2">'
+
+        inputComponent += butonBotton
+        //inputComponent += butonBottonbotonSave
+      inputComponent += '</div>'
+      
+      $("#form_" + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')  + "").append(content)
+      $("#form_" + data[i]["SMDproductoFamiliaPtr"]["nombre"].replace(/\s+/g, '')  + "").append(inputComponent)
+    }
+    $("#messageLoading").hide()
+  }
+
+  $("#watchVideos").on('hide.bs.modal',function(e){
+    $("#videos_array").empty()
+    $('#bomModal').css('overflow-y',"auto");
+  })
+
+  function watchVideos(arrayVideos){
+    var arrayPathsVideos = arrayVideos
+    var arrayVideo = arrayPathsVideos.split(",")
+    var componetVideo = ''
+    $("#videos_array").empty()
+
+    var arraVideosTempo = []
+    for (var i = 0; i <arrayVideo.length; i++){
+        if( doesFileExist( arrayVideo[i].replace('public','') ) ){
+          arraVideosTempo.push(arrayVideo[i])
+        }
+    }
+    arrayVideo = arraVideosTempo
+
+    for (let i = 0; i < arrayVideo.length; i++) {
+      var arrayPath = arrayVideo[i].split("/")
+      var idTempo = arrayPath[arrayPath.length-1].split('.')
+      //var idComponet = id+'_'+idTempo[0]
+      componetVideo += '<div id="" class="">'
+        componetVideo += '<video class="video-fluid z-depth-1 mb-2" loop controls muted>'
+          componetVideo += '<source src="'+arrayVideo[i].replace('public','')+'" />'
+        componetVideo += '</video>'
+        //componetVideo += '<div class=" embed-responsive embed-responsive-21by9 mb-1">'
+          //componetVideo += '<iframe class="embed-responsive-item" src="'+arrayVideo[i].replace('public','')+'></iframe>'
+        //componetVideo += '</div>'
+        //componetVideo += '<button type"button" id="'+idComponet+'" class="'+idComponet+' btn btn-danger mb-3" onclick="deleteVideoProductFamily(\''+id+'\',\''+idComponet+'\',\''+arrayVideo[i]+'\')" title="Video delete"> <i class="far fa-trash-alt"></i> Delete</button>'
+      componetVideo += '</div>'
+    }
+    
+    $("#videos_array").append(componetVideo)
+    $("#watchVideos").modal("show")
+
+    $('iframe html body video').removeAttr("autoplay")
+  }
+
+  function doesFileExist(urlToFile) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    xhr.send();
+     
+    return xhr.status !== 404;  
+  }
+</script>
+
+<script type="text/javascript">
+  function verificarMateriprimaProveedor ( matrialProductoFamilia, materiaPrima, proveedoresTransporte ){
+      var meteriaPrimaDeProducto = matrialProductoFamilia["SMDproductoFamiliaPtr"]["component"]
+      var RawMaterialNotFound = []
+      var complete = true
+      for( index in meteriaPrimaDeProducto){
+          var found = proveedoresTransporte.find( function ( current ) {
+            return current["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] == index
+          })
+          if(!found){
+            complete = false
+            break
+          }
+      }
+      
+      return complete
+  }
+
+  function arregloMateriprimaProveedorNoEncontrado ( matrialProductoFamilia, materiaPrima, proveedoresTransporte ){
+      var meteriaPrimaDeProducto = matrialProductoFamilia["SMDproductoFamiliaPtr"]["component"]
+      var RawMaterialNotFound = []
+      for( index in meteriaPrimaDeProducto){
+          var found = proveedoresTransporte.find( function ( current ) {
+            return current["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] == index
+          })
+          if(!found){
+            var notFoun = materiaPrima.find( function ( current ) {
+              return current["objectId"] == index
+            })
+
+            RawMaterialNotFound.push( notFoun )
+            
+          }
+      }
+      
+      return RawMaterialNotFound
+  }
+</script>
+
+<script type="text/javascript">
+  function archivar(idMateriaPrima,nombreFormulario,seActiva){
+    if (seActiva) {
+      Swal.fire({
+        title: 'Activate',
+        text: `Do you want to activate this product?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Activate'
+      }).then((result) => {
+        if (result.value) {
+          $("#messageLoadingSave"+nombreFormulario).hide()
+          messageLoadingFunction()
+          $("#messageLoading").show()
+          $.ajax({
+            type: "POST",
+            url: "/simulation/<%= simulation.id %>/<%= team.id %>/bom/archivar",
+            data: {
+                "messageLogs":'Activated the product '+nombreFormulario,
+                "idMateriaPrima":idMateriaPrima,
+                "seActiva":seActiva
+            },
+            success: function(response) {
+              log('response')
+              crearComponentesModal()
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              log(textStatus)
+              $("#messageLoading").hide()
+            }
+          })
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Deactivate',
+        text: `Do you want to deactivate this product?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Deactivate'
+      }).then((result) => {
+        if (result.value) {
+          $("#messageLoadingSave"+nombreFormulario).hide()
+          messageLoadingFunction()
+          $("#messageLoading").show() 
+          $.ajax({
+            type: "POST",
+            url: "/simulation/<%= simulation.id %>/<%= team.id %>/bom/archivar",
+            data: {
+                "messageLogs":'Deactivated the product '+nombreFormulario,
+                "idMateriaPrima":idMateriaPrima,
+                "seActiva":seActiva
+            },
+            success: function(response) {
+              log('response')
+              crearComponentesModal()
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              log(textStatus)
+              $("#messageLoading").hide()
+            }
+          })
+        }
+      })
+    }
+
+  }
+</script>
+
+<script type="text/javascript">
+  function guardar(idTDmateriaPrima, nombreFormulario){
+    /*Swal.fire({
+        title: 'Save',
+        text: `Did you do the materials explosion before saving?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.value) {*/
+    $("#messageLoadingSave"+nombreFormulario).hide()
+    messageLoadingFunction()
+    $("#messageLoading").show()
+    var posicion = $("#clientOrdersModalTitle").offset().top;
+    $("html, #bomModal").animate({
+        scrollTop: posicion
+    }, 100); 
+    $.ajax({
+      type: "POST",
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/bom/guardar",
+      data: $("#form_"+nombreFormulario).serialize()+'&messageLogs=Saved all '+nombreFormulario+' product settings ',
+      success: function(response) {
+        log('response')
+        if(!response.esIgual){
+          Swal.fire(
+            "We're sorry!",
+            'The number of components does not match the original',
+            'warning'
+          )
+          $("#messageLoading").hide()
+        }else{
+          crearComponentesModal()
+          Swal.fire(
+            "Success!",
+            'Excellent value given to the product,\n Product is available for sale',
+            'success'
+          )
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        Swal.fire(
+            '¡Error!',
+            'An error occurred while performing the action, please try again',
+            'error'
+          )
+        $("#messageLoading").hide()
+      }
+    })
+        //}
+      //})
+  }
+</script> 
+
+<script type="text/javascript">
+  function editarActivarInputs(idTDmateriaPrima,nombreFormulario){
+
+    $("#"+"form_"+nombreFormulario+" input[type=number]").each(function(){
+      $(this).prop('disabled', false)
+    });
+    
+    $("#content_btn_"+nombreFormulario).empty()
+
+    var botonSave ='<button type="button" onclick="guardar(\'' + idTDmateriaPrima + '\',\'' + nombreFormulario + '\')" class="btn btn-primary mr-2" style="width: 50%;"> Save</button>'
+    $("#content_btn_"+nombreFormulario).append(botonSave)
+    var botonSaveBottom ='<button type="button" onclick="guardar(\'' + idTDmateriaPrima + '\',\'' + nombreFormulario + '\')" class="btn btn-primary mr-2" style="width: 34%;"> Save</button>'
+    $('#content_purchasing_'+idTDmateriaPrima).append(botonSaveBottom)
+
+    $("#btn_explosio_"+idTDmateriaPrima).attr("hidden",true)
+    
+  }
+</script>
+
+<script type="text/javascript">
+  function explosionRM(familyPtr,nameFamily){
+
+    $("#messageLoadingSave"+nameFamily).hide()
+    messageLoadingFunction()
+    $("#messageLoading").show()
+
+    var totalProductPrice = 0
+    var inputsInavility   = false
+
+    $("#"+"form_"+nameFamily+" input[type=number]").each( function(index, input) {
+
+        if($(this).attr('disabled')){
+          inputsInavility = true
+        }
+      
+          //Obtener el valor del input sobre la cantidad de productos
+      var quantityProductRawMaterial = $(this).val()
+          //Obtener el nombre del input para ser buscado en purchasing
+      var name                       = $(this).prop("name")
+
+          //Buscar el id del input con el de purchasing para obtener el valor del costo de ese producto con el proveedor seleccionado 
+      var rawMaterialCost   =   arrayDataPurchasing.find( current => current["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] == name )
+          //Obtener el costo del objeto encontrado y multiplicarlo por la cantidad de materia prima
+      var result            =   parseInt( quantityProductRawMaterial ) * parseInt( rawMaterialCost["provedorMateriaPrimaSDMPtr"]["costo"] )
+          //sumamos los resultados para total a pagar del producto
+          totalProductPrice +=  result
+
+          //Agregar el resultado a los a las entradas de texto que corresponde
+      $("#"+"form_"+nameFamily+" input[type=text]").each( function(index2, input2){
+
+        name_input_explosionRM = $(this).prop("id").substring(18,$(this).prop("id").length)
+
+        if(name == name_input_explosionRM){
+          //Mostramos la cantidad
+          $(this).val(formatter.format(result))
+          //Cuando se encuentre el resultado se rompe el bucle para no seguir buscando más 
+          return false
+        }
+
+      })
+      
+    });
+        //Mostrar el total de toda el precio de la materia prima
+    $("#totalProductPrice_"+nameFamily).text( formatter.format( totalProductPrice ) )
+    $("#inputTotalProductPrice_"+nameFamily).val( totalProductPrice )
+
+    if(inputsInavility != true){
+      Swal.fire(
+            "We're sorry!",
+            'You can see the cost, but it will not be recorded, since you have not saved the correct amount of raw material, so it would not be the true cost, it is recommended to save first',
+            'warning'
+          )
+      $("#messageLoadingSave"+nameFamily).show()
+      $("#messageLoading").hide()
+    }else{
+      $.ajax({
+        type: "POST",
+        url: "/simulation/<%= simulation.id %>/<%= team.id %>/bom/explsionRM",
+        data:{
+          messageLogs:'Carried out the explosion of materials from the '+nameFamily,
+          familyPtr: familyPtr,
+          totalCost: totalProductPrice
+        },
+        success: function(response) {
+          log('response')
+          $("#messageLoadingSave"+nameFamily).show()
+          $("#messageLoading").hide()
+        },error: function(XMLHttpRequest, textStatus, errorThrown) {
+          log(textStatus)
+          $("#messageLoading").hide()
+        }
+      })
+    }
+    
+  }
+</script>
+
+<script type="text/javascript">
+  function messageErro(){
+    var textMessageErro = 'We\'re sorry, you have not selected the suppliers from which you are going purchasing the raw material, perform that action first'
+    $("#messageLoading").removeClass("bg-info")
+    $("#messageLoading").addClass("bg-danger")
+    $("#messageLoading").text("")
+    $("#messageLoading").text(textMessageErro)
+  }
+  
+  function messageLoadingFunction(){
+    var textMessageLoadig = 'Loading...'
+    $("#messageLoading").removeClass("bg-danger")
+    $("#messageLoading").addClass("bg-info")
+    $("#messageLoading").text("")
+    $("#messageLoading").text(textMessageLoadig)
+  }
+</script>

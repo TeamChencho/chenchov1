@@ -1,0 +1,4769 @@
+<%- contentFor('head') %>
+<% include ./../css %>
+
+<%- contentFor('body')%>
+
+<body id="page-top" class="sidebar-toggled">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <% include ./../sidebar %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./../top-bar %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Master Data</h1>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <% if(error){ %>
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Error!</strong> <%= error %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Master Data</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-2 border-right shadow-sm pt-3" style="height: 50%;">
+                      <ul class="nav flex-column nav-pills mb-3 mt-3" id="pills-tab" role="tablist" aria-orientation="vertical">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="pills-raw-material-tab" data-info="raw_material" data-toggle="pill" href="#pills-raw-material" role="tab" aria-controls="pills-raw-material" aria-selected="true">Raw Material</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-product-family-tab" data-info="product_family" data-toggle="pill" href="#pills-product-family" role="tab" aria-controls="pills-product-family" aria-selected="false">Product Family</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-customers-tab" data-info="customers" data-toggle="pill" href="#pills-customers" role="tab" aria-controls="pills-customers" aria-selected="false">Customers</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-suppliers-tab" data-info="suppliers" data-toggle="pill" href="#pills-suppliers" role="tab" aria-controls="pills-suppliers" aria-selected="false">Suppliers</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-employees-tab" data-info="employees" data-toggle="pill" href="#pills-employees" role="tab" aria-controls="pills-employees" aria-selected="false">Employees</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-expenses-tab" data-info="expenses" data-toggle="pill" href="#pills-expenses" role="tab" aria-controls="pills-expenses" aria-selected="false">Expenses</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-fix-assets-tab" data-info="fix_assets" data-toggle="pill" href="#pills-fix-assets" role="tab" aria-controls="pills-fix-assets" aria-selected="false">Fix Assets</a>
+                        </li>
+                          <li class="nav-item">
+                          <a class="nav-link" id="pills-transport-tab" data-info="transport" data-toggle="pill" href="#pills-transport" role="tab" aria-controls="pills-transport" aria-selected="false">Transport</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                          <a class="nav-link" id="pills-customs-tab" data-info="customs" data-toggle="pill" href="#pills-customs" role="tab" aria-controls="pills-customs" aria-selected="false">Customs</a>
+                        </li> -->
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-raw-material-inv-tab" data-info="raw_material_inventory" data-toggle="pill" href="#pills-raw-material-inv" role="tab" aria-controls="pills-raw-material-inv" aria-selected="false">Raw Material Inv</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-fix-assets-inv-tab" data-info="fix_assets_inventory" data-toggle="pill" href="#pills-fix-assets-inv" role="tab" aria-controls="pills-fix-assets-inv" aria-selected="false">Fix Assets Inv</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="pills-order-history-tab" data-info="order_history" data-toggle="pill" href="#pills-order-history" role="tab" aria-controls="pills-order-history" aria-selected="false">Order History</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="supplier-raw-material-tab" data-info="supplier_raw_material" data-toggle="pill" href="#supplier-raw-material" role="tab" aria-controls="supplier-raw-material" aria-selected="false">Supplier - Raw Material</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="salary-tabulator-tab" data-info="salary_tabulator" data-toggle="pill" href="#salary-tabulator" role="tab" aria-controls="salary-tabulator" aria-selected="false">Salary Tabulator</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="production-line-phase-master-data-admin-tab" data-info="production_line_phase_master_data_admin" data-toggle="pill" href="#production-line-phase-master-data-admin" role="tab" aria-controls="production-line-phase-master-data-admin" aria-selected="false">Production Line Phases</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="production-line-templates-master-data-admin-tab" data-info="production_line_templates_master_data_admin" data-toggle="pill" href="#production-line-templates-master-data-admin" role="tab" aria-controls="production-line-templates-master-data-admin" aria-selected="false">Production Line Templates</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-10">
+                      <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade" id="pills-raw-material" role="tabpanel" aria-labelledby="pills-raw-material">
+                          <% include raw-material %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-product-family" role="tabpanel" aria-labelledby="pills-product-family">
+                          <% include product-family %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-customers" role="tabpanel" aria-labelledby="pills-customers">
+                          <% include customers %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-suppliers" role="tabpanel" aria-labelledby="pills-suppliers">
+                          <% include suppliers %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-employees" role="tabpanel" aria-labelledby="pills-employees">
+                          <% include employees %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-expenses" role="tabpanel" aria-labelledby="pills-expenses">
+                          <% include expenses %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-fix-assets" role="tabpanel" aria-labelledby="pills-fix-assets">
+                          <% include fix-assets %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-transport" role="tabpanel" aria-labelledby="pills-transport">
+                          <% include transport %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-customs" role="tabpanel" aria-labelledby="pills-customs"></div>
+                        <div class="tab-pane fade" id="pills-raw-material-inv" role="tabpanel" aria-labelledby="pills-raw-material-inv">
+                          <% include raw-material-inventory %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-fix-assets-inv" role="tabpanel" aria-labelledby="pills-fix-assets-inv">
+                          <% include fix-assets-inventory %>
+                        </div>
+                        <div class="tab-pane fade" id="pills-order-history" role="tabpanel" aria-labelledby="pills-order-history">
+                          <% include order-history %>
+                        </div>
+                        <div class="tab-pane fade" id="supplier-raw-material" role="tabpanel" aria-labelledby="supplier-raw-material">
+                          <% include supplier-raw-material %>
+                        </div>
+                        <div class="tab-pane fade" id="salary-tabulator" role="tabpanel" aria-labelledby="salary-tabulator">
+                          <% include salary-tabulator %>
+                        </div>
+                        <div class="tab-pane fade" id="production-line-phase-master-data-admin" role="tabpanel" aria-labelledby="production-line-phase-master-data-admin">
+                          <% include production-line-phases %>
+                        </div>
+                        <div class="tab-pane fade" id="production-line-templates-master-data-admin" role="tabpanel" aria-labelledby="production-line-templates-master-data-admin">
+                          <% include production-line-templates %>
+                        </div>
+                      </div>
+                    
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <% include ../../Utilities/spinner %>
+
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!--Subir videos-->
+<script type="text/javascript">
+  var inputFile = $("#videos_familia_agregar");
+  var listaDeArchivos = $("#listaDeArchivos");
+  var archivosParaSubir = [];
+
+  function actualizarListaDeArchivos() {
+    let listaHtml = archivosParaSubir.map(function(item, index) {
+      return `<li class="list-group-item">
+        ${item.name} 
+        <button data-index="${index}" class="btn btn-danger mt-2 file-list-eliminar" title="Delete"><i class="far fa-trash-alt"></i></button>
+      </li>`;
+    });
+    listaDeArchivos.html(listaHtml);
+  }
+
+  inputFile.on('change', function(e) {
+    let files = e.target.files;
+    
+    if(files.length == 0) return;
+    
+    files = Array.from(files);
+    archivosParaSubir = files;
+    actualizarListaDeArchivos();
+    $(this).val('');
+  });
+
+  $(document).on("click", ".file-list-eliminar", function() {
+    let index = $(this).data('index');
+    archivosParaSubir.splice(index, 1);
+    actualizarListaDeArchivos();
+    console.log(archivosParaSubir)
+  });
+</script>
+
+<script>
+  var log = console.log
+  var rawMaterialData = []
+  var productFamily = []
+  var rawMaterialInventory = []
+  var customers = []
+  var employees = []
+  var expenses = []
+  var fixAssets = []
+  var suppliers = []
+  var fixAssetsInventory = []
+  var suppliersRawMaterial = []
+  var countries = []
+  var transport = []
+  var materiaM = []
+  var materiaP = []
+  var materiaLL = []
+  var materiaT = []
+  var orderHistoryData = []
+  
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
+
+
+  $(document).ready(function() {
+    $("#mensaje_error_dias").hide()
+    $("#mensaje_error_telefono").hide()
+    $("#mensaje_error_telefono_empleado").hide()
+    $("#mensaje_error_telefono_cliente").hide()
+    var activeTab = $("#pills-tab li a.active").data('info')
+    $('#pills-raw-material').addClass("active")
+    $('#pills-raw-material').addClass("show")
+    reloadcountries()
+    ajaxTableFXATS()
+    ajaxTableSPLRS()
+    toggleTables(activeTab)
+  });
+
+  $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
+    toggleTables($(e.target).data('info'))
+  })
+
+  function toggleTables(activeTab) {
+    switch (activeTab) {
+      case 'raw_material':
+        ajaxTableRM(true)
+        break
+      case 'product_family':
+        if (rawMaterialData.length == 0) {
+          ajaxTableRM(false)
+        } else {
+          crearFormularioProductos()
+        }
+        ajaxTablePF(true)
+        break
+      case 'customers':
+        ajaxTableCUSTR()
+        break
+      case 'suppliers':
+        ajaxTableSPLRS()
+        //reloadTableSPLRS(suppliers)
+        break
+      case 'employees':
+        ajaxTableEPS()
+        break
+      case 'expenses':
+        ajaxTableEXPS()
+        break
+      case 'fix_assets':
+        ajaxTableFXATS()
+        //reloadTableFXATS(fixAssets)
+        break
+      case 'transport':
+        ajaxTableTPE()
+        rellenarSelects()
+        break
+      case 'customs':
+      case 'raw_material_inventory':
+        if (rawMaterialData.length == 0) {
+          ajaxTableRM(false)
+        } else {
+          crearFormularioProductosInv()
+        }
+        ajaxTableINV(true)
+        break
+      case 'fix_assets_inventory':
+        ajaxTableFAIN()
+        crearFormularioInventarioActivosFijos(fixAssets)
+        break
+      case 'order_history':
+        ajaxTableOH()
+        break
+      case 'supplier_raw_material':
+        ajaxTableSRM()
+        crearFormularioProveedorMateriaPrima()
+        break
+      case 'salary_tabulator':
+        ajaxTableSO()
+        break
+      case 'production_line_phase_master_data_admin':
+        ajaxTablePhases()
+        break
+      case 'production_line_templates_master_data_admin':
+        ajaxTablePLT()
+        break
+      default:
+        ajaxTableRM(true)
+        break
+    }
+  }
+
+  //Raw Material
+  function ajaxTableRM(loadTable) {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/raw_material/datos",
+      success: function(response) {
+        rawMaterialData = response.data
+        var categorias = response.dataCategoria
+        var options = ''
+        var optionDefault = ''
+
+        for (let i = 0; i < categorias.length; i++) {
+          if(i == 0){
+            optionDefault = categorias[i]["objectId"]
+          }
+            options += '<option value="'+categorias[i]['objectId']+'">'+categorias[i]['nombre']+'</option>'
+        }
+        $('#select_categoria_raw_material').html(options).selectpicker('refresh')
+        $("#select_categoria_raw_material").selectpicker('val', optionDefault);
+        $('#select_categoria_import_raw_material').html(options).selectpicker('refresh')
+        $("#select_categoria_import_raw_material").selectpicker('val', optionDefault);
+
+        if (loadTable) {
+          reloadTableRM()
+        }
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        console.log("error here")
+        if (textStatus == "") {
+          alert("Error con la conexión de base de datos. Favor de verificar tu conexión a Internet")
+        }
+      }
+    })
+  }
+
+  function reloadTableRM() {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Image</th>'
+    thead += '<th># Part</th>'
+    thead += '<th>SKU</th>'
+    thead += '<th>Name</th>'
+    thead += '<th>Action</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Image</th>'
+    tfooter += '<th># Part</th>'
+    tfooter += '<th>SKU</th>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>Action</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: rawMaterialData,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+
+            if (data["imagen"] != undefined) {
+              if (data["imagen"].length != 0) {
+                return "<img src=" + data["imagen"].replace('public','') + " style='width:20%'>"
+              }
+            }
+            return "Image not available"
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["noparte"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["codigo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            
+            var data_to_add = ""
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+              data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<span data-toggle="modal" data-target="#editRawMaterial" data-id="' + data["objectId"] + '"  data-nombre="' + data["nombre"] + '" data-abreviatura="'+data["categoriaPtr"]["abreviatura"]+'" ><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+              data_to_add += "</div>"
+            data_to_add += "</div>"
+
+            return data_to_add 
+          }
+        }
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $('#form_agregar_raw_material').submit(function(event) {
+    // submit the form
+    event.preventDefault();
+    $(this).ajaxSubmit({
+      type: 'POST',
+      url: '/administrador/master_data/raw_material/add_raw_material',
+      success: function(data, textStatus, jqXHR) {
+        // The form was successfully submitted          
+        ajaxTableRM(true)
+
+        Swal.fire(
+          'Added!',
+          'The raw material has been added successfully',
+          'success'
+        )
+        $('#form_agregar_raw_material').trigger('reset')
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // The submit action failed
+        Swal.fire(
+          '¡Error!',
+          XMLHttpRequest.responseJSON.error + '. Try again',
+          'error'
+        )
+      }
+    })
+    return false;
+  });
+
+  $("#form_importar_raw_material").submit(function(event) {
+    event.preventDefault();
+    $("#form_importar_raw_material").ajaxSubmit({
+      success: function(response) {
+        $("#form_importar_raw_material").trigger("reset");
+        //$('#collapseImportarSMP').collapse('hide');
+        ajaxTableRM(true)
+        Swal.fire(
+          'Successful Import!',
+          `Data added correctly`,
+          'success'
+        )
+      },
+      error: function(response) {
+
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+          'error'
+        )
+      }
+    });
+  })
+  
+
+  $('#editRawMaterial').on('show.bs.modal', function(e) {
+    var objectId  = $(e.relatedTarget).data('id')
+    var name      =   $(e.relatedTarget).data('nombre')
+    var abreviatura      =   $(e.relatedTarget).data('abreviatura')
+
+    $('#id_raw_material').val(objectId)
+    $('#input_name_raw_material').val(name)
+    $('#type_raw_material').val(abreviatura)
+  })
+
+  $('#form_editar_raw_material').submit(function(event) {
+    // submit the form
+    event.preventDefault();
+    $(this).ajaxSubmit({
+      type: 'POST',
+      url: '/administrador/master_data/raw_material/edit_raw_material',
+      success: function(data, textStatus, jqXHR) {
+        // The form was successfully submitted          
+        ajaxTableRM(true)
+
+        Swal.fire(
+          'Edited!',
+          'The raw material has been edited successfully',
+          'success'
+        )
+        $('#editRawMaterial').modal('hide')
+        $('#form_editar_raw_material').trigger('reset')
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // The submit action failed
+        Swal.fire(
+          '¡Error!',
+          XMLHttpRequest.responseJSON.error + '. Try again',
+          'error'
+        )
+      }
+    })
+    return false;
+  });
+  
+  // Inicia módulo producto familia
+  function ajaxTablePF(loadTable) {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/product_family/datos",
+      success: function(response) {
+        productFamily = response.data
+
+        if (loadTable) {
+          reloadTablePF()
+        }
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        console.log("error data")
+        if (textStatus == "") {
+          alert("Error con la conexión de base de datos. Favor de verificar tu conexión a Internet")
+        }
+      }
+    })
+  }
+
+  function reloadTablePF() {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Image</th>'
+    thead += '<th>SKU</th>'
+    thead += '<th>Name</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Image</th>'
+    tfooter += '<th>SKU</th>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: productFamily,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            var imagen = data["imagen"].replace('public', '');
+            if (data["imagen"] != undefined) {
+              if (data["imagen"].length != 0) {
+                return "<img src='" + imagen + "' style='width:20%'>"
+              }
+            }
+            return "Image not available"
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["codigo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3'>"
+
+            data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<span data-toggle="modal" data-target="#editVideos" data-id="' + data["objectId"] + '" data-videos="' + data["videos"] + '" data-code="'+data["codigo"]+'"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Videos"><i class="fas fa-file-video"></i></span>'
+            data_to_add += "</div>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalProductoFamilia" data-id="' + data["objectId"] + '" data-nombre="' + data["nombre"] + '" data-codigo="' + data["codigo"] + '" data-imagen="' + data["imagen"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'product_family/archivar_producto' + '\',\'' + 'product' + '\',\'' + 'product_family' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'product_family/archivar_producto' + '\',\'' + 'product' + '\',\'' + 'product_family' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'product_family/eliminar_producto' + '\',\'' + 'product' + '\',\'' + 'product_family' + '\',true)" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  function crearFormularioProductos() {
+
+    var formulario = ""
+
+    $("#productFamilyRM").empty()
+
+    for (var i = 0; i < rawMaterialData.length; i++) {
+
+      var image = ""
+      if (rawMaterialData[i]["imagen"] == undefined) image = "Image not available"
+      else if (rawMaterialData[i]["imagen"].length == 0) image = "Image not available"
+      else image = "<img style='width: 30%' src='" + rawMaterialData[i]["imagen"].replace('public', '') + "'>"
+
+      var stepper = "<div class='col-form-label col-sm-2 mt-3' style='text-align:center'>"+
+                      "<div class='form-check'>"+
+                          "<input type='checkbox' name='rawMaterials[]' class='form-control form-check-input' value='"+rawMaterialData[i]["objectId"]+"'>"+
+                        
+                      "</div>"+
+                    "</div>" +
+        "<div class='col-form-label col-sm-3 mt-4' style='text-align:center'>" + image + "</div>" +
+        "<div class='col-form-label col-sm-2 mt-4'><p>" + rawMaterialData[i]["noparte"] + "</p></div>" +
+        "<div class='col-form-label col-sm-3 mt-4'><p>" + rawMaterialData[i]["nombre"] + "</p></div>" +
+        "<div class='col-form-label col-sm-2 mt-4' style='text-align:center'><input class='form-control' type='number' min='1' value='1' name='" + rawMaterialData[i]["objectId"] + "' required></div>"
+      formulario += stepper
+    }
+
+    $("#productFamilyRM").append(formulario)
+  }
+
+  $('#form_agregar_familia').submit(function(event) {
+    // submit the form
+    event.preventDefault();
+    $(this).ajaxSubmit({
+      type: 'POST',
+      url: '/administrador/master_data/product_family/datos_agregar',
+      success: function(response, textStatus, jqXHR) {
+        log(response)
+        // The form was successfully submitted          
+        var data = response.data
+        var dataUniq = response.dataUniq
+        log(dataUniq.length )
+        if( dataUniq.length <= 0 ){        
+          ajaxTablePF(true)
+          Swal.fire(
+            'Added!',
+            'The product family has been added successfully',
+            'success'
+          )
+          $("#form_agregar_familia").trigger("reset");
+        }else{
+
+          var textRMT = ''
+
+          for(var i = 0; i < dataUniq.length; i++){
+            if(i==dataUniq.length-1){
+              textRMT +=  dataUniq[i]["nombre"]
+            }else{
+              textRMT +=  dataUniq[i]["nombre"]+', '
+            }
+          }
+
+          Swal.fire(
+            'We\'re sorry!',
+            'Sorry, this product cannot be added because the raw material(s) '+textRMT+' do not have supplier and transport. we suggest that you first assign a supplier and a transport to the raw materials',
+            'error'
+          )
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // The submit action failed
+        Swal.fire(
+          '¡Error!',
+          jqXHR.responseJSON.error+ '. Try again',
+          //XMLHttpRequest.responseJSON.error + '. Try again',
+          'error'
+        )
+      }
+    })
+    return false;
+  });
+
+  $("#editVideos").on('show.bs.modal',function(e){
+    var id = $(e.relatedTarget).data('id');
+    var arrayPathsVideos = $(e.relatedTarget).data('videos')
+    var code = $(e.relatedTarget).data('code')
+    $("#objectId_producto_mafilia_agregar_videos").val(id)
+    $("#code_product_family").val(code)
+    var arrayVideo = arrayPathsVideos.split(",")
+    var componetVideo = ''
+    $("#videos_array").empty()
+
+    var arraVideosTempo = []
+    for (var i = 0; i <arrayVideo.length; i++){
+        if( doesFileExist( arrayVideo[i].replace('public','') ) ){
+          arraVideosTempo.push(arrayVideo[i])
+        }
+    }
+    arrayPathsVideos = arraVideosTempo
+    arrayVideo = arraVideosTempo
+
+    if(arrayPathsVideos == 'undefined' || arrayPathsVideos.length <= 0){
+      componetVideo += '<span class=" text-center text-danger font-weight-bold">There are no videos to present</span>'
+    }else{
+      for (let i = 0; i < arrayVideo.length; i++) {
+        var arrayPath = arrayVideo[i].split("/")
+        var idTempo = arrayPath[arrayPath.length-1].split('.')
+        var idComponet = id+'_'+idTempo[0]
+        componetVideo += '<div id="'+idComponet+'" class="'+idComponet+'">'
+          componetVideo += '<div class=" embed-responsive embed-responsive-21by9 mb-1">'
+            componetVideo += '<iframe class="embed-responsive-item" src="'+arrayVideo[i].replace('public','')+'" onerror="error(this, \'error\')"></iframe>'
+          componetVideo += '</div>'
+          //componetVideo += '<button type"button" id="'+idComponet+'" class="'+idComponet+' btn btn-danger mb-3" onclick="deleteVideoProductFamily(\''+id+'\',\''+idComponet+'\',\''+arrayVideo[i]+'\')" title="Video delete"> <i class="far fa-trash-alt"></i> Delete</button>'
+        componetVideo += '</div>'
+      }
+    }
+    
+    $("#videos_array").append(componetVideo)
+  })
+  
+  function doesFileExist(urlToFile) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    xhr.send();
+     
+    return xhr.status !== 404;  
+  }
+
+  $("#editVideos").on('hide.bs.modal',function(e){
+    $("#videos_array").empty()
+  })
+
+  function deleteVideoProductFamily (objectIdProductFamily, idComponet,pathVideo) {
+
+    $.ajax({
+      type: "POST",
+      url: "/administrador/master_data/product_family/delete_video",
+      data:{
+        'objectId'  : objectIdProductFamily,
+        'pathVideo' : pathVideo
+      },
+      success: function(response) {
+        //log(response)
+        ajaxTablePF(true)
+        $('#editVideos').modal('hide')
+        Swal.fire(
+          'Deleted!',
+          'The product family video has been deleted successfully',
+          'success'
+        )
+
+        /*var idToDelete = '#'+idComponet
+        var classToDelete = '.'+idComponet
+        $(idToDelete).remove()
+        $(classToDelete).remove()*/
+      },error: function(XMLHttpRequest, textStatus, errorThrown) {
+        Swal.fire(
+          '¡Error!',
+          XMLHttpRequest.responseJSON.error+ '. Try again',
+          'error'
+        )
+      }
+    })
+
+  }
+
+  $('#form_editar_videos_producto_family').submit(function(event) {
+    // submit the form
+    event.preventDefault();
+    $(this).ajaxSubmit({
+      type: 'POST',
+      url: '/administrador/master_data/product_family/add_videos',
+      success: function(data, textStatus, jqXHR) {
+        // The form was successfully submitted 
+        $("#videos_array").empty()
+        $('#editVideos').modal('hide');         
+        ajaxTablePF(true)
+        Swal.fire(
+          'Added!',
+          'The videos has been added successfully',
+          'success'
+        )
+        $("#form_editar_videos_producto_family").trigger("reset");
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // The submit action failed
+        Swal.fire(
+          '¡Error!',
+          jqXHR.responseJSON.error+ '. Try again',
+          //XMLHttpRequest.responseJSON.error + '. Try again',
+          'error'
+        )
+      }
+    })
+    return false;
+  });
+
+  // Inicia módulo inventario
+  function ajaxTableINV(loadTable) {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/raw_material_inventory/datos",
+      success: function(response) {
+        rawMaterialInventory = response.data
+
+        if (loadTable) {
+          reloadTableINV()
+        }
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        console.log("error uno")
+        if (textStatus == "") {
+          alert("Error con la conexión de base de datos. Favor de verificar tu conexión a Internet")
+        }
+      }
+    })
+  }
+
+  function reloadTableINV() {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Image</th>'
+    thead += '<th># Part</th>'
+    thead += '<th>SKU</th>'
+    thead += '<th>Name</th>'
+    thead += '<th>Quantity</th>'
+    thead += '<th>Action</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Image</th>'
+    tfooter += '<th># Part</th>'
+    tfooter += '<th>SKU</th>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>Quantity</th>'
+    tfooter += '<th>Action</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: rawMaterialInventory,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["materaPrimaPtr"]["imagen"] == undefined) return "Image not available"
+            if (data["materaPrimaPtr"]["imagen"].length == 0) return "Image not available"
+            return "<img src=" + data["materaPrimaPtr"]["imagen"].replace('public', '') + " style='width:25%'>"
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["materaPrimaPtr"]["noparte"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["materaPrimaPtr"]["codigo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["materaPrimaPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["cantidad"]) {
+              return new Intl.NumberFormat().format( data["cantidad"] )
+            } else {
+              return "0"
+            }
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalRawMaterialInventary" data-id="' + data["objectId"] + '" data-cantidad="' + data["cantidad"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            /*if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'raw_material_inventory/archivar_inventario_materia_prima' + '\',\'' + 'inventory' + '\',\'' + 'raw_material_inventory' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'raw_material_inventory/archivar_inventario_materia_prima' + '\',\'' + 'inventory' + '\',\'' + 'raw_material_inventory' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'raw_material_inventory/eliminar_inventario_materia_prima' + '\',\'' + 'inventory' + '\',\'' + 'raw_material_inventory' + '\',true)" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"*/
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  function crearFormularioProductosInv() {
+
+    $("#inventoryRM").empty()
+
+    var cabecera = "<div class='col-form-label col-sm-3 font-weight-bold' style='text-align:center'>Image</div>" +
+      "<div class='col-form-label col-sm-3 font-weight-bold' ><p># Part</p></div>" +
+      "<div class='col-form-label col-sm-3 font-weight-bold' ><p>Name</p></div>" +
+      "<div class='col-form-label col-sm-3 font-weight-bold' ><p>Quantity</p></div>"
+
+    var formulario = ""
+
+    formulario += cabecera
+
+    for (var i = 0; i < rawMaterialData.length; i++) {
+
+      var image = ""
+      if (rawMaterialData[i]["imagen"] == undefined) image = "Image not available"
+      else if (rawMaterialData[i]["imagen"].length == 0) image = "Image not available"
+      else image = "<img style='width: 30%' src='" + rawMaterialData[i]["imagen"].replace('public', '') + "'>"
+
+      var stepper = "<div class='col-form-label col-sm-3' style='text-align:center'>" + image + "</div>" +
+        "<div class='col-form-label col-sm-3'><p>" + rawMaterialData[i]["noparte"] + "</p></div>" +
+        "<div class='col-form-label col-sm-3'><p>" + rawMaterialData[i]["nombre"] + "</p></div>" +
+        "<div class='col-form-label col-sm-3' style='text-align:center'><input class='form-control' onkeyup='validate(this)' oncopy='validate(this)'  type='number' min='0' value='1' name='" + rawMaterialData[i]["objectId"] + "' required></div>"
+      formulario += stepper
+    }
+
+    $("#inventoryRM").append(formulario)
+  }
+
+  $('#form_inventario_base').submit(function() {
+    // submit the form
+    loader(true)
+    $(this).ajaxSubmit({
+      type: 'POST',
+      url: '/administrador/master_data/raw_material_inventory/datos_agregar',
+      success: function(data, textStatus, jqXHR) {
+        // The form was successfully submitted
+        loader(false)
+        toggleTables("raw_material_inventory")
+        Swal.fire(
+          'Updated!',
+          'The raw inventory has been updated successfully',
+          'success'
+        )
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // The submit action failed
+        loader(false)
+        Swal.fire(
+          '¡Error!',
+          XMLHttpRequest.responseJSON.error + '. Try again',
+          'error'
+        )
+      }
+    })
+    return false;
+  });
+</script>
+
+<!--Funciones editar de Product Famili-->
+<script type="text/javascript">
+  $('#editModalProductoFamilia').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var nombre = $(e.relatedTarget).data('nombre');
+    var codigo = $(e.relatedTarget).data('codigo');
+    var imagen = $(e.relatedTarget).data('imagen');
+    $("#objectId_producto_mafilia_editar").val(id);
+    $("#producto_mafilia_nombre_editar").val(nombre);
+    $("#producto_mafilia_codigo_editar").val(codigo);
+  });
+
+  $("#form_editar_producto_family").submit(function(event) {
+    event.preventDefault();
+    $(this).ajaxSubmit({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/product_family/datos_editar",
+      success: function(data, textStatus, jqXHR) {
+        toggleTables("product_family")
+        Swal.fire(
+          'Edited!',
+          'The product has been edited successfully',
+          'success'
+        )
+        $('#editModalProductoFamilia').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#editModalProductoFamilia').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  });
+</script>
+
+<!--Funciones editar de Raw Material Inventary-->
+<script type="text/javascript">
+  function validate(componentInput){
+    var number = $(componentInput).val()
+    if(Number(number) < 0){
+      $(componentInput).val(number.replace('-',''))
+    }else if(number == ''){
+      $(componentInput).val('')
+    }
+  }
+
+  $('#editModalRawMaterialInventary').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var cantidad = $(e.relatedTarget).data('cantidad');
+    $("#familia_producto_id_editar").val(id);
+    $("#familia_producto_cantidad_editar").val(cantidad);
+  });
+
+  $("#familia_producto_cantidad_editar").on('keyup  copy',function(e){
+    //log($("#familia_producto_cantidad_editar").val())
+    var number = $("#familia_producto_cantidad_editar").val()
+    if(Number(number) < 0){
+      $("#familia_producto_cantidad_editar").val(number.replace('-',''))
+    }else if(number == ''){
+      $("#familia_producto_cantidad_editar").val('')
+    }
+  })
+
+  $("#form_editar_edit_modal_raw_material_inventary").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/raw_material_inventory/datos_editar",
+      success: function(response) {
+        toggleTables("raw_material_inventory")
+        Swal.fire(
+          'Edited!',
+          'The raw material inventory has been edited successfully',
+          'success'
+        )
+        $('#editModalRawMaterialInventary').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#editModalRawMaterialInventary').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  });
+</script>
+
+<!--Customers-->
+<script type="text/javascript">
+  function ajaxTableCUSTR() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/customers/datos",
+      success: function(response) {
+        customers = response.data
+        reloadTableCUSTR(customers)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableCUSTR(customers) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Name</th>'
+    thead += '<th>Address</th>'
+    thead += '<th>Postal Code</th>'
+    thead += '<th>Telephone</th>'
+    thead += '<th>Email</th>'
+    thead += '<th>Credit Money</th>'
+    thead += '<th>Client Type</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>Address</th>'
+    tfooter += '<th>Postal Code</th>'
+    tfooter += '<th>Telephone</th>'
+    tfooter += '<th>Email</th>'
+    tfooter += '<th>Credit Money</th>'
+    tfooter += '<th>Client Type</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: customers,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            return estaVacio(data["nombre"]) + " " + estaVacio(data["apellidoPaterno"]) + " " + estaVacio(data["apellidoMaterno"])
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return estaVacio(data["ciudad"]) + ", " + estaVacio(data["estado"]) + ", " + estaVacio(data["suburbio"]) + ", " + estaVacio(data["calle"]) + ", #" + estaVacio(data["numero"])
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["codigoPostal"] == undefined) return "Information not available"
+            if (data["codigoPostal"].length == 0) return "Information not available"
+            return data["codigoPostal"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["telefono"] == undefined) return "Information not available"
+            if (data["telefono"].length == 0) return "Information not available"
+            return data["telefono"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["email"] == undefined) return "Information not available"
+            if (data["email"].length == 0) return "Information not available"
+            return data["email"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["creditoMonetario"] == undefined) return "Information not available"
+            if (data["creditoMonetario"].length == 0) return "Information not available"
+            return formatter.format(data["creditoMonetario"])
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["tipoCliente"] == undefined) return "Information not available"
+            if (data["tipoCliente"].length == 0) return "Information not available"
+            return data["tipoCliente"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalCustomer" data-id="' + data["objectId"] + '" data-nombre="' + data["nombre"] + '" data-apellidoPaterno="' + data["apellidoPaterno"] + '" data-apellidoMaterno="' + data["apellidoMaterno"] + '" data-calle="' + data["calle"] + '" data-numero="' + data["numero"] + '" data-suburbio="' + data["suburbio"] + '" data-codigoPostal="' + data["codigoPostal"] + '" data-ciudad="' + data["ciudad"] + '" data-estado="' + data["estado"] + '" data-telefono="' + data["telefono"] + '" data-email="' + data["email"] + '" data-creditoMonetario="' + data["creditoMonetario"] + '" data-tipoCliente="' + data["tipoCliente"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'customers/archivar_cliente' + '\',\'' + 'customer' + '\',\'' + 'customers' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'customers/archivar_cliente' + '\',\'' + 'customer' + '\',\'' + 'customers' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'customers/eliminar_cliente' + '\',\'' + 'customer' + '\',\'' + 'customers' + '\',true)" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $("#form_importar_customer").submit(function(event) {
+    event.preventDefault();
+    $("#form_importar_customer").ajaxSubmit({
+      success: function(response) {
+        $("#form_importar_customer").trigger("reset");
+        $('#collapseImportar').collapse('hide');
+        Swal.fire(
+          'Successful Import!',
+          `Data added correctly`,
+          'success'
+        )
+        ajaxTableCUSTR()
+      },
+      error: function(response) {
+
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+          'error'
+        )
+      }
+    });
+  })
+
+  $('#editModalCustomer').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var nombre = $(e.relatedTarget).data('nombre');
+    var apellidoPaterno = $(e.relatedTarget).data('apellidopaterno');
+    var apellidoMaterno = $(e.relatedTarget).data('apellidomaterno');
+    var calle = $(e.relatedTarget).data('calle');
+    var numero = $(e.relatedTarget).data('numero');
+    var suburbio = $(e.relatedTarget).data('suburbio');
+    var codigoPostal = $(e.relatedTarget).data('codigopostal');
+    var ciudad = $(e.relatedTarget).data('ciudad');
+    var estado = $(e.relatedTarget).data('estado');
+    var telefono = $(e.relatedTarget).data('telefono');
+    var email = $(e.relatedTarget).data('email');
+    var creditoMonetario = $(e.relatedTarget).data('creditomonetario');
+    var tipoCliente = $(e.relatedTarget).data('tipocliente');
+    $("#objectId_customer_editar").val(id);
+    $("#customer_nombre_editar").val(nombre);
+    $("#customer_apellido_paterno_editar").val(apellidoPaterno);
+    $("#customer_apellido_materno_editar").val(apellidoMaterno);
+    $("#customer_calle_editar").val(calle);
+    $("#customer_numero_editar").val(numero);
+    $("#customer_suburbio_editar").val(suburbio);
+    $("#customer_codigo_postal_editar").val(codigoPostal);
+    $("#customer_ciudad_editar").val(ciudad);
+    $("#customer_estado_editar").val(estado);
+    $("#customer_telefono_editar").val(telefono)
+    $("#customer_email_editar").val(email)
+    $("#customer_credito_monetario_editar").val(creditoMonetario)
+    $("#customer_tipo_cliente_editar").val(tipoCliente)
+  });
+
+  $("#form_editar_customer").submit(function(event) {
+    event.preventDefault();
+    var numero = $("#customer_telefono_editar").val()
+    var expresionNumero = /^[0-9.]+$/
+
+    if (!expresionNumero.test(numero)) {
+      $("#mensaje_error_telefono_cliente").show()
+      $("#mensaje_error_telefono_cliente").text("Only numbers required")
+    } else {
+      $.ajax({
+        type: "POST",
+        data: $(this).serialize(),
+        url: "/administrador/master_data/customers/datos_editar",
+        success: function(response) {
+          ajaxTableCUSTR()
+          Swal.fire(
+            'Edited!',
+            'The customer has been edited successfully',
+            'success'
+          )
+          $("#mensaje_error_telefono_cliente").hide()
+          $('#editModalCustomer').modal('toggle');
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          $("#mensaje_error_telefono_cliente").hide()
+          $('#editModalCustomer').modal('toggle');
+          Swal.fire(
+            '¡Error!',
+            'An error occurred while performing the action, please try again',
+            'error'
+          )
+        }
+      })
+    }
+  });
+</script>
+
+<!--Employees-->
+<script type="text/javascript"> 
+  $("#form_importar_employees").submit(function(event) {
+    event.preventDefault();
+    $("#form_importar_employees").ajaxSubmit({
+      success: function(response) {
+        $("#form_importar_employees").trigger("reset");
+        $('#collapseImportar').collapse('hide');
+        Swal.fire(
+          'Successful Import!',
+          `Data added correctly`,
+          'success'
+        )
+        ajaxTableEPS() 
+      },
+      error: function(response) {
+
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+          'error'
+        )
+      }
+    });
+  })
+
+  function ajaxTableEPS() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/employees/datos",
+      success: function(response) {
+        employees = response.data
+        reloadTableEPS(employees)
+        reloadSelectPickerSalaryTabulator(response.dataTabulator)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableEPS(employees) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Employee ID</th>'
+    thead += '<th>Name</th>'
+    thead += '<th>IMSS</th>'
+    thead += '<th>RFC</th>'
+    thead += '<th>Address</th>'
+    thead += '<th>Hour Salary</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Employee ID</th>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>IMSS</th>'
+    tfooter += '<th>RFC</th>'
+    tfooter += '<th>Address</th>'
+    tfooter += '<th>Hour Salary</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: employees,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["idEmpleado"] == undefined) return "Information not available"
+            if (data["idEmpleado"].length == 0) return "Information not available"
+            return data["idEmpleado"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return estaVacio(data["nombre"]) + " " + estaVacio(data["apellidoPaterno"]) + " " + estaVacio(data["apellidoMaterno"])
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["imss"] == undefined) return "Information not available"
+            if (data["imss"].length == 0) return "Information not available"
+            return data["imss"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["rfc"] == undefined) return "Information not available"
+            if (data["rfc"].length == 0) return "Information not available"
+            return data["rfc"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return estaVacio(data["ciudad"]) + ", " + estaVacio(data["estado"]) + ", " + estaVacio(data["suburbio"]) + ", " + estaVacio(data["calle"]) + ", #" + estaVacio(data["numero"])
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["salarioHora"] == undefined) return "Information not available"
+            if (data["salarioHora"].length == 0) return "Information not available"
+            var money = convertionMoney(data["salarioHora"])
+            return formatter.format(money)
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+             
+            
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+            //log(data)
+            if(data["DMsalaryTabulatorPtr"]){
+              data_to_add += "<div class='row' hidden>"+data["DMsalaryTabulatorPtr"]["department"]+"</div>"
+            }else{
+              data_to_add += "<div class='row' hidden>No existe</div>"
+            }
+
+            
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalEmployees" data-id="' + data["objectId"] + '" data-idEmpleado="' + data["idEmpleado"] + '" data-nombre="' + data["nombre"] + '" data-apellidoPaterno="' + data["apellidoPaterno"] + '" data-apellidoMaterno="' + data["apellidoMaterno"] + '" data-diaInicio="' + data["diaInicio"] + '" data-imss="' + data["imss"] + '" data-rfc="' + data["rfc"] + '" data-curp="' + data["curp"] + '" data-estadoCivil="' + data["estadoCivil"] + '" data-sexo="' + data["sexo"] + '" data-calle="' + data["calle"] + '" data-numero="' + data["numero"] + '" data-suburbio="' + data["suburbio"] + '" data-estado="' + data["estado"] + '" data-ciudad="' + data["ciudad"] + '" data-salarioHora="' + data["salarioHora"] + '" data-giro="' + data["giro"] + '" data-email="' + data["email"] + '" data-telefono="' + data["telefono"] + '" data-trabajo="' + data["trabajo"] + '" data-fechaNacimiento="' + data["fechaNacimiento"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'employees/archivar_empleado' + '\',\'' + 'employee' + '\',\'' + 'employees' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'employees/archivar_empleado' + '\',\'' + 'employee' + '\',\'' + 'employees' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'employees/eliminar_empleado' + '\',\'' + 'employee' + '\',\'' + 'employees' + '\',true)" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $('#editModalEmployees').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var idEmpleado = $(e.relatedTarget).data('idempleado');
+    var nombre = $(e.relatedTarget).data('nombre');
+    var apellidoPaterno = $(e.relatedTarget).data('apellidopaterno');
+    var apellidoMaterno = $(e.relatedTarget).data('apellidomaterno');
+    var diaInicio = $(e.relatedTarget).data('diainicio');
+    var imss = $(e.relatedTarget).data('imss');
+    var rfc = $(e.relatedTarget).data('rfc');
+    var curp = $(e.relatedTarget).data('curp');
+    var estadoCivil = $(e.relatedTarget).data('estadocivil');
+    var sexo = $(e.relatedTarget).data('sexo');
+    var calle = $(e.relatedTarget).data('calle');
+    var numero = $(e.relatedTarget).data('numero');
+    var suburbio = $(e.relatedTarget).data('suburbio');
+    var estado = $(e.relatedTarget).data('estado');
+    var ciudad = $(e.relatedTarget).data('ciudad');
+    var salarioHora = $(e.relatedTarget).data('salariohora');
+    var giro = $(e.relatedTarget).data('giro');
+    var email = $(e.relatedTarget).data('email');
+    var telefono = $(e.relatedTarget).data('telefono');
+    var trabajo = $(e.relatedTarget).data('trabajo');var money = convertionMoney(salarioHora)
+    var fechaNacimiento = $(e.relatedTarget).data('fechanacimiento');
+    $("#objectId_employee_editar").val(id);
+    $("#employee_id_empleado_editar").val(idEmpleado);
+    $("#employee_nombre_editar").val(nombre);
+    $("#employee_apellido_paterno_editar").val(apellidoPaterno);
+    $("#employee_apellido_materno_editar").val(apellidoMaterno);
+    $("#employee_dia_inicio_editar").val(diaInicio);
+    $("#employee_imss_editar").val(imss);
+    $("#employee_rfc_editar").val(rfc);
+    $("#employee_curp_editar").val(curp);
+    $("#employee_estado_civil_editar").val(estadoCivil);
+    $("#employee_sexo_editar").val(sexo);
+    $("#employee_calle_editar").val(calle);
+    $("#employee_numero_editar").val(numero);
+    $("#employee_suburbio_editar").val(suburbio);
+    $("#employee_estado_editar").val(estado);
+    $("#employee_ciudad_editar").val(ciudad);//formatter.format(money)
+    var money = convertionMoney(salarioHora)
+    $("#employee_salario_hora_editar").val(formatter.format(money));
+    $("#employee_giro_editar").val(giro);
+    $("#employee_email_editar").val(email);
+    $("#employee_telefono_editar").val(telefono);
+    $("#employee_trabajo_editar").val(trabajo);
+    $("#employee_fecha_nacimiento_editar").val(fechaNacimiento);
+  });
+
+  $("#form_editar_employees").submit(function(event) {
+    event.preventDefault();
+    var telefono = $("#employee_telefono_editar").val()
+    var expresionTelefono = /^[0-9.]+$/
+
+    if (!expresionTelefono.test(telefono)) {
+      $("#mensaje_error_telefono_empleado").show()
+      $("#mensaje_error_telefono_empleado").text("Only numbers required")
+    } else {
+      $.ajax({
+        type: "POST",
+        data: $(this).serialize(),
+        url: "/administrador/master_data/employees/datos_editar",
+        success: function(response) {
+          ajaxTableEPS()
+          Swal.fire(
+            'Edited!',
+            'The employee has been edited successfully',
+            'success'
+          )
+          $("#mensaje_error_telefono_empleado").hide()
+          $('#editModalEmployees').modal('toggle');
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          $("#mensaje_error_telefono_empleado").hide()
+          $('#editModalEmployees').modal('toggle');
+          Swal.fire(
+            '¡Error!',
+            'An error occurred while performing the action, please try again',
+            'error'
+          )
+        }
+      })
+    }
+  });
+
+  function reloadSelectPickerSalaryTabulator (data) {
+    var options = ''
+    var optionDeafult 
+    for (let i = 0; i < data.length; i++) {
+      if(i == 0){
+        optionDeafult = data[i]["objectId"]
+      }
+      if(data[i]["department"] != 'Production line'){
+        options += '<option value="'+data[i]['objectId']+'">'+data[i]["department"]+'</option>' 
+      }
+    }
+    $('#select_salary_tabulator').html(options).selectpicker('refresh')
+    $('#select_salary_tabulator').selectpicker('val',optionDeafult)
+  }
+
+</script>
+
+<!--Expenses-->
+<script type="text/javascript">
+  $("#form_importar_expenses").submit(function(event) {
+    event.preventDefault();
+    $("#form_importar_expenses").ajaxSubmit({
+      success: function(response) {
+        $("#form_importar_expenses").trigger("reset");
+        $('#collapseImportar').collapse('hide');
+        Swal.fire(
+          'Successful Import!',
+          `Data added correctly`,
+          'success'
+        )
+        ajaxTableEXPS()
+      },
+      error: function(response) {
+
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+          'error'
+        )
+      }
+    });
+  })
+
+  function ajaxTableEXPS() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/expenses/datos",
+      success: function(response) {
+        expenses = response.data
+        reloadTableEXPS(expenses)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableEXPS(expenses) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Account</th>'
+    thead += '<th>Import</th>'
+    thead += '<th>Period</th>'
+    thead += '<th>Type</th>'
+    thead += '<th>Percentage</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Account</th>'
+    tfooter += '<th>Import</th>'
+    tfooter += '<th>Period</th>'
+    tfooter += '<th>Type</th>'
+    tfooter += '<th>Percentage</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: expenses,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["cuenta"] == undefined) return "Information not available"
+            if (data["cuenta"].length == 0) return "Information not available"
+            return data["cuenta"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["importar"] == undefined) return "Information not available"
+            if (data["importar"].length == 0) return "Information not available"
+            var money = convertionMoney(data["importar"])
+            return formatter.format(money)
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["periodo"] == undefined) return "Information not available"
+            if (data["periodo"].length == 0) return "Information not available"
+            return data["periodo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["tipo"] == undefined) return "Information not available"
+            if (data["tipo"].length == 0) return "Information not available"
+            return data["tipo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["porcentaje"] == undefined) return "Information not available"
+            if (data["porcentaje"].length == 0) return "Information not available"
+            return data["porcentaje"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalExpense" data-id="' + data["objectId"] + '" data-cuenta="' + data["cuenta"] + '" data-importar="' + data["importar"] + '" data-periodo="' + data["periodo"] + '" data-tipo="' + data["tipo"] + '" data-porcentaje="' + data["porcentaje"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'expenses/archivar_gasto' + '\',\'' + 'expense' + '\',\'' + 'expenses' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'expenses/archivar_gasto' + '\',\'' + 'expense' + '\',\'' + 'expenses' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'expenses/eliminar_gasto' + '\',\'' + 'expense' + '\',\'' + 'expenses' + '\',true)" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $('#editModalExpense').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var cuenta = $(e.relatedTarget).data('cuenta');
+    var importar = $(e.relatedTarget).data('importar');
+    var periodo = $(e.relatedTarget).data('periodo');
+    var tipo = $(e.relatedTarget).data('tipo');
+    var porcentaje = $(e.relatedTarget).data('porcentaje');
+    $("#objectId_expesnse_editar").val(id);
+    $("#expesnse_cuenta_editar").val(cuenta);
+    $("#expesnse_importar_editar").val(importar);
+    $("#expesnse_periodo_editar").val(periodo);
+    $("#expesnse_tipo_editar").val(tipo);
+    $("#expesnse_porcentaje_editar").val(porcentaje);
+  });
+
+  $("#form_editar_expense").submit(function(event) {
+    event.preventDefault();
+    /*var numero = $("#customer_telefono_editar").val()
+    var expresionNumero = /^[0-9.]+$/
+
+    if (!expresionNumero.test(numero)) {
+      $("#mensaje_error_telefono_cliente").show()
+      $("#mensaje_error_telefono_cliente").text("Only numbers required")
+    } else {*/
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/expenses/datos_editar",
+      success: function(response) {
+        ajaxTableEXPS()
+        Swal.fire(
+          'Edited!',
+          'The expense has been edited successfully',
+          'success'
+        )
+        //$("#mensaje_error_telefono_cliente").hide()
+        $('#editModalExpense').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //$("#mensaje_error_telefono_cliente").hide()
+        $('#editModalExpense').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+    //}
+  });
+</script>
+
+<!--Fix Assets-->
+<script type="text/javascript">
+  $("#form_importar_fix_assets").submit(function(event) {
+    event.preventDefault();
+    $("#form_importar_fix_assets").ajaxSubmit({
+      success: function(response) {
+        $("#form_importar_fix_assets").trigger("reset");
+        $('#collapseImportar').collapse('hide');
+        Swal.fire(
+          'Successful Import!',
+          `Data added correctly`,
+          'success'
+        )
+        ajaxTableFXATS()
+      },
+      error: function(response) {
+
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+          'error'
+        )
+      }
+    });
+  })
+
+  function ajaxTableFXATS() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/fix_assets/datos",
+      success: function(response) {
+        fixAssets = response.data
+        reloadTableFXATS(fixAssets)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableFXATS(fixAssets) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Name</th>'
+    thead += '<th>Description</th>'
+    thead += '<th>Model</th>'
+    thead += '<th>Cost Price</th>'
+    thead += '<th>Sale Price</th>'
+    thead += '<th>Serial Number</th>'
+    thead += '<th>Brand</th>'
+    thead += '<th>Department</th>'
+    thead += '<th>Acquisition Date</th>'
+    thead += '<th>Time Life</th>'
+    thead += '<th>Depreciation Fee</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>Description</th>'
+    tfooter += '<th>Model</th>'
+    tfooter += '<th>Cost Price</th>'
+    tfooter += '<th>Sale Price</th>'
+    tfooter += '<th>Serial Number</th>'
+    tfooter += '<th>Brand</th>'
+    tfooter += '<th>Department</th>'
+    tfooter += '<th>Acquisition Date</th>'
+    tfooter += '<th>Time Life</th>'
+    tfooter += '<th>Depreciation Fee</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: fixAssets,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["nombre"] == undefined) return "Information not available"
+            if (data["nombre"].length == 0) return "Information not available"
+            return data["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["descripcion"] == undefined) return "Information not available"
+            if (data["descripcion"].length == 0) return "Information not available"
+            return data["descripcion"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["modelo"] == undefined) return "Information not available"
+            if (data["modelo"].length == 0) return "Information not available"
+            return data["modelo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["precioCosto"] == undefined) return "Information not available"
+            if (data["precioCosto"].length == 0) return "Information not available"
+            var money = convertionMoney(data["precioCosto"])
+            return formatter.format(money)
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["precioVenta"] == undefined) return "Information not available"
+            if (data["precioVenta"].length == 0) return "Information not available"
+            var money = convertionMoney(data["precioVenta"])
+            return formatter.format(money)
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["numeroSerie"] == undefined) return "Information not available"
+            if (data["numeroSerie"].length == 0) return "Information not available"
+            return data["numeroSerie"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["marca"] == undefined) return "Information not available"
+            if (data["marca"].length == 0) return "Information not available"
+            return data["marca"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["departamento"] == undefined) return "Information not available"
+            if (data["departamento"].length == 0) return "Information not available"
+            return data["departamento"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["fechaAdquisicion"] == undefined) return "Information not available"
+            if (data["fechaAdquisicion"].length == 0) return "Information not available"
+            return data["fechaAdquisicion"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["tiempoVida"] == undefined) return "Information not available"
+            if (data["tiempoVida"].length == 0) return "Information not available"
+            return data["tiempoVida"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["tarifaDepreciacion"] == undefined) return "Information not available"
+            if (data["tarifaDepreciacion"].length == 0) return "Information not available"
+            return data["tarifaDepreciacion"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalFixAssets" data-id="' + data["objectId"] + '" data-nombre="' + data["nombre"] + '" data-descripcion="' + data["descripcion"] + '" data-modelo="' + data["modelo"] + '" data-precio_coste="' + data["precioCosto"] + '" data-precio_venta="' + data["precioVenta"] + '" data-numero_serie="' + data["numeroSerie"] + '" data-marca="' + data["marca"] + '" data-departamento="' + data["departamento"] + '" data-fecha_adquisicion="' + data["fechaAdquisicion"] + '" data-tiempo_vida="' + data["tiempoVida"] + '" data-tarifa_depreciacion="' + data["tarifaDepreciacion"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'fix_assets/archivar_activo_fijo' + '\',\'' + 'fix asset' + '\',\'' + 'fix_assets' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'fix_assets/archivar_activo_fijo' + '\',\'' + 'fix asset' + '\',\'' + 'fix_assets' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'fix_assets/eliminar_activo_fijo' + '\',\'' + 'fix asset' + '\',\'' + 'fix_assets' + '\',true)" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $('#editModalFixAssets').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var nombre = $(e.relatedTarget).data('nombre');
+    var descripcion = $(e.relatedTarget).data('descripcion');
+    var modelo = $(e.relatedTarget).data('modelo');
+    var precio_coste = $(e.relatedTarget).data('precio_coste');
+    var precio_venta = $(e.relatedTarget).data('precio_venta');
+    var numero_serie = $(e.relatedTarget).data('numero_serie');
+    var marca = $(e.relatedTarget).data('marca');
+    var departamento = $(e.relatedTarget).data('departamento');
+    var fecha_adquisicion = $(e.relatedTarget).data('fecha_adquisicion');
+    var tiempo_vida = $(e.relatedTarget).data('tiempo_vida');
+    var tarifa_depreciacion = $(e.relatedTarget).data('tarifa_depreciacion');
+    $("#objectId_fix_assets_editar").val(id);
+    $("#asset_nombre_editar").val(nombre);
+    $("#asset_descripcion_editar").text(descripcion);
+    $("#asset_modelo_editar").val(modelo);
+    //var money = convertionMoney(precio_coste)
+    $("#asset_precio_coste_editar").val(precio_coste);
+    //var money = convertionMoney(precio_venta)
+    $("#asset_precio_venta_editar").val(precio_venta);
+    $("#asset_numero_serie_editar").val(numero_serie);
+    $("#asset_marca_editar").val(marca);
+    $("#asset_departamento_editar").val(departamento);
+    $("#asset_fecha_adquisicion_editar").val(fecha_adquisicion);
+    $("#asset_tiempo_vida_editar").val(tiempo_vida)
+    $("#asset_tarifa_depreciacion_editar").val(tarifa_depreciacion)
+  });
+
+  $("#form_editar_fix_assets").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/fix_assets/datos_editar",
+      success: function(response) {
+        ajaxTableFXATS()
+        Swal.fire(
+          'Edited!',
+          'The asset has been edited successfully',
+          'success'
+        )
+        $('#editModalFixAssets').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#editModalFixAssets').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+    //}
+  });
+</script>
+
+<!--Suppliers-->
+<script type="text/javascript">
+  $("#form_importar_suppliers").submit(function(event) {
+    event.preventDefault();
+    $("#form_importar_suppliers").ajaxSubmit({
+      success: function(response) {
+        $("#form_importar_suppliers").trigger("reset");
+        $('#collapseImportar').collapse('hide');
+        Swal.fire(
+          'Successful Import!',
+          `Data added correctly`,
+          'success'
+        )
+        ajaxTableSPLRS()
+      },
+      error: function(response) {
+
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+          'error'
+        )
+      }
+    });
+  })
+
+  function ajaxTableSPLRS() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/suppliers/datos",
+      success: function(response) {
+        suppliers = response.data
+        reloadTableSPLRS(suppliers)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableSPLRS(suppliers) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Abbreviation</th>'
+    thead += '<th>Name</th>'
+    thead += '<th>RFC</th>'
+    thead += '<th>Business Name</th>'
+    thead += '<th>Numid</th>'
+    thead += '<th>Email</th>'
+    thead += '<th>Web Page</th>'
+    thead += '<th>Bank Account</th>'
+    thead += '<th>Credit Days</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Abbreviation</th>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>RFC</th>'
+    tfooter += '<th>Business Name</th>'
+    tfooter += '<th>Numid</th>'
+    tfooter += '<th>Email</th>'
+    tfooter += '<th>Web Page</th>'
+    tfooter += '<th>Bank Account</th>'
+    tfooter += '<th>Credit Days</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: suppliers,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["abreviatura"] == undefined) return "Information not available"
+            if (data["abreviatura"].length == 0) return "Information not available"
+            return data["abreviatura"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["nombre"] == undefined) return "Information not available"
+            if (data["nombre"].length == 0) return "Information not available"
+            return data["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["rfc"] == undefined) return "Information not available"
+            if (data["rfc"].length == 0) return "Information not available"
+            return data["rfc"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["rsSocial"] == undefined) return "Information not available"
+            if (data["rsSocial"].length == 0) return "Information not available"
+            return data["rsSocial"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["folio"] == undefined) return "Information not available"
+            if (data["folio"].length == 0) return "Information not available"
+            return data["folio"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["correoElectronico"] == undefined) return "Information not available"
+            if (data["correoElectronico"].length == 0) return "Information not available"
+            return data["correoElectronico"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["paginaWeb"] == undefined) return "Information not available"
+            if (data["paginaWeb"].length == 0) return "Information not available"
+            return data["paginaWeb"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["cuentaBancaria"] == undefined) return "Information not available"
+            if (data["cuentaBancaria"].length == 0) return "Information not available"
+            return data["cuentaBancaria"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["diasCredito"] == undefined) return "Information not available"
+            if (data["diasCredito"].length == 0) return "Information not available"
+            return data["diasCredito"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalSuppliers" data-id="' + data["objectId"] + '" data-abreviatura="' + data["abreviatura"] + '" data-nombre="' + data["nombre"] + '" data-rfc="' + data["rfc"] + '" data-rs_social="' + data["rsSocial"] + '" data-telefono="' + data["telefono"] + '" data-correo_electronico="' + data["correoElectronico"] + '" data-pagina_web="' + data["paginaWeb"] + '" data-cuenta_bancaria="' + data["cuentaBancaria"] + '" data-dias_credito="' + data["diasCredito"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'suppliers/archivar_proveedor' + '\',\'' + 'supplier' + '\',\'' + 'suppliers' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'suppliers/archivar_proveedor' + '\',\'' + 'supplier' + '\',\'' + 'suppliers' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'suppliers/eliminar_proveedor' + '\',\'' + 'supplier' + '\',\'' + 'suppliers' + '\',true)" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $('#editModalSuppliers').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var abreviatura = $(e.relatedTarget).data('abreviatura');
+    var nombre = $(e.relatedTarget).data('nombre');
+    var rfc = $(e.relatedTarget).data('rfc');
+    var rsSocial = $(e.relatedTarget).data('rs_social');
+    var telefono = $(e.relatedTarget).data('telefono');
+    var correoElectronico = $(e.relatedTarget).data('correo_electronico');
+    var paginaWeb = $(e.relatedTarget).data('pagina_web');
+    var cuentaBancaria = $(e.relatedTarget).data('cuenta_bancaria');
+    var diasCredito = $(e.relatedTarget).data('dias_credito');
+    
+    $("#objectId_suppliers_editar").val(id);
+    $("#abreviatura_editar").val( dataUndefined(abreviatura) );
+    $("#nombre_editar").val( dataUndefined(nombre) );
+    $("#rfc_editar").val( dataUndefined(rfc) );
+    $("#rs_social_editar").val( dataUndefined(rsSocial) );
+    $("#telefono_editar").val( dataUndefined(telefono) );
+    $("#correo_electronico_editar").val( dataUndefined(correoElectronico) );
+    $("#pagina_web_editar").val( dataUndefined(paginaWeb) );
+    $("#cuenta_bancaria_editar").val( dataUndefined(cuentaBancaria) );
+    $("#dias_credito_editar").val( dataUndefined(diasCredito) );
+  });
+
+  function dataUndefined (text) {
+    if( text == 'undefined' || text == undefined || text == '' ) {
+      return ""
+    }else{
+      return text
+    }
+  }
+
+  $("#form_editar_suppliers").submit(function(event) {
+    event.preventDefault();
+
+    var numero = $("#telefono_editar").val()
+    var diasCredito = $("#dias_credito_editar").val()
+    var expresionNumero = /^[0-9.]+$/
+
+    if (!expresionNumero.test(numero)) {
+      $("#mensaje_error_telefono").show()
+      $("#mensaje_error_telefono").text("Only numbers required")
+    } else if (!expresionNumero.test(diasCredito)) {
+      $("#mensaje_error_dias").show()
+      $("#mensaje_error_dias").text("Only numbers required")
+    } else {
+      $.ajax({
+        type: "POST",
+        data: $(this).serialize(),
+        url: "/administrador/master_data/suppliers/datos_editar",
+        success: function(response) {
+          ajaxTableSPLRS()
+          Swal.fire(
+            'Edited!',
+            'The supplier has been edited successfully',
+            'success'
+          )
+          $('#editModalSuppliers').modal('toggle');
+          $("#mensaje_error_telefono").hide()
+          $("#mensaje_error_dias").hide()
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          $('#editModalSuppliers').modal('toggle');
+          $("#mensaje_error_telefono").hide()
+          $("#mensaje_error_dias").hide()
+          Swal.fire(
+            '¡Error!',
+            'An error occurred while performing the action, please try again',
+            'error'
+          )
+        }
+      })
+    }
+  });
+</script>
+
+<!--Fix Assets Inventory-->
+<script type="text/javascript">
+  function crearFormularioInventarioActivosFijos(data) {
+    var cabecera = "<div class='col-form-label col-sm-2 font-weight-bold'>Name</div>" +
+      "<div class='col-form-label col-sm-2 font-weight-bold' ><p>Description</p></div>" +
+      "<div class='col-form-label col-sm-2 font-weight-bold' ><p>Serial number</p></div>" +
+      "<div class='col-form-label col-sm-2 font-weight-bold' ><p>Brand</p></div>" +
+      "<div class='col-form-label col-sm-2 font-weight-bold' ><p>Department</p></div>" +
+      "<div class='col-form-label col-sm-2 font-weight-bold' ><p>Quantity</p></div>"
+    var formulario = ""
+    formulario += cabecera
+    $("#FixAssetsInventoryCollapse").empty()
+
+    for (var i = 0; i < data.length; i++) {
+      var stepper = "<div class='col-form-label col-sm-2'><p>" + data[i]["nombre"] + "</p></div>" +
+        "<div class='col-form-label col-sm-2'><p>" + data[i]["descripcion"] + "</p></div>" +
+        "<div class='col-form-label col-sm-2'><p>" + data[i]["numeroSerie"] + "</p></div>" +
+        "<div class='col-form-label col-sm-2'><p>" + data[i]["marca"] + "</p></div>" +
+        "<div class='col-form-label col-sm-2'><p>" + data[i]["departamento"] + "</p></div>" +
+        "<div class='col-form-label col-sm-2' style='text-align:center'><input class='form-control' type='number' min='1' value='1' name='" + data[i]["objectId"] + "' required></div>"
+      formulario += stepper
+    }
+
+    $("#FixAssetsInventoryCollapse").append(formulario)
+  }
+
+  $("#form_inventario_activo_fijo").submit(function() {
+    $(this).ajaxSubmit({
+      type: "POST",
+      url: "/administrador/master_data/fix_assets_inventary/datos_agregar",
+      success: function(data, textStatus, errorThrown) {
+        ajaxTableFAIN()
+        Swal.fire(
+          'Updated!',
+          'The fix assets inventary has been updated successfully',
+          'success'
+        )
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // The submit action failed
+        Swal.fire(
+          '¡Error!',
+          XMLHttpRequest.responseJSON.error + '. Try again',
+          'error'
+        )
+      }
+    })
+    return false;
+  })
+
+  function ajaxTableFAIN() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/fix_assets_inventary/datos",
+      success: function(response) {
+        fixAssetsInventory = response.data
+        reloadTableFAIN(fixAssetsInventory)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableFAIN(fixAssetsInventory) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Name</th>'
+    thead += '<th>Description</th>'
+    thead += '<th>Model</th>'
+    thead += '<th>Serial Number</th>'
+    thead += '<th>Brand</th>'
+    thead += '<th>Department</th>'
+    thead += '<th>Acquisition Date</th>'
+    thead += '<th>Quantity</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Name</th>'
+    tfooter += '<th>Description</th>'
+    tfooter += '<th>Model</th>'
+    tfooter += '<th>Serial Number</th>'
+    tfooter += '<th>Brand</th>'
+    tfooter += '<th>Department</th>'
+    tfooter += '<th>Acquisition Date</th>'
+    tfooter += '<th>Quantity</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: fixAssetsInventory,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["activoFijoPtr"]["nombre"] == undefined) return "Information not available"
+            if (data["activoFijoPtr"]["nombre"].length == 0) return "Information not available"
+            return data["activoFijoPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["activoFijoPtr"]["descripcion"] == undefined) return "Information not available"
+            if (data["activoFijoPtr"]["descripcion"].length == 0) return "Information not available"
+            return data["activoFijoPtr"]["descripcion"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["activoFijoPtr"]["modelo"] == undefined) return "Information not available"
+            if (data["activoFijoPtr"]["modelo"].length == 0) return "Information not available"
+            return data["activoFijoPtr"]["modelo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["activoFijoPtr"]["numeroSerie"] == undefined) return "Information not available"
+            if (data["activoFijoPtr"]["numeroSerie"].length == 0) return "Information not available"
+            return data["activoFijoPtr"]["numeroSerie"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["activoFijoPtr"]["marca"] == undefined) return "Information not available"
+            if (data["activoFijoPtr"]["marca"].length == 0) return "Information not available"
+            return data["activoFijoPtr"]["marca"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["activoFijoPtr"]["departamento"] == undefined) return "Information not available"
+            if (data["activoFijoPtr"]["departamento"].length == 0) return "Information not available"
+            return data["activoFijoPtr"]["departamento"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["activoFijoPtr"]["fechaAdquisicion"] == undefined) return "Information not available"
+            if (data["activoFijoPtr"]["fechaAdquisicion"].length == 0) return "Information not available"
+            return data["activoFijoPtr"]["fechaAdquisicion"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["cantidad"] == undefined) return "Information not available"
+            if (data["cantidad"].length == 0) return "Information not available"
+            return new Intl.NumberFormat().format( data["cantidad"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalInventarioActivoFijo" data-id="' + data["objectId"] + '" data-cantidad="' + data["cantidad"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $('#editModalInventarioActivoFijo').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var cantidad = $(e.relatedTarget).data('cantidad');
+    $("#activo_fijo_inventario_id_editar").val(id);
+    $("#activo_fijo_inventario_cantidad_editar").val(cantidad);
+  });
+
+  $("#form_editar_edit_modal_fix_assets_inventory").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/fix_assets_inventary/datos_editar",
+      success: function(response) {
+        ajaxTableFAIN()
+        Swal.fire(
+          'Edited!',
+          'The fix asset inventary has been edited successfully',
+          'success'
+        )
+        $('#editModalInventarioActivoFijo').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#editModalInventarioActivoFijo').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  });
+</script>
+
+<!-- ORDER HISTORY -->
+<script type="text/javascript">
+  function ajaxTableOH() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/order_history/datos",
+      success: function(response) {
+        orderHistoryData = response.data
+        reloadTableOH()
+        loadSelectProducts()
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableOH() {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Product</th>'
+    thead += '<th>SKU</th>'
+    thead += '<th>Quantity</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Product</th>'
+    tfooter += '<th>SKU</th>'
+    tfooter += '<th>Quantity</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: orderHistoryData,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["productoPtr"]["nombre"] == undefined) return "Information not available"
+            return data["productoPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["productoPtr"]["codigo"] == undefined) return "Information not available"
+            return data["productoPtr"]["codigo"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return new Intl.NumberFormat().format( data["quantity"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            /*data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalOrderHistory" data-id="' + data["objectId"] + data["quantity"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"*/
+
+             if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'suppliers_raw_material/archivar_proveedor_materia_prima' + '\',\'' + 'supplier raw material' + '\',\'' + 'supplier_raw_material' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'suppliers_raw_material/archivar_proveedor_materia_prima' + '\',\'' + 'supplier raw material' + '\',\'' + 'supplier_raw_material' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'suppliers_raw_material/eliminar_proveedor_materia_prima' + '\',\'' + 'supplier raw material' + '\',\'' + 'supplier_raw_material' + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+            
+            data_to_add += "</div>"
+            
+            return data_to_add
+          }
+        },
+      ],
+    });
+  }
+
+  function loadSelectProducts() {
+    if(productFamily.length > 0) {      
+      formatSelectProducts()
+
+      return 
+    }
+
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/product_family/datos",
+      success: function(response) {
+        productFamily = response.data
+
+        formatSelectProducts()
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        log("error")
+        alert("Error with the database connection. Please check your internet connection")
+      }
+    })
+  }
+
+  function formatSelectProducts() {
+    var select = ""
+    for (var i = 0; i < productFamily.length; i++) {
+      var stepper = '<option value="' + productFamily[i]["objectId"] + '">' + productFamily[i]["nombre"] + '</option>'
+      select += stepper
+    }
+
+    $("#selectProducts").html(select).selectpicker('refresh');
+  }
+
+  $("#form_order_history").submit(function(event) {
+     event.preventDefault();
+     console.log("wey were are you")
+    $.ajax({
+      type: "POST",
+      url: "/administrador/master_data/order_history/datos_agregar",
+      data: $(this).serialize(),
+      success: function(response) {
+        $("#form_order_history").trigger("reset");
+        ajaxTableOH()
+        Swal.fire(
+          'Added!',
+          'The data has been added successfully',
+          'success'
+        )
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  })
+</script>
+
+
+<!--Suppliers - Raw material-->
+<script type="text/javascript">
+  function ajaxTableSRM() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/suppliers_raw_material/datos",
+      success: function(response) {
+        suppliersRawMaterial = response.data
+        reloadTableSRM(suppliersRawMaterial)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableSRM(suppliersRawMaterial) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Supplier Name</th>'
+    thead += '<th>Numid</th>'
+    thead += '<th>Raw Material Name</th>'
+    thead += '<th>Part SKU</th>'
+    thead += '<th>Cost</th>'
+    thead += '<th>Minimum Amount Of Order</th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Supplier Name</th>'
+    tfooter += '<th>Numid</th>'
+    tfooter += '<th>Raw Material Name</th>'
+    tfooter += '<th>Part SKU</th>'
+    tfooter += '<th>Cost</th>'
+    tfooter += '<th>Minimum Amount Of Order</th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: suppliersRawMaterial,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["proveedorPtr"]["nombre"] == undefined) return "Information not available"
+            if (data["proveedorPtr"]["nombre"].length == 0) return "Information not available"
+            return data["proveedorPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["proveedorPtr"]["folio"] == undefined) return "Information not available"
+            if (data["proveedorPtr"]["folio"].length == 0) return "Information not available"
+            return data["proveedorPtr"]["folio"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["materiaPrimaPtr"]["nombre"] == undefined) return "Information not available"
+            if (data["materiaPrimaPtr"]["nombre"].length == 0) return "Information not available"
+            return data["materiaPrimaPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["materiaPrimaPtr"]["noparte"] == undefined) return "Information not available"
+            if (data["materiaPrimaPtr"]["noparte"].length == 0) return "Information not available"
+            return data["materiaPrimaPtr"]["noparte"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["costo"] == undefined) return "Information not available"
+            if (data["costo"].length == 0) return "Information not available"
+            var money = convertionMoney(data["costo"])
+            return formatter.format(money)
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["cantidadMinima"] == undefined) return "Information not available"
+            if (data["cantidadMinima"].length == 0) return "Information not available"
+            return data["cantidadMinima"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalProveedorMateriaPrima" data-id="' + data["objectId"] + '" data-costo="' + data["costo"] + '" data-cantidadMinima="' + data["cantidadMinima"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+             if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'suppliers_raw_material/archivar_proveedor_materia_prima' + '\',\'' + 'supplier raw material' + '\',\'' + 'supplier_raw_material' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'suppliers_raw_material/archivar_proveedor_materia_prima' + '\',\'' + 'supplier raw material' + '\',\'' + 'supplier_raw_material' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'suppliers_raw_material/eliminar_proveedor_materia_prima' + '\',\'' + 'supplier raw material' + '\',\'' + 'supplier_raw_material' + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+            
+            data_to_add += "</div>"
+            
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  function crearFormularioProveedorMateriaPrima() {
+
+    $("#materiaPrima").empty()
+    var select = ""
+    var optionSeleccionado
+    for (var i = 0; i < suppliers.length; i++) {
+      if(i == 0){
+        optionSeleccionado = suppliers[i]["objectId"]
+      }
+      var stepper = '<option data-subtext="Supplier" value="' + suppliers[i]["objectId"] + '">' + suppliers[i]["nombre"] + '</option>'
+      select += stepper
+    }
+    $("#selecteProveedorMateriaPrima").html(select).selectpicker('refresh');
+    $('#selecteProveedorMateriaPrima').selectpicker('val', optionSeleccionado);
+
+    var formulario = ""
+    for (var i = 0; i < rawMaterialData.length; i++) {
+      var stepper = "<div class='row'>" +
+                "<div class='col-form-label col-sm-3 font-weight-bold'>" +
+                  "<p>" + rawMaterialData[i]["nombre"]  + "</p>" +
+                "</div>" +
+                "<div class='col-form-label col-sm-3'>" +
+                    "<input type='checkbox' name='"+rawMaterialData[i]["objectId"]+"' id='' value='" + rawMaterialData[i]["objectId"] + "'>" +
+                "</div>" +
+                "<div class='input-group col-form-label col-sm-3' style='text-align:center'>" +
+                  //"<p class='' for=''>" +
+                    '<div class="input-group-prepend">'+
+                      '<span class="input-group-text">$</span>'+
+                    '</div>'+
+                    "<input class='form-control input-md' id='costo' type='number' value='1' min='1' name='"+rawMaterialData[i]["objectId"]+"' required>" +
+                    '<div class="input-group-append">'+
+                      '<span class="input-group-text">.00</span>'+
+                    '</div>'+
+                  //"</p>" +
+                "</div>" +
+
+                "<div class='col-form-label col-sm-3' style='text-align:center'>" +
+                  "<input class='form-control input-md' id='cantidadMinima' type='number' value='1' min='1' name='"+rawMaterialData[i]["objectId"]+"' required>" +
+                "</div>" +
+              "</div>" 
+
+      formulario += stepper
+    }
+
+    $("#materiaPrima").append(formulario)
+  }
+
+  $("#form_proveedor_materia_prima").submit(function(event) {
+     event.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/administrador/master_data/suppliers_raw_material/datos_agregar",
+      data: $(this).serialize(),
+      success: function(response) {
+        $("#form_proveedor_materia_prima").trigger("reset");
+        ajaxTableSRM()
+        Swal.fire(
+          'Added!',
+          'The data has been added successfully',
+          'success'
+        )
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  })
+
+  $('#editModalProveedorMateriaPrima').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var costo = $(e.relatedTarget).data('costo');
+    var cantidadMinima = $(e.relatedTarget).data('cantidadminima');
+    $("#proveedor_materia_prima_id_editar").val(id);
+    $("#proveedor_materia_prima_costo_editar").val(costo);
+    $("#proveedor_materia_prima_cantidadMinima_editar").val(cantidadMinima);
+  });
+
+  $("#form_editar_proveedor_materia_prima").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/suppliers_raw_material/datos_editar",
+      success: function(response) {
+        ajaxTableSRM()
+        Swal.fire(
+          'Edited!',
+          'The supplier raw material has been edited successfully',
+          'success'
+        )
+        $('#editModalProveedorMateriaPrima').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#editModalProveedorMateriaPrima').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  });
+
+  $("#form_importar_suppliers_raw_material").submit(function(event) {
+    event.preventDefault();
+    $("#form_importar_suppliers_raw_material").ajaxSubmit({
+      success: function(response) {
+        $("#form_importar_suppliers_raw_material").trigger("reset");
+        //$('#collapseImportarSMP').collapse('hide');
+        ajaxTableSRM()
+        Swal.fire(
+          'Successful Import!',
+          `Data added correctly`,
+          'success'
+        )
+      },
+      error: function(response) {
+
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+          'error'
+        )
+      }
+    });
+  })
+</script>
+
+<!--Transport-->
+<script type="text/javascript">
+  function rellenarSelects(){
+    var selectProveedor = ""
+    var optionSeleccionado
+    
+    for (var i = 0; i < suppliers.length; i++) {
+      if(i == 0){
+        optionSeleccionado = suppliers[i]["objectId"]
+        
+      }
+      var stepper = '<option data-subtext="Supplier" value="' + suppliers[i]["objectId"] + '">' + suppliers[i]["nombre"] + '</option>'
+      selectProveedor += stepper
+    }
+    $("#select_transporte_supplier").html(selectProveedor).selectpicker('refresh');
+    $('#select_transporte_supplier').selectpicker('val', optionSeleccionado);
+
+    var selectPais = ""
+    for (var i = 0; i < countries.length; i++) {
+      if(i == 0){
+        optionSeleccionado = countries[i]["abreviatura"]
+      }
+      var stepper = '<option data-subtext="Countrie" value="' + countries[i]["abreviatura"] + '">' + countries[i]["nombre"] + '</option>'
+      selectPais += stepper
+    }
+    $("#select_transporte_country").html(selectPais).selectpicker('refresh');
+    $('#select_transporte_country').selectpicker('val', optionSeleccionado);
+
+     rellenarSelectTipoEmvio(optionSeleccionado,"select_transporte_envio")
+
+    materiaM  = []
+    materiaP  = []
+    materiaLL = []
+    materiaT  = []
+
+    for (var i = 0; i < rawMaterialData.length; i++) {
+      if(rawMaterialData[i].hasOwnProperty('categoriaPtr')){
+        if(rawMaterialData[i]["categoriaPtr"]["abreviatura"]=="P"){
+          var objectP={
+            "objectId":rawMaterialData[i]["objectId"],
+            "nombre":rawMaterialData[i]["nombre"]
+          }
+          materiaP.push(objectP)
+        }else if(rawMaterialData[i]["categoriaPtr"]["abreviatura"]=="M"){
+          var objectM={
+            "objectId":rawMaterialData[i]["objectId"],
+            "nombre":rawMaterialData[i]["nombre"]
+          }
+          materiaM.push(objectM)
+        }else if(rawMaterialData[i]["categoriaPtr"]["abreviatura"]=="T"){
+          var objectT={
+            "objectId":rawMaterialData[i]["objectId"],
+            "nombre":rawMaterialData[i]["nombre"]
+          }
+          materiaT.push(objectT)
+        }else{
+          var objectL={
+            "objectId":rawMaterialData[i]["objectId"],
+            "nombre":rawMaterialData[i]["nombre"]
+          }
+          materiaLL.push(objectL)
+        }
+      }
+    }
+
+    recargarSelectMateria(optionSeleccionado,"select_transporte_producto")
+
+  }
+  
+  function rellenarSelectTipoEmvio(abreviatura,nombreSelect){
+    var optionSeleccionado
+    var opcionsSelecion = ""
+    if(abreviatura == "CHN" || abreviatura == "HUN" || abreviatura == "MYS" || abreviatura == "UKR"){
+      opcionsSelecion+='<option value="Barco" selected>Ship</option>'
+      optionSeleccionado="Barco"
+    }
+    if(abreviatura == "CHN" || abreviatura == "HUN" || abreviatura == "MYS" || abreviatura == "UKR" || abreviatura == "USA"){
+      opcionsSelecion+='<option value="Avión">Airplane</option>'
+      optionSeleccionado="Avión"
+    }  
+    if(abreviatura == "CHN" || abreviatura == "HUN" || abreviatura == "MYS" || abreviatura == "UKR" || abreviatura == "USA" || abreviatura == "MEX"){
+      opcionsSelecion+='<option value="Tren">Train</option>'
+      optionSeleccionado="Tren"
+    }  
+    if(abreviatura == "CHN" || abreviatura == "HUN" || abreviatura == "MYS" || abreviatura == "UKR" || abreviatura == "USA" || abreviatura == "MEX"){
+      opcionsSelecion+='<option value="Trailer">Truck</option>'
+      optionSeleccionado="Trailer"
+    }  
+
+    $("#"+nombreSelect+"").html(opcionsSelecion).selectpicker('refresh');
+    $('#'+nombreSelect+'').selectpicker('val', optionSeleccionado);
+  }
+
+  function recargarSelectMateria(abreviatura,selectN){
+    var selectMaterial = ""
+    var optionSeleccionado
+    if(abreviatura == "HUN" || abreviatura == "UKR"){
+      for (var i = 0; i < materiaP.length; i++) {
+        if(i == 0){
+          optionSeleccionado = materiaP[i]["objectId"]
+        }
+        var stepper = '<option data-subtext="Plastics" value="' + materiaP[i]["objectId"] + '">' + materiaP[i]["nombre"] + '</option>'
+        selectMaterial += stepper
+      }
+    }
+
+    if(abreviatura == "CHN" || abreviatura == "MYS"){
+      for (var i = 0; i < materiaM.length; i++) {
+        if(i == 0){
+          optionSeleccionado = materiaM[i]["objectId"]
+        }
+        var stepper = '<option data-subtext="Metal" value="' + materiaM[i]["objectId"] + '">' + materiaM[i]["nombre"] + '</option>'
+        selectMaterial += stepper
+      }
+    }
+
+    if(abreviatura == "MEX"){
+      for (var i = 0; i < materiaT.length; i++) {
+        if(i == 0){
+          optionSeleccionado = materiaT[i]["objectId"]
+        }
+        var stepper = '<option data-subtext="Screws" value="' + materiaT[i]["objectId"] + '">' + materiaT[i]["nombre"] + '</option>'
+        selectMaterial += stepper
+      }
+    }
+
+    if(abreviatura == "USA"){
+      for (var i = 0; i < materiaLL.length; i++) {
+        if(i == 0){
+          optionSeleccionado = materiaLL[i]["objectId"]
+        }
+        var stepper = '<option data-subtext="Tires" value="' + materiaLL[i]["objectId"] + '">' + materiaLL[i]["nombre"] + '</option>'
+        selectMaterial += stepper
+      }
+    }
+    $("#"+selectN+"").html(selectMaterial).selectpicker('refresh');
+    $('#'+selectN+'').selectpicker('val', optionSeleccionado);
+  }
+
+  $("#select_transporte_country").on("change", (e) => {
+    var abreviatura = $("#select_transporte_country").val()
+    rellenarSelectTipoEmvio(abreviatura,'select_transporte_envio')
+    recargarSelectMateria(abreviatura,"select_transporte_producto")
+  }); 
+
+  $("#form_transporte").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/Transport/datos_agregar",
+      success: function(response) {
+        ajaxTableTPE()
+        Swal.fire(
+          'Add!',
+          'The transport has been Add successfully',
+          'success'
+        )
+        $("#form_transporte").trigger("reset");
+        rellenarSelects()
+        $('#collapseCardExampleTransporte').collapse('hide');
+       
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $("#form_transporte").trigger("reset");
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+    //}
+  });
+
+  function ajaxTableTPE() {
+    loader(true)
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/transport/datos",
+      success: function(response) {
+        transport = response.data
+        reloadTableTPE(transport)
+        loader(false)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("error")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTableTPE(transport) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Country</th>'
+    thead += '<th>Product</th>'
+    thead += '<th>Supplier</th>'
+    thead += '<th>Shipping Type</th>'
+    thead += '<th>Price</th>'
+    thead += '<th>Price Percentage</th>'
+    thead += '<th>Maximum Quantity</th>'
+    thead += '<th>Minimum Amount</th>'
+    thead += '<th>Place Of Departure</th>'
+    thead += '<th>Destination Place</th>'
+    thead += '<th>Delivery Days</th>'
+    thead += '<th>Urgent Transport </th>'
+    thead += '<th>Actions</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Country</th>'
+    tfooter += '<th>Product</th>'
+    tfooter += '<th>Supplier</th>'
+    tfooter += '<th>Shipping Type</th>'
+    tfooter += '<th>Price</th>'
+    tfooter += '<th>Price Percentage</th>'
+    tfooter += '<th>Maximum Quantity</th>'
+    tfooter += '<th>Minimum Amount</th>'
+    tfooter += '<th>Place Of Departure</th>'
+    tfooter += '<th>Destination Place</th>'
+    tfooter += '<th>Delivery Days</th>'
+    tfooter += '<th>Urgent Transport </th>'
+    tfooter += '<th>Actions</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: transport,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            if (data["paisPtr"]["nombre"] == undefined) return "Information not available"
+            if (data["paisPtr"]["nombre"].length == 0) return "Information not available"
+            return data["paisPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["productoPtr"]["nombre"] == undefined) return "Information not available"
+            if (data["productoPtr"]["nombre"].length == 0) return "Information not available"
+            return data["productoPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["proveedorPtr"]["nombre"] == undefined) return "Information not available"
+            if (data["proveedorPtr"]["nombre"].length == 0) return "Information not available"
+            return data["proveedorPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["tipoEnvio"] == undefined) return "Information not available"
+            if (data["tipoEnvio"].length == 0) return "Information not available"
+            if ( data["tipoEnvio"] == 'Barco' ) return 'Ship'
+            if ( data["tipoEnvio"] == 'Avión' ) return 'Airplane'
+            if ( data["tipoEnvio"] == 'Tren' ) return 'Train'
+            if ( data["tipoEnvio"] == 'Trailer' ) return 'Truck'
+            
+            return data["tipoEnvio"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["precio"] == undefined) return "Information not available"
+            if (data["precio"].length == 0) return "Information not available"
+            var money = convertionMoney(data["precio"])
+            return formatter.format(money)
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["porcentajePrecio"] == undefined) return "Information not available"
+            if (data["porcentajePrecio"].length == 0) return "Information not available"
+            return data["porcentajePrecio"]+" %"
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["cantidadMax"] == undefined) return "Information not available"
+            if (data["cantidadMax"].length == 0) return "Information not available"
+            return new Intl.NumberFormat().format( data["cantidadMax"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["cantidadMin"] == undefined) return "Information not available"
+            if (data["cantidadMin"].length == 0) return "Information not available"
+            return new Intl.NumberFormat().format( data["cantidadMin"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["lugarSalida"] == undefined) return "Information not available"
+            if (data["lugarSalida"].length == 0) return "Information not available"
+            return data["lugarSalida"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["lugarDestino"] == undefined) return "Information not available"
+            if (data["lugarDestino"].length == 0) return "Information not available"
+            return data["lugarDestino"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["diasEntrega"] == undefined) return "Information not available"
+            if (data["diasEntrega"].length == 0) return "Information not available"
+            return new Intl.NumberFormat().format( data["diasEntrega"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (data["urgente"] == undefined) return "false"
+            if (data["urgente"].length == 0) return "false"
+            return data["urgente"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#editModalTransport" data-id="' + data["objectId"] + '" data-paisid="' + data["paisPtr"]["objectId"] + '" data-abreviatura="' + data["paisPtr"]["abreviatura"] + '" data-productoid="' + data["productoPtr"]["objectId"]+ '" data-proveedorid="' + data["proveedorPtr"]["objectId"] + '" data-paisnombre="' + data["paisPtr"]["nombre"] + '" data-productonombre="' + data["productoPtr"]["nombre"] + '" data-proveedornombre="' + data["proveedorPtr"]["nombre"] + '" data-tipoEnvio="' + data["tipoEnvio"] + '" data-precio="' + data["precio"] + '" data-porcentajePrecio="' + data["porcentajePrecio"] + '" data-cantidadMax="' + data["cantidadMax"] + '" data-cantidadMin="' + data["cantidadMin"] + '" data-lugarSalida="' + data["lugarSalida"] + '" data-lugarDestino="' + data["lugarDestino"] + '" data-diasEntrega="' + data["diasEntrega"] + '" data-urgente="' + data["urgente"] + '"><button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+             if (data["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'transport/archivar_transporte' + '\',\'' + 'transport' + '\',\'' + 'transport' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["objectId"] + '\',\'' + 'transport/archivar_transporte' + '\',\'' + 'transport' + '\',\'' + 'transport' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["objectId"] + '\',\'' + 'transport/eliminar_transporte' + '\',\'' + 'transport' + '\',\'' + 'transport' + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+            
+            data_to_add += "</div>"
+            
+            return data_to_add
+          }
+        },
+      ],
+      /*dom: 'Bfrtip',
+      buttons: [
+          { extend: 'csv', className: 'btn btn-primary glyphicon glyphicon-save-file', exportOptions: {columns: [0] }},
+          { extend: 'excel', className: 'btn btn-primary glyphicon glyphicon-list-alt', exportOptions: {columns: [0] }},
+          { extend: 'pdf', className: 'btn btn-primary glyphicon glyphicon-file', exportOptions: {columns: [0] }}
+      ],*/
+    });
+  }
+
+  $('#editModalTransport').on('show.bs.modal', function(e) {
+
+    var id = $(e.relatedTarget).data('id');
+    var paisNombre = $(e.relatedTarget).data('paisnombre');
+    var abreviatura = $(e.relatedTarget).data('abreviatura');
+    var proveedorNombre = $(e.relatedTarget).data('proveedornombre');
+    var tipoEnvio = $(e.relatedTarget).data('tipoenvio');
+    var precio = $(e.relatedTarget).data('precio');
+    var porcentajePrecio = $(e.relatedTarget).data('porcentajeprecio');
+    var cantidadMax = $(e.relatedTarget).data('cantidadmax');
+    var cantidadMin = $(e.relatedTarget).data('cantidadmin');
+    var lugarSalida = $(e.relatedTarget).data('lugarsalida');
+    var lugarDestino = $(e.relatedTarget).data('lugardestino');
+    var diasEntrega = $(e.relatedTarget).data('diasentrega');
+    var urgente = $(e.relatedTarget).data('urgente');
+    var paisid = $(e.relatedTarget).data('paisid');
+    var productoid= $(e.relatedTarget).data('productoid');
+    var proveedorid = $(e.relatedTarget).data('proveedorid');
+
+    recargarSelectMateria(abreviatura,'select_transporte_producto_editar') 
+    rellenarSelectTipoEmvio(abreviatura, 'transport_tipoEnvio_editar')
+    $("#transport_objectId_editar").val(id);
+    $("#transport_country_editar").val(paisNombre);
+    $("#select_transporte_producto_editar").selectpicker('val', productoid);
+    $("#transport_supplier_editar").val(proveedorNombre);
+    $("#transport_tipoEnvio_editar").selectpicker('val',tipoEnvio);
+    $("#transport_precio_editar").val(precio);
+    $("#transport_porcentajePrecio_editar").val(porcentajePrecio);
+    $("#transport_cantidadMax_editar").val(cantidadMax);
+    $("#transport_cantidadMin_editar").val(cantidadMin);
+    $("#transport_lugarSalida_editar").val(lugarSalida);
+    $("#transport_lugarDestino_editar").val(lugarDestino);
+    $("#transport_diasEntrega_editar").val(diasEntrega);
+     $("#transport_country_editar_id").val(paisid);
+    $("#transport_supplier_editar_id").val(proveedorid);
+
+    if (urgente == true) {
+      $("#transport_urgente_editar").prop("checked", true);
+    } else {
+      $("#transport_urgente_editar").prop("checked", false);
+    }
+
+  });
+
+  $("#form_editar_transporte").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/administrador/master_data/transport/datos_editar",
+      success: function(response) {
+        ajaxTableTPE()
+        Swal.fire(
+          'Edited!',
+          'The transport has been edited successfully',
+          'success'
+        )
+        $('#editModalTransport').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //$('#editModalTransport').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          `${XMLHttpRequest.responseJSON.error} , please try again`,
+          'error'
+        )
+      }
+    })
+  });
+</script>
+
+<!--Salary tabulator-->
+<script type="text/javascript">
+  function ajaxTableSO() {
+    loader(true)
+    $.ajax({
+      type    : "GET",
+      url     : "/administrador/master_data/salary_tabulator/data",
+      success : function(response) {
+          reloadTableSalaryTabulator(response.data)
+          loader(false)
+      },error : function(XMLHttpRequest, textStatus, errorThrown) {
+          loader(false)
+          log("error")
+          if (textStatus == "") {
+            alert("Error with the database connection. Please check your internet connection")
+          }
+      }
+    })
+  }
+
+  function reloadTableSalaryTabulator(dataSO){
+    
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Area</th>'
+        thead += '<th>Dapartment</th>'
+        thead += '<th>Salary</th>'
+        thead += '<th>Action</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Area</th>'
+        tfooter += '<th>Dapartment</th>'
+        tfooter += '<th>Salary</th>'
+        tfooter += '<th>Action</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#dataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: dataSO,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            return data["area"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["department"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var money = convertionMoney(data["salary"])
+            return formatter.format(money)
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+                button = "<div class='row ml-2 mr-4' style='width:180px'>"
+                    button += "<div class='col-md-3'>"
+                        button += '<span data-toggle="modal" data-target="#editSalary" data-id="'+data["objectId"]+'" data-salary="'+data["salary"]+'" data-department="'+data["department"]+'" > <button type"button" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Asset Details"><i class="fas fa-edit"></i></button> </span>'
+                    button += "</div>"
+                button += "</div>"
+
+            return button
+          }
+        }
+      ],
+    })
+
+  }
+
+  $("#editSalary").on('show.bs.modal',function(e){
+    let id          = $(e.relatedTarget).data('id')
+    let salary      = $(e.relatedTarget).data('salary')
+    let department  = $(e.relatedTarget).data('department')
+
+    $("#id_salary").val(id)
+    $("#department_salary").text(department)
+    $("#input_salary_tabulator").val(salary)
+
+  })
+
+  $("#form_editar_salary_tabulator").submit(function(event) {
+    event.preventDefault();
+
+    $.ajax({
+      type    : "POST",
+      url     : "/administrador/master_data/salary_tabulator/update",
+      data    : $(this).serialize(),
+      success : function(response) {
+          $('#editSalary').modal('toggle');
+          ajaxTableSO()
+      },error : function(XMLHttpRequest, textStatus, errorThrown) {
+          alert("Error with the database connection. Please check your internet connection")
+      }
+    })
+  })
+</script>
+
+<!--Contries-->
+<script type="text/javascript">
+  function reloadcountries(){
+    $.ajax({
+      type: "GET",
+      url: "/administrador/master_data/countries/datos",
+      success: function(response) {
+        countries=response.data
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        log("erro")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+</script>
+
+<script type="text/javascript">
+  function estaVacio(dato) {
+    if (dato == undefined) return ""
+    if (dato.length == 0) return ""
+    return dato
+  }
+</script>
+
+<!--Fases de linea de producción-->
+<script type="text/javascript">
+  function ajaxTablePhases () {
+    loader(true)
+    $.ajax({
+      type    : "GET",
+      url     : "/administrador/master_data/production_line/phases/data",
+      success : function(response) {
+        //log(response)
+        reloadTablePhases ( response.data, response.dataFixedAsset, response.dataTabulator  )
+        createComponentsFixedAsset (response.dataFixedAsset)
+        createComponetTypeUser ( response.dataTabulator )
+        loader(false)
+      },error : function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("erro")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+
+  function reloadTablePhases ( dataPhases, dataFixedAsset, dataTabulator ) {
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+      $("#dataTable").dataTable().fnDestroy()
+      $("#dataTable").empty()
+    }
+
+    var thead   = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Name</th>'
+        thead += '<th>Hours Finish Phase</th>'
+        thead += '<th>Quantity Employees</th>'
+        thead += '<th>Fixed Assets</th>'
+        thead += '<th>Actions</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Name</th>'
+        tfooter += '<th>Hours Finish Phase</th>'
+        tfooter += '<th>Quantity Employees</th>'
+        tfooter += '<th>Fixed Assets</th>'
+        tfooter += '<th>Actions</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTable').append(thead);
+    $('#dataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    var tableProductionLinePhases = null
+        tableProductionLinePhases = $('#dataTable').DataTable({
+      processing: true,
+      lengthMenu: [100, 10, 25, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: dataPhases,
+      columns: [
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["phase"]["name"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["phase"]["hoursFinishPhase"]+'h(s)'
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            let arraydatos  = {}
+            var employees   = data["phase"]["quantityEmployees"]
+            for( const key in employees){
+                var empleaado = dataTabulator.find(current=> current["objectId"] == key)
+                if(empleaado!= undefined){
+                  arraydatos[empleaado['department']] = employees[key]
+                }
+            }
+            var stringEmployees = JSON.stringify(arraydatos)
+            var data_to_add     = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+              data_to_add += "<div class='col-md-3'>"
+                data_to_add += "<span data-toggle='modal' data-target='#ListQuantityEmployeesModal' data-employees='"+stringEmployees+"' data-namePhase='"+data["phase"]["name"]+"'><button type='button' class='btn btn-primary btn-circle ListFisxedAsset' data-toggle='tooltip' data-placement='bottom' title='List Employees'><i class='fas fa-users'></i></button></span>"
+              data_to_add += "</div>"
+            data_to_add += "</div>"
+            
+            return data_to_add
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+             var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#ListFisxedAssetModal"><button type="button" class="btn btn-primary btn-circle ListFisxedAsset" data-toggle="tooltip" data-placement="bottom" title="List Fixed Assets"><i class="fas fa-list-ul"></i></button></span>'
+            data_to_add += "</div>"
+            
+            data_to_add += "</div>"
+            
+            return data_to_add
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+            
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#EditFisxedAssetModalProductionLinePhase" ><button type="button" class="btn btn-primary btn-circle btnEditFisxedAssetModalProductionLinePhase" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+            data_to_add += "</div>"
+
+             if (data["phase"]["active"]) {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["phase"]["objectId"] + '\',\'' + 'production_line/phases/archive' + '\',\'' + 'production line phase' + '\',\'' + 'production_line_phase_master_data_admin' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            } else {
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Activacion(\'' + data["phase"]["objectId"] + '\',\'' + 'production_line/phases/archive' + '\',\'' + 'production line phase' + '\',\'' + 'production_line_phase_master_data_admin' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+              data_to_add += "</div>"
+            }
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<button type"button" onclick="Eliminar(\'' + data["phase"]["objectId"] + '\',\'' + 'production_line/phases/delete' + '\',\'' + 'production line phase' + '\',\'' + 'production_line_phase_master_data_admin' + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+            
+            data_to_add += "</div>"
+            
+            return data_to_add
+          }
+        }
+      ]
+    })
+
+    $("#dataTable tbody").on('click','button.ListFisxedAsset',function(e){
+        let data            = tableProductionLinePhases.row($(this).parents("tr")).data();
+        let fixedAssetPhase = data["phase"]["fixedAssetDMPtr"]
+        let fixedAssets     = data["fixedAssets"]
+        var stepper         = ''
+        $("#ListFisxedAssetModalLabel").text("List Fixed Assets - "+ data["phase"]["name"])
+        $("#contentListFixedAsset").empty()
+        
+        for (const key in fixedAssetPhase) {
+          let val = fixedAssets.find(current => current["objectId"] == key)
+              stepper += "<hr> <div class='form-group row'>" +
+                          "<div class='col-form-label col-sm-6 '>" +
+                              "<p>" + val["nombre"]  + "</p>" +
+                          "</div>" +
+                          "<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                              "<input type='number' value='"+fixedAssetPhase[key]+"' disabled>" +
+                          "</div>" +
+                      "</div>" 
+        }
+        $("#contentListFixedAsset").append(stepper)
+    })
+
+    $("#dataTable tbody").on('click','button.btnEditFisxedAssetModalProductionLinePhase',function(e){
+        let data            = tableProductionLinePhases.row($(this).parents("tr")).data();
+        let fixedAssetPhase = data["phase"]["fixedAssetDMPtr"]
+        let fixedAssets     = data["fixedAssets"]
+        var stepper         = ''
+        $("#objectId_phase").val(data["phase"]["objectId"] )
+        $("#EditFisxedAssetModalProductionLinePhaseLabel").text("Edit Fixed Assets - "+ data["phase"]["name"])
+        $("#edit_phase_name_tab_production_line_phase").val(data["phase"]["name"])
+        var employeesComponet = createComponetsEmployeesEditModal (data["phase"]["quantityEmployees"], dataTabulator)
+        //$("#edit_phase_amount_employees_tab_production_line_phase").val(data["phase"]["quantityEmployees"])
+        $("#edit_phase_description_product_family_tab_production_line_template").empty()
+        //log(data['phase']['description'])
+        if(data['phase']['description']){
+          $("#edit_phase_description_product_family_tab_production_line_template").text(data['phase']['description'])
+        }else{
+          $("#edit_phase_description_product_family_tab_production_line_template").text('')
+        }
+        $("#contentQuantityEmployees").empty()
+        $("#contentQuantityEmployees").append(employeesComponet)
+        $("#edit_hours_finish_phase_product_family_tab_production_line_template").val(data["phase"]["hoursFinishPhase"])
+        $("#contentEditFixedAssetProductionLinePhase").empty()
+
+        for (const key in fixedAssetPhase) {
+          let val = fixedAssets.find(current => current["objectId"] == key)
+              stepper += "<hr> <div class='form-group row'>" +
+                          "<div class='col-form-label col-sm-6 '>" +
+                              "<p>" + val["nombre"]  + "</p>" +
+                          "</div>" +
+                          "<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                              "<input class='form-control' type='number' min='1' value='"+fixedAssetPhase[key]+"' name='"+key+"'>" +
+                          "</div>" +
+                      "</div>" 
+        }
+        $("#contentEditFixedAssetProductionLinePhase").append(stepper)
+    })
+
+  }
+  
+  function createComponetsEmployeesEditModal ( dataEmployees, dataTabulator ) {
+    let component = ''
+    for(const key in dataEmployees){
+      var employee =  dataTabulator.find(current => current["objectId"] == key)
+      if( employee != undefined) {
+        component += "<div class='form-group row'>" +
+                          "<div class='col-form-label col-sm-6'>" +
+                              "<p>" + employee["department"]  + "</p>" +
+                          "</div>" +
+                          "<div class='col-form-label col-sm-6' style='text-align:center'>" +
+                              "<input class='form-control' id='costo' type='number' value='"+dataEmployees[key]+"' min='1' name='employees["+key+"]'>" +
+                          "</div>" +
+                      "</div>" 
+      }
+    }
+    return component
+  }
+
+  $("#ListQuantityEmployeesModal").on('show.bs.modal',function(e){
+  
+    let employees = $(e.relatedTarget).data('employees')
+    let name      = $(e.relatedTarget).data('namephase') 
+    let conponent = ''
+     $("#ListQuantityEmployeesModalLabel").text("List Employees - "+ name)
+    $("#contentListQuantityEmployees").empty()
+    for(const key in employees){
+      conponent += "<hr> <div class='form-group row'>" +
+                          "<div class='col-form-label col-sm-6 '>" +
+                              "<p>" + key + "</p>" +
+                          "</div>" +
+                          "<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                              "<input type='number' value='"+employees[key]+"' disabled>" +
+                          "</div>" +
+                      "</div>" 
+    }
+    $("#contentListQuantityEmployees").append(conponent)
+  })
+
+  function createComponentsFixedAsset ( data ) {
+    var formulario = ""
+    $("#list_fixed_Asset_production_line_phase").empty()
+    for (var i = 0; i < data.length; i++) {
+      var stepper = "<div class='form-group row'>" +
+                        "<div class='col-form-label col-sm-4'>" +
+                            "<p>" + data[i]["nombre"]  + "</p>" +
+                        "</div>" +
+                        "<div class='col-form-label col-sm-4'>" +
+                            "<input class='form-control' type='checkbox' name='"+data[i]["objectId"]+"' id='' value='" + data[i]["objectId"] + "'>" +
+                        "</div>" +
+                        "<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                            "<input class='form-control' id='costo' type='number' value='1' min='1' name='"+data[i]["objectId"]+"'>" +
+                        "</div>" +
+                    "</div>" 
+      formulario += stepper
+    }
+    $("#list_fixed_Asset_production_line_phase").append(formulario)
+  }
+
+  function createComponetTypeUser (dataTabulator) {
+    $("#type_emplado_production_line_phases").empty()
+    var forformulario_phase = ''
+    for (var i = 0; i < dataTabulator.length; i++) {
+      if( dataTabulator[i]["department"] == "Production line" ){
+        var stepper = "<div class='form-group row'>" +
+                          "<div class='col-form-label col-sm-4'>" +
+                              "<p>" + dataTabulator[i]["department"]  + "</p>" +
+                          "</div>" +
+                          "<div class='col-form-label col-sm-4'>" +
+                              "<input class='form-control' type='checkbox' name='employees["+dataTabulator[i]["objectId"]+"]' id='' value='" + dataTabulator[i]["objectId"] + "'>" +
+                          "</div>" +
+                          "<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                              "<input class='form-control' id='costo' type='number' value='1' min='1' name='employees["+dataTabulator[i]["objectId"]+"]'>" +
+                          "</div>" +
+                      "</div>" 
+        forformulario_phase += stepper
+      }
+      
+    }
+    $("#type_emplado_production_line_phases").append(forformulario_phase)
+  }
+
+  $("#form_production_line_phase").submit(function(e) {
+      e.preventDefault();
+      //log($(this).serialize())
+      loader(true)
+      var checkedSomeTypeEmployee = false
+      var checkedSomeFixedAsset   = false
+      $("#type_emplado_production_line_phases input[type=checkbox]").each(function (index) {  
+          if($(this).is(':checked')){
+            checkedSomeTypeEmployee = true
+          }
+      });
+
+      $("#list_fixed_Asset_production_line_phase input[type=checkbox]").each(function (index) {  
+          if($(this).is(':checked')){
+            checkedSomeFixedAsset = true
+          }
+      });
+
+      if( checkedSomeTypeEmployee == true ){
+        if( checkedSomeFixedAsset == true ){
+          $.ajax({
+            type    : "POST",
+            url: "/administrador/master_data/production_line/phases/save",
+            data: $(this).serialize(),
+            success: function(response) {
+              //log(response)
+              ajaxTablePhases ()
+              loader(false)
+              Swal.fire(
+                'Success!',
+                'The Phase has been added successfully',
+                'success'
+              )
+              $("#form_production_line_phase").trigger("reset");
+            },error : function(XMLHttpRequest, textStatus, errorThrown) {
+              loader(false)
+              Swal.fire(
+                '¡Error!',
+                `${XMLHttpRequest.responseJSON.error} , please try again`,
+                'error'
+              )
+            }
+          })
+        }else{
+          loader(false)
+          Swal.fire(
+          'warning!',
+            ' You have not selected any fixed assets, please try again',
+            'warning'
+          )
+        }
+      }else{  
+        loader(false) 
+        Swal.fire(
+          'warning!',
+          ' You have not selected an employee type, please try again',
+          'warning'
+        )
+      }
+  })
+
+  $("#form_edit_phase_fixed_asset").submit(function(e) {
+    e.preventDefault();
+    loader(true)
+    //log($(this).serialize())
+    $.ajax({
+      type: "POST",
+      url: "/administrador/master_data/production_line/phases/edit",
+      data: $(this).serialize(),
+      success: function(response) {
+        //log (response)
+        ajaxTablePhases ()
+        loader (false)
+        $('#EditFisxedAssetModalProductionLinePhase').modal('toggle');
+        $('#form_edit_phase_fixed_asset').trigger("reset")
+        Swal.fire(
+            'Success!',
+            'The Phase has been edited successfully',
+            'success'
+          )
+      },error : function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        Swal.fire(
+            '¡Error!',
+            `${XMLHttpRequest.responseJSON.error} , please try again`,
+            'error'
+          )
+      }
+    })
+  })
+</script>
+
+<!--Plantillas de linea de producción-->
+<script type="text/javascript">
+  function ajaxTablePLT () {
+    loader(true)
+    $.ajax({
+      type    : "GET",
+      url     : "/administrador/master_data/production_line/templates/data",
+      success : function(response) {
+        //log(response)
+        reloadTableTemplatePLT ( response.data, response.dataTabulatorFixedAssets )
+        createSelectProductFamilyTemplate ( response.dataProductFamily )
+        createComponentsPhasesTemplates ( response.dataPhases )
+        loader(false)
+      },error : function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+        log("erro")
+        if (textStatus == "") {
+          alert("Error with the database connection. Please check your internet connection")
+        }
+      }
+    })
+  } 
+
+  function reloadTableTemplatePLT ( dataTemplates, dataTabulatorFixedAssets ) {
+      if ($.fn.DataTable.isDataTable("#dataTable")) {
+        $("#dataTable").dataTable().fnDestroy()
+        $("#dataTable").empty()
+      }
+
+      var thead   = ""
+      var tfooter = ""
+
+      thead += '<thead>'
+        thead += '<tr>'
+          thead += '<th>Name</th>'
+          thead += '<th>Product Family</th>'
+          thead += '<th>Phases</th>'
+          thead += '<th>Hours Final Product</th>'
+          thead += '<th>Actions</th>'
+        thead += '</tr>'
+      thead += '</thead>'
+      tfooter += '<tfoot>'
+        tfooter += '<tr>'
+          tfooter += '<th>Name</th>'
+          tfooter += '<th>Product Family</th>'
+          tfooter += '<th>Phases</th>'
+          tfooter += '<th>Hours Final Product</th>'
+          tfooter += '<th>Actions</th>'
+        tfooter += '</tr>'
+      tfooter += '</tfoot>'
+
+      $('#dataTable').append(thead);
+      $('#dataTable').append(tfooter);
+
+      $.fn.dataTable.moment('DD-MM-YYYY');
+      var tableproductionLineTemplates = $('#dataTable').DataTable({
+        processing: true,
+        lengthMenu: [100, 10, 25, 50, 75],
+        order: [
+          [0, "asc"]
+        ],
+        deferRender: true,
+        data: dataTemplates,
+        columns: [
+          {
+            data: null,
+            render: function(data, type, row) {
+              return data["templates"]["name"]
+            }
+          },
+          {
+            data: null,
+            render: function(data, type, row) {
+              return data["templates"]["productFamilyDMPtr"]["nombre"]
+            }
+          },
+          {
+            data: null,
+            render: function(data, type, row) {
+              var data_to_add = ""
+
+            data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+            data_to_add += "<div class='col-md-3'>"
+            data_to_add += '<span data-toggle="modal" data-target="#ListPhasesTemplateModal"><button type="button" class="btn btn-primary btn-circle ListPhasesTemplate" data-toggle="tooltip" data-placement="bottom" title="List Phase"><i class="fas fa-list-ul"></i></button></span>'
+            data_to_add += "</div>"
+            
+            data_to_add += "</div>"
+            
+            return data_to_add
+            }
+          },
+          {
+            data: null,
+            render: function(data, type, row) {
+              return data["templates"]["hoursFinalProduct"]+' hour(s)'
+            }
+          },
+          {
+            data: null,
+            render: function(data, type, row) {
+              var data_to_add = ""
+
+              data_to_add = "<div class='row ml-3' style='width:180px'>"
+
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<span data-toggle="modal" data-target="#EditProdcutionLineTemplateModal" ><button type="button" class="btn btn-primary btn-circle btnEditProdcutionLineTemplateModal" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+              data_to_add += "</div>"
+
+              if (data["templates"]["active"]) {
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<button type"button" onclick="Activacion(\'' + data["templates"]["objectId"] + '\',\'' + 'production_line/templates/archive' + '\',\'' + 'production line template' + '\',\'' + 'production_line_templates_master_data_admin' + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+                data_to_add += "</div>"
+              } else {
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<button type"button" onclick="Activacion(\'' + data["templates"]["objectId"] + '\',\'' + 'production_line/templates/archive' + '\',\'' + 'production line template' + '\',\'' + 'production_line_templates_master_data_admin' + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+                data_to_add += "</div>"
+              }
+
+              data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button type"button" onclick="Eliminar(\'' + data["templates"]["objectId"] + '\',\'' + 'production_line/templates/delete' + '\',\'' + 'production line template' + '\',\'' + 'production_line_templates_master_data_admin' + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+              data_to_add += "</div>"
+
+              data_to_add += "</div>"
+
+              return data_to_add
+            }
+          }
+        ]
+      })
+
+    $("#dataTable tbody").on('click','button.ListPhasesTemplate',function(e){
+        let data                = tableproductionLineTemplates.row($(this).parents("tr")).data();
+        let dataPhasesTemplate  = data["templates"]["quantityFixedAssets"]
+        let phases              = data["phases"]
+        let arrayHours          = data["templates"]["hoursPhases"]
+        var stepper             = ''
+        $("#ListPhasesTemplateModalLabel").text("List Phases - "+ data["templates"]["name"])
+        $("#contentListPhasesTemplate").empty()
+
+        for (let i = 0; i < phases.length; i++) {
+          let step = i+1
+          stepper += "<div class='form-group row ' onclick='detailsPhaseTemplate("+JSON.stringify(dataTabulatorFixedAssets)+","+JSON.stringify(dataPhasesTemplate[i])+","+JSON.stringify(phases[i]["quantityEmployees"])+","+arrayHours[i]+")' style='cursor:pointer;' data-target='#DetailsPhaseTemplate' data-toggle='modal'>" +
+                          "<div class='col-form-label col-sm-3 font-weight-bold'>" +
+                            "<p class='ml-2'> Step " + step + " :</p>" +
+                          "</div>" +
+                          "<div class='col-form-label col-sm-9 '>" +
+                              "<p >" + phases[i]["name"]  + "</p>" +
+                          "</div>" +
+                      "</div> <hr>"
+        }
+
+        $("#contentListPhasesTemplate").append(stepper)
+
+    })
+
+    $("#dataTable tbody").on('click','button.btnEditProdcutionLineTemplateModal',function(e){
+        let data      = tableproductionLineTemplates.row($(this).parents("tr")).data();
+        let template  = data["templates"]
+
+        $("#edit_template_name_tab_production_line_template").val(template["name"])
+        $("#edit_template_hours_product_tab_production_line_template").val(template["hoursFinalProduct"])
+        $("#edit_template_efficiencyPercentage_tab_production_line_template").val(template["efficiencyPercentage"])
+        $("#edit_template_productionQuantity_tab_production_line_template").val(template["productionQuantity"])
+        $("#edit_select_product_family_tab_production_line_template").selectpicker('val',template["productFamilyDMPtr"]["objectId"])
+        $("#objectId_production_line_template").val(template["objectId"])
+
+    })
+
+  }
+  
+  function createSelectProductFamilyTemplate ( dataFamily ) {
+    var select    = ""
+    var selected  = undefined
+    for (var i = 0; i < dataFamily.length; i++){
+      if( i== 0 ){ selected = dataFamily[i]["objectId"] }
+        select += '<option value="'+dataFamily[i]["objectId"] + '">'+dataFamily[i]["nombre"]+'</option>'
+    }
+    $("#select_product_family_tab_production_line_template").html(select).selectpicker('refresh');
+    $("#select_product_family_tab_production_line_template").selectpicker('val',selected).selectpicker('refresh');
+    $("#edit_select_product_family_tab_production_line_template").html(select).selectpicker('refresh');
+  }
+
+  function createComponentsPhasesTemplates ( dataPhases ) {
+    var formulario = ""
+    $("#list_phases_production_line_tamplate").empty()
+    $("#list_phases_production_line_tamplate_to_save").empty()
+    for (var i = 0; i < dataPhases.length; i++) {
+      var stepper = "<div class='form-group row bg-secondary mb-2 mr-3 ml-3 ui-state-default' id='item' style='cursor:move;'>" +
+                        "<div class='col-form-label col-sm-12 text-white text-center align-items-center'>" +
+                            "<span id='numberPhase' class='font-weight-bold'> </span>"+
+                            "<p>" + dataPhases[i]["name"]  + "</p>" +
+                        "</div>" +/*
+                        "<div class='col-form-label col-sm-4'>" +
+                            "<input class='form-control' type='checkbox' name='phases["+dataPhases[i]["objectId"]+"]' value='"+dataPhases[i]["hoursFinishPhase"]+"' id='' >" +
+                        "</div>" +*/
+                        /*"<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                            "<input class='' id='costo' type='number' value='1' min='1' name='"+dataPhases[i]["objectId"]+"'>" +
+                        "</div>" +*/
+                        "<input id='' type='hidden' value='"+dataPhases[i]["objectId"]+","+dataPhases[i]["hoursFinishPhase"]+"'>" +
+                    "</div>" 
+      formulario += stepper
+    }
+    let headColum = '<div class="form-group row font-weight-bold text-center align-items-center justify-content-center">'+
+                      '<p>All Phases</p>'+
+                    '</div>'
+    $("#list_phases_production_line_tamplate").append(headColum)
+    $("#list_phases_production_line_tamplate").append(formulario)
+        headColum = '<div class="form-group row font-weight-bold text-center align-items-center justify-content-center">'+
+                      '<p>Phases To Save</p>'+
+                    '</div>'
+    $("#list_phases_production_line_tamplate_to_save").append(headColum)
+  }
+
+  $("#form_production_line_template").submit(function(e){
+    e.preventDefault();
+    loader(true)
+    let notSelectedPhases = false
+    //log($(this).serialize())
+    let dataTemplate = $(this).serialize()
+    $("#list_phases_production_line_tamplate_to_save #item input").each(function ( index ) {
+      //log($(this).val())
+      let arrayValInput = $(this).val().split(',')
+      dataTemplate += '&phases['+arrayValInput[0]+']='+arrayValInput[1]
+      notSelectedPhases = true
+    })
+
+    if( notSelectedPhases == true ) {
+      //log("agregado")
+      $.ajax({
+        type: "POST",
+        url: "/administrador/master_data/production_line/templates/save",
+        data: dataTemplate,//$(this).serialize(),
+        success: function(response) {
+          //log(response)
+          ajaxTablePhases ()
+            loader(false)
+            ajaxTablePLT ()
+            Swal.fire(
+              'Success!',
+              'The Template has been added successfully',
+              'success'
+            )
+        },error : function(XMLHttpRequest, textStatus, errorThrown) {
+          loader(false)
+            Swal.fire(
+              '¡Error!',
+              `${XMLHttpRequest.responseJSON.error} , please try again`,
+              'error'
+            )
+        }
+      })
+    }else{
+      Swal.fire(
+          'Warning!',
+          'you have not added any phases to the template, please try again',
+          'warning'
+        )
+    }
+
+  })
+
+  $("#edit_form_production_line_template").submit(function(e){
+    e.preventDefault();
+    loader(true)
+    //log($(this).serialize())
+    $.ajax({
+      type: "POST",
+      url: "/administrador/master_data/production_line/templates/edit",
+      data: $(this).serialize(),
+      success: function(response) {
+        //log(response)
+        ajaxTablePLT ()
+        Swal.fire(
+          'Success!',
+          'The Template has been added successfully',
+          'success'
+        )
+        $('#EditProdcutionLineTemplateModal').modal('toggle');
+        loader(false)
+      },error : function(XMLHttpRequest, textStatus, errorThrown) {
+        loader(false)
+          Swal.fire(
+            '¡Error!',
+            `${XMLHttpRequest.responseJSON.error} , please try again`,
+            'error'
+          )
+      }
+    })
+  })
+
+  function detailsPhaseTemplate ( dataTabulatorFixedAssets, dataFixedAsset, dataEmployees, hoursPhase) {
+
+    var fixedAssets   = dataTabulatorFixedAssets["fixedAssets"]
+    var typeEmployees = dataTabulatorFixedAssets["tabulator"]
+    $("#contentListFixedAssetPhaseTemplate").empty()
+    $("#contentListQuantityEmployeesPhaseTemplate").empty()
+    $("#hours_finish_phase_product_family_tab_production_line_template_phase").text(hoursPhase+" Hour(s)")
+
+    for (const key in dataEmployees) {
+      let val       = typeEmployees.find(current => current["objectId"] == key)
+      let conponent = ''
+      if(val!= undefined){
+        conponent += " <div class='form-group row'>" +
+                            "<div class='col-form-label col-sm-6 '>" +
+                                "<p>" + val["department"] + "</p>" +
+                            "</div>" +
+                            "<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                                "<input type='number' value='"+dataEmployees[key]+"' disabled>" +
+                            "</div>" +
+                        "</div>" 
+      }
+      conponent += '<hr>'
+      $("#contentListQuantityEmployeesPhaseTemplate").append(conponent)
+    }
+
+    for (const key in dataFixedAsset) {
+      let val     = fixedAssets.find(current => current["objectId"] == key)
+      let stepper = ''
+      if(val != undefined){
+        stepper += " <div class='form-group row'>" +
+                        "<div class='col-form-label col-sm-6 '>" +
+                            "<p>" + val["nombre"]  + "</p>" +
+                        "</div>" +
+                        "<div class='col-form-label col-sm-4' style='text-align:center'>" +
+                            "<input type='number' value='"+dataFixedAsset[key]+"' disabled>" +
+                        "</div>" +
+                    "</div>" 
+      }
+      stepper += "<hr>"
+      $("#contentListFixedAssetPhaseTemplate").append(stepper)
+    }
+
+  }
+</script>
+
+<!--Funcion generica Eliminar-->
+<script type="text/javascript">
+  function Eliminar(objectId, ruta, texto, nombreTabla) {
+    Swal.fire({
+      title: 'Delete',
+      text: `Do you want to delete this ${texto}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: "POST",
+          url: "/administrador/master_data/" + ruta + "",
+          data: {
+            "objectId": objectId
+          },
+          success: function(response) {
+            toggleTables(nombreTabla)
+            Swal.fire(
+              'Deleted!',
+              `The ${texto} has been successfully deleted`,
+              'success'
+            )
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            log(errorThrown)
+            Swal.fire(
+              '¡Error!',
+              'An error occurred while performing the action, please try again',
+              'error'
+            )
+          }
+        })
+      }
+    })
+
+  }
+</script>
+
+<!--Funcion generica Archivar-->
+<script type="text/javascript">
+  function Activacion(objectId, ruta, texto, nombreTabla, seActiva) {
+    if (seActiva) {
+      Swal.fire({
+        title: 'Activate',
+        text: `Do you want to activate this ${texto}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Activate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/administrador/master_data/" + ruta + "",
+            success: function(response) {
+              toggleTables(nombreTabla)
+              Swal.fire(
+                'Activated!',
+                `The ${texto} has been successfully activated`,
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'error'
+              )
+            }
+          })
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Deactivate',
+        text: `Do you want to deactivate this ${texto}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Deactivate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/administrador/master_data/" + ruta + "",
+            success: function(response) {
+              toggleTables(nombreTabla)
+              Swal.fire(
+                'Deactivated!',
+                `The ${texto} has been successfully deactivated`,
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'error'
+              )
+            }
+          })
+        }
+      })
+    }
+  }
+</script>
+
+<!--Abrir o cerra loader-->
+<script type="text/javascript">
+  function loader(abrir){
+    if(abrir){
+      $("#spinner").fadeIn(1);
+      $("#spinner").modal('show')
+      $('.modal-backdrop').show()
+    }else{
+      $("#spinner").fadeOut(1);
+      $('.modal-backdrop').hide()
+      $('.modal-open').css({'overflow': 'visible'});
+    }
+  }
+</script>
+
+<!--Drag & drop-->
+<script type="text/javascript">
+
+    $( "#list_phases_production_line_tamplate" ).sortable({
+      connectWith: ".connectedSortable",
+      update: function(event, ui){ 
+        updateNumberStepPhase (false)
+      } 
+    }).disableSelection();
+
+    $( " #list_phases_production_line_tamplate_to_save" ).sortable({
+      connectWith: ".connectedSortable",
+      update: function(event, ui){ 
+        updateNumberStepPhase (true)
+      } 
+    }).disableSelection();
+
+    function updateNumberStepPhase (addText) {
+      let number = 1
+      if( addText ){
+        $("#list_phases_production_line_tamplate_to_save #item span").each(function ( index ) {
+            $(this).text("Step "+ number)
+            number++
+        })
+      }else{
+        $("#list_phases_production_line_tamplate #item span").each(function ( index ) {
+            $(this).text("")
+        })
+      }
+    }
+
+</script>
+
+<script type="text/javascript">
+  function convertionMoney(salarioHora){
+    var moneyTempo = salarioHora.toString().split(".")
+    var money = moneyTempo[0].replace(",",'')
+        money = money.replace("$",'')
+
+    return money
+  }
+</script>
+
+<script>
+  $("#btn_restablecer_empleyoyes").on("click",function(e){
+    $.ajax({
+            type: "GET",
+            url: "/administrador/master_data/employees/restart",
+            success: function(response) {
+              log(response)
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              log(XMLHttpRequest, textStatus, errorThrown)
+            }
+          })
+  })
+</script>

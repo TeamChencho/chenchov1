@@ -1,0 +1,176 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+   <!-- <div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">
+      <div class="card shadow mb-4">
+        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add student</h6>
+        </a>
+        <div class="collapse" id="collapseCardExample">
+          <div class="card-body">
+            <form class="form-horizontal" id="form_agregar">
+              <fieldset>
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <!--<div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">-->
+      <div class="card shadow mb-4" hidden>
+        <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Fix Assets</h6>
+        </a>
+
+        <div class="collapse" id="collapseImportar">
+          <div class="card-header">
+            <div class="col-md-12">
+              <a href="/templates/PlantillaFixed_assets.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal" id="form_importar_fix_assets" action="/advisers/simulations/master_data/fix_assets/importar_activos_fijos/<%= simulation.id %>"  method="POST" enctype="multipart/form-data">
+              <fieldset>
+                <div class="form-group row">
+                  <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+                  <div class="col-md-9">
+                    <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md "  data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        
+      </div>
+    <!--</div>-->
+  </div>
+</div>
+
+<div class="modal fade" id="editModalFixAssets" tabindex="-1" role="dialog" aria-labelledby="editModalFixAssetsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalFixAssetsLabel">Edit fix asset</h5>
+          <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+            X
+          </button>
+        </div>
+        <form class="form-horizontal" id="form_editar_fix_assets">
+          <div class="modal-body">
+            <input type="hidden" id="objectId_fix_assets_editar" name="objectId">
+            <!-- Text input-->
+            <div class="form-group row">
+              <label for="asset_nombre_editar" class="col-form-label col-sm-2">Name</label>
+              <div class="input-group col-sm-10">
+                <div class="input-group-prepend" style="width: 100%;">
+                  <input id="asset_nombre_editar" name="nombre" type="text" class="form-control input-md" required="">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_descripcion_editar" class="col-form-label col-sm-2">Description</label>
+              <div class="input-group col-sm-10">
+                <div class="input-group-prepend" style="width: 100%;">
+                <textarea id="asset_descripcion_editar" name="descripcion" type="text" class="form-control textarea-md" required=""></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_modelo_editar" class="col-form-label col-sm-2">Model</label>
+              <div class="col-md-10">
+                <input id="asset_modelo_editar" name="modelo" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_precio_coste_editar" class="col-form-label col-sm-2">Cost price</label>
+              <div class="input-group   col-md-10">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input id="asset_precio_coste_editar" name="precioCosto" type="number" class="form-control input-md" required="">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </div>
+
+            <span id="mensaje_error_telefono" class="text-danger"></span>
+            <div class="form-group row">
+              <label for="asset_precio_venta_editar" class="col-form-label col-sm-2">Sale price</label>
+              <div class="input-group col-md-10">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input id="asset_precio_venta_editar" name="precioVenta" type="number" class="form-control input-md" required="">
+                <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_numero_serie_editar" class="col-form-label col-sm-2">Serial number</label>
+              <div class=" col-md-10">
+                
+                <input id="asset_numero_serie_editar" name="numeroSerie" type="text" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_marca_editar" class="col-form-label col-sm-2">Brand</label>
+              <div class="col-md-10">
+                <input id="asset_marca_editar" name="marca" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_departamento_editar" class="col-form-label col-sm-2">Department</label>
+              <div class="col-md-10">
+                <input id="asset_departamento_editar" name="departamento" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <span id="mensaje_error_dias" class="text-danger"></span>
+            <div class="form-group row">
+              <label for="asset_fecha_adquisicion_editar" class="col-form-label col-sm-2">Acquisition date</label>
+              <div class="col-md-10">
+                <input id="asset_fecha_adquisicion_editar" name="fechaAdquisicion" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_tiempo_vida_editar" class="col-form-label col-sm-2">Time life</label>
+              <div class="col-md-10">
+                <input id="asset_tiempo_vida_editar" name="tiempoVida" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="asset_tarifa_depreciacion_editar" class="col-form-label col-sm-3">Depreciation fee</label>
+              <div class="input-group col-md-9">
+                <input id="asset_tarifa_depreciacion_editar" name="tarifaDepreciacion" type="number" class="form-control input-md" required="">
+                <div class="input-group-append">
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

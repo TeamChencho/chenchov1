@@ -1,0 +1,214 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+  <div class="card shadow mb-4">
+    <a href="#collapseAddProductLineTemplate" class="d-block card-header py-3" data-toggle="collapse" role="button"
+      aria-expanded="true" aria-controls="collapseAddProductLineTemplate">
+      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add Production Lines Templates
+      </h6>
+    </a>
+
+    <div class="collapse" id="collapseAddProductLineTemplate">
+      <div class="card-body">
+        <form class="form-horizontal" id="form_production_line_template">
+          <fieldset>
+            <div class="form-group row">
+              <label for="template_name_tab_production_line_template" class="col-form-label col-sm-2">Template
+                Name</label>
+              <div class="col-md-10">
+                <input id="template_name_tab_production_line_template" name="name" type="text"
+                  class="form-control input-md" required="">
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="edit_template_efficiencyPercentage_tab_production_line_template" class="col-form-label col-sm-2">Efficiency Percentage</label>
+                <div class="col-md-10">
+                  <input id="edit_template_efficiencyPercentage_tab_production_line_template" name="efficiencyPercentage" min="0" value="0" type="number"
+                    class="form-control input-md" required="" >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="edit_template_productionQuantity_tab_production_line_template" class="col-form-label col-sm-2">Production Quantity</label>
+                <div class="col-md-10">
+                  <input id="edit_template_productionQuantity_tab_production_line_template" name="productionQuantity" min="0" value="0" type="number"
+                    class="form-control input-md" required="" >
+                </div>
+              </div>
+            <!--<div class="form-group row">
+                <label for="template_hours_product_tab_production_line_template" class="col-form-label col-sm-2"> Hours Final Product</label>
+                <div class="col-md-10">
+                  <input id="template_hours_product_tab_production_line_template" name="hoursFinalProduct" val="1" type="number" min="1" class="form-control input-md" required="">
+                </div>
+              </div>-->
+            <div class="form-group row">
+              <label for="select_product_family_tab_production_line_template" class="col-form-label col-sm-2"> Product
+                Family</label>
+              <div class="col-md-10">
+                <select name="productFamilyDMPtr" id="select_product_family_tab_production_line_template"
+                  class="selectpicker"></select>
+                <!-- <input id="product_family_tab_production_line_template" name="productFamilyDMPtr" val="1" type="number" min="1" class="form-control input-md" required="">-->
+              </div>
+            </div>
+            <div class="form-group row mt-2" style="margin-bottom: 0px">
+              <label for="phase_name_tab_production_line_phase" class="col-form-label ml-2"
+                style="margin-bottom: 0px">Select Phases For Template :</label>
+            </div>
+
+            <div class="form-group row justify-content-center overflow-auto" style="height: 400px;" >
+
+              <div class="col-md-5 pt-3 mr-1 border connectedSortable" id="list_phases_production_line_tamplate">
+                <!--<div id="list_phases_production_line_tamplate">
+                </div>-->
+              </div>
+
+              <div class="col-md-5 pt-3 border ml-1 connectedSortable" id="list_phases_production_line_tamplate_to_save">
+              </div>
+
+            </div>
+              
+            <div class="form-group">
+              <div class="col-md-12">
+                <button type="submit" id="singlebutton" name="singlebutton"
+                  class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+          </div>
+          </fieldset>
+        </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ListPhasesTemplateModal" tabindex="-1" role="dialog"
+  aria-labelledby="ListPhasesTemplateModalLabel" aria-hidden="true" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ListPhasesTemplateModalLabel">List Fixed Assets</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="contentListPhasesTemplate">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="EditProdcutionLineTemplateModal" tabindex="-1" role="dialog"
+  aria-labelledby="EditProdcutionLineTemplateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold" id="EditProdcutionLineTemplateModalLabel">Edit Production Line Template
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-horizontal" id="edit_form_production_line_template">
+          <fieldset>
+            <input type="hidden" name="objectId" id="objectId_production_line_template" val="">
+            <div class="form-group row">
+              <label for="edit_template_name_tab_production_line_template" class="col-form-label col-sm-2">Template
+                Name</label>
+              <div class="col-md-10">
+                <input id="edit_template_name_tab_production_line_template" name="name" type="text"
+                  class="form-control input-md" required="" disabled>
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="edit_template_efficiencyPercentage_tab_production_line_template" class="col-form-label col-sm-2">Efficiency Percentage</label>
+                <div class="col-md-10">
+                  <input id="edit_template_efficiencyPercentage_tab_production_line_template" name="efficiencyPercentage" min="0" value="0" type="number"
+                    class="form-control input-md" required="" >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="edit_template_productionQuantity_tab_production_line_template" class="col-form-label col-sm-2">Production Quantity</label>
+                <div class="col-md-10">
+                  <input id="edit_template_productionQuantity_tab_production_line_template" name="productionQuantity" min="0" value="0" type="number"
+                    class="form-control input-md" required="" >
+                </div>
+              </div>
+            <!--<div class="form-group row">
+                <label for="edit_template_hours_product_tab_production_line_template" class="col-form-label col-sm-2"> Hours Final Product</label>
+                <div class="col-md-10">
+                  <input id="edit_template_hours_product_tab_production_line_template" name="hoursFinalProduct" val="1" type="number" min="1" class="form-control input-md" required="">
+                </div>
+              </div>-->
+            <div class="form-group row">
+              <label for="edit_select_product_family_tab_production_line_template" class="col-form-label col-sm-2">
+                Product Family</label>
+              <div class="col-md-10">
+                <select name="productFamilyDMPtr" id="edit_select_product_family_tab_production_line_template"
+                  class="selectpicker"></select>
+                <!-- <input id="product_family_tab_production_line_template" name="productFamilyDMPtr" val="1" type="number" min="1" class="form-control input-md" required="">-->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12">
+                <button type="submit" id="singlebutton" name="singlebutton"
+                  class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="DetailsPhaseTemplate" tabindex="-1" role="dialog" aria-labelledby="DetailsPhaseTemplateLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.7)" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="DetailsPhaseTemplateLabel">Details Phase</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label for="edit_hours_finish_phase_product_family_tab_production_line_template" class="col-form-label col-sm-8"> Quantity Hours To Finish This Phase : </label>
+          <div class="col-md-4 mt-2">
+            <label for="" id="hours_finish_phase_product_family_tab_production_line_template_phase" class="border pl-3 pr-3"></label>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            Type Employee
+          </div>
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            <p>Quantity Employee</p>
+          </div>
+        </div>
+
+        <div id="contentListQuantityEmployeesPhaseTemplate">
+
+        </div>
+        <div class="form-group row">
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            Name Fixed Asset
+          </div>
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            <p>Quantity Fixed Asset</p>
+          </div>
+        </div>
+
+        <div id="contentListFixedAssetPhaseTemplate">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

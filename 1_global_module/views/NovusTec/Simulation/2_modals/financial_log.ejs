@@ -1,0 +1,97 @@
+<!-- Modal -->
+<div class="modal fade" id="financialLog" tabindex="-1" role="dialog" aria-labelledby="financialLogLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="financialLogTitle">Financial Log</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        <!--<span aria-hidden="true" style="margin-top: -13px;margin-left: -7px;">&times;</span>-->
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row text-center justify-content-center" style="text-align:center">
+          <div class="col">
+
+            <div class="form-group row text-center justify-content-center" style="text-align:center">
+              <label for="select_type_modal_financial_log_simulation" class="col-sm-1 mt-2">Type : </label>
+              <div class="col-sm-2">
+                <select name="type" class="form-control select" id="select_type_modal_financial_log_simulation">
+                  <option value="EXPENSE" selected>Expense</option>
+                  <option value="INCOME">Income</option>
+                  <option value="ALL">All</option>
+                </select>
+              </div>
+
+              <label for="select_status_modal_financial_log_simulation" class="col-sm-1 mt-2">Status : </label>
+              <div class="col-sm-3">
+                <select name="status" class="form-control select " id="select_status_modal_financial_log_simulation">
+                  <option value="PURCHASING RAW MATERIAL" selected>Purchasing Raw Material</option>
+                  <option value="PURCHASING FIXED ASSET">Purchasing Fixed Asset</option>
+                  <option value="SALE FIXED ASSET">Sale Fixed Asset</option>
+                  <option value="SALARIES WORKERS">Salaries Workers</option>
+                  <option value="ALL">All</option>
+                </select>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="row text-center justify-content-center" style="text-align:center">
+          <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 50%">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span></span> <i class="fa fa-caret-down"></i>
+          </div>
+
+          <button type="button" class="btn btn-primary ml-3" id="search_range_financial_log">Search</button>
+          <input type="hidden" name="" id="startDateFinancialLog" value="">
+          <input type="hidden" name="" id="endDateFinancialLog" value="">
+        </div>
+        <div class="row text-center justify-content-center mt-4" style="text-align:center">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-modal-financial-log-data-simulation-tab" data-toggle="pill" href="#pills-modal-financial-log-data-simulation" role="tab" aria-controls="pills-modal-financial-log-data-simulation" aria-selected="true">Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-modal-financial-log-graph-simulation-tab" data-toggle="pill" href="#pills-modal-financial-log-graph-simulation" role="tab" aria-controls="pills-modal-financial-log-graph-simulation" aria-selected="false">Graph</a>
+            </li>
+          </ul>
+        </div>
+
+          <!--content tab-->
+        <div class="tab-content" id="pills-tabContent">
+            <!--Data financial log-->
+          <div class="tab-pane fade show active" id="pills-modal-financial-log-data-simulation" role="tabpanel" aria-labelledby="pills-modal-financial-log-data-simulation-tab">
+            <div class="table-responsive" style="height:450px">
+              <table class="table table-bordered" id="dataTableFinacialLog" width="100%" cellspacing="0">
+                
+              </table>
+            </div>
+          </div>
+          <!--Graph financial log-->
+          <div class="tab-pane fade" id="pills-modal-financial-log-graph-simulation" role="tabpanel" aria-labelledby="pills-modal-financial-log-graph-simulation-tab">
+            <figure class="highcharts-figure" style="height: 100%;">
+              <div id="container_graph_financial_log"></div>
+            </figure>
+          </div>
+        </div>
+        <!--
+        <div class="row">
+          <div class="col-md-6">
+            <div class="table-responsive" style="height:450px">
+              <table class="table table-bordered" id="dataTableFinacialLog" width="100%" cellspacing="0">
+                
+              </table>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <figure class="highcharts-figure">
+              <div id="container_graph_financial_log"></div>
+            </figure>
+          </div>
+        </div>-->
+
+      </div>
+    </div>
+  </div>
+</div>  

@@ -1,0 +1,254 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+  <div class="card shadow mb-4" hidden>
+    <a href="#collapseImportarSMP" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportarSMP">
+      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Supplier - Raw Material</h6>
+    </a>
+
+    <div class="collapse" id="collapseImportarSMP">
+      <div class="card-header">
+        <div class="col-md-12">
+          <a href="/templates/PlantillaProveedorMateriaPrima.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal" id="form_importar_suppliers_raw_material" action="/administrador/master_data/suppliers_raw_material/importar_gastos/<%= simulation.id %>" method="POST" enctype="multipart/form-data">
+          <fieldset>
+            <div class="form-group row">
+              <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+              <div class="col-md-9">
+                <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md " data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <div class="card shadow mb-4">
+    <a href="#collapseCardExampleTransporte" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExampleTransporte">
+      <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-plus-circle mr-1"> </i>Transport</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse" id="collapseCardExampleTransporte">
+      <div class="card-body">
+        <form class="form-horizontal" id="form_transporte">
+          <fieldset>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="input_transporte_country">Country</label>
+                <select id="select_transporte_country" data-live-search="true" name="paisPtr" class="form-control selectpicker" required>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="input_transporte_producto">Product</label>
+                <select id="select_transporte_producto" data-live-search="true" name="productoPtr" class="form-control selectpicker" required>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="input_transporte_supplier">Supplier</label>
+                <select id="select_transporte_supplier" data-live-search="true" name="proveedorPtr" class="form-control selectpicker" required>
+                </select>
+              </div>
+            </div>
+            <hr>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="input_transporte_tipo_envio">Shipping type</label>
+                <select id="select_transporte_envio" data-live-search="true" name="tipoEnvio" class="form-control selectpicker" required>
+                </select>
+              </div>
+              <div class="form-group">
+                <p class="" style=" margin-top: 41px; margin-left: 64px;">$ </p>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="input_transporte_precio">Price</label>
+                <input type="number" class="form-control" id="input_transporte_precio" min="1" name="precio" placeholder="" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="input_transporte_porcentaje_precio">Price percentage</label>
+                <div class="input-group ">
+                  <input type="number" class="form-control" id="input_transporte_porcentaje_precio" min="0" name="porcentajePrecio" placeholder="%" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="input_transporte_cantidad_max">Maximum quantity</label>
+                <input type="number" min="1" class="form-control" id="input_transporte_cantidad_max" name="cantidadMax" placeholder="" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="input_transporte_cantidad_min">Minimum amount</label>
+                <input type="number" min="1" class="form-control" id="input_transporte_cantidad_min" name="cantidadMin" placeholder="" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="input_transporte_lugar_salida">Place of departure</label>
+                <input type="text" class="form-control" id="input_transporte_lugar_salida" name="lugarSalida" placeholder="" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="input_transporte_lugar_destino">Destination place</label>
+                <input type="text" class="form-control" id="input_transporte_lugar_destino" name="lugarDestino" placeholder="" required>
+              </div>
+            </div>
+            <hr>
+            <div class="form-row">
+              <div class="form-group col-md-5">
+                <label for="input_transporte_dias_entrega">Delivery days</label>
+                <input type="number" min="1" class="form-control" id="input_transporte_dias_entrega" name="diasEntrega" placeholder="" required>
+              </div>
+              <div class="form-group col-md-3 formulario_cheq" style="text-align:center; padding:40px;">
+                <div class="form-check" style="">
+                  <input class="form-check-input" type="checkbox" id="checkbox_transporte_urgente" name="urgente">
+                  <label class="form-check-label" for="checkbox_transporte_urgente">
+                    Transporte urgente
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editModalTransport" tabindex="-1" role="dialog" aria-labelledby="editModalTransportLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalTransportLabel">Edit Transport</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_transporte">
+
+        <div class="modal-body">
+          <input type="hidden" id="transport_objectId_editar" name="objectId">
+          <!-- Text input-->
+          <div class="form-group row">
+            <label for="transport_country_editar" class="col-form-label col-sm-2">Country</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                <input id="transport_country_editar" name="" type="text" class="form-control input-md" required="" disabled>
+                <input id="transport_country_editar_id" type="hidden" name="pais" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="select_transporte_producto_editar" class="col-form-label col-sm-2">Product</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                 <select id="select_transporte_producto_editar" data-live-search="true" name="producto" class="form-control selectpicker" required>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_supplier_editar" class="col-form-label col-sm-2">Supplier</label>
+            <div class="col-md-10">
+              <input id="transport_supplier_editar" name="" type="text" class="form-control input-md" required="" disabled>
+              <input id="transport_supplier_editar_id" type="hidden" name="proveedor" type="text">
+            </div>
+          </div>
+
+          <div class="form-group row">
+          <label for="input_transporte_tipo_envio" class="col-form-label col-sm-2">Shipping type</label>
+            <div class="col-md-10">
+                <select id="transport_tipoEnvio_editar" data-live-search="true" name="tipoEnvio" class="form-control selectpicker" required>
+                </select>
+              </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_precio_editar" class="col-form-label col-sm-2">Price</label>
+            <div class="input-group col-md-10">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input id="transport_precio_editar" name="precio" min="1" type="number" class="form-control input-md" placeholder="" required="">
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_porcentajePrecio_editar" class="col-form-label col-sm-3">Price percentage</label>
+            <div class=" input-group col-md-9">
+              <input id="transport_porcentajePrecio_editar" min="1" name="porcentajePrecio" type="number" class="form-control input-md" placeholder="" required="">
+              <div class="input-group-append">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_cantidadMax_editar" class="col-form-label col-sm-2">Maximum quantity</label>
+            <div class="col-md-10">
+              <input id="transport_cantidadMax_editar" min="1" name="cantidadMax" type="number" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_cantidadMin_editar" class="col-form-label col-sm-2">Minimum amount</label>
+            <div class="col-md-10">
+              <input id="transport_cantidadMin_editar" min="1" name="cantidadMin" type="number" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_lugarSalida_editar" class="col-form-label col-sm-2">Place of departure</label>
+            <div class="col-md-10">
+              <input id="transport_lugarSalida_editar" name="lugarSalida" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_lugarDestino_editar" class="col-form-label col-sm-2">Destination place</label>
+            <div class="col-md-10">
+              <input id="transport_lugarDestino_editar" name="lugarDestino" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="transport_diasEntrega_editar" class="col-form-label col-sm-2">Delivery days</label>
+            <div class="col-md-10">
+              <input id="transport_diasEntrega_editar" name="diasEntrega" min="1" type="number" class="form-control input-md" required="">
+            </div>
+          </div>
+          <div class="form-group row ml-1">
+            <div class="form-check" style="">
+              <input class="form-check-input" type="checkbox" id="transport_urgente_editar" name="urgente">
+              <label class="form-check-label" for="transport_urgente_editar">
+                Transporte urgente
+              </label>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

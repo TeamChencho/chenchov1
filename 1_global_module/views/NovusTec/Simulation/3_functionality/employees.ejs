@@ -1,0 +1,539 @@
+<!--Datos iniciales-->
+<script type="text/javascript">
+     var dataPhasestoselectpicker = []
+</script>
+
+<!--funciones para abrir y cerrar el modal de employees-->
+<script type="text/javascript">
+        //Abrir
+    $("#employees_btn").on('click', function (e){
+        if(simulationStarted && simulationStarted === "STARTED"){
+            windowOpened = true
+            $("#employeesModal").modal("show")
+            getSMEmployees()
+            getAllEmployeesNoShift()
+        }
+            
+    })
+
+        //Cerrar
+    $('#employeesModal').on('hidden.bs.modal', function(e) {
+        $("#employeesModal").modal("hide")
+        windowOpened = false
+    })
+</script>
+
+<!--Función para mostrar tabla de empleados-->
+<script>
+    function getSMEmployees(){
+        $("#full_text_payroll_payment").hide()
+        messageLoader()
+        $.ajax({
+            type    : "GET",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/employees/data",
+            success : function( response ) {
+                //log(response)
+                dataPhasestoselectpicker =  response.dataPhases
+                reloadTableEmployees( response.data , response.dataProductionLine)
+                fillSelectpicker( response.dataSalary)
+                $("#btn_save_employeed").prop('disabled', false);
+                $("#btn_save_shifts").prop('disabled', false);
+                $("#messageSalary").hide()
+                $("#full_text_payroll_payment").show()
+            },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                log(XMLHttpRequest)
+                log(errorThrown)
+                log(textStatus)
+                $("#messageSalary").hide()
+            }
+        })
+    }
+
+    function reloadTableEmployees ( data, dataProductionLine ) {
+        //log(data)
+        var payrollPayment = 0
+        if($.fn.DataTable.isDataTable("#dataTableEmployees")){
+            $("#dataTableEmployees").dataTable().fnDestroy()
+            $("#dataTableEmployees").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Full name</th>'
+                thead += '<th>Department</th>'
+                thead += '<th>Production Line</th>'
+                thead += '<th>Salary</th>'
+                thead += '<th>Shift</th>'
+                /*thead += '<th>Email</th>'
+                thead += '<th>Gender</th>'
+                thead += '<th>Salary</th>'*/
+                thead += '<th>Action</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Full name</th>'
+                tfooter += '<th>Department</th>'
+                tfooter += '<th>Production Line</th>'
+                tfooter += '<th>Salary</th>'
+                tfooter += '<th>Shift</th>'
+                /*tfooter += '<th>Email</th>'
+                tfooter += '<th>Gender</th>'
+                tfooter += '<th>Salary</th>'*/
+                tfooter += '<th>Action</th>'
+            tfooter += '</tr>'
+        tfooter += '<tfoot>'
+         
+        $("#dataTableEmployees").append(thead)
+        $("#dataTableEmployees").append(tfooter)
+
+        $("#dataTableEmployees").DataTable({
+            processing: true,
+            lengthMenu: [ 10, 25, 50, 75, 100 ],
+            order: [[ 0, "asc" ]],
+            deferRender: true,
+            data: data,
+            "footerCallback": function ( row, data, start, end, display ) {
+                total = this.api()
+                    .column(2)//numero de columna a sumar
+                    //.column(1, {page: 'current'})//para sumar solo la pagina actual
+                    .data()
+                    .reduce(function (a, b) {
+                        return payrollPayment += parseFloat(b["salaryTabulatorPtr"]["salary"]);
+                    }, 0 );
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return data["name"]
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return data["salaryTabulatorPtr"]["department"]
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        var elementFound = dataProductionLine.find(current => current["employeeTDMSprt"]["objectId"] == data["objectId"])
+                        if( data["salaryTabulatorPtr"]["department"] == "Production line"){
+                            if(elementFound){
+                                return '<span class="text-center text-success font-weight-bold">'+elementFound["productionLineTDSptr"]["name"]+'</span>'
+                            }else{
+                                return '<span class="text-center text-danger font-weight-bold">It is not assigned to a production line</span>'
+                            }
+                        }else{
+                            return '<span class="text-center text-success font-weight-bold">This employee is assigned correctly</span>'
+                        }
+                        //return data["salaryTabulatorPtr"]["department"]
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return  formatter.format( data["salaryTabulatorPtr"]["salary"] )
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        if( data["shift"] == undefined ){
+                            return "Not assigned"
+                        }else{
+                            return "Shifting " + data["shift"].substr( (data["shift"].length-1), data["shift"].length )
+                        } 
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        /*let name = data["nombre"]+" "+data["apellidoPaterno"] + " " + data["apellidoMaterno"]
+                        let direction = data["estado"] +", "+ data["ciudad"]+", "+ data["suburbio"]+", "+ data["calle"]+", #"+ data["numero"] */
+                        var button = ""
+
+                           /* button = "<div class='row ml-2 mr-4' style='width:180px'>"
+                                button += "<div class='col-md-3'>"
+                                    button += '<span data-toggle="modal" data-target="#detailsEmployeed" data-nameEmployeed = "'+name+'" data-direction = "'+direction+'" data-date = "'+data["fechaNacimiento"]+'" data-email = "'+data["email"]+'" data-phone = "'+data["telefono"]+'" data-curp = "'+data["curp"]+'" data-estadoCivil = "'+data["estadoCivil"]+'" data-sexo = "'+data["sexo"]+'" data-idEmpleado = "'+data["idEmpleado"]+'" data-imss = "'+data["imss"]+'" data-rfc = "'+data["rfc"]+'" data-diaInicio = "'+data["diaInicio"]+'" data-giro = "'+data["giro"]+'" data-salarioHora = "'+data["salarioHora"]+'" data-trabajo = "'+data["trabajo"]+'"   > <button type"button" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Asset Details"><i class="fas fa-search"></i></button> </span>'
+                                    //button += '<span data-toggle="modal" data-target="#detailsAsset" data-nameAsset = "'+data["fixedAssetPtr"]["nombre"]+'" data-dataAdquisition = "'+data["fixedAssetPtr"]["fechaAdquisicion"]+'" data-serialNumber = "'+data["fixedAssetPtr"]["numeroSerie"]+'" data-model = "'+data["fixedAssetPtr"]["modelo"]+'" data-priceSale = "'+data["fixedAssetPtr"]["precioVenta"]+'" data-timeLife = "'+data["fixedAssetPtr"]["tiempoVida"]+'" data-description = "'+data["fixedAssetPtr"]["descripcion"]+'" data-priceCoste = "'+data["fixedAssetPtr"]["precioCosto"]+'" data-mark = "'+data["fixedAssetPtr"]["marca"]+'" data-depreciationRate = "'+data["fixedAssetPtr"]["tarifaDepreciacion"]+'"> <button type"button" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Asset Details"><i class="fas fa-search"></i></button> </span>'
+                                button += "</div>"
+                            button += "</div>"*/
+                        button = "<div class='row ml-2 mr-4' style='width:180px'>"
+                            button += "<div class='col-md-3'>"
+                                button += '<span data-toggle="modal"> <button type"button" onclick="Dismiss(\'' + data["objectId"] + '\',\''+data["name"]+'\')" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Dismiss employee"><i class="fas fa-user-minus"></i></button> </span>'
+                            button += "</div>"
+                        button += "</div>"
+                        return button
+                    }
+                }
+            ]
+        })
+
+        $("#payroll_payment").text( formatter.format( payrollPayment.toString() ) )
+    }
+
+    function Dismiss (objectId, nameEmployeed) {
+
+         Swal.fire({
+            title               : 'Dismiss!',
+            text                : `Are you sure you want to dismiss this employee?`,
+            icon                : 'warning',
+            showCancelButton    : true,
+            confirmButtonColor  : '#3085d6',
+            cancelButtonColor   : '#d33',
+            cancelButtonText    : 'Cancel',
+            confirmButtonText   : 'Dismiss'
+        }).then((result) => {
+            if (result.value) {
+                $("#full_text_payroll_payment").hide()
+                messageLoader()
+                $.ajax({
+                    type:"POST",
+                    url     : "/simulation/<%= simulation.id %>/<%= team.id %>/employees/delete",
+                    data: {"objectId" : objectId, messageLogs:'Dismiss the '+nameEmployeed+' employee'},
+                    success : function( response ) {
+                        getSMEmployees()
+                        Swal.fire(
+                            'Success!',
+                            'The employee has been successfully dismiss',
+                            'success'
+                        )
+                    },error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $("#messageSalary").hide()
+                        log(textStatus)
+                        Swal.fire(
+                            'Error!',
+                            XMLHttpRequest.responseJSON.error +', please try again',
+                            'error'
+                        )
+                    }
+                })
+            }
+        })
+        
+    }
+</script>
+
+<!--Agregar datos al modal de detalles de un empleado-->
+<script type="text/javascript">
+    $("#detailsEmployeed").on('show.bs.modal', function (e) {
+        let name        =   $(e.relatedTarget).data('nameemployeed')
+        let direction   =   $(e.relatedTarget).data('direction')
+        let date        =   $(e.relatedTarget).data('date')
+        let email       =   $(e.relatedTarget).data('email')
+        let phone       =   $(e.relatedTarget).data('phone')
+        let curp        =   $(e.relatedTarget).data('curp')
+        let estadoCivil =   $(e.relatedTarget).data('estadocivil')
+        let sexo        =   $(e.relatedTarget).data('sexo')
+        let idEmpleado  =   $(e.relatedTarget).data('idempleado')
+        let imss        =   $(e.relatedTarget).data('imss')
+        let rfc         =   $(e.relatedTarget).data('rfc')
+        let diaInicio   =   $(e.relatedTarget).data('diainicio')
+        let giro        =   $(e.relatedTarget).data('giro')
+        let salarioHora =   $(e.relatedTarget).data('salariohora')
+        let trabajo     =   $(e.relatedTarget).data('trabajo')
+        $("#nameEmployeed").text(name)
+        $("#directionEmployeed").text(direction)
+        $("#dateEmployeed").text(date)
+        $("#emailEmployeed").text(email)
+        $("#phoneEmployeed").text(phone)
+        $("#curpEmployeed").text(curp)
+        $("#estadoCivilEmployeed").text(estadoCivil)
+        $("#sexoEmployeed").text(sexo)
+        $("#idEmpleadoEployeed").text(idEmpleado)
+        $("#imssEployeed").text(imss)
+        $("#rfcEployeed").text(rfc)
+        $("#diaInicioEmployeed").text(diaInicio)
+        $("#giroEmployeed").text(giro)
+        $("#salarioHoraEmployeed").text(salarioHora)
+        $("#trabajoEmployeed").text(trabajo)
+    })    
+</script>
+
+<!--Funciones para el tab de hirings-->
+<script type="text/javascript">
+    function fillSelectpicker ( data ) {
+        var options         = ''
+        var optionSelected  = ''
+
+        for( var i = 0; i < data.length; i++ ){
+            if( i == 0 ){
+                optionSelected = data[i]["objectId"]
+                options += '<option value="' + data[i]["objectId"] + '" >' + data[i]["department"] + '</option>'
+            }else{
+                options += '<option value="' + data[i]["objectId"] + '">' + data[i]["department"] + '</option>'
+            }
+        }
+
+        $("#selectpicker").html(options)
+        $(".selectpicker").selectpicker('refresh')
+        $(".selectpicker").selectpicker("val",optionSelected)
+    }
+
+    $("#form_contrataciones").submit(function( event){
+        event.preventDefault();
+        Swal.fire({
+            title               : 'Hire!',
+            text                : `Are you sure you want to hire these employees?`,
+            icon                : 'warning',
+            showCancelButton    : true,
+            confirmButtonColor  : '#3085d6',
+            cancelButtonColor   : '#d33',
+            cancelButtonText    : 'Cancel',
+            confirmButtonText   : 'Hire'
+        }).then((result) => {
+            if (result.value) {
+                $("#full_text_payroll_payment").hide()
+                messageLoader()
+                $("#btn_save_employeed").prop('disabled', true);
+                var numEmployees = $('#employees_number').val()
+                var department = $("#selectpicker option:selected").text()
+                log(numEmployees)
+                log(department)
+                $.ajax({
+                    type: "POST",
+                    url: "/simulation/<%= simulation.id %>/<%= team.id %>/employees/save",
+                    data: $(this).serialize()+'&messageLogs=Hire '+numEmployees+' new employees for the '+department+' department',
+                    success: function(response) {
+                        //log(response)
+                        getSMEmployees()
+                        getAllEmployeesNoShift()
+                        Swal.fire(
+                            "Succes!",
+                            `${response.data.length} employees have been hired successfully`,
+                            'success'
+                        )
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $("#messageSalary").hide()
+                        log(textStatus)
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while performing the action, please try again',
+                            'error'
+                        )
+                    }
+                })
+            }
+        })
+
+    })
+</script>
+
+<!--Selecte Type Production line in hirings-->
+<script>
+    $('.type_tabulator').on('changed.bs.select', function (e, clickedIndex, newValue, oldValue) {
+        var tabulator = $(".type_tabulator option:selected").text()
+
+        if( tabulator == "Production line" ){
+            $("#select_phases").show()
+            var options = ''
+            var optionPhase = ''
+            for ( var i = 0; i <dataPhasestoselectpicker.length; i++){  
+                if ( i==0 ){
+                    optionPhase = dataPhasestoselectpicker[i]["objectId"]
+                }
+                options += '<option value="'+dataPhasestoselectpicker[i]["objectId"]+'">'+dataPhasestoselectpicker[i]["name"]+'</option>'
+            }
+            $('#type_production_line_phase').prop('disabled',false)
+            $("#type_production_line_phase").html(options).selectpicker('refresh')
+            $('#type_production_line_phase').selectpicker('val',optionPhase).selectpicker('refresh')
+        }else{
+            $('#type_production_line_phase').prop('disabled',true);
+            $("#select_phases").hide()
+        }
+            
+    });
+</script>
+
+<!--Messages-->
+<script type="text/javascript">
+    function messageLoader(){
+        $("#messageSalary").show()
+        $("#messageSalary").removeClass("bg-warning")
+        $("#messageSalary").removeClass("bg-success")
+        $("#messageSalary").addClass("bg-info")
+        $("#messageSalary").text("Laoding...")
+    }
+</script>
+
+<!--Funciones para el tab Shifts-->
+<script type="text/javascript">
+    function getAllEmployeesNoShift () {
+        $.ajax({
+            type    : "GET",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/employees/shift/data",
+            success : function( response ) {
+                //log(response)
+                crateCheckbox(response.dataQtyShift)
+                reloadTableEmployeesNoShift( response.data )
+                reloadSeleckpikerDepartment( response.dataUnicos )
+            },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                log(textStatus)
+            }
+        })
+    }
+
+    function reloadTableEmployeesNoShift ( data ) {
+        if($.fn.DataTable.isDataTable("#dataTableShifts")){
+            $("#dataTableShifts").dataTable().fnDestroy()
+            $("#dataTableShifts").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>'
+                thead += '<th>Full name</th>'
+                thead += '<th>Department</th>'
+                thead += '<th>Phase</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th></th>'
+                tfooter += '<th>Full name</th>'
+                tfooter += '<th>Department</th>'
+                tfooter += '<th>Phase</th>'
+            tfooter += '</tr>'
+        tfooter += '<tfoot>'
+         
+        $("#dataTableShifts").append(thead)
+        $("#dataTableShifts").append(tfooter)
+
+        var tableEmployeesShift = $("#dataTableShifts").DataTable({
+            processing: true,
+            columnDefs: [{
+                targets: 0,
+                searchable:false,
+                orderable:false,
+                className: 'dt-body-center',
+                render: function (data, type, full, meta){
+                    return '<input type="checkbox" name="id[]" value="' 
+                        + $('<div/>').text(data["objectId"]).html() + '">';
+                }
+            }],
+            lengthMenu: [ 100, 10, 25, 50, 75],
+            order: [[ 1, "asc" ]],
+            deferRender: true,
+            data: data,
+            columns: [
+                {
+                    "data": null, defaultContent: ''
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return data["name"]
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return  data["salaryTabulatorPtr"]["department"]
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        if(data["phaseSDMPtr"]){
+                            return data["phaseSDMPtr"]["name"]
+                        }else{
+                            return  "This department does not contain phases"
+                        }
+                        
+                    }
+                }
+            ]
+        })
+
+        $('#example-select-all').on('click', function(){
+            var rows = tableEmployeesShift.rows({ 'search': 'applied' }).nodes();
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        })
+
+        $("#select_shift_department").on("change",function(){
+            tableEmployeesShift.columns( 2 ).search( $(this).val() ).draw()
+        })
+
+    }
+
+    $('#form_shifts').on('submit', function(e){
+        e.preventDefault()
+
+        Swal.fire({
+            title               : 'Shift!',
+            text                : `Are you sure you want to change the shift of these employees?`,
+            icon                : 'warning',
+            showCancelButton    : true,
+            confirmButtonColor  : '#3085d6',
+            cancelButtonColor   : '#d33',
+            cancelButtonText    : 'Cancel',
+            confirmButtonText   : 'Change'
+        }).then((result) => {
+            if (result.value) {
+                var posicion = $("#messageSalary").offset().top;
+                $("html, #employeesModal").animate({
+                    scrollTop: posicion
+                }, 100); 
+                $("#full_text_payroll_payment").hide()
+                messageLoader()
+                $("#btn_save_shifts").prop('disabled', true);
+                $.ajax({
+                    type    : "POST",
+                    url     : "/simulation/<%= simulation.id %>/<%= team.id %>/employees/shift/save",
+                    data    : $(this).serialize()+'&messageLogs=Saved the shifts of the employees in the simulation',
+                    success : function( response ) {
+                        getAllEmployeesNoShift()
+                        getSMEmployees()
+                        Swal.fire(
+                            "Succes!",
+                            `Employees have successfully changed shifts`,
+                            'success'
+                        )
+                    },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                        log(textStatus)
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while performing the action, please try again',
+                            'error'
+                        )
+                    }
+                })
+            }
+        })
+    })
+
+    function reloadSeleckpikerDepartment(data){
+        var option=''
+        option += '<option value=""></option>'
+        for (var i=0; i<data.length; i++){
+            option += '<option value="'+data[i]["salaryTabulatorPtr"]["department"]+'">'+data[i]["salaryTabulatorPtr"]["department"]+'</option>'
+        }
+        $('#select_shift_department').html(option).selectpicker('refresh');
+    }
+
+    function crateCheckbox (data) {
+        $("#checkbo_options").empty()
+        var checkbox =''
+
+        for ( var i = 0; i < parseInt(data); i++ ){
+            checkbox += '<div class="form-check">'
+                checkbox += '<input class="form-check-input" type="radio" name="shift" id="shiftRadios'+( i + 1 )+'" value="Shifting'+( i + 1 )+'" checked>'
+                checkbox += '<label class="form-check-label" for="shiftRadios'+( i + 1 )+'">'
+                checkbox += 'Shifting ' + ( i + 1 )
+                checkbox += '</label>'
+            checkbox += '</div>'
+        }
+
+        $("#checkbo_options").append(checkbox)
+    }
+
+</script>

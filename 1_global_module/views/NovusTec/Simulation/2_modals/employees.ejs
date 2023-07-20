@@ -1,0 +1,314 @@
+<!-- Modal -->
+<div class="modal fade" id="employeesModal" tabindex="-1" role="dialog" aria-labelledby="employeesModalLabel" aria-hidden="true" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="employeesModalLabel">Employees</h5>
+        <div class="ml-5">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-employees-tab" data-toggle="pill" href="#pills-employees" role="tab" aria-controls="pills-employees" aria-selected="true">Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-shifts-tab" data-toggle="pill" href="#pills-shifts" role="tab" aria-controls="pills-shifts" aria-selected="false">Shifts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-hirings-tab" data-toggle="pill" href="#pills-hirings" role="tab" aria-controls="pills-hirings" aria-selected="false">Hirings</a>
+            </li>
+          </ul>
+        </div>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <p class="text-center bg-info font-weight-bold text-white" style="width:100%;" id="messageSalary"></p>
+
+        <div class="tab-content pl-3 pr-3" id="pills-tabContent">
+
+          <!--Tab de lista de empleados-->
+          <div class="tab-pane fade show active" id="pills-employees" role="tabpanel" aria-labelledby="pills-employees-tab">
+            <div class="row">
+              <p id="full_text_payroll_payment" class="p font-weight-bold pl-1 pr-1 pt-0 pb-0 bg-info text-white">Total payroll payment : <span class="span" id="payroll_payment">$00.00</span></p>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTableEmployees" width="100%" cellspacing="0">
+
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!--Tab de turnos de trabajo-->
+          <div class="tab-pane fade" id="pills-shifts" role="tabpanel" aria-labelledby="pills-shifts-tab">
+
+            <!--<p>Unassigned employees : <span class="row-ms-6 bg-info text-white font-weight-bold pl-1 pr-1">00</span></p>-->
+
+            <div class="row">
+              <form id="form_shifts" style="width:100%;">
+                <div class="form-group row">
+                  <div class="ml-2 form-group form-inline">                            
+                      <label for="select_shift_department">Search department :</label>
+                      <select class="form-control selectpicker select_shift_department" id="select_shift_department" type="text" placeholder="Department"></select>
+                  </div>
+                  <div class="col">
+                    <div class="d-flex justify-content-end mb-2 pr-3">
+                      <button type="submit" id="btn_save_shifts" class="btn btn-primary">Shifts save</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-10">
+                    <div class="table-responsive" style="height:550px;">
+                      <table class="table table-bordered text-dark" id="dataTableShifts" width="100%" cellspacing="0">
+
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2 mt-2" id="option_shift">
+                    <div class="row">
+                      <label for="" class="font-weight-bold"> Shift selection : </label>
+                    </div>
+
+                    <div id="checkbo_options">
+                      <!-- <div class="form-check">
+                        <input class="form-check-input" type="radio" name="shift" id="shiftRadios1" value="Shifting1" checked>
+                        <label class="form-check-label" for="shiftRadios1">
+                          Shifting 1
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="shift" id="shiftRadios2" value="Shifting2">
+                        <label class="form-check-label" for="shiftRadios2">
+                          Shifting 2
+                        </label>
+                      </div>
+                      <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="shift" id="shiftRadios3" value="Shifting3">
+                        <label class="form-check-label" for="shiftRadios3">
+                          Shifting 3
+                        </label>
+                      </div>  -->
+                    </div>
+                      
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" id="btn_save_shifts" class="btn btn-primary">Shifts save</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+          <!--Tab de contrataciones de empleados-->
+          <div class="tab-pane fade" id="pills-hirings" role="tabpanel" aria-labelledby="pills-hirings-tab">
+
+            <form class="form-content" id="form_contrataciones">
+              <div class="form-group row align-items-center">
+                <label class="col-sm-3 col-form-label" for="employees_number">Employees amount : </label>
+                <div class="col-sm-3">
+                  <input class="form-control" placeholder="col-form-label" type="number" min="1" max="100" name="employees_number" id="employees_number" value="1">
+                </div>
+                <div class="col-ms-6 mt-0 ml-4">
+                  <div class="row align-items-center">
+                    <label class=" col-form-label mr-3" for="selectpicker">Department : </label>
+                    <select name="type_tabulator" id="selectpicker" class="selectpicker type_tabulator" required></select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row align-items-center text-center justify-content-center" id="select_phases">
+                <div class="col-ms-6 mt-0 ml-4 mt-3 align-items-center text-center justify-content-center">
+                  <div class="row row">
+                    <label class=" col-form-label mr-3" for="type_production_line_phase">Phase : </label>
+                    <select name="type_production_line_phase" id="type_production_line_phase" class="selectpicker" required>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!--<div class="form-group row align-items-center">
+                <div class="col-md-6 mb-3">
+                  <input type="text" class="form-control" id="employees_full_name" name="employees_full_name" value="" placeholder="Full name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <select name="type_tabulator" id="selectpicker" class="selectpicker">
+                    <option value="RnEnuUSpbc">Explosion of materials</option>
+                  </select>
+                </div>
+              </div>-->
+              <div class="modal-footer">
+                <button type="submit" id="btn_save_employeed" class="btn btn-primary">Hire employees</button>
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="detailsEmployeed" tabindex="-1" role="dialog" aria-labelledby="detailsEmployeedLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.7)">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="nameEmployeed"></h5>
+        <button type="button" class="close style_button_close mb-0"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row justify-content-center mt-2 ">
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Direction</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="directionEmployeed"></label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Born date</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="dateEmployeed"></label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-2">
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Email</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="emailEmployeed"></label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Phone</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="phoneEmployeed"></label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="m-1">
+
+        <div class="row justify-content-center mt-2 ">
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">CURP </h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="curpEmployeed"></label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Marital status</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="estadoCivilEmployeed"></label>
+            </div>
+
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Gender </h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="sexoEmployeed"></label>
+            </div>
+
+          </div>
+        </div>
+
+        <hr class="m-1">
+
+        <div class="row justify-content-center mt-3">
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Id Employeed</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="idEmpleadoEployeed"></label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Number IMSS</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="imssEployeed"></label>
+            </div>
+
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">RFC</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="rfcEployeed"></label>
+            </div>
+          </div>
+
+        </div>
+
+        <hr class="m-1">
+
+        <div class="row justify-content-center mt-3">
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Initial day</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="diaInicioEmployeed"></label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Turn</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="giroEmployeed"></label>
+            </div>
+
+          </div>
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Salary/hrs</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="salarioHoraEmployeed"></label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row justify-content-center mt-3">
+          <div class="col">
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <h5 class="text-center font-weight-bold" for="">Job</h5>
+            </div>
+            <div class="row text-center justify-content-center" style="text-align:center">
+              <label class="text-center" id="trabajoEmployeed"></label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

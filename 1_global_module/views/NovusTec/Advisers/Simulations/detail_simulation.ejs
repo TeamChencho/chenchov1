@@ -1,0 +1,1046 @@
+<%- contentFor('head')%>
+<% include ./../css %>
+
+<%- contentFor('body')%>
+<body id="page-top" class="sidebar-toggled">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <% include ./../sidebar %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./../top-bar %>        
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Simulation <%= simulation.get("simulationName") %></h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <% if(error){ %>
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Error!</strong> <%= error %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-2 col-lg-2 col-sm-2 col-xs-12">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Main Menu</h6>
+                </div>
+                <div class="card-body">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Settings</a>
+                    <a class="nav-link" id="v-pills-teams-tab" data-toggle="pill" href="#v-pills-teams" role="tab" aria-controls="v-pills-teams" aria-selected="false">Teams</a>
+                    <a class="nav-link" id="v-pills-data-tab" data-toggle="pill" href="#v-pills-data" role="tab" aria-controls="v-pills-data" data-info="tab_data" aria-selected="false">Data</a>
+                    <a class="nav-link" id="v-pills-score-tab" data-toggle="pill" data-info="score" href="#v-pills-score" role="tab" aria-controls="v-pills-score" aria-selected="false">Score</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card shadow mb-4" id="MenuMasterData" hidden>
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Master Data Menu</h6>
+                </div>
+                <div class="card-body">
+                  <ul class="nav flex-column nav-pills mb-3 mt-3" id="pills-tab" role="tablist" aria-orientation="vertical">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-raw-material-tab" data-info="raw_material" data-toggle="pill" href="#pills-raw-material" role="tab" aria-controls="pills-raw-material" aria-selected="true">Raw Material</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-product-family-tab" data-info="product_family" data-toggle="pill" href="#pills-product-family" role="tab" aria-controls="pills-product-family" aria-selected="false">Product Family</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-customers-tab" data-info="customers" data-toggle="pill" href="#pills-customers" role="tab" aria-controls="pills-customers" aria-selected="false">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-suppliers-tab" data-info="suppliers" data-toggle="pill" href="#pills-suppliers" role="tab" aria-controls="pills-suppliers" aria-selected="false">Suppliers</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-employees-tab" data-info="employees" data-toggle="pill" href="#pills-employees" role="tab" aria-controls="pills-employees" aria-selected="false">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-expenses-tab" data-info="expenses" data-toggle="pill" href="#pills-expenses" role="tab" aria-controls="pills-expenses" aria-selected="false">Expenses</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-fix-assets-tab" data-info="fix_assets" data-toggle="pill" href="#pills-fix-assets" role="tab" aria-controls="pills-fix-assets" aria-selected="false">Fix Assets</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-transport-tab" data-info="transport" data-toggle="pill" href="#pills-transport" role="tab" aria-controls="pills-transport" aria-selected="false">Transport</a>
+                    </li>
+                    <!--<li class="nav-item">
+                      <a class="nav-link" id="pills-customs-tab" data-info="customs" data-toggle="pill" href="#pills-customs" role="tab" aria-controls="pills-customs" aria-selected="false">Customs</a>
+                    </li>-->
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-raw-material-inv-tab" data-info="raw_material_inventory" data-toggle="pill" href="#pills-raw-material-inv" role="tab" aria-controls="pills-raw-material-inv" aria-selected="false">Raw Material Inv</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-fix-assets-inv-tab" data-info="fix_assets_inventory" data-toggle="pill" href="#pills-fix-assets-inv" role="tab" aria-controls="pills-fix-assets-inv" aria-selected="false">Fix Assets Inv</a>
+                    </li>
+                    <!--
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-order-history-tab" data-info="order_history" data-toggle="pill" href="#pills-order-history" role="tab" aria-controls="pills-order-history" aria-selected="false">Order History</a>
+                    </li>-->
+                    <li class="nav-item">
+                      <a class="nav-link" id="supplier-raw-material-tab" data-info="supplier_raw_material" data-toggle="pill" href="#supplier-raw-material" role="tab" aria-controls="supplier-raw-material" aria-selected="false">Supplier - Raw material</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="salary-tabulator-tab" data-info="salary_tabulator" data-toggle="pill" href="#salary-tabulator" role="tab" aria-controls="salary-tabulator" aria-selected="false">Salary tabulator</a>
+                    </li> 
+                    <li class="nav-item">
+                      <a class="nav-link" id="production-line-phase-master-data-adviser-tab" data-info="production_line_phase_master_data_adviser" data-toggle="pill" href="#production-line-phase-master-data-adviser" role="tab" aria-controls="production-line-phase-master-data-adviser" aria-selected="false">Production Line Phases</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="production-line-templates-master-data-adviser-tab" data-info="production_line_templates_master_data_adviser" data-toggle="pill" href="#production-line-templates-master-data-adviser" role="tab" aria-controls="production-line-templates-master-data-adviser" aria-selected="false">Production Line Templates</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-xl-10 col-lg-10 col-sm-10 col-xs-12">
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Settings</h6>
+                    </div>
+                    <div class="card-body">
+                      <form class="form-horizontal" id="form_simulation_settings">
+                        <fieldset>
+
+                        <label class="col-md-4 control-label" for="simulation_speed"><strong>Equivalence table
+                        </strong></label>
+                        <div class="table-responsive">          
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Speed</th>
+                                <th>Simulation Time</th>
+                                <th>Real Time</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1x (Real Time)</td>
+                                <td>1 hour</td>
+                                <td>1 hour</td>
+                              </tr>
+                              <tr>
+                                <td>2x</td>
+                                <td>1 hour</td>
+                                <td>30 min</td>
+                              </tr>
+                              <tr>
+                                <td>4x</td>
+                                <td>1 hour</td>
+                                <td>15 min</td>
+                              </tr>
+                              <tr>
+                                <td>8x</td>
+                                <td>1 hour</td>
+                                <td>7 min</td>
+                              </tr>
+                              <tr>
+                                <td>180x</td>
+                                <td>1 hour</td>
+                                <td>3 min</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <!-- Multiple Radios (inline) -->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="simulation_speed"><strong>Simulation Speed</strong></label>
+                          <div class="col-md-4"> 
+                            <label class="radio-inline" for="simulation_speed-0">
+                              <input type="radio" name="simulation_speed" id="simulation_speed-0" value="60" <%- simulation.get('speedSimulation') == 60 ? 'checked' : '' %>>
+                              1x
+                            </label> 
+                            <label class="radio-inline" for="simulation_speed-1">
+                              <input type="radio" name="simulation_speed" id="simulation_speed-1" value="30" <%- simulation.get('speedSimulation') == 30 ? 'checked' : '' %>>
+                              2x
+                            </label> 
+                            <label class="radio-inline" for="simulation_speed-2">
+                              <input type="radio" name="simulation_speed" id="simulation_speed-2" value="15" <%- simulation.get('speedSimulation') == 15 ? 'checked' : '' %>>
+                              4x
+                            </label> 
+                            <label class="radio-inline" for="simulation_speed-3">
+                              <input type="radio" name="simulation_speed" id="simulation_speed-3" value="7" <%- simulation.get('speedSimulation') == 7 ? 'checked' : '' %>>
+                              8x
+                            </label>
+                            <label class="radio-inline" for="simulation_speed-4">
+                              <input type="radio" name="simulation_speed" id="simulation_speed-4" value="3" <%- simulation.get('speedSimulation') == 3 ? 'checked' : '' %>>
+                              180x
+                            </label>
+                          </div>
+                        </div>
+
+                        <!-- Multiple Radios (inline) -->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="simulation_status"><strong>Simulation Status</strong></label>
+                          <div class="col-md-4"> 
+                            <label class="radio-inline" for="simulation_status-0">
+                              <input type="radio" name="simulation_status" id="simulation_status-0" value="PAUSED" <%- simulation.get('status') === 'PAUSED' ? 'checked' : '' %>>
+                              Paused
+                            </label> 
+                            <label class="radio-inline" for="simulation_status-1">
+                              <input type="radio" name="simulation_status" id="simulation_status-1" value="RUNNING" <%- simulation.get('status') === 'RUNNING' ? 'checked' : '' %>>
+                              Running
+                            </label>
+                          </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Update</button>
+                          </div>
+                        </div>
+
+                        </fieldset>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-teams" role="tabpanel" aria-labelledby="v-pills-teams-tab">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Teams</h6>
+                    </div>
+                    <div class="card-body">
+                      <form class="form-horizontal" id="form_simulation_team">
+                        <fieldset>
+                          <!-- Text input-->
+                          <div class="form-group row">
+                            <label for="teamName" class="col-form-label col-sm-2">Team Name</label>
+                            <div class="col-md-10">
+                              <input id="teamName" name="teamName" type="text" class="form-control input-md" required="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="teamMembers" class="col-form-label col-sm-2">Team Members</label>
+                            <div class="col-md-10">
+                              <select id="teamMembers" name="teamMembers[]" class="form-control selectpicker" data-live-search="true" required="" multiple="">
+                              </select>
+                            </div>
+                          </div>
+
+                          <!-- Button -->
+                          <div class="form-group">
+                            <div class="col-md-12">
+                              <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Create Team</button>
+                            </div>
+                          </div>
+
+                        </fieldset>
+                      </form>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTableTeams" width="100%" cellspacing="0">
+
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-data" role="tabpanel" aria-labelledby="v-pills-data-tab">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Data</h6>
+                    </div>
+                    <div class="card-body">
+                      <% include data %>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-score" role="tabpanel" aria-labelledby="v-pills-score-tab">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Score</h6>
+                    </div>
+                    <div class="card-body">
+                      <% include Score/score %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  
+  <div class="modal fade" id="teamMembersModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Team Members</h5>
+          <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+            X
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col align-items-center justify-content-center">
+            <div class="form-group row align-items-center justify-content-center text-center">
+              <input type="hidden" name="objectIdTeam" id="objectIdTeam">
+              <label for="teamMembers_modal" class="col-form-label col-sm-2">Members</label>
+              <div class="col-md-10">
+                <select id="teamMembers_modal" name="teamMembers[]" class="form-control selectpicker" data-live-search="true" required="" multiple="">
+                </select>
+              </div>
+            </div>
+            <div class="form-group row align-items-center justify-content-center text-center">
+              <button type="button" class="btn btn-primary btn-block" id="btn_add_members"> Add Members </button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered" id="member_table" width="100%" cellspacing="0">
+              
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+  var log = console.log
+  var table
+  var simulationTeams     = []
+  var studentsWithoutTeam = []
+  var advisersWithoutTeam = []
+  var teams = []
+
+  $(document).ready(function() { 
+    realoadTableTeams()
+  });
+
+  $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
+    toggleTables($(e.target).data('info'))
+  })
+
+  function toggleTables(activeTab) {
+    //log(activeTab)
+    switch (activeTab) {
+      case 'raw_material':
+        ajaxTableRM(true)
+        break
+      case 'product_family':
+        reloadProgressBar('product_family')
+        if (rawMaterialData.length == 0) {
+           ajaxTableRM(false)
+         } else {
+           crearFormularioProductos()
+         }
+         log("here")
+         ajaxTablePF(true)
+        break
+      case 'customers':
+        reloadProgressBar('customers')
+        ajaxTableCUSTR()
+        break
+      case 'suppliers':
+        reloadProgressBar('suppliers')
+        ajaxTableSPLRS()
+        reloadTableSPLRS(suppliers)
+        break
+      case 'employees':
+        reloadProgressBar('employees')
+        ajaxTableEPS()
+        break
+      case 'expenses':
+        reloadProgressBar('expenses')
+        ajaxTableEXPS()
+        break
+      case 'fix_assets':
+        reloadProgressBar('fix_assets')
+        ajaxTableFXATS()
+        reloadTableFXATS(fixAssets)
+        break
+      case 'transport':
+        reloadProgressBar('transport')
+        rellenarSelects()
+        ajaxTableTPE()
+        break
+      case 'customs':
+      case 'raw_material_inventory':
+        reloadProgressBar('raw_material_inventory')
+        if (rawMaterialData.length == 0) {
+          ajaxTableRM(false)
+        } else {
+          crearFormularioProductosInv()
+        }
+        ajaxTableINV(true)
+        break
+      case 'fix_assets_inventory':
+        reloadProgressBar('fix_assets_inventory')
+        ajaxTableFAIN()
+        crearFormularioInventarioActivosFijos(fixAssets)
+        break
+      case 'order_history':
+        reloadProgressBar('order_history')
+        ajaxTableRM(true)
+        break
+      case 'supplier_raw_material':
+        reloadProgressBar('supplier_raw_material')
+        ajaxTableSRM()
+        crearFormularioProveedorMateriaPrima()
+        break
+      case 'tab_data':
+        inicializacionDatosDatMaster()
+        ajaxTableRM(true)
+        $("#MenuMasterData").removeAttr("hidden")
+        break
+      case 'score':
+        realoadTableTeams()
+        startScore()
+        $("#MenuMasterData").attr("hidden",true)
+        break
+      case 'salary_tabulator':
+        reloadProgressBar('salary_tabulator')
+        ajaxTableSO()
+        break
+      case 'production_line_phase_master_data_adviser':
+        reloadProgressBar('production_line_phase_master_data_adviser')
+        ajaxTablePhases()
+        break
+      case 'production_line_templates_master_data_adviser':
+        reloadProgressBar('production_line_templates_master_data_adviser')
+        ajaxTablePLT()
+        break
+      default :
+        stopScore()
+        $("#MenuMasterData").attr("hidden",true)
+        break
+    }
+  }
+</script>
+<script type="text/javascript">
+  $("#form_simulation_settings").submit(function(event) {
+    event.preventDefault();
+
+    var title = ''
+    var textComplement = ''
+    var textFinaly = ''
+    var sePausa = undefined
+
+    if( $("#simulation_status-0").prop('checked')){
+      sePausa = false
+    }
+    if( $("#simulation_status-1").prop('checked')){
+       sePausa = true
+    }
+    
+    if(sePausa == false){
+      title = 'Pause'
+      textFinaly = 'Paused'
+    }else{
+      textFinaly = 'Running'
+      title = 'Run'
+      //textComplement = 'Running this simulation will cause any simulation already running in this group to stop to start the current simulation. '
+    }
+    var serialize = $(this).serialize()
+    Swal.fire({
+            title: `¡${title}!`,
+            text: `${textComplement}Are you sure you want to ${title.toLowerCase()} this simulation?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: title,
+            showLoaderOnConfirm: true,
+            preConfirm: function (login) {
+              return $.ajax({
+                              type: "POST",
+                              data: serialize,
+                              url: "/advisers/simulations/update_simulation_settings/<%= simulation.id %>",
+                              success: function(response) {
+                                //log(response.data)
+                                //reloadTable()
+                                
+                              },
+                              error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                Swal.fire(
+                                  '¡Error!',
+                                  XMLHttpRequest.responseJSON.error + '. Try again',
+                                  'error'
+                                )
+                              }
+                            })
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Saved!',
+                'Simulation has been updated successfully',
+                'success'
+              )
+            }
+          })
+
+  }); 
+</script>
+<script type="text/javascript">
+  function getAllStudents(){
+    //log("Retrieving all students in group")
+    $.ajax({
+      type: "GET",
+      url: "/advisers/simulations/data_students_group/<%= simulation.get('groupPtr').id %>",
+      success: function(response) {
+        //log(response.data)
+        $('#teamMembers').empty()
+        $('#teamMembers_modal').empty()
+        studentsWithoutTeam = []
+        advisersWithoutTeam = []
+        for(var i = 0; i < response.data.length; i++){
+          var found = false
+          for(var j = 0; j < simulationTeams.length; j++){
+            if(simulationTeams[j]["teamMembers"].includes(response.data[i]["usuarioPtr"]["objectId"])){
+              found = true
+              break
+            }
+          }
+          if(!found){
+            if(response.data[i]["usuarioPtr"]["permisoPtr"]["clave"] == 'ALUMNO'){
+              studentsWithoutTeam.push(response.data[i])
+            }else{
+              advisersWithoutTeam.push(response.data[i])
+            }
+          }
+        }
+
+        for(var i = 0; i < studentsWithoutTeam.length; i++){
+          var nombre          = studentsWithoutTeam[i]["usuarioPtr"]["nombre"] ? studentsWithoutTeam[i]["usuarioPtr"]["nombre"]: ''
+          var apellidoPaterno = studentsWithoutTeam[i]["usuarioPtr"]["apellidoPaterno"] ?  studentsWithoutTeam[i]["usuarioPtr"]["apellidoPaterno"] : ''
+          var apellidoMaterno = studentsWithoutTeam[i]["usuarioPtr"]["apellidoMaterno"] ?  studentsWithoutTeam[i]["usuarioPtr"]["apellidoMaterno"] : ''
+          $('#teamMembers').append(
+              "<option data-subtext='Estudent'" +
+                "value='" + studentsWithoutTeam[i]["usuarioPtr"]["objectId"] + "'>" +
+                studentsWithoutTeam[i]["usuarioPtr"]["matricula"] + " " +
+                " - "+
+                apellidoPaterno+ " " +
+                apellidoMaterno+ " " +
+                nombre+
+              "</option>"
+            )
+
+            $('#teamMembers_modal').append(
+              "<option data-subtext='Estudent'" +
+                "value='" + studentsWithoutTeam[i]["usuarioPtr"]["objectId"] + "'>" +
+                studentsWithoutTeam[i]["usuarioPtr"]["matricula"] + " " +
+                " - "+
+                apellidoPaterno+ " " +
+                apellidoMaterno+ " " +
+                nombre+
+              "</option>"
+            )
+        }
+
+        for(var i = 0; i < advisersWithoutTeam.length; i++){
+          var nombre          = advisersWithoutTeam[i]["usuarioPtr"]["nombre"] ? advisersWithoutTeam[i]["usuarioPtr"]["nombre"] : ''
+          var apellidoPaterno = advisersWithoutTeam[i]["usuarioPtr"]["apellidoPaterno"] ?  advisersWithoutTeam[i]["usuarioPtr"]["apellidoPaterno"] : ''
+          var apellidoMaterno = advisersWithoutTeam[i]["usuarioPtr"]["apellidoMaterno"] ?  advisersWithoutTeam[i]["usuarioPtr"]["apellidoMaterno"] : ''
+          $('#teamMembers').append(
+              "<option data-subtext='Adviser'" +
+                "value='" + advisersWithoutTeam[i]["usuarioPtr"]["objectId"] + "'>" +
+                "ADVISER" + " " +
+                " - "+
+                apellidoPaterno+ " " +
+                apellidoMaterno+ " " +
+                nombre+
+              "</option>"
+            )
+
+            $('#teamMembers_modal').append(
+              "<option data-subtext='Adviser'" +
+                "value='" + advisersWithoutTeam[i]["usuarioPtr"]["objectId"] + "'>" +
+                "ADVISER" + " " +
+                " - "+
+                apellidoPaterno+ " " +
+                apellidoMaterno+ " " +
+                nombre+
+              "</option>"
+            )
+        }
+        $('#teamMembers').selectpicker('refresh')
+        $('#teamMembers_modal').selectpicker('refresh')
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+      }
+    });
+  }
+
+  $("#form_simulation_team").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/advisers/simulations/add_team/<%= simulation.id %>",
+      success: function(response) {
+        //log(response.data)
+        $("#teamName").val("")
+        realoadTableTeams()
+        Swal.fire(
+          'Added!',
+          'Team has been added successfully',
+          'success'
+        )
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        Swal.fire(
+          'Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  });
+
+  function realoadTableTeams(){
+    //log("Reload table teams")
+    $.ajax({
+      type: "GET",
+      url: "/advisers/simulations/data_teams_simulation/<%= simulation.id %>",
+      success: function(response) {
+        //log(response.data)
+        teams = response.data
+        rellenarScore(teams)
+
+        simulationTeams = []
+        for(var i = 0; i < response.data.length; i++){
+          simulationTeams.push(response.data[i])
+        }
+
+        if ($.fn.DataTable.isDataTable("#dataTableTeams")) {
+          //$("#table_report").DataTable().clear().draw();
+          $("#dataTableTeams").dataTable().fnDestroy();
+          //$("#table_report").dataTable();
+          $('#dataTableTeams').empty();
+        }
+
+        var thead = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+        thead += '<tr>'
+        thead += '<th>Name</th>'
+        thead += '<th>Active</th>'
+        thead += '<th>Created At</th>'
+        thead += '<th>Action</th>'
+        thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+        tfooter += '<tr>'
+        tfooter += '<th>Name</th>'
+        tfooter += '<th>Active</th>'
+        tfooter += '<th>Created At</th>'
+        tfooter += '<th>Action</th>'
+        tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $('#dataTableTeams').append(thead);
+        $('#dataTableTeams').append(tfooter);
+
+        $.fn.dataTable.moment('DD-MM-YYYY');
+        $('#dataTableTeams').dataTable({
+          processing: true,
+          lengthMenu: [100, 10, 25, 50, 75],
+          order: [
+            [0, "asc"]
+          ],
+          deferRender: true,
+          data: response.data,
+          columns: [{
+              data: "teamName"
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                 if (data["active"]) return '<span class="badge badge-success">Active</span>'
+                else return '<span class="badge badge-secondary">Inactive</span>'
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                return moment(data["createdAt"]).format('DD-MM-YYYY')
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                var data_to_add = ""
+
+                data_to_add = "<div class='row ml-2 mr-4' style='width:180px'>"
+
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<span data-toggle="modal" data-target="#teamMembersModal" ' +
+                  'data-id="' + data["objectId"] + '" '+
+                  'data-members="' + data["teamMembers"] + '"> '+
+                  '<button type"button" class="btn btn-primary btn-circle"  data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-users"></i>'+
+                  '</button>'+
+                  '</span>'
+                data_to_add += "</div>"
+
+                if (data["active"]) {
+                  data_to_add += "<div class='col-md-3'>"
+                  data_to_add += '<button id="active" type"button" onclick="ActivateDataTeam(\'' + data["objectId"] + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive" ></i></button>'
+                  data_to_add += "</div>"
+                } else {
+                  data_to_add += "<div class='col-md-3'>"
+                  data_to_add += '<button id="active" type"button" onclick="ActivateDataTeam(\'' + data["objectId"] + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+                  data_to_add += "</div>"
+                }
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<button id="elimniar" type"button" onclick="EraseDataTeam(\'' + data["objectId"] + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+                data_to_add += "</div>"
+
+                data_to_add += "</div>"
+
+                return data_to_add
+              }
+            }
+          ]
+        });
+
+        getAllStudents()
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+      }
+    });
+  }
+
+  function ActivateDataTeam(objectId, seActiva) {
+    if (seActiva) {
+      Swal.fire({
+        title: 'Activate',
+        text: "Do you want to activate this team?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Activate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/advisers/simulations/data_team_archive",
+            success: function(response) {
+              //log(response.data)
+              realoadTableTeams()
+              Swal.fire(
+                'Activated!',
+                'The simulation has been activated successfully',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'success'
+              )
+            }
+          })
+
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Deactivate',
+        text: "Do you want to deactivate this team",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Deactivate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/advisers/simulations/data_team_archive",
+            success: function(response) {
+              //log(response.data)
+              realoadTableTeams()
+              Swal.fire(
+                'Deactivated!',
+                'The team has been succesfully deactivated',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'success'
+              )
+            }
+          })
+        }
+      })
+    }
+  }
+
+  function EraseDataTeam(objectId) {
+    Swal.fire({
+      title: 'Delete',
+      text: "Do you want to delete this team?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: "POST",
+          data: {
+            "objectId": objectId
+          },
+          url: "/advisers/simulations/data_team_erase",
+          success: function(response) {
+            //log(response.data)
+            realoadTableTeams()
+            Swal.fire(
+              'Deleted!',
+              'The team has been succesfully deleted',
+              'success'
+            )
+
+
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            Swal.fire(
+              'Error!',
+              'An error ocurred while performing the action, please try again',
+              'success'
+            )
+          }
+        })
+      }
+    })
+  }
+
+  $('#teamMembersModal').on('show.bs.modal', function(e) {
+    //log(e.relatedTarget)
+    var objectId = $(e.relatedTarget).data('id');
+    var members = $(e.relatedTarget).data('members');
+    $("#objectIdTeam").val(objectId)
+    
+    //log(objectId)
+    //log(members)
+    reloadTableMembers (objectId, members)
+    
+  });
+
+  function reloadTableMembers (objectId, members){
+    /*log("____________________-")
+    log(objectId,members)*/
+    $.ajax({
+      type: "POST",
+      data: {
+        "objectId": objectId,
+        "members": members
+      },
+      url: "/advisers/simulations/data_team_members",
+      success: function(response) {
+        //log(response.data)
+        var data = ''
+        $("#member_table").empty()
+
+        data += '<thead>'
+          data += '<tr>'
+            data += '<th>Enrollment</th>'
+            data += '<th>Father Lastname</th>'
+            data += '<th>Second Lastname</th>'
+            data += '<th>Name</th>'
+            data += '<th>Actions</th>'
+          data += '</tr>'
+        data += '</thead>'
+        data += '<tbody>'
+          for(var i = 0; i < response.data.length; i++){
+            var data_to_add = '' 
+            data_to_add += "<div class='col-md-3'>"
+              data_to_add += '<button id="elimniar" type"button" onclick="EraseMemberTeam(\'' + response.data[i]["objectId"] + '\',\''+objectId+'\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+            data_to_add += "</div>"
+
+            data += '<tr>'
+              if(response.data[i]["matricula"]!= undefined){
+                data += '<td>' + response.data[i]["matricula"] + '</td>' 
+              }else{
+                 data += '<td>ADVISER</td>'
+              }
+
+              var nombre          = response.data[i]["nombre"] ? response.data[i]["nombre"]: ''
+              var apellidoPaterno = response.data[i]["apellidoPaterno"] ?  response.data[i]["apellidoPaterno"] : ''
+              var apellidoMaterno = response.data[i]["apellidoMaterno"] ?  response.data[i]["apellidoMaterno"] : ''
+
+              data += '<td>' + apellidoPaterno + '</td>'
+              data += '<td>' + apellidoMaterno + '</td>'
+              data += '<td>' + nombre + '</td>'
+              data += '<td>' + data_to_add + '</td>'
+            data += '</tr>'
+          }
+        data += '</tbody>'
+        $("#member_table").append(data)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  }
+</script>
+<!--Script eliminar miembro de un equipo-->
+<script type="text/javascript">
+  function EraseMemberTeam (objectId,objectIdTeam) {
+    //log(objectId)
+    //log(objectIdTeam)
+    $.ajax({
+      type: "POST",
+      url: "/advisers/simulations/data_member_erase",
+      data:{ 
+        'objectId':objectId,
+        'objectIdTeam':objectIdTeam
+      },
+      success: function(response) {
+        //log(response)
+        var menbersData = ''
+        for (let i = 0; i < response.data.length; i++) {
+          if(response.data.length == i){
+            menbersData += response.data[i]
+          }else{
+            menbersData += response.data[i]+","
+          }
+        }
+        //log(objectId,menbersData)
+        realoadTableTeams()
+        reloadTableMembers(objectIdTeam,menbersData)
+        //$("#teamMembersModal").modal("hide")
+        Swal.fire(
+          'Deleted!',
+          'Member has been deleted successfully',
+          'success'
+        )
+
+      },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  }
+</script>
+<!--Script de agregar miembros al equipo-->
+<script type="text/javascript">
+  $("#btn_add_members").on('click',function (e) {
+
+    var objectIdTeam = $("#objectIdTeam").val()
+    var teamMembers  = $("#teamMembers_modal").val()
+    
+    if(teamMembers.length == 0) {
+      Swal.fire(
+          'Add!',
+          'You have not selected any member',
+          'warning'
+        )
+    }else{
+      //log(objectIdTeam,teamMembers)
+      $.ajax({
+        type: "POST",
+        url: "/advisers/simulations/data_member_upadate_team",
+        data:{
+          'objectIdTeam':objectIdTeam,
+          'teamMembers':teamMembers
+        },
+        success: function(response) {
+          var menbersData = ''
+        for (let i = 0; i < response.data.length; i++) {
+          if(response.data.length == i){
+            menbersData += response.data[i]
+          }else{
+            menbersData += response.data[i]+","
+          }
+        }
+        //log(objectIdTeam,menbersData)
+        realoadTableTeams()
+        reloadTableMembers(objectIdTeam,menbersData)
+          //$("#teamMembersModal").modal("hide")
+          Swal.fire(
+            'Added!',
+            'Member has been added successfully',
+            'success'
+          )
+        },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+          Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+        }
+      })
+    }
+  })
+</script>
+<% include scripts-tabs/data-scripts %>
+<% include Score/score-script %>

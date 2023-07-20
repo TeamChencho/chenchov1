@@ -1,0 +1,149 @@
+<script type="text/javascript">
+
+    //id table -> dataTableSimualtionRanking
+    $("#simulation_ranking_btn").on('click',function (e){
+        $("#modalRanking").modal("show")
+        $.ajax({
+            type: "POST",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/ranking/data",
+            success : function( response ) {
+                log(response)
+                reloadTableRanking(response.data)
+            },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                log(XMLHttpRequest.responseJSON.error)
+            }
+        })
+    })
+
+    function reloadTableRanking(data) {
+        var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+        })
+
+        if($.fn.DataTable.isDataTable("#dataTableSimualtionRanking")){
+            $("#dataTableSimualtionRanking").dataTable().fnDestroy()
+            $("#dataTableSimualtionRanking").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead class=" border border-primary">'
+            thead += '<tr>'
+                thead += '<th>POSITION</th>'
+                thead += '<th>TEAM</th>'
+                thead += '<th>QUANTITY ORDERS</th>'
+                thead += '<th>CURRENT MONEY</th>'
+                thead += '<th></th>'
+            thead +='</tr>'
+        thead += '</thead>'
+        /*tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Team</th>'
+                tfooter += '<th>Quantity Amount</th>'
+                tfooter += '<th>Current Money</th>'
+            tfooter +='</tr>'
+        tfooter += '</tfoot>'*/
+
+        $("#dataTableSimualtionRanking").append(thead)
+        //$("#dataTableSimualtionRanking").append(tfooter)
+        $.fn.dataTable.moment('DD-MM-YYYY')
+        var currentRow = 0;
+        $("#dataTableSimualtionRanking").DataTable({
+            processing: true,
+            lengthMenu: [500],
+            searching: false,
+			bPaginate: false,
+			bInfo: false,
+			ordering: false,
+			paging: false,
+            columnDefs : [{
+                "targets": 0,
+                "className": "border border-top-0 border-left-0 border-right-0",
+            },{
+                "targets": 1,
+                "className": " border border-top-0 border-left-0 border-right-0",
+            },{
+                "targets": 2,
+                "className": " border border-top-0 border-left-0 border-right-0",
+            },{
+                "targets": 3,
+                "className": " border border-top-0 border-left-0 border-right-0",
+            },{
+                "targets": 4,
+                "className": " border border-top-0 border-left-0 border-right-0",
+            }],
+            data: data,
+            columns: [
+                {
+                    className: "text-center pt-4",
+                    data: null,
+                    render : function(data, type, row) {
+                        currentRow++
+                        return  '<span style="border-radius: 50%;height: 30px;    width: 30px;display: inline-block;background: #238ff9;vertical-align: top;">'
+                                    +'<span style="display: block;color: #FFFFFF;height: 30px;line-height: 30px;text-align: center"> '+currentRow+'</span>'
+                                +'</span>'
+                    }
+                },
+                {
+                    className: "text-center",
+                    data: null,
+                    render : function(data, type, row) {
+                        return '<i class="fas fa-users mr-2 mt-2 fa-2x text-primary "></i>'+'<span class=" text-secondary font-weight-bold">'+data["teamName"]+'</span>'
+                    }
+                },
+                {
+                    className: "text-center pt-4",
+                    data: null,
+                    render : function(data, type, row) {
+                        var orders = undefined
+                        if(!data["teamOrdersAmount"]){
+                            orders = new Intl.NumberFormat().format(0)
+                        }else{
+                            orders = new Intl.NumberFormat().format(Number(data["teamOrdersAmount"]))
+                        }
+                        return '<span class="mr-2 mt-2 text-info font-weight-bold">'+orders+'</span>'
+                    }
+                },
+                {
+                    className: "text-center pt-4",
+                    data: null,
+                    render : function(data, type, row) {
+                        var money = undefined
+                        if(!data["teamCurrentMoney"]){
+                            money = formatter.format(0)
+                        }else{
+                            money = formatter.format(Number(data["teamCurrentMoney"]))
+                        }
+                        return '<span class="mr-2 mt-2 text-success font-weight-bold">'+money+'</span>'
+                    }
+                },
+                {
+                    className: "text-center",
+                    data: null,
+                    render : function(data, type, row) {
+                        var trophy = ''
+                        switch (currentRow) {
+                            case 1:
+                                trophy = '<img class="mx-auto d-block" src="/images/oro.png" style="width: 40px; height: 40px;" alt="">'
+                                break;
+                            case 2:
+                                trophy = '<img class="mx-auto d-block" src="/images/plata.png" style="width: 40px; height: 40px;" alt="">'
+                                break;
+                            case 3:
+                                trophy = '<img class="mx-auto d-block" src="/images/bronce.png" style="width: 40px; height: 40px;" alt="">'
+                                break;
+                            default:
+                                trophy = ''
+                                break;
+                        }
+                        return trophy
+                    }
+                }
+            ]
+        })
+
+    }
+</script>

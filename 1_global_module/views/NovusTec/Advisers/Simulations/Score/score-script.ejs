@@ -1,0 +1,187 @@
+<script>
+  /*var teamsTempo = [
+    {
+      "teamName":"Equipo BETA_1",
+      "amoutMoney":100000,
+      "orders":67
+    },
+    {
+      "teamName":"Equipo BETA_2",
+      "amoutMoney":100000,
+      "orders":0
+    },
+    {
+      "teamName":"Equipo BETA_3",
+      "amoutMoney":100000,
+      "orders":0
+    },
+    {
+      "teamName":"Equipo BETA_4",
+      "amoutMoney":100000,
+      "orders":0
+    },
+    {
+      "teamName":"Equipo BETA_5",
+      "amoutMoney":100000,
+      "orders":0
+    },
+    {
+      "teamName":"Equipo BETA_6",
+      "amoutMoney":100000,
+      "orders":0
+    },
+    {
+      "teamName":"Equipo BETA_7",
+      "amoutMoney":100000,
+      "orders":0
+    },
+    {
+      "teamName":"Equipo BETA_8",
+      "amoutMoney":100000,
+      "orders":0
+    },
+  ]*/
+  var arregloImagenesCopas = []
+  var idDatosMoney = []
+  var idDatosOrder = []
+  var idDtaosNameTeam = []
+  var score
+  var scoreSpeed = 60000
+  function rellenarScore(datosEquipos) {
+      $("#cardsScore").empty()
+      var card = ''
+      for (var i = 0; i < datosEquipos.length; i++) {
+
+        card += '<div class="col-md-4">' 
+          card += '<div class="card shadow-lg p-3 mb-5 rounded" id="card_color_padre">' 
+            card += '<div class="card-body">' 
+              //card += '<img class="mx-auto d-block" type="hidden" id="image_'+i+'" src="" style="width: 25%; height: 25%;" alt="">' 
+              card += '<div id="image_'+i+'"></div>' 
+              card += '<h5 class="card-title h4 text-center font-weight-bold mt-2" id="datoNombre_'+i+'" style="color:orange;">' + datosEquipos[i]["teamName"] + '</h5>'
+              card += '<div class="row align-items-center justify-content-center">'
+                card += '<div class="col mr-1">'
+                  card += '<div class="row justify-content-center">'
+                    card += '<div class="card" style="width:100%;" id="card_color_hijo">'
+                      card += '<div class="col mt-2">'
+                        card += '<div class="row text-center justify-content-center">'
+                          card += '<h5 class="font-weight-bold">Dinero</h5>'
+                        card += '</div>'
+                        card += '<div class="row text-center justify-content-center">'
+                          let currentMoney = datosEquipos[i]["teamCurrentMoney"] 
+                          if( datosEquipos[i]["teamCurrentMoney"] == undefined ){
+                            currentMoney = '0'
+                          }
+                          //card += '<p><i class="fas fa-dollar-sign"></i> <p id="datoDinero'+i+'"> '+datosEquipos[i]["teamCurrentMoney"]+'.00</p></p>'
+                          card += '<p id="datoDinero'+i+'"> '+ formatter.format(currentMoney)+'</p>'
+                        card += '</div>'
+                      card += '</div>'
+                    card += '</div>'
+                  card += '</div>'
+                card += '</div>'
+                card += '<div class="col">'
+                  card += '<div class="row justify-content-center">'
+                    card += '<div class="card" style="width:100%;" id="card_color_hijo">'
+                      card += '<div class="col mt-2">'
+                        card += '<div class="row text-center justify-content-center">'
+                          card += '<h5 class="font-weight-bold">Ordenes</h5>'
+                        card += '</div>'
+                        card += '<div class="row text-center justify-content-center">'
+                          let ordersAmount = datosEquipos[i]["teamOrdersAmount"]
+                          if( datosEquipos[i]["teamOrdersAmount"] == undefined ){
+                            ordersAmount = '0'
+                          }
+                          //card += '<p><i class="fas fa-clipboard-list"></i> <p id="datoOrden'+i+'"> '+datosEquipos[i]["teamOrdersAmount"]+'</p></p>'
+                          card += '<p><i class="fas fa-clipboard-list"></i> <p id="datoOrden'+i+'"> '+ordersAmount+'</p></p>'
+                        card += '</div>'
+                      card += '</div>'
+                    card += '</div>'
+                  card += '</div>'
+                card += '</div>'
+              card +='</div>'
+            card += '</div>'
+          card += '</div>'
+        card += '</div>'
+
+        idDtaosNameTeam.push('datoNombre_'+i)
+        arregloImagenesCopas.push('image_'+i)
+        idDatosMoney.push("datoDinero"+i)
+        idDatosOrder.push("datoOrden"+i)
+
+      }
+      $("#cardsScore").append(card)
+  }
+
+  function mostraCopa() {
+    for(var i=0; i< arregloImagenesCopas.length; i++){
+      if(arregloImagenesCopas[i]=="image_0"){
+        /*
+        $("#"+arregloImagenesCopas[i]+"").attr("src", "/images/oro.png");
+        $("#"+arregloImagenesCopas[i]+"").show()*/
+        $("#"+arregloImagenesCopas[i]+"").empty()
+        var image = '<img class="mx-auto d-block" id="image_'+i+'" src="/images/oro.png" style="width: 25%; height: 25%;" alt="">'
+        $("#"+arregloImagenesCopas[i]+"").append(image)
+
+      }
+      if(arregloImagenesCopas[i]=="image_1"){
+        /*
+        $("#"+arregloImagenesCopas[i]+"").attr("src", "/images/plata.png");
+        $("#"+arregloImagenesCopas[i]+"").show()*/
+        $("#"+arregloImagenesCopas[i]+"").empty()
+        var image = '<img class="mx-auto d-block" id="image_'+i+'" src="/images/plata.png" style="width: 25%; height: 25%;" alt="">'
+        $("#"+arregloImagenesCopas[i]+"").append(image)
+      }
+      if(arregloImagenesCopas[i]=="image_2"){
+        /*
+        $("#"+arregloImagenesCopas[i]+"").attr("src", "/images/bronce.png");
+        $("#"+arregloImagenesCopas[i]+"").show()*/
+        $("#"+arregloImagenesCopas[i]+"").empty()
+        var image = '<img class="mx-auto d-block" id="image_'+i+'" src="/images/bronce.png" style="width: 25%; height: 25%;" alt="">'
+        $("#"+arregloImagenesCopas[i]+"").append(image)
+      }
+    }
+  }
+
+  function actualizarCampos(teamsTempo){
+    for (var i = 0; i <teamsTempo.length; i++){
+
+      let currentMoney = teamsTempo[i]["teamCurrentMoney"] 
+      if( teamsTempo[i]["teamCurrentMoney"] == undefined ){
+        currentMoney = '0'
+      }
+
+      let ordersAmount = teamsTempo[i]["teamOrdersAmount"]
+      if( teamsTempo[i]["teamOrdersAmount"] == undefined ){
+        ordersAmount = '0'
+      }
+
+      $("#"+idDtaosNameTeam[i]+"").text(" "+teamsTempo[i]["teamName"])
+      $("#"+idDatosMoney[i]+"").text(formatter.format(currentMoney))
+      $("#"+idDatosOrder[i]+"").text(" "+ordersAmount)
+    }
+  }
+
+  function startScore() {
+    $.ajax({
+      type: "GET",
+      url: "/advisers/simulations/data_teams_simulation/score/<%= simulation.id %>",
+      success: function(result) {
+        mostraCopa()
+        actualizarCampos(result.data)
+      },
+      complete: function() {
+        score = setTimeout(function() {
+          startScore()
+        }, scoreSpeed);
+      }
+    });
+  };
+
+  function stopScore(){
+    clearTimeout(score)
+    clearTimeout(score)
+  }
+
+  function speedScore(speed){
+    scoreSpeed=speed
+  }
+</script>

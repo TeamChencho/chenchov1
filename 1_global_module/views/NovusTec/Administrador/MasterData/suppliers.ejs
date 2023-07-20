@@ -1,0 +1,146 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+   <!-- <div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">
+      <div class="card shadow mb-4">
+        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add student</h6>
+        </a>
+        <div class="collapse" id="collapseCardExample">
+          <div class="card-body">
+            <form class="form-horizontal" id="form_agregar">
+              <fieldset>
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <!--<div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">-->
+      <div class="card shadow mb-4">
+        <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Suppliers</h6>
+        </a>
+
+        <div class="collapse" id="collapseImportar">
+          <div class="card-header">
+            <div class="col-md-12">
+              <a href="/templates/PlantillaProveedores.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal" id="form_importar_suppliers" action="/administrador/master_data/suppliers/importar_proveedores"  method="POST" enctype="multipart/form-data">
+              <fieldset>
+                <div class="form-group row">
+                  <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+                  <div class="col-md-9">
+                    <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md "  data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        
+      </div>
+   <!-- </div>-->
+  </div>
+</div>
+
+<div class="modal fade" id="editModalSuppliers" tabindex="-1" role="dialog" aria-labelledby="editModalSuppliersLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalSuppliersLabel">Edit Supplier</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form-horizontal" id="form_editar_suppliers">
+          <div class="modal-body">
+            <input type="hidden" id="objectId_suppliers_editar" name="objectId">
+            <!-- Text input-->
+            <div class="form-group row">
+              <label for="abreviatura_editar" class="col-form-label col-sm-2">Abbreviation</label>
+              <div class="input-group col-sm-10">
+                <div class="input-group-prepend" style="width: 100%;">
+                  <input id="abreviatura_editar" name="abreviatura" type="text" class="form-control input-md" required="">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="nombre_editar" class="col-form-label col-sm-2">Name</label>
+              <div class="input-group col-sm-10">
+                <div class="input-group-prepend" style="width: 100%;">
+                  <input id="nombre_editar" name="nombre" type="text" class="form-control input-md" required="">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="rfc_editar" class="col-form-label col-sm-2">RFC</label>
+              <div class="col-md-10">
+                <input id="rfc_editar" name="rfc" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="rs_social_editar" class="col-form-label col-sm-2"> Business name</label>
+              <div class="col-md-10">
+                <input id="rs_social_editar" name="rsSocial" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <span id="mensaje_error_telefono" class="text-danger"></span>
+            <div class="form-group row">
+              <label for="telefono_editar" class="col-form-label col-sm-2">Telephone</label>
+              <div class="col-md-10">
+                <input id="telefono_editar" name="telefono" type="tel" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="correo_electronico_editar" class="col-form-label col-sm-2">Email</label>
+              <div class="col-md-10">
+                <input id="correo_electronico_editar" name="correoElectronico" type="email" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="pagina_web_editar" class="col-form-label col-sm-2">Web page</label>
+              <div class="col-md-10">
+                <input id="pagina_web_editar" name="paginaWeb" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="cuenta_bancaria_editar" class="col-form-label col-sm-2">Bank account</label>
+              <div class="col-md-10">
+                <input id="cuenta_bancaria_editar" name="cuentaBancaria" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <span id="mensaje_error_dias" class="text-danger"></span>
+            <div class="form-group row">
+              <label for="dias_credito_editar" class="col-form-label col-sm-2">Credit days</label>
+              <div class="col-md-10">
+                <input id="dias_credito_editar" name="diasCredito" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+

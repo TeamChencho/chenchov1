@@ -1,0 +1,454 @@
+<%- contentFor('head')%>
+<% include ./../css %>
+<style type="text/css">
+  .highlight {
+    outline: 9999px solid rgba(0,0,0,0.5) !important;
+  }
+</style>
+
+<%- contentFor('body')%>
+<body id="page-top" class="sidebar-toggled">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <% include ./../sidebar %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./../top-bar %>        
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+              Simulations 
+                <button type="button" 
+                        id="btn_help" 
+                        data-trigger="hover" 
+                        class="btn btn-circle" 
+                        data-toggle="popover" 
+                        title="Hello! Welcome to the 'Novus' system." 
+                        data-content="If you wonder how this view function?, we can help you, just click this help button.">
+                        <i  style="font-size: 2rem;" 
+                            class="fas fa-question-circle text-info">
+                        </i>
+                </button>
+            </h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <% if(error){ %>
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Error!</strong> <%= error %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Area Chart -->
+            <div  class="col-xl-12 col-lg-12 col-sm-12 col-xs-12"
+                  id="content_Table" 
+                  data-container="body"
+                  data-placement="top"
+                  data-toggle="popover" 
+                  data-content=""
+                 >
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">List of Simulations</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table  class="table table-bordered" 
+                            id="dataTable" 
+                            width="100%" 
+                            cellspacing="0" 
+                    >
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  
+  <div class="modal fade" id="teamMembersModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Team Members</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="member_table" width="100%" cellspacing="0">
+                
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div  class="modal fade" id="startTutorialModal" tabindex="-1" role="dialog" aria-labelledby="startTutorialModalLabel"
+        aria-hidden="true"
+        data-keyboard="false" 
+        data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-3">
+          <label for="" class="font-weight-bold col-md-12 text-center justify-content-center align-items-center">
+            Great! We welcome you to view your simulations.
+          </label>
+          <span class="font-weight-bold col-md-12 text-center justify-content-center align-items-center" style="font-size: 5rem; color:#ffa600; display: block;">
+            <i class="fas fa-door-open"></i>
+          </span>
+          <span style="display: block;" class="font-weight-light col-md-12 text-center justify-content-center align-items-center">
+            can we start with your tutorial?
+          </span>
+          <div style="display: block;" class="text-center justify-content-center align-items-center mt-2">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="btn_yes_tutorial">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+var log = console.log
+var table 
+
+  $(document).ready(function() {
+    startPopoverButton()
+    reloadTable()
+  });
+
+  function reloadTable() {
+    //log("Recargando tabla")
+    $.ajax({
+      type: "GET",
+      url: "/alumnos/simulaciones/data",
+      success: function(response) {
+        //log(response.data)
+
+        if ($.fn.DataTable.isDataTable("#dataTable")) {
+          //$("#table_report").DataTable().clear().draw();
+          $("#dataTable").dataTable().fnDestroy();
+          //$("#table_report").dataTable();
+          $('#dataTable').empty();
+        }
+
+        var thead = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+        thead += '<tr>'
+        thead += '<th>Name</th>'
+        thead += '<th>Status</th>'
+        thead += '<th>Group</th>'
+        thead += '<th>Speed</th>'
+        thead += '<th>Created At</th>'
+        thead += '<th class="title_actions_table" id="title_actions_table"'+
+                  'data-toggle="popover" '+
+                  'data-content=""'+
+                 '>Action</th>'
+        thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+        tfooter += '<tr>'
+        tfooter += '<th>Name</th>'
+        tfooter += '<th>Status</th>'
+        tfooter += '<th>Group</th>'
+        tfooter += '<th>Speed</th>'
+        tfooter += '<th>Created At</th>'
+        tfooter += '<th class="">Action</th>'
+        tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $('#dataTable').append(thead);
+        $('#dataTable').append(tfooter);
+
+        $.fn.dataTable.moment('DD-MM-YYYY');
+        $('#dataTable').dataTable({
+          processing: true,
+          lengthMenu: [100, 10, 25, 50, 75],
+          order: [
+            [2, "desc"]
+          ],
+          deferRender: true,
+          data: response.data,
+          columns: [
+            {data: null,render: function(data, type, row) {return data["simulationPtr"]["simulationName"]}},
+            {data: null,render: function(data, type, row) {return data["simulationPtr"]["status"]}},
+            {data: null,render: 
+              function(data, type, row) {return data["simulationPtr"]["groupPtr"]["codigo"] + " - " + data["simulationPtr"]["groupPtr"]["nombre"]
+            }},
+            {data: null,render: function(data, type, row) {
+              switch(data["simulationPtr"]["speedSimulation"]){
+                case 60:
+                default:
+                  return "1x"
+                case 30:
+                return "2x"
+                case 15:
+                return "4x"
+                case 7:
+                return "8x"
+                case 3:
+                return "16x"
+                case 3:
+                return "32x"
+              }
+            }},
+            {data: null,render: function(data, type, row) {return moment(data["simulationPtr"]["createdAt"]).format('DD-MM-YYYY')}},
+            {
+              className:"content_actions_table",
+              data: null,
+              render: function(data, type, row) {
+                var data_to_add = ""
+
+                data_to_add = "<div class='row ml-2 mr-4' style='width:180px'>"
+
+                data_to_add += "<div class='col-md-4'>"
+                data_to_add += '<span data-toggle="modal" data-target="#teamMembersModal" ' +
+                  'data-id="' + data["objectId"] + '" '+
+                  'data-members="' + data["teamMembers"] + '"> '+
+                  '<button type"button" class="btn btn-primary btn-circle"  data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-users"></i>'+
+                  '</button>'+
+                  '</span>'
+                data_to_add += "</div>"
+
+                data_to_add += "<div class='col-md-4'>"
+                /*data_to_add += '<a href="/simulation" target="_blank" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Detail Simulation"><i class="fas fa-play" ></i></a>'
+                data_to_add += "</div>"*/
+                data_to_add += '<button onclick="simulacion(\'' + data["simulationPtr"]["objectId"]+'/'+data["objectId"] + '\',\'' + data["simulationPtr"]["status"] + '\')" target="_blank" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Detail Simulation"><i class="fas fa-play" ></i></button>'
+                data_to_add += "</div>"
+
+                data_to_add += "</div>"
+
+                return data_to_add
+              }
+            }
+          ]
+        });
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+      }
+    });
+  }
+</script>
+<script type="text/javascript">
+  $('#teamMembersModal').on('show.bs.modal', function(e) {
+    //log(e.relatedTarget)
+    var objectId = $(e.relatedTarget).data('id');
+    var members = $(e.relatedTarget).data('members');
+    
+    log(objectId)
+    log(members)
+
+    $.ajax({
+      type: "POST",
+      data: {
+        "objectId": objectId,
+        "members": members
+      },
+      url: "/alumnos/simulaciones/data_team_members",
+      success: function(response) {
+        //log(response.data)
+        var data = ''
+        $("#member_table").empty()
+        
+
+            data += '<thead>'
+              data += '<tr>'
+                data += '<th>Enrollment</th>'
+                data += '<th>Father Lastname</th>'
+                data += '<th>Second Lastname</th>'
+                data += '<th>Name</th>'
+              data += '</tr>'
+            data += '</thead>'
+            data += '<tbody>'
+              for(var i = 0; i < response.data.length; i++){
+                data += '<tr>'
+                  if(response.data[i]["matricula"]!= undefined){
+                    data += '<td>' + response.data[i]["matricula"] + '</td>' 
+                  }else{
+                    data += '<td>ADVISER</td>'
+                  }
+                  data += '<td>' + response.data[i]["apellidoPaterno"] + '</td>'
+                  data += '<td>' + response.data[i]["apellidoMaterno"] + '</td>'
+                  data += '<td>' + response.data[i]["nombre"] + '</td>'
+                data += '</tr>'
+              }
+            data += '</tbody>'
+        $("#member_table").append(data)
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'success'
+        )
+      }
+    })
+    
+  });
+</script>
+<script>
+  function simulacion(ruta,status){
+    if(status=="PAUSED"){
+      Swal.fire(
+          'We\'re sorry!',
+          'The simulation is paused cannot enter',
+          'warning'
+        )
+    }else{
+      window.open('/simulation/'+ruta)
+    }
+  }
+</script>
+
+<script type="text/javascript">
+
+  function startPopoverButton(){
+
+    $("#content_Table").css("opacity","0.2")
+    $("#btn_help").focus()
+    /*$('#btn_help').popover({
+      html:true,
+      trigger: 'focus'
+      //title:'Are you new? <span id="closePopover" class="close closePopover">&times;</span>' 
+    })*/
+    $("#btn_help").popover( 'show' )
+    $("#btn_help").addClass( "highlight" )
+
+    $("#btn_help").focusout(function( e ) {
+      $("#content_Table").css( "opacity","" )
+      $("#btn_help").popover( 'hide' )
+      $("#btn_help").removeClass( "highlight" )
+    });
+
+  }
+  $("#btn_help").on("click",function( e ){
+    $("#startTutorialModal").modal( "show" )
+  })
+  $("#startTutorialModal").on( "hidden.bs.modal", function ( e ) {
+    $("#content_Table").css( "opacity","" )
+    $("#btn_help").removeClass( "highlight" )
+  })
+  
+  $("#btn_yes_tutorial").on( "click", function ( e ) {
+    $("#startTutorialModal").modal( 'hide' )
+    $('#content_Table').popover({
+      html:true,
+      trigger: 'manual',
+      placement:'top',
+      title: '<span class="font-weight-bold">We will start by telling you where your simulations are. </span>',
+      content:'<div class="col-md-12 mt-2">Here you will find the simulations you have been added to.</div>'+
+              '<div class="col-md-12 mt-3"><i class="fas fa-eye"></i> Beware! If no simulation is shown, first contact the teacher who gave you access to the system, so that they can assign you to one simulation.</div>'+
+              '<div class="mt-3">'+
+                '<span  class="btn btn-danger mr-2 btn_cancel_table_tutorial" id="btn_cancel_table_tutorial"> Cancel </span>'+
+                '<span class="btn btn-primary btn_next_table_tutorial"  id="btn_next_table_tutorial" > Next </span>'+
+              '</div>'
+    })
+    $("#content_Table").popover( 'show' )
+    $("#content_Table").addClass( "highlight" )
+  })
+  $('#content_Table').on('show.bs.popover', function () {
+    $($(this).data("bs.popover").getTipElement()).css("max-width", "40%");
+  })
+  $('#content_Table').on('shown.bs.popover', function () {
+    $("#btn_cancel_table_tutorial").css( "cursor", "pointer" )
+    $("#btn_next_table_tutorial").css( "cursor", "pointer" )
+    $("#btn_cancel_table_tutorial").attr( "onClick", "cancelarTutorialTable()" )
+    $("#btn_next_table_tutorial").attr( "onClick", "nextTutorialTable()" )
+  })
+  function cancelarTutorialTable() {
+    $("#content_Table").popover( 'hide' )
+    $("#content_Table").removeClass( "highlight" )
+  }
+
+  function nextTutorialTable () {
+    $("#content_Table").popover( 'hide' )
+    //$("#content_Table").removeClass( "highlight" )
+    $('#title_actions_table').popover({
+      html:true,
+      trigger: 'manual',
+      title: '<span class="font-weight-bold">Excellent! Now start your simulations. </span>',
+      content:'<div class="col-md-12 mt-2">To start any of your simulations you just have to click on the <i class="fas fa-play-circle text-success icon_play" id="icon_play" style="font-size:3rem;"></i> button of the simulation you want to enter.</div>'+
+              '<div class="col-md-12 mt-3"><i class="fas fa-exclamation-circle"></i> Be careful, if your simulation does not allow you to log in, it is most likely that your teacher has not started the simulation, in this case contact your teacher.</div>'+
+              '<div class="col-md-12 mt-2">If you want to see the members of your team in each simulation, you just have to click on the <i class="fas fa-users btn-circle bg-primary text-light icon_user" id="icon_user"></i> button, it will show you a small modal with the members, if there are none, it only means one thing, that only you are in the team!.</div>'+
+              '<div class="mt-3">'+
+                '<span  class="btn btn-danger mr-2 cancelarTutorialTableColAction" id="cancelarTutorialTableColAction"> Cancel </span>'+
+                '<span class="btn btn-primary finishTutorialTableColAction"  id="finishTutorialTableColAction" > Finish </span>'+
+              '</div>'
+    })
+    //Tenga cuidado, si tu simulación no te permite ingresar, lo más probable es que su profesor no ha iniciado la simulación, en este caso contacte a su maestro.
+    $("#title_actions_table").popover( 'show' )
+    $("#title_actions_table").addClass( "highlight" )
+
+    $('#title_actions_table').on('shown.bs.popover', function () {
+      $($(this).data("bs.popover").getTipElement()).css("max-width", "30%").css("margin-left","-200px");
+      $("#cancelarTutorialTableColAction").css( "cursor", "pointer" )
+      $("#cancelarTutorialTableColAction").attr( "hidden", true )
+      $("#cancelarTutorialTableColAction").attr( "onClick", "cancelarTutorialTableActions()" )
+      $("#finishTutorialTableColAction").css( "cursor", "pointer" )
+      $("#finishTutorialTableColAction").attr( "onClick", "finishTutorial()" )
+      $("#icon_play").css( "font-size", "1.7rem" )
+      $("#icon_user").css( "font-size", ".8rem" ).css('width', '30px').css('height', '30px')
+    })
+
+  }
+  function cancelarTutorialTableActions() {
+    $("#content_Table").popover( 'hide' )
+    $("#content_Table").removeClass( "highlight" )
+    $("#title_actions_table").popover( 'hide' )
+    $("#title_actions_table").removeClass( "highlight" )
+  }
+  function finishTutorial () {
+    $("#content_Table").popover( 'hide' )
+    $("#content_Table").removeClass( "highlight" )
+    $("#title_actions_table").popover( 'hide' )
+    $("#title_actions_table").removeClass( "highlight" )
+    //$("#content_Table").popover( 'disable' )
+    //$("#title_actions_table").popover( 'disable' )
+  }
+</script>

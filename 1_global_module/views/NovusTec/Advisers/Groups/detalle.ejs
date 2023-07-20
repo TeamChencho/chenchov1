@@ -1,0 +1,669 @@
+<%- contentFor('head')%>
+<% include ./../css %>
+
+<%- contentFor('body')%>
+
+<body id="page-top" class="sidebar-toggled">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <% include ./../sidebar %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./../top-bar %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"><%= grupo.get('nombre') %> - Students</h1>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <% if(error){ %>
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Error!</strong> <%= error %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">
+                  <div class="card shadow mb-4">
+                    <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add Student</h6>
+                    </a>
+                    <!-- Card Content - Collapse -->
+                    <div class="collapse" id="collapseCardExample">
+                      <div class="card-body">
+                        <form class="form-horizontal" id="form_agregar">
+                          <fieldset>
+                            <input type="hidden" name="grupoPtr" value="<%= grupo.id %>">
+
+                            <div class="form-group row">
+                              <label for="matricula_agregar" class="col-form-label col-sm-3"title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Enrollment</label>
+                              <div class="input-group col-sm-8">
+                                <div class="input-group-prepend" style="width: 100%;">
+                                  <input id="matricula_agregar" name="matricula" type="text" class="form-control input-md" required="">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="correo_agregar" class="col-form-label col-sm-3"title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Email</label>
+                              <div class="input-group col-sm-8">
+                                <div class="input-group-prepend" style="width: 100%;">
+                                  <input id="correo_agregar" name="correo" type="email" class="form-control input-md" required="">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="nombre_agregar" class="col-form-label col-sm-3"title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Names</label>
+                              <div class="col-md-8">
+                                <input id="nombre_agregar" name="nombre" type="text" class="form-control input-md" required="">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="papellido_agregar" class="col-form-label col-sm-3"title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Last name</label>
+                              <div class="col-md-8">
+                                <input id="papellido_agregar" name="papellido" type="text" class="form-control input-md" required="">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="mapellido_agregar" class="col-form-label col-sm-3">Second Last name</label>
+                              <div class="col-md-8">
+                                <input id="mapellido_agregar" name="mapellido" type="text" class="form-control input-md" >
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-md-12">
+                                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">
+                  <div class="card shadow mb-4">
+                    <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+                      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Students</h6>
+                    </a>
+
+                    <div class="collapse" id="collapseImportar">
+                      <div class="card-header">
+                        <div class="col-md-12">
+                          <a href="../../../templates/PlantillaAlumnos.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <form class="form-horizontal" id="form_importar" action="/advisers/groups/<%= grupo.id %>/alumnos/datos_importar" method="POST">
+                          <fieldset>
+                            <input type="hidden" name="grupoId" value="<%= grupo.id %>">
+                            <div class="form-group row">
+                              <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+                              <div class="col-md-10">
+                                <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md filestyle" data-btnClass="btn-outline-secondary" data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-md-12">
+                                <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Student Data</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <% include ../../Utilities/spinner %>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form-horizontal" id="form_editar">
+          <div class="modal-body">
+            <input type="hidden" id="objectId_alumno_editar" name="objectId">
+            <!-- Text input-->
+            <div class="form-group row">
+              <label for="matricula_editar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Enrollment</label>
+              <div class="input-group col-sm-10">
+                <div class="input-group-prepend" style="width: 100%;">
+                  <input id="matricula_editar" name="matricula" type="text" class="form-control input-md" required="">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="correo_agregar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Email</label>
+              <div class="input-group col-sm-10">
+                <div class="input-group-prepend" style="width: 100%;">
+                  <input id="correo_editar" name="correo" type="email" class="form-control input-md" required="">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="nombre_editar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Names</label>
+              <div class="col-md-10">
+                <input id="nombre_editar" name="nombre" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="papellido_editar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Last name</label>
+              <div class="col-md-10">
+                <input id="papellido_editar" name="papellido" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="mapellido_editar" class="col-form-label col-sm-2">Second Last name</label>
+              <div class="col-md-10">
+                <input id="mapellido_editar" name="mapellido" type="text" class="form-control input-md" >
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script>
+  var log = console.log
+  $(document).ready(function() {
+    reloadTable()
+  });
+</script>
+<script type="text/javascript"> 
+  function reloadTable() {
+    log("Recargando tabla")
+    $.ajax({
+      type: "GET",
+      url: "/advisers/groups/<%= grupo.id %>/alumnos/datos",
+      success: function(response) {
+        log("response")
+        if ($.fn.DataTable.isDataTable("#dataTable")) {
+          $("#dataTable").dataTable().fnDestroy();
+          $('#dataTable').empty();
+        }
+
+        var thead = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+        thead += '<tr>'
+        thead += '<th>Enrollment</th>'
+        thead += '<th>Email</th>'
+        thead += '<th>Names</th>'
+        thead += '<th>Last Name</th>'
+        thead += "<th>Second Last Name</th>'"
+        thead += '<th>Status</th>'
+        thead += '<th>Creation Date</th>'
+        thead += '<th>Action</th>'
+        thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+        tfooter += '<tr>'
+        tfooter += '<th>Enrollment</th>'
+        tfooter += '<th>Email</th>'
+        tfooter += '<th>Names</th>'
+        tfooter += '<th>Last Name</th>'
+        tfooter += "<th>Second Last Name</th>'"
+        tfooter += '<th>Status</th>'
+        tfooter += '<th>Creation Date</th>'
+        tfooter += '<th>Action</th>'
+        tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $('#dataTable').append(thead);
+        $('#dataTable').append(tfooter);
+
+        $.fn.dataTable.moment('DD-MM-YYYY');
+        $('#dataTable').dataTable({
+          processing: true,
+          lengthMenu: [100, 10, 25, 50, 75],
+          order: [
+            [0, "asc"]
+          ],
+          deferRender: true,
+          data: response.data,
+          columns: [{
+              data: null,
+              render: function(data, type, row) {
+                return data["usuarioPtr"]["matricula"]
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                return data["usuarioPtr"]["correoElectronico"]
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                var nombre = data["usuarioPtr"]["nombre"] ?   data["usuarioPtr"]["nombre"] : '' 
+                return nombre
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                var apellidoPaterno = data["usuarioPtr"]["apellidoPaterno"] ?  data["usuarioPtr"]["apellidoPaterno"] : '' 
+                return apellidoPaterno
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                var apellidoMaterno = data["usuarioPtr"]["apellidoMaterno"] ?    data["usuarioPtr"]["apellidoMaterno"] :'' 
+                return apellidoMaterno
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                if (data["active"]) return '<span class="badge badge-success">Activo</span>'
+                else return '<span class="badge badge-secondary">Inactivo</span>'
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                return moment(data["createdAt"]).format('DD-MM-YYYY')
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                var nombre = data["usuarioPtr"]["nombre"] ?   data["usuarioPtr"]["nombre"] : '' 
+                var apellidoPaterno = data["usuarioPtr"]["apellidoPaterno"] ?  data["usuarioPtr"]["apellidoPaterno"] : '' 
+                var apellidoMaterno = data["usuarioPtr"]["apellidoMaterno"] ?    data["usuarioPtr"]["apellidoMaterno"] :'' 
+
+                var data_to_add = ""
+
+                data_to_add = "<div class='row ml-2' style='width:180px'>"
+
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<span data-toggle="modal" data-target="#editModal" data-id="' + data["usuarioPtr"]["objectId"] + '" data-matricula="' + data["usuarioPtr"]["matricula"] + '" data-correo="' + data["usuarioPtr"]["correoElectronico"] + '" data-nombre="' + nombre + '" data-papellido="' + apellidoPaterno + '" data-mapellido="' + apellidoMaterno + '"><button type"button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+                data_to_add += "</div>"
+
+                if (data["active"]) {
+                  data_to_add += "<div class='col-md-3'>"
+                  data_to_add += '<button type"button" onclick="ActivacionAlumno(\'' + data["objectId"] + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+                  data_to_add += "</div>"
+                } else {
+                  data_to_add += "<div class='col-md-3'>"
+                  data_to_add += '<button type"button" onclick="ActivacionAlumno(\'' + data["objectId"] + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+                  data_to_add += "</div>"
+                }
+
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<button type"button" onclick="EliminarAlumno(\'' + data["objectId"] + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="delete"><i class="fas fa-eraser"></i></button>'
+                data_to_add += "</div>"
+
+                data_to_add += "</div>"
+
+                return data_to_add
+              }
+            }
+          ],
+          dom: 'Bfrtip',
+          buttons: [{
+              extend: 'csv',
+              className: 'btn btn-sm btn-primary glyphicon glyphicon-save-file',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            {
+              extend: 'excel',
+              className: 'btn btn-sm btn-primary glyphicon glyphicon-list-alt',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            {
+              extend: 'pdf',
+              className: 'btn btn-sm btn-primary glyphicon glyphicon-file',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            {
+              extend: 'colvis',
+              className: 'btn btn-sm btn-primary glyphicon glyphicon-file'
+            },
+          ]
+        });
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        log(textStatus)
+      }
+    });
+  }
+</script>
+<script type="text/javascript">
+  $("#form_agregar").submit(function(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Add',
+      text: 'Do you want to add this student?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Add'
+    }).then((result) => {
+      if (result.value) {
+        //$('#spinner').modal('show')
+        $("#spinner").fadeIn(1);
+        $("#spinner").modal('show')
+        $.ajax({
+          type: "POST",
+          data: $(this).serialize(),
+          url: "/advisers/groups/<%= grupo.id %>/alumnos/datos_agregar",
+          success: function(response) {
+
+            Swal.fire(
+              'Added!',
+              'The student has been added successfully',
+              'success'
+            )
+            //$('#spinner').modal('hide')
+            $("#spinner").fadeOut(1);
+            $("#spinner").modal('hide')
+            $("#form_agregar").trigger("reset");
+            $('#collapseCardExample').collapse('hide');
+            reloadTable()
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#spinner").fadeOut(1);
+            $("#spinner").modal('hide')
+            Swal.fire(
+              '¡Error!',
+              XMLHttpRequest.responseJSON.error + '. Try again',
+              'error'
+            )
+            //$('#spinner').modal('hide')
+          }
+        });
+      }
+    })
+  });
+</script>
+<script type="text/javascript">
+  function ActivacionAlumno(objectId, seActiva) {
+    if (seActiva) {
+      Swal.fire({
+        title: 'Activate',
+        text: "Do you want to activate this student?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Activate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/advisers/groups/<%= grupo.id %>/alumnos/datos_archivar",
+            success: function(response) {
+              reloadTable()
+              Swal.fire(
+                'Activated!',
+                'The student has been successfully activated',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'error'
+              )
+            }
+          })
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Deactivate',
+        text: "Do you want to deactivate this student?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Deactivate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/advisers/groups/<%= grupo.id %>/alumnos/datos_archivar",
+            success: function(response) {
+              reloadTable()
+              Swal.fire(
+                'Deactivated!',
+                'The student has been successfully deactivated',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'error'
+              )
+            }
+          })
+        }
+      })
+    }
+  }
+</script>
+<script type="text/javascript">
+  function EliminarAlumno(objectId) {
+    Swal.fire({
+      title: 'Delete',
+      text: "Do you want to delete this student?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: "POST",
+          data: {
+            "objectId": objectId
+          },
+          url: "/advisers/groups/<%= grupo.id %>/alumnos/datos_eliminar",
+          success: function(response) {
+            reloadTable()
+            Swal.fire(
+              'Deleted!',
+              'The student has been successfully deleted',
+              'success'
+            )
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            Swal.fire(
+              '¡Error!',
+              'An error occurred while performing the action, please try again',
+              'success'
+            )
+          }
+        })
+      }
+    })
+  }
+</script>
+<script type="text/javascript">
+  $('#editModal').on('show.bs.modal', function(e) {
+    var objectId = $(e.relatedTarget).data('id');
+    var matricula = $(e.relatedTarget).data('matricula');
+    var nombre = $(e.relatedTarget).data('nombre');
+    var papellido = $(e.relatedTarget).data('papellido');
+    var mapellido = $(e.relatedTarget).data('mapellido');
+    var correo = $(e.relatedTarget).data('correo');
+    $("#objectId_alumno_editar").val(objectId);
+    $("#matricula_editar").val(matricula);
+    $("#nombre_editar").val(nombre);
+    $("#papellido_editar").val(papellido);
+    $("#mapellido_editar").val(mapellido);
+    $("#correo_editar").val(correo)
+  });
+
+  $("#form_editar").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      data: $(this).serialize(),
+      url: "/advisers/groups/<%= grupo.id %>/alumnos/datos_editar",
+      success: function(response) {
+        reloadTable()
+        Swal.fire(
+          'Edited!',
+          'The student has been edited successfully',
+          'success'
+        )
+        $('#editModal').modal('toggle');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#editModal').modal('toggle');
+        Swal.fire(
+          '¡Error!',
+          'An error occurred while performing the action, please try again',
+          'error'
+        )
+      }
+    })
+  });
+</script>
+<script type="text/javascript">
+  $("#form_importar").submit(function(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Add',
+      text: 'Do you want to add this students?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Add'
+    }).then((result) => {
+      if (result.value) {
+        $('#spinner').modal('show')
+        $("#form_importar").ajaxSubmit({
+          success: function(response) {
+            $('#spinner').modal('hide')
+            reloadTable()
+            $("#form_importar").trigger("reset");
+            $('#collapseImportar').collapse('hide');
+            Swal.fire(
+              'Successful Import!',
+              `${response.usuariosConOtroPermiso} Users not added, since they exist with another permission, ${response.alumnosNuevosSistema} New students to the system, ${response.alumnosNuevosGrupo} students to the group and ${response.alumnosExistentesGrupo} existing students to the group`,
+              'success'
+            )
+          },
+          error: function(response) {
+            $('#spinner').modal('hide')
+            Swal.fire(
+              '¡Error!',
+              'An error occurred while performing the action, please try again, ' + response.responseJSON.error,
+              'error'
+            )
+          }
+        });
+      }
+    })
+  })
+</script>

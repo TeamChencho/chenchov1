@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+
+    <div hidden>
+      <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="progressBarDataMaster"></div>
+      </div>
+    </div>
+
+    <!--<ul class="nav flex-column nav-pills mb-3 mt-3" id="pills-tab" role="tablist" aria-orientation="vertical">
+      <li class="nav-item">
+        <a class="nav-link active" id="pills-raw-material-tab" data-info="raw_material" data-toggle="pill" href="#pills-raw-material" role="tab" aria-controls="pills-raw-material" aria-selected="true">Raw Material</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-product-family-tab" data-info="product_family" data-toggle="pill" href="#pills-product-family" role="tab" aria-controls="pills-product-family" aria-selected="false">Product Family</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-customers-tab" data-info="customers" data-toggle="pill" href="#pills-customers" role="tab" aria-controls="pills-customers" aria-selected="false">Customers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-suppliers-tab" data-info="suppliers" data-toggle="pill" href="#pills-suppliers" role="tab" aria-controls="pills-suppliers" aria-selected="false">Suppliers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-employees-tab" data-info="employees" data-toggle="pill" href="#pills-employees" role="tab" aria-controls="pills-employees" aria-selected="false">Employees</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-expenses-tab" data-info="expenses" data-toggle="pill" href="#pills-expenses" role="tab" aria-controls="pills-expenses" aria-selected="false">Expenses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-fix-assets-tab" data-info="fix_assets" data-toggle="pill" href="#pills-fix-assets" role="tab" aria-controls="pills-fix-assets" aria-selected="false">Fix Assets</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-transport-tab" data-info="transport" data-toggle="pill" href="#pills-transport" role="tab" aria-controls="pills-transport" aria-selected="false">Transport</a>
+      </li>
+      <!#--<li class="nav-item">
+        <a class="nav-link" id="pills-customs-tab" data-info="customs" data-toggle="pill" href="#pills-customs" role="tab" aria-controls="pills-customs" aria-selected="false">Customs</a>
+      </li>--#>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-raw-material-inv-tab" data-info="raw_material_inventory" data-toggle="pill" href="#pills-raw-material-inv" role="tab" aria-controls="pills-raw-material-inv" aria-selected="false">Raw Material Inv</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-fix-assets-inv-tab" data-info="fix_assets_inventory" data-toggle="pill" href="#pills-fix-assets-inv" role="tab" aria-controls="pills-fix-assets-inv" aria-selected="false">Fix Assets Inv</a>
+      </li>
+      <!#--
+      <li class="nav-item">
+        <a class="nav-link" id="pills-order-history-tab" data-info="order_history" data-toggle="pill" href="#pills-order-history" role="tab" aria-controls="pills-order-history" aria-selected="false">Order History</a>
+      </li>--#>
+      <li class="nav-item">
+        <a class="nav-link" id="supplier-raw-material-tab" data-info="supplier_raw_material" data-toggle="pill" href="#supplier-raw-material" role="tab" aria-controls="supplier-raw-material" aria-selected="false">Supplier - Raw material</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="salary-tabulator-tab" data-info="salary_tabulator" data-toggle="pill" href="#salary-tabulator" role="tab" aria-controls="salary-tabulator" aria-selected="false">Salary tabulator</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" id="production-line-phase-master-data-adviser-tab" data-info="production_line_phase_master_data_adviser" data-toggle="pill" href="#production-line-phase-master-data-adviser" role="tab" aria-controls="production-line-phase-master-data-adviser" aria-selected="false">Production Line Phases</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="production-line-templates-master-data-adviser-tab" data-info="production_line_templates_master_data_adviser" data-toggle="pill" href="#production-line-templates-master-data-adviser" role="tab" aria-controls="production-line-templates-master-data-adviser" aria-selected="false">Production Line Templates</a>
+      </li>
+    </ul>-->
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade" id="pills-raw-material" role="tabpanel" aria-labelledby="pills-raw-material">
+
+      </div>
+      <div class="tab-pane fade" id="pills-product-family" role="tabpanel" aria-labelledby="pills-product-family">
+        <% include Tabs/product-family %>
+      </div>
+      <div class="tab-pane fade" id="pills-customers" role="tabpanel" aria-labelledby="pills-customers">
+        <% include Tabs/customers %>
+      </div>
+      <div class="tab-pane fade" id="pills-suppliers" role="tabpanel" aria-labelledby="pills-suppliers">
+        <% include Tabs/suppliers %>
+      </div>
+      <div class="tab-pane fade" id="pills-employees" role="tabpanel" aria-labelledby="pills-employees">
+        <% include Tabs/employees %>
+      </div>
+      <div class="tab-pane fade" id="pills-expenses" role="tabpanel" aria-labelledby="pills-expenses">
+        <% include Tabs/expenses %>
+      </div>
+      <div class="tab-pane fade" id="pills-fix-assets" role="tabpanel" aria-labelledby="pills-fix-assets">
+        <% include Tabs/fix-assets %>
+      </div>
+      <div class="tab-pane fade" id="pills-transport" role="tabpanel" aria-labelledby="pills-transport">
+        <% include Tabs/transport %>
+      </div>
+      <div class="tab-pane fade" id="pills-customs" role="tabpanel" aria-labelledby="pills-customs"></div>
+      <div class="tab-pane fade" id="pills-raw-material-inv" role="tabpanel" aria-labelledby="pills-raw-material-inv">
+        <% include Tabs/raw-material-inventory %>
+      </div>
+      <div class="tab-pane fade" id="pills-fix-assets-inv" role="tabpanel" aria-labelledby="pills-fix-assets-inv">
+        <% include Tabs/fix-assets-inventory %>
+      </div>
+      <div class="tab-pane fade" id="pills-order-history" role="tabpanel" aria-labelledby="pills-order-history"></div>
+      <div class="tab-pane fade" id="supplier-raw-material" role="tabpanel" aria-labelledby="supplier-raw-material">
+        <% include Tabs/supplier-raw-material %>
+      </div> 
+      <div class="tab-pane fade" id="salary-tabulator" role="tabpanel" aria-labelledby="salary-tabulator">
+        <% include Tabs/salary-tabulator %>
+      </div>
+      <div class="tab-pane fade" id="production-line-phase-master-data-adviser" role="tabpanel" aria-labelledby="production-line-phase-master-data-adviser">
+        <% include Tabs/production-line-phases %>
+      </div>
+      <div class="tab-pane fade" id="production-line-templates-master-data-adviser" role="tabpanel" aria-labelledby="production-line-templates-master-data-adviser">
+        <% include Tabs/production-line-templates %>
+      </div>
+    </div>
+    
+      <div class="table-responsive">
+        
+        <form action="" id="form-dataTable-data-master">
+          <div class="row">
+            <button type="reset" class="btn btn-secondary ml-4 mt-2 mb-3" id="button-resest-checkboxes" form="form-dataTable-data-master" >Reset Table Checkboxes <i class="fas fa-question text-info mr-1 text-light" data-trigger="hover" data-toggle="popover" data-content="This option only resets the values ​​of the checkboxes if you have not saved the settings on the Save button"></i></button>
+            <div class="col mt-2 " id="configurationDataMasterDivHeader">
+            </div>
+          </div>
+          <table class="table table-bordered" id="dataTableData" width="100%" cellspacing="0">
+
+          </table>
+        </form>
+      </div>
+    <form id="configurationDataMaster">
+    
+    </form>
+    <input type="hidden" value="" id="data-rute">
+    <input type="hidden" value="" id="namePills">
+  </div>
+</div>
+
+<% include ../../Utilities/spinner%>
+<!--Quitar despues -->

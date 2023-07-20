@@ -1,0 +1,628 @@
+<%- contentFor('head')%>
+<% include ./../css %>
+
+<%- contentFor('body')%>
+
+<body id="page-top" class="sidebar-toggled">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <% include ./../sidebar %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./../top-bar %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Advisers</h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <% if(error){ %>
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Error!</strong> <%= error %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+              <div class="card shadow mb-4">
+                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add Adviser</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse" id="collapseCardExample">
+                  <div class="card-body">
+                    <form class="form-horizontal" id="form_usuario_moderador">
+                      <fieldset>
+                        <!-- Text input-->
+                        <div class="form-group row">
+                          <label for="nombre_usuario_moderador_agregar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Names</label>
+                          <div class="col-md-10">
+                            <input id="nombre_usuario_moderador_agregar" name="nombre" type="text" class="form-control input-md" required="">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="apellido_paterno_usuario_moderador_agregar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Last name</label>
+                          <div class="col-md-10">
+                            <input id="apellido_paterno_usuario_moderador_agregar" name="apellidoPaterno" type="text" class="form-control input-md" required="">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="apellido_materno_usuario_moderador_agregar" class="col-form-label col-sm-2">Second Last name</label>
+                          <div class="col-md-10">
+                            <input id="apellido_materno_usuario_moderador_agregar" name="apellidoMaterno" type="text" class="form-control input-md" >
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="correo_usuario_moderador_agregar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Email</label>
+                          <div class="col-md-10">
+                            <input id="correo_usuario_moderador_agregar" name="correoElectronico" type="text" class="form-control input-md" required="">
+                          </div>
+                        </div>
+                        <small id="texto_error" class="text-danger"></small>
+                        <div class="form-group row">
+                          <label for="contrasena_usuario_moderador_agregar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Password</label>
+                          <div class="col-md-10">
+                            <input id="contrasena_usuario_moderador_agregar" name="contrasena" type="password" class="form-control input-md" required="">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="contrasena_repetir_usuario_moderador_agregar" class="col-form-label col-sm-2" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Confirm password</label>
+                          <div class="col-md-10">
+                            <input id="contrasena_repetir_usuario_moderador_agregar" name="contrasena_repetir" type="password" class="form-control input-md" required="">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="permiso_usuario_moderador_agregar" class="col-form-label col-sm-2">Type of user</label>
+                          <div class="col-md-10">
+                            <select id="permiso_usuario_moderador_agregar" name="permiso" class="form-control selectpicker" data-live-search="true" disabled>
+                              <option value="MODERADOR">Adviser</option>-
+                            </select>
+                            <input type="hidden" name="permiso" value="MODERADOR">
+                          </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+                          </div>
+                        </div>
+
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Advisers Data</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Users Administration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form-horizontal" id="form_usuario_moderador_edit">
+          <div class="modal-body">
+            <input type="hidden" id="objectId_usuario_moderador_editar" name="objectId">
+            <!-- Text input-->
+            <div class="form-group row">
+              <label for="nombre_usuario_moderador_editar" class="col-form-label col-sm-3" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Names</label>
+              <div class="col-md-9">
+                <input id="nombre_usuario_moderador_editar" name="nombre" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="apellido_paterno_usuario_moderador_editar" class="col-form-label col-sm-3" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Last name</label>
+              <div class="col-md-9">
+                <input id="apellido_paterno_usuario_moderador_editar" name="apellidoPaterno" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="apellido_materno_usuario_moderador_editar" class="col-form-label col-sm-3">Second Last name</label>
+              <div class="col-md-9">
+                <input id="apellido_materno_usuario_moderador_editar" name="apellidoMaterno" type="text" class="form-control input-md" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="correo_usuario_moderador_editar" class="col-form-label col-sm-3" title="Obligatory field"><label class="font-weight-bold text-danger" title="Obligatory field">*</label> Email</label>
+              <div class="col-md-9">
+                <input id="correo_usuario_moderador_editar" name="correoElectronico" type="text" class="form-control input-md" disabled="" required="">
+              </div>
+            </div>
+            <small id="texto_error_editar" class="text-danger"></small>
+            <div class="form-group row">
+              <label for="contrasena_usuario_moderador_editar" class="col-form-label col-sm-3" >Password</label>
+              <div class="col-md-9">
+                <input id="contrasena_usuario_moderador_editar" name="contrasena" type="password" class="form-control input-md">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="contrasena_repetir_usuario_moderador_editar" class="col-form-label col-sm-3" >Confirm password</label>
+              <div class="col-md-9">
+                <input id="contrasena_repetir_usuario_moderador_editar" name="contrasena_repetir" type="password" class="form-control input-md">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="permiso_usuario_moderador_editar" class="col-form-label col-sm-3">Type user</label>
+              <div class="col-md-9">
+                <select id="permiso_usuario_moderador_editar" name="permiso" class="form-control selectpicker" data-live-search="true">
+                  <option value="SUPERADMIN">Administrator</option>
+                  <option value="MODERADOR">Adviser</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript">
+  var log = console.log
+  $(document).ready(function() {
+    reloadTable()
+  });
+</script>
+<script type="text/javascript">
+  function reloadTable() {
+    $.ajax({
+      type: "GET",
+      url: "/administrador/advisers/datos",
+      success: function(response) {
+        log("response")
+        if ($.fn.DataTable.isDataTable("#dataTable")) {
+          $("#dataTable").dataTable().fnDestroy()
+          $('#dataTable').empty();
+        }
+
+        var thead = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+        thead += '<tr>'
+        thead += '<th>Names</th>'
+        thead += '<th>Email</th>'
+        thead += '<th>Type</th>'
+        thead += '<th>Status</th>'
+        thead += '<th>Created At</th>'
+        thead += '<th>Action</th>'
+        thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+        tfooter += '<tr>'
+        tfooter += '<th>Names</th>'
+        tfooter += '<th>Email</th>'
+        tfooter += '<th>Type</th>'
+        tfooter += '<th>Status</th>'
+        tfooter += '<th>Created At</th>'
+        tfooter += '<th>Action</th>'
+        tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $('#dataTable').append(thead)
+        $('#dataTable').append(tfooter)
+
+        $.fn.dataTable.moment('DD-MM-YYYY')
+
+        $('#dataTable').dataTable({
+          processing: true,
+          lengthMenu: [100, 50, 25, 15, 10],
+          order: [
+            [0, "asc"]
+          ],
+          deferRender: true,
+          data: response.data,
+          columns: [{
+              data: null,
+              render: function(data, type, row) {
+                var nombre          = data["nombre"] ?   data["nombre"] : '' 
+                var apellidoPaterno = data["apellidoPaterno"] ?  data["apellidoPaterno"] : '' 
+                var apellidoMaterno = data["apellidoMaterno"] ?    data["apellidoMaterno"] :'' 
+                var nombreCompleto = nombre + " " + apellidoPaterno + " " + apellidoMaterno
+                return nombreCompleto
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                return data["correoElectronico"]
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                if (!data["permisoPtr"]["nombre"]) {
+                  return ""
+                }
+                if (data["permisoPtr"]["nombre"] == "Moderador")
+                  return "Adviser"
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                if (data["active"]) return '<span class="badge badge-success">Activo</span>'
+                else return '<span class="badge badge-secondary">Inactivo</span>'
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                return moment(data["createdAt"]).format('DD-MM-YYYY')
+              }
+            },
+            {
+              data: null,
+              render: function(data, type, row) {
+                var nombre          = data["nombre"] ?   data["nombre"] : '' 
+                var apellidoPaterno = data["apellidoPaterno"] ?  data["apellidoPaterno"] : '' 
+                var apellidoMaterno = data["apellidoMaterno"] ?    data["apellidoMaterno"] :'' 
+
+                var data_to_add = ""
+
+                data_to_add = "<div class='row ml-2 mr-4' style='width:180px'>"
+
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<span data-toggle="modal" data-target="#editModal" data-id="' + data["objectId"] + '" data-nombre="' + nombre + '"  data-apellido-paterno="' + apellidoPaterno + '" data-apellido-materno="' + apellidoMaterno + '" data-correo-electronico="' + data["correoElectronico"] + '" data-permiso="' + data["permisoPtr"]["clave"] + '"><button type"button" class="btn btn-primary btn-circle"  data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></span>'
+                data_to_add += "</div>"
+
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<a href="/administrador/advisers/historial/'+data["objectId"]+'" target="_blank" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="History"><i class="far fa-clock" ></i></a>'
+                data_to_add += "</div>"
+
+                if (data["active"]) {
+                  data_to_add += "<div class='col-md-3'>"
+                  data_to_add += '<button id="active" type"button" onclick="ActivacionUsuarioModerador(\'' + data["objectId"] + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive" ></i></button>'
+                  data_to_add += "</div>"
+                } else {
+                  data_to_add += "<div class='col-md-3'>"
+                  data_to_add += '<button id="active" type"button" onclick="ActivacionUsuarioModerador(\'' + data["objectId"] + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+                  data_to_add += "</div>"
+                }
+                data_to_add += "<div class='col-md-3'>"
+                data_to_add += '<button id="elimniar" type"button" onclick="EliminarUsuarioModerador(\'' + data["objectId"] + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+                data_to_add += "</div>"
+
+                data_to_add += "</div>"
+
+                return data_to_add
+              }
+            }
+          ]
+        })
+
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        log(textStatus)
+      }
+    })
+  }
+</script>
+<script type="text/javascript">
+  $("#form_usuario_moderador").submit(function(event) {
+    event.preventDefault();
+    var expreRegular = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    
+    if (expreRegular.test($("#contrasena_usuario_moderador_agregar").val()) == false && expreRegular.test($("#contrasena_repetir_usuario_moderador_agregar").val()) == false) {
+      return mensajeErrorContasena("The password does not have the indicated format, the password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 characters.")
+    }
+    if ($("#contrasena_usuario_moderador_agregar").val() === $("#contrasena_repetir_usuario_moderador_agregar").val()) {
+      if (validateEmail($("#correo_usuario_moderador_agregar").val())) {
+        $.ajax({
+          type: "POST",
+          data: $(this).serialize(),
+          url: "/administrador/advisers/datos_agregar",
+          success: function(response) {
+            reloadTable()
+            $("#form_usuario_moderador").trigger("reset");
+            Swal.fire(
+              'Added!',
+              'User has been added successfully',
+              'success'
+            )
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            Swal.fire(
+              '¡Error!',
+              XMLHttpRequest.responseJSON.error + '. Try again',
+              'error'
+            )
+          }
+        })
+      } else {
+        Swal.fire(
+          'Email!',
+          'Please enter a valid email, try again',
+          'warning'
+        )
+      }
+    } else {
+      Swal.fire(
+        'Password!',
+        'Passwords are not the same, please try again',
+        'warning'
+      )
+    }
+  });
+</script>
+<script type="text/javascript">
+
+  $('#editModal').on('show.bs.modal', function(e) {
+    var objectId = $(e.relatedTarget).data('id');
+    var nombre = $(e.relatedTarget).data('nombre');
+    var apellidoPaterno = $(e.relatedTarget).data('apellido-paterno');
+    var apellidoMaterno = $(e.relatedTarget).data('apellido-materno');
+    var correoElectronico = $(e.relatedTarget).data('correo-electronico');
+    var permiso = $(e.relatedTarget).data('permiso');
+    $("#objectId_usuario_moderador_editar").val(objectId);
+    $("#nombre_usuario_moderador_editar").val(nombre);
+    $("#apellido_paterno_usuario_moderador_editar").val(apellidoPaterno);
+    $("#apellido_materno_usuario_moderador_editar").val(apellidoMaterno);
+    $("#correo_usuario_moderador_editar").val(correoElectronico);
+    $("#permiso_usuario_moderador_editar").selectpicker('val', permiso)
+    $("#contrasena_usuario_moderador_editar").val("");
+    $("#contrasena_repetir_usuario_moderador_editar").val("");
+  });
+
+  $("#form_usuario_moderador_edit").submit(function(event) {
+    event.preventDefault();
+    var expreRegular = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+    if($("#contrasena_usuario_moderador_editar").val().length != 0  || $("#contrasena_repetir_usuario_moderador_editar").val().length != 0){
+      if (expreRegular.test( $("#contrasena_usuario_moderador_editar").val() ) == false && expreRegular.test( $("#contrasena_repetir_usuario_moderador_editar").val() ) == false) {
+        return mensajeErrorContasenaEditar("The password does not have the indicated format, the password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 characters.")
+      }
+    }
+    if ($("#contrasena_usuario_moderador_editar").val() === $("#contrasena_repetir_usuario_moderador_editar").val()) {
+      if (validateEmail($("#correo_usuario_moderador_editar").val())) {
+        $.ajax({
+          type: "POST",
+          data: $(this).serialize(),
+          url: "/administrador/advisers/datos_editar",
+          success: function(response) {
+            reloadTable()
+            Swal.fire(
+              'Edited!',
+              'User has been edited successfully',
+              'success'
+            )
+            $('#editModal').modal('toggle');
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $('#editModal').modal('toggle');
+            Swal.fire(
+              'Error!',
+              'An error occurred while performing the action, please try again',
+              'error'
+            )
+          }
+        })
+      } else {
+        $('#editModal').modal('toggle');
+        Swal.fire(
+          '¡Correo Electrónico!',
+          'Favor de ingresar un correo electrónico válido, intente nuevamente',
+          'warning'
+        )
+      }
+    } else {
+      Swal.fire(
+        'Passwords!',
+        'Passwords are not the same, please try again',
+        'warning'
+      )
+    }
+  });
+</script>
+<script type="text/javascript">
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+</script>
+<script type="text/javascript">
+  function ActivacionUsuarioModerador(objectId, seActiva) {
+    if (seActiva) {
+      Swal.fire({
+        title: 'Activate',
+        text: "Do you want to activate this user?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Activate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/administrador/advisers/datos_archivar",
+            success: function(response) {
+              reloadTable()
+              Swal.fire(
+                'Activated!',
+                'The user has been activated successfully',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'success'
+              )
+            }
+          })
+
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Deactivate',
+        text: "Do you want to deactivate this user?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Deactivate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/administrador/advisers/datos_archivar",
+            success: function(response) {
+              reloadTable()
+              Swal.fire(
+                'Deactivated!',
+                'the user has been succesfully deactivated',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'success'
+              )
+            }
+          })
+        }
+      })
+    }
+  }
+</script>
+<script type="text/javascript">
+  function EliminarUsuarioModerador(objectId) {
+    Swal.fire({
+      title: 'Delete',
+      text: "Do you want to delete this user?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: "POST",
+          data: {
+            "objectId": objectId
+          },
+          url: "/administrador/advisers/datos_eliminar",
+          success: function(response) {
+            reloadTable()
+            Swal.fire(
+              'Deleted!',
+              'The user has been succesfully deleted',
+              'success'
+            )
+
+
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            Swal.fire(
+              'Error!',
+              'An error ocurred while performing the action, please try again',
+              'success'
+            )
+          }
+        })
+      }
+    })
+  }
+</script>
+<script type="text/javascript">
+  function mensajeErrorContasena(texto) {
+
+    setTimeout(function() {
+      $("#texto_error").show()
+      $("#texto_error").text(texto)
+    }, 1000);
+
+    // setTimeout(function() {
+    //   $("#texto_error").hide()
+    // }, 9000);
+  }
+
+  function mensajeErrorContasenaEditar(texto) {
+
+    setTimeout(function() {
+      $("#texto_error_editar").show()
+      $("#texto_error_editar").text(texto)
+    }, 1000);
+
+    // setTimeout(function() {
+    //   $("#texto_error_editar").hide()
+    // }, 9000);
+  }
+</script>

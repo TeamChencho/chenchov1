@@ -1,0 +1,647 @@
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="css/phaser.min.js"></script>
+
+<script type="text/javascript">
+var log = console.log;
+var fondos;
+var vista;
+var estructura;
+var newBrick;
+var fondoInterno;
+var carro1;
+    function init(){
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.pageAlignHorizontally = true;
+        game.scale.pageAlignVertically = true;
+        game.stage.backgroundColor = '#eee';
+    }
+
+    function preload(){
+        console.log("preload")
+        game.load.image("background","assets/images/baseMapa.png")
+        game.load.spritesheet("fondoIn","assets/images/fondo.png", 32, 32,128)
+        game.load.spritesheet("calleR","assets/images/exterior/8319.png")
+        game.load.spritesheet("calleL","assets/images/exterior/839.png")
+        game.load.spritesheet("pasto1","assets/images/exterior/873.png")
+        game.load.spritesheet("pisofuente","assets/images/exterior/823.png")
+        game.load.spritesheet("pisofuente2","assets/images/exterior/83163.png")
+        game.load.spritesheet("pisofuente3","assets/images/exterior/833.png")
+        game.load.spritesheet("basurero","assets/images/exterior/822.png")
+        game.load.spritesheet("asieto1","assets/images/exterior/8229.png")
+        game.load.spritesheet("asieto2","assets/images/exterior/8224.png")
+        game.load.spritesheet("fgi1","assets/images/fgi/7163.png")
+        game.load.spritesheet("fgiEsquinaZ","assets/images/fgi/718199.png")
+        game.load.spritesheet("fgiEsquinaZ2","assets/images/fgi/718194.png")
+        game.load.spritesheet("fgibardaZ","assets/images/fgi/718129.png")
+        game.load.spritesheet("fgibardaD","assets/images/fgi/718124.png")
+        game.load.spritesheet("fgibardaPos","assets/images/fgi/71819.png")
+        game.load.spritesheet("fgiBarandal","assets/images/fgi/7319.png")
+        game.load.spritesheet("fgi2","assets/images/fgi/7203.png")
+
+        game.load.spritesheet("edificioPart1","assets/images/exterior/812024.png")
+        game.load.spritesheet("edificioPart2","assets/images/exterior/812023.png")
+        game.load.spritesheet("edificioPart3","assets/images/exterior/812025.png")
+        game.load.spritesheet("edificioPart4","assets/images/exterior/812026.png")
+        game.load.spritesheet("edificioPart5","assets/images/exterior/81209.png")
+        game.load.spritesheet("edificioPart6","assets/images/exterior/812019.png")
+        game.load.spritesheet("barda1","assets/images/compras/3161226.png")
+        game.load.spritesheet("barda2","assets/images/compras/3161225.png")
+        game.load.spritesheet("pisoCompras","assets/images/compras/tileset.png",64,64,128)
+        game.load.spritesheet("pisoCompras2","assets/images/compras/31621.png")
+        game.load.spritesheet("pisoCompras3","assets/images/compras/31622.png")
+        game.load.spritesheet("escritorioP1","assets/images/fi/1161223.png")
+        game.load.spritesheet("escritorioP2","assets/images/fi/1161224.png")
+        game.load.spritesheet("orillaRojaIz","assets/images/compras/32129.png")
+        game.load.spritesheet("orillaRojaD","assets/images/compras/32124.png")
+        game.load.spritesheet("orillaAzulIz","assets/images/fi/12129.png")
+        game.load.spritesheet("orillaAzulD","assets/images/fi/12124.png")
+        game.load.spritesheet("orillaAzulPos","assets/images/fi/12912.png")
+        
+        game.load.spritesheet("almacenP1","assets/images/almacenmp/459.png")
+        game.load.spritesheet("almacenP2","assets/images/almacenmp/454.png")
+        game.load.spritesheet("almacenP3","assets/images/almacenmp/45913.png")
+        game.load.spritesheet("ProEx1","assets/images/produccion/61115.png")
+        game.load.spritesheet("ProEx2","assets/images/produccion/61116.png")
+        game.load.spritesheet("ProEx3","assets/images/produccion/61117.png")
+        game.load.spritesheet("ProEx4","assets/images/produccion/61118.png")
+        game.load.spritesheet("ProV1","assets/images/produccion/63922.png")
+        game.load.spritesheet("ProV2","assets/images/produccion/63422.png")
+        game.load.spritesheet("ProH1","assets/images/produccion/6398.png")
+        game.load.spritesheet("ProH2","assets/images/produccion/63198.png")
+        game.load.spritesheet("ProCrece1","assets/images/produccion/61111.png")
+        game.load.spritesheet("ProCrece2","assets/images/produccion/61112.png")
+        game.load.spritesheet("ProCrece3","assets/images/produccion/61113.png")
+        game.load.spritesheet("ProCrece4","assets/images/produccion/61114.png")
+        game.load.spritesheet("casaEsquina1","assets/images/fgi/752024.png")
+        game.load.spritesheet("casaEsquina2","assets/images/fgi/752023.png")
+        game.load.spritesheet("casaEsquina3","assets/images/fgi/752025.png")
+        game.load.spritesheet("casaEsquina4","assets/images/fgi/752026.png")
+        game.load.spritesheet("casaPiezasA1","assets/images/fgi/752019.png")
+        game.load.spritesheet("casaPiezasA2","assets/images/fgi/75209.png")
+        game.load.spritesheet("casaLateral1","assets/images/fgi/75129.png")
+        game.load.spritesheet("casaLateral2","assets/images/fgi/75124.png")
+        game.load.spritesheet("casaPared","assets/images/fgi/753.png")
+        game.load.spritesheet("casaCortina","assets/images/fgi/7533.png")
+        game.load.spritesheet("casaBase1","assets/images/fgi/7599.png")
+        game.load.spritesheet("casaBase2","assets/images/fgi/7594.png")
+        game.load.spritesheet("deskP1","assets/images/bom/5139.png")
+        game.load.spritesheet("deskP2","assets/images/bom/5134.png")
+        game.load.spritesheet("bolsa1","assets/images/bom/512121.png")
+        game.load.spritesheet("bolsa2","assets/images/bom/512122.png")
+        game.load.spritesheet("pc1","assets/images/bom/531.png")
+        game.load.spritesheet("pc2","assets/images/bom/532.png")
+        game.load.spritesheet("ventana","assets/images/fgi/7522.png")
+        game.load.spritesheet("fuente","assets/images/exterior/tileset96.png")
+        game.load.spritesheet("fuentePiedra1","assets/images/exterior/863.png")
+        game.load.spritesheet("fuentePiedra2","assets/images/exterior/8653.png")
+
+        game.load.spritesheet("edificioVidrio","assets/images/exterior/81913.png")
+        game.load.spritesheet("edificioPuerta1","assets/images/exterior/811624.png")
+        game.load.spritesheet("edificioPuerta2","assets/images/exterior/811625.png")
+        game.load.spritesheet("edificioPuerta3","assets/images/exterior/811623.png")
+        game.load.spritesheet("edificioPuerta4","assets/images/exterior/811626.png")
+
+
+        game.load.spritesheet("carroVerde1","assets/images/carVerde1.png")
+        game.load.spritesheet("carroGris1","assets/images/carGris1.png")
+        game.load.spritesheet("carroNaranja2","assets/images/carNaranja2.png")
+        
+
+        
+    } 
+    function create(){
+        var fondoExquina1 = game.add.sprite(0,0,"fondoIn")
+        fondoExquina1.scale.setTo(0.98)
+        fondoExquina1.frame = 98
+        var fondoExquina2 = game.add.sprite(992,0,"fondoIn")
+        fondoExquina2.frame = 98
+        fondoExquina2.frame = 100
+        var fondoExquina3 = game.add.sprite(0,640,"fondoIn")
+        fondoExquina3.frame = 98
+        fondoExquina3.frame = 112
+        var fondoExquina4 = game.add.sprite(992,640,"fondoIn")
+        fondoExquina4.frame = 98
+        fondoExquina4.frame = 102
+        initFondos();
+        game.add.sprite(0,0,"background");
+        // fondos2Plata()
+        // this.basurero = game.add.sprite(544,576,"basurero");
+        // this.asieto1 = game.add.sprite(576,576,"asieto1");
+        // this.asieto2 = game.add.sprite(608,576,"asieto2");
+        // this.fgiEsquinaZ= game.add.sprite(640,256,"fgiEsquinaZ")
+        // this.edificioPart1= game.add.sprite(256,256,"edificioPart1")
+        // this.edificioPart2= game.add.sprite(256,288,"edificioPart2")
+        // this.edificioPart3= game.add.sprite(608,256,"edificioPart3")
+        // this.edificioPart4= game.add.sprite(608,288,"edificioPart4")
+
+        Fondos3Fase()
+        this.ProEx1 = game.add.sprite(512,32,"ProEx1")
+        this.ProEx2 = game.add.sprite(544,32,"ProEx2")
+        this.ProEx1 = game.add.sprite(608,32,"ProEx1")
+        this.ProEx2 = game.add.sprite(960,32,"ProEx2")
+        this.ProEx3 = game.add.sprite(512,192,"ProEx3")
+        this.ProEx4 = game.add.sprite(640,192,"ProEx4")
+        this.ProEx3 = game.add.sprite(960,160,"ProEx4")
+        this.ProEx1 = game.add.sprite(736,128,"ProEx1")
+        this.ProCrece1 = game.add.sprite(768,160,"ProCrece1")
+        this.ProCrece1 = game.add.sprite(640,64,"ProCrece1")
+        this.ProCrece2 = game.add.sprite(544,160,"ProCrece2")
+        this.ProCrece3 = game.add.sprite(608,160,"ProCrece3")
+        this.ProCrece3 = game.add.sprite(928,128,"ProCrece3")
+        this.ProCrece4 = game.add.sprite(928,64,"ProCrece4")
+        this.ProH2 = game.add.sprite(576,160,"ProH2")
+        this.ProV1 = game.add.sprite(928,96,"ProV1")
+
+        this.fgiEsquinaZ2 = game.add.sprite(992,256,"fgiEsquinaZ2")
+        this.fgibardaPos = game.add.sprite(672,256,"fgibardaPos")
+
+        // this.casaEsquina1 = game.add.sprite(672,288,"casaEsquina1")
+        // this.casaEsquina2 = game.add.sprite(800,288,"casaEsquina2")
+        // this.casaEsquina3 = game.add.sprite(672,320,"casaEsquina3")
+        // this.casaEsquina4 = game.add.sprite(800,320,"casaEsquina4")
+        // this.casaBase1 = game.add.sprite(672,416,"casaBase1")
+        // this.casaBase2 = game.add.sprite(800,416,"casaBase2")
+        this.bolsa1 = game.add.sprite(32,96,"bolsa1")
+        this.bolsa1 = game.add.sprite(160,96,"bolsa1")
+        this.bolsa2 = game.add.sprite(96,96,"bolsa2")
+        this.pc1 = game.add.sprite(32,64,"pc1")
+        this.pc2 = game.add.sprite(64,64,"pc2")
+        this.pc2 = game.add.sprite(128,64,"pc2")
+        this.pc2 = game.add.sprite(160,64,"pc2")
+        this.pc2 = game.add.sprite(32,160,"pc2")
+        this.pc1 = game.add.sprite(64,160,"pc1")
+        this.pc1 = game.add.sprite(128,160,"pc1")
+        this.pc1 = game.add.sprite(160,160,"pc1")
+        // this.ventana = game.add.sprite(704,352,"ventana")
+        // this.ventana = game.add.sprite(768,352,"ventana")
+        // this.fuente = game.add.sprite(384,480,"fuente")
+        // this.fuentePiedra1 = game.add.sprite(416,512,"fuentePiedra1")
+        // this.fuentePiedra2 = game.add.sprite(416,480,"fuentePiedra2")
+
+        // this.edificioPuerta1 = game.add.sprite(416,352,"edificioPuerta1")
+        // this.edificioPuerta2 = game.add.sprite(448,352,"edificioPuerta2")
+        // this.edificioPuerta3 = game.add.sprite(416,384,"edificioPuerta3")
+        // this.edificioPuerta4 = game.add.sprite(448,384,"edificioPuerta4")
+        Fase4()
+
+        this.carroVerde1 = game.add.sprite(1024, 576, 'carroVerde1');
+        this.carroGris1 = game.add.sprite(1300, 576, 'carroGris1');
+        this.carroNaranja2 = game.add.sprite(-64,608,'carroNaranja2')
+
+    }
+
+    function update(){ 
+        console.log("update")
+        //novimiento del
+        if(this.carroVerde1.x < -500){
+            this.carroVerde1.x = 1024
+            this.carroGris1.x = 1300
+
+        }else{
+            this.carroVerde1.x -=1 * 3
+            this.carroGris1.x -=1 * 3
+        }
+        if(this.carroNaranja2.x > 1500){
+            this.carroNaranja2.x = -64
+
+        }else{
+            this.carroNaranja2.x +=1 * 3
+        }
+        
+    }
+    
+    function initFondos() {
+        fondoInterno = {
+            width: 32,
+            height: 32,
+            count: {
+                row: 22,
+                col: 32
+            },
+            padding: 0
+        }
+        fondos = game.add.group();
+        vista = game.add.group();
+        for(c=0; c<fondoInterno.count.col; c++) {
+            for(r=0; r<fondoInterno.count.row; r++) {
+                var brickX = (c*(fondoInterno.width+fondoInterno.padding));//left
+                var brickY = (r*(fondoInterno.height+fondoInterno.padding));//top
+                //Pinta Fondo
+                if (r < 19 && c <30 ) {
+                    var X = brickX+32;//left
+                    var Y = brickY+32;//top
+                    newBrick = game.add.sprite(X, Y, 'fondoIn');
+                    newBrick.scale.setTo(0.98)
+                    newBrick.frame = 32//posicion del fondo
+                    //fondos.add(newBrick);   
+                }
+                if (r < 1 && c < 30) {
+                    var X = brickX +32;//left
+                    var Y =brickY +0;//top
+                    newBrick = game.add.sprite(X, Y, 'fondoIn');
+                    newBrick.scale.setTo(0.98)
+                    newBrick.frame = 68//posicion del fondo
+                    //fondos.add(newBrick); 
+                }
+                if (r < 1 && c < 30 ) {
+                    var X = brickX +32;//left
+                    var Y =brickY +640;//top
+                    newBrick = game.add.sprite(X, Y, 'fondoIn');
+                    newBrick.scale.setTo(0.98)
+                    newBrick.frame = 84//posicion del fondo
+                    //fondos.add(newBrick);
+                }
+                if (r < 19 && c < 1 ) {
+                    var X = brickX +0;//left
+                    var Y =brickY +32;//top
+                    newBrick = game.add.sprite(X, Y, 'fondoIn');
+                    newBrick.scale.setTo(0.98)
+                    newBrick.frame = 64//posicion del fondo
+                    //fondos.add(newBrick);
+                }
+                if (r < 19 && c < 1 ) {
+                    var X = brickX +992;//left
+                    var Y =brickY +32;//top
+                    newBrick = game.add.sprite(X, Y, 'fondoIn');
+                    newBrick.scale.setTo(0.98)
+                    newBrick.frame = 80//posicion del fondo
+                    //fondos.add(newBrick);
+                }
+            }
+        }
+    }
+    function fondos2Plata() {
+        var construction = {
+            width: 32,
+            height: 32,
+            width2: 64,
+            height2: 64,
+            count: {
+                row: 22,
+                col: 32
+            },
+            padding: 0
+        }
+        for(c=0; c<construction.count.col; c++) {
+            for(r=0; r<construction.count.row; r++) {
+                var brickX = (c*(construction.width+construction.padding));//left
+                var brickY = (r*(construction.height+construction.padding));//top
+                var brickX2 = (c*(construction.width2+construction.padding));//left
+                var brickY2 = (r*(construction.height2+construction.padding));//top
+                if (r < 1 && c < 32 ) {
+                    var X = brickX+0;//left
+                    var Y = brickY+640;//top
+                    var Y2 = brickY+608;//top
+                    vista = game.add.sprite(X, Y, 'calleL');
+                    vista = game.add.sprite(X, Y2, 'calleR');   
+                }
+                if (r < 1 && c <10) {
+                    var X = brickX+0;//left
+                    var Y = brickY+576;//top
+                    vista = game.add.sprite(X, Y, 'pasto1');
+                }
+                if (r < 5 && c <2) {
+                    var X = brickX+256;//left
+                    var Y = brickY+416;//top
+                    vista = game.add.sprite(X, Y, 'pasto1');
+                    var X2 = brickX+576;//left
+                    vista = game.add.sprite(X2, Y, 'pasto1');
+                }
+                if (r < 1 && c <8) {
+                    var X = brickX+320;//left
+                    var Y = brickY+416;//top
+                    vista = game.add.sprite(X, Y, 'pisofuente');
+                }
+                if (r < 5 && c <1) {
+                    var X = brickX+544;//left
+                    var Y = brickY+448;//top
+                    vista = game.add.sprite(X, Y, 'pisofuente');
+                }
+                if (r < 1 && c <7) {
+                    var X = brickX+320;//left
+                    var Y = brickY+576;//top
+                    vista = game.add.sprite(X, Y, 'pisofuente2');
+                }
+                if (r < 4 && c <7) {
+                    var X = brickX+320;//left
+                    var Y = brickY+448;//top
+                    vista = game.add.sprite(X, Y, 'pisofuente3');
+                }
+                
+                if (r < 1 && c <2) {
+                    var X = brickX+576;//left
+                    var Y = brickY+576;//top
+                    vista = game.add.sprite(X, Y, 'pisofuente');
+                }
+                if (r < 11 && c <12) {
+                    var X = brickX+640;//left
+                    var Y = brickY+256;//top
+                    vista = game.add.sprite(X, Y, 'fgi1');
+                }
+                if (r < 1 && c <10) {
+                    var X = brickX+288;//left
+                    var Y = brickY+288;//top
+                    vista = game.add.sprite(X, Y, 'edificioPart5');
+                }
+                if (r < 1 && c <10) {
+                    var X = brickX+288;//left
+                    var Y = brickY+256;//top
+                    vista = game.add.sprite(X, Y, 'edificioPart6');
+                }
+                if (r < 1 && c <32) {
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(brickX, brickY, 'barda2'); 
+                    }else{
+                        vista = game.add.sprite(brickX, brickY, 'barda1');  
+                    } 
+                }
+                if (r < 8 && c <4) {
+                    var X = brickX2+0;//left
+                    var Y = brickY2+32;//top
+                    vista = game.add.sprite(X, Y, 'pisoCompras');
+                    vista.frame = 15//posicion del fondo
+                }
+                if (r < 3 && c <12) {
+                    var X = brickX2+256;//left
+                    var Y = brickY2+32;//top
+                    vista = game.add.sprite(X, Y, 'pisoCompras');
+                    vista.frame = 15//posicion del fondo
+                }
+                if (r < 1 && c <8) {
+                    var X = brickX+0;//left
+                    var Y = brickY+544;//top
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(X, Y, 'pisoCompras3');
+                    }else{
+                        vista = game.add.sprite(X, Y, 'pisoCompras2');  
+                    }
+                }
+                if (r < 1 && c <3) {
+                    var X = brickX+704;//left
+                    var Y = brickY+224;//top
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(X, Y, 'pisoCompras3');
+                    }else{
+                        vista = game.add.sprite(X, Y, 'pisoCompras2');  
+                    }
+                }
+                if (r < 1 && c <14) {
+                    var X = brickX+256;//left
+                    var Y = brickY+224;//top
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(X, Y, 'barda2'); 
+                    }else{
+                        vista = game.add.sprite(X, Y, 'barda1');  
+                    } 
+                }
+                if (r < 1 && c <7) {
+                    var X = brickX+800;//left
+                    var Y = brickY+224;//top
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(X, Y, 'barda2'); 
+                    }else{
+                        vista = game.add.sprite(X, Y, 'barda1');  
+                    } 
+                }
+                if (r < 1 && c <7) {
+                    var X = brickX+0;//left
+                    var Y = brickY+224;//top
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(X, Y, 'barda2'); 
+                    }else{
+                        vista = game.add.sprite(X, Y, 'barda1');  
+                    } 
+                }
+                if (r < 3 && c <12) {
+                    var X = brickX+256;//left
+                    var Y = brickY+320;//top
+                    vista = game.add.sprite(X, Y, 'edificioVidrio');
+                }
+            }
+        }
+    }
+
+    function Fondos3Fase() {
+        fondoInterno = {
+            width: 32,
+            height: 32,
+            count: {
+                row: 22,
+                col: 32
+            },
+            padding: 0
+        }
+        for(c=0; c<fondoInterno.count.col; c++) {
+            for(r=0; r<fondoInterno.count.row; r++) {
+                var brickX = (c*(fondoInterno.width+fondoInterno.padding));//left
+                var brickY = (r*(fondoInterno.height+fondoInterno.padding));//top
+                //barda roja
+                if (r < 1 && c <6) {
+                    var X = brickX+32;//left
+                    var Y = brickY+384;//top
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(X, Y, 'escritorioP2'); 
+                    }else{
+                        vista = game.add.sprite(X, Y, 'escritorioP1');  
+                    } 
+                }
+                if (r < 13 && c <1) {
+                    var X = brickX+0;//left
+                    var Y = brickY+0;//top
+                    vista = game.add.sprite(X, Y, 'orillaRojaIz');
+                }
+                if (r < 8 && c <1) {
+                    var X = brickX+992;//left
+                    var Y = brickY+0;//top
+                    vista = game.add.sprite(X, Y, 'orillaRojaD');
+                }
+                if (r < 5 && c <1) {
+                    var X = brickX+224;//left
+                    var Y = brickY+256;//top
+                    vista = game.add.sprite(X, Y, 'orillaRojaD');
+                }
+                //barda azul
+                if (r < 5 && c <1) {
+                    var X = brickX+0;//left
+                    var X2 = brickX+224;//left
+                    var Y = brickY+416;//top
+                    vista = game.add.sprite(X, Y, 'orillaAzulIz');
+                    vista = game.add.sprite(X2, Y, 'orillaAzulD');
+                }
+                if (r < 1 && c <8) {
+                    var X = brickX+0;//left
+                    var Y = brickY+544;//top
+                    vista = game.add.sprite(X, Y, 'orillaAzulPos');
+                }
+                //almacen
+                if (r < 6 && c <1) {
+                    if (r%2 != 0) {
+                        var X = brickX+256;//left
+                        var Y = brickY+0;//top
+                        var X2 = brickX+288;//left
+                        var X3 = brickX+320;//left
+                        vista = game.add.sprite(X, Y, 'almacenP1'); 
+                        vista = game.add.sprite(X2, Y, 'almacenP2'); 
+                        vista = game.add.sprite(X3, Y, 'almacenP3');
+                    }
+                }
+                if (r < 6 && c <1) {
+                    if (r%2 != 0) {
+                        var X = brickX+384;//left
+                        var Y = brickY+0;//top
+                        var X2 = brickX+416;//left
+                        var X3 = brickX+448;//left
+                        vista = game.add.sprite(X, Y, 'almacenP1'); 
+                        vista = game.add.sprite(X2, Y, 'almacenP2'); 
+                        vista = game.add.sprite(X3, Y, 'almacenP3');
+                    }
+                }
+                if (r < 4 && c <1) {
+                    var X = brickX+512;//left
+                    var Y = brickY+64;//top
+                    var X2 = brickX+736;//left
+                    var Y2 = brickY+160;//top
+                    vista = game.add.sprite(X, Y, 'ProV1');
+                    vista = game.add.sprite(X2, Y2, 'ProV1');
+                }
+                if (r < 1 && c <5) {
+                    var X = brickX+768;//left
+                    var Y = brickY+128;//top
+                    var X2 = brickX+800;//left
+                    var Y2 = brickY+160;//top
+                    vista = game.add.sprite(X, Y, 'ProH2');
+                    vista = game.add.sprite(X2, Y2, 'ProH1');
+                }
+                if (r < 1 && c <10) {
+                    var X = brickX+640;//left
+                    var Y = brickY+32;
+                    vista = game.add.sprite(X, Y, 'ProH2');
+                }
+                if (r < 3 && c <1) {
+                    var X = brickX+544;//left
+                    var X2 = brickX+608;//left
+                    var X3 = brickX+960;//left
+                    var X4 = brickX+768;//left
+                    var X5 = brickX+640;//left
+                    var Y = brickY+64;//top
+                    var Y2 = brickY+192;//top
+                    var Y3 = brickY+96;//top
+                    vista = game.add.sprite(X, Y, 'ProV2');
+                    vista = game.add.sprite(X2, Y, 'ProV1');
+                    vista = game.add.sprite(X3, Y, 'ProV2');
+                    vista = game.add.sprite(X4, Y2, 'ProV2');
+                    vista = game.add.sprite(X5, Y3, 'ProV2');
+                }
+                if (r < 1 && c <3) {
+                    var X = brickX+544;//left
+                    var Y = brickY+192;
+                    vista = game.add.sprite(X, Y, 'ProH1');
+                }
+                if (r < 1 && c <8) {
+                    var X = brickX+672;//left
+                    var Y = brickY+64;
+                    vista = game.add.sprite(X, Y, 'ProH1');
+                }
+                if (r < 1 && c <6) {
+                    var X = brickX+800;//left
+                    var Y = brickY+256;
+                    vista = game.add.sprite(X, Y, 'fgibardaPos');
+                }
+                if (r < 1 && c <4) {
+                    var X = brickX+640;//left
+                    var Y = brickY+576;
+                    vista = game.add.sprite(X, Y, 'fgiBarandal');
+                }
+                if (r < 1 && c <5) {
+                    var X = brickX+864;//left
+                    var Y = brickY+576;
+                    vista = game.add.sprite(X, Y, 'fgiBarandal');
+                }
+                if (r < 8 && c <5) {
+                    var X = brickX+864;//left
+                    var Y = brickY+288;
+                    vista = game.add.sprite(X, Y, 'pisofuente3');
+                }
+                //casa entrada camiones
+                // if (r < 2 && c <3) {
+                //     var X = brickX+704;//left
+                //     var Y = brickY+288;
+                //     if (r%2 != 0) {
+                //         vista = game.add.sprite(X, Y, 'casaPiezasA2');
+                //     }else{
+                //         vista = game.add.sprite(X, Y, 'casaPiezasA1');
+                //     }
+                // }
+                // if (r < 2 && c <1) {
+                //     var X = brickX+672;//left
+                //     var X2 = brickX+800;//left
+                //     var Y = brickY+352;
+                //     vista = game.add.sprite(X, Y, 'casaLateral1');
+                //     vista = game.add.sprite(X2, Y, 'casaLateral2');
+                // }
+                // if (r < 1 && c <3) {
+                //     var X = brickX+704;//left
+                //     var Y = brickY+352;
+                //     vista = game.add.sprite(X, Y, 'casaPared');
+                // }
+                // if (r < 2 && c <3) {
+                //     var X = brickX+704;//left
+                //     var Y = brickY+384;
+                //     vista = game.add.sprite(X, Y, 'casaCortina');
+                // }
+                if (r < 1 && c <2) {
+                    var X = brickX+32;//left
+                    var X2 = brickX+128;//left
+                    var Y = brickY+64;//top
+                    var Y2 = brickY+160;//top
+                    if (c%2 != 0) {
+                        vista = game.add.sprite(X, Y, 'deskP2');
+                        vista = game.add.sprite(X2, Y, 'deskP2');
+                        vista = game.add.sprite(X, Y2, 'deskP2');
+                        vista = game.add.sprite(X2, Y2, 'deskP2');
+                    }else{
+                        vista = game.add.sprite(X, Y, 'deskP1');
+                        vista = game.add.sprite(X2, Y, 'deskP1');
+                        vista = game.add.sprite(X, Y2, 'deskP1');
+                        vista = game.add.sprite(X2, Y2, 'deskP1');
+                    }
+                }
+            }
+        }
+    }
+    function Fase4() {
+        fondoInterno = {
+            width: 32,
+            height: 32,
+            count: {
+                row: 22,
+                col: 32
+            },
+            padding: 0
+        }
+        //fondos = game.add.group();
+        vista = game.add.group();
+        for(c=0; c<fondoInterno.count.col; c++) {
+            for(r=0; r<fondoInterno.count.row; r++) {
+                var brickX = (c*(fondoInterno.width+fondoInterno.padding));//left
+                var brickY = (r*(fondoInterno.height+fondoInterno.padding));//top
+                if (r < 10 && c <1) {
+                    var X = brickX+992;//left
+                    var X2 = brickX+640;//left
+                    var Y = brickY+288;//top
+                    vista = game.add.sprite(X, Y, 'fgibardaD');
+                    vista = game.add.sprite(X2, Y, 'fgibardaZ');
+                }
+                if (r < 4 && c <1) {
+                    var X = brickX+928;//left
+                    var Y = brickY+352;
+                    vista = game.add.sprite(X, Y, 'fgi1');
+                }
+            }
+        }
+    }
+    
+var game = new Phaser.Game(1024,672,Phaser.AUTO ,null, {init:init,preload: preload, create: create, update: update});
+</script>

@@ -1,0 +1,369 @@
+<script type="text/javascript">
+	function updateHourChange(result){
+		if(result.data.currentTime){
+			var currentTime = moment(result.data.currentTime)
+			simulacionDateCurrentFinancialLog = currentTime
+			currenDateForRawmaterial = result.data.currentTime
+			currentDateForStatusServer = currentTime
+			$("#expiredTime").html(currentTime.format("DD/MM/YYYY HH:mm"))
+		}
+	}
+</script>
+<script type="text/javascript">
+	function getAllEventsToStartProcessing () {
+		$("#loadingRowContentTableEventsSimulation").show()
+		$("#rowContentTableEventsSimulation").hide()
+		$.ajax({
+			type    : "GET",
+			url     : "/simulation/<%= simulation.id %>/<%= team.id %>/events_simulation/data",
+			success : function( response ) {
+				//log(response)
+				reloadTableEventsToStart(response.data)
+			},error : function( XMLHttpRequest, textStatus, errorThrown ) {
+				log(XMLHttpRequest.responseJSON.error)
+			}
+		})
+	}
+
+	function reloadTableEventsToStart( data ) {
+		if ($.fn.DataTable.isDataTable("#tableEventsSimulation")) {
+		//$("#table_report").DataTable().clear().draw();
+		$("#tableEventsSimulation").dataTable().fnDestroy();
+		//$("#table_report").dataTable();
+		$('#tableEventsSimulation').empty();
+		}
+
+		var thead = ""
+		var tfooter = ""
+
+		thead += '<thead class=" border border-primary">'
+		thead += '<tr>'
+			thead += '<th>Events</th>'
+			thead += '<th>Date</th>'
+		thead += '</tr>'
+		thead += '</thead>'
+		tfooter += '<tfoot>'
+		tfooter += '<tr>'
+			tfooter += '<th>Events</th>'
+			tfooter += '<th>Date</th>'
+		tfooter += '</tr>'
+		tfooter += '</tfoot>'
+
+		$('#tableEventsSimulation').append(thead);
+
+		$.fn.dataTable.moment( 'DD-MM-YYYY' );
+		$('#tableEventsSimulation').dataTable({
+			searching: false,
+			bPaginate: false,
+			bInfo: false,
+			ordering: false,
+			paging: false,
+			processing: true,
+			lengthMenu: [ 100,10, 25, 50, 75 ],
+			columnDefs : [{
+                "targets": 0,
+                "className": "text-left border border-top-0 border-left-0 border-right-0",
+            },{
+                "targets": 1,
+                "className": "text-left border border-top-0 border-left-0 border-right-0",
+            }],
+			deferRender: true,
+			data: data,
+			columns: [
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						var texto = ''
+						for (let i = 0; i < data["event"].length; i++) {
+							if (data["event"].charAt(i) == '_') {
+								texto += " "
+							}else{
+								texto += data["event"].charAt(i)
+							}
+						}
+						var textMinusculas = texto.toLowerCase()
+						var textFormat = textMinusculas.charAt(0).toUpperCase()+textMinusculas.slice(1);; 
+						return '<small class="text-muted">'+textFormat+'</small>'
+					}
+				},
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						var currentTime = moment(data["triggerTime"])
+							currentTime = currentTime.add(1,'m')
+						return '<small class="text-muted">'+currentTime.format("DD/MM/YYYY HH:mm")+'</small>'
+					}
+				}
+			]
+		})
+
+		$("#loadingRowContentTableEventsSimulation").hide()
+		$("#rowContentTableEventsSimulation").show()
+	}
+
+</script>
+<script type="text/javascript">
+	function getAllDataSimulationLogs(){
+		$("#loadingRowContentTableSimulationLog").show()
+		$("#rowContentTableSimulationLog").hide()
+		$.ajax({
+			type    : "GET",
+			url     : "/simulation/<%= simulation.id %>/<%= team.id %>/simulation_logs/data",
+			success : function( response ) {
+				//log(response)
+				reloadTableDataSimulationLogs ( response.dataTeamLogs, response.data )
+			},error : function( XMLHttpRequest, textStatus, errorThrown ) {
+				log(XMLHttpRequest.responseJSON.error)
+			}
+		})
+	}
+
+	function reloadTableDataSimulationLogs( data , dataSimualtion) {
+		var tenData = []
+		if(data.length <= 10 ){
+			tenData = data	
+		}else{
+			for (let i = 0; i < 10; i++) {
+				tenData.push(data[i])
+			}
+		}
+
+		if ($.fn.DataTable.isDataTable("#tableSimulationLog")) {
+		//$("#table_report").DataTable().clear().draw();
+		$("#tableSimulationLog").dataTable().fnDestroy();
+		//$("#table_report").dataTable();
+		$('#tableSimulationLog').empty();
+		}
+
+		var thead = ""
+		var tfooter = ""
+
+		thead += '<thead class=" border border-primary">'
+		thead += '<tr>'
+			thead += '<th>Activity</th>'
+			thead += '<th>Date</th>'
+		thead += '</tr>'
+		thead += '</thead>'
+		tfooter += '<tfoot>'
+		tfooter += '<tr>'
+			tfooter += '<th>Activity</th>'
+			tfooter += '<th>Date</th>'
+		tfooter += '</tr>'
+		tfooter += '</tfoot>'
+
+		$('#tableSimulationLog').append(thead);
+
+		$.fn.dataTable.moment( 'DD-MM-YYYY' );
+		$('#tableSimulationLog').dataTable({
+			searching: false,
+			bPaginate: false,
+			bInfo: false,
+			ordering: false,
+			paging: false,
+			processing: true,
+			columnDefs : [{
+                "targets": 0,
+                "className": "text-left border border-top-0 border-left-0 border-right-0",
+            },{
+                "targets": 1,
+                "className": "text-left border border-top-0 border-left-0 border-right-0",
+            }],
+			deferRender: true,
+			data: tenData,
+			columns: [
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						return '<small class="text-muted">'+data["activity"]+'</small>'
+					}
+				},
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						var currentTime = moment(data["createdAt"])
+						return '<small class="text-muted">'+currentTime.format("DD/MM/YYYY HH:mm")+'</small>'
+					}
+				}
+			]
+		})
+
+		$("#loadingRowContentTableSimulationLog").hide()
+		$("#rowContentTableSimulationLog").show()
+
+		reloadTableMoreDataTeamLogs ( data )
+		reloadTableMoreDataSimulationLogs ( dataSimualtion )
+	}
+
+	$("#btnSeeMoresSimulationLogs").on("click",function (){
+		$("#moreDataSimulationLogs").modal("show")
+	})
+
+	function reloadTableMoreDataTeamLogs( data ) {
+
+		if ($.fn.DataTable.isDataTable("#tableMoreTeamLog")) {
+		//$("#table_report").DataTable().clear().draw();
+		$("#tableMoreTeamLog").dataTable().fnDestroy();
+		//$("#table_report").dataTable();
+		$('#tableMoreTeamLog').empty();
+		}
+
+		var thead = ""
+		var tfooter = ""
+
+		thead += '<thead class=" border border-primary">'
+		thead += '<tr>'
+			thead += '<th>Activity</th>'
+			thead += '<th>Name User</th>'
+			thead += '<th>Date</th>'
+		thead += '</tr>'
+		thead += '</thead>'
+		tfooter += '<tfoot>'
+		tfooter += '<tr>'
+			tfooter += '<th>Activity</th>'
+			tfooter += '<th>Name User</th>'
+			tfooter += '<th>Date</th>'
+		tfooter += '</tr>'
+		tfooter += '</tfoot>'
+
+		$('#tableMoreTeamLog').append(thead);
+		$('#tableMoreTeamLog').append(tfooter);
+
+		$.fn.dataTable.moment( 'DD-MM-YYYY' );
+		$('#tableMoreTeamLog').dataTable({
+			processing: true,
+            lengthMenu: [100, 50, 75, 25, 10],
+			order: [[ 2, "des" ]],
+			deferRender: true,
+			data: data,
+			columns: [
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						return '<small class="text-muted">'+data["activity"]+'</small>'
+					}
+				},
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						return '<small class="text-muted">'+data["userName"]+'</small>'
+					}
+				},
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						var currentTime = moment(data["createdAt"])
+						return '<small class="text-muted">'+currentTime.format("DD/MM/YYYY HH:mm")+'</small>'
+					}
+				}
+			]
+		})
+	}
+
+	function reloadTableMoreDataSimulationLogs( data ) {
+
+		if ($.fn.DataTable.isDataTable("#tableMoreSimulationLog")) {
+		//$("#table_report").DataTable().clear().draw();
+		$("#tableMoreSimulationLog").dataTable().fnDestroy();
+		//$("#table_report").dataTable();
+		$('#tableMoreSimulationLog').empty();
+		}
+
+		var thead = ""
+		var tfooter = ""
+
+		thead += '<thead class=" border border-primary">'
+		thead += '<tr>'
+			thead += '<th>Activity</th>'
+			thead += '<th>Date</th>'
+		thead += '</tr>'
+		thead += '</thead>'
+		tfooter += '<tfoot>'
+		tfooter += '<tr>'
+			tfooter += '<th>Activity</th>'
+			tfooter += '<th>Date</th>'
+		tfooter += '</tr>'
+		tfooter += '</tfoot>'
+
+		$('#tableMoreSimulationLog').append(thead);
+		$('#tableMoreSimulationLog').append(tfooter);
+
+		$.fn.dataTable.moment( 'DD-MM-YYYY' );
+		$('#tableMoreSimulationLog').dataTable({
+			processing: true,
+            lengthMenu: [100, 50, 75, 25, 10],
+			order: [[ 1, "des" ]],
+			deferRender: true,
+			data: data,
+			columns: [
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						var texto = ''
+						for (let i = 0; i < data["activity"].length; i++) {
+							if (data["activity"].charAt(i) == '_') {
+								texto += " "
+							}else{
+								texto += data["activity"].charAt(i)
+							}
+						}
+						var textMinusculas = texto.toLowerCase()
+						var textFormat = textMinusculas.charAt(0).toUpperCase()+textMinusculas.slice(1);; 
+						return '<small class="text-muted">'+textFormat+'</small>'
+					}
+				},
+				{
+					data: null,
+					"className": "text-left",
+					render: function ( data, type, row ) {
+						var currentTime = moment(data["createdAt"])
+						return '<small class="text-muted">'+currentTime.format("DD/MM/YYYY HH:mm")+'</small>'
+					}
+				}
+			]
+		})
+	}
+
+</script>
+<!--Status Server-->
+<script type="text/javascript">
+	$(function () {
+		$('[data-toggle="popover"]').popover()
+	})
+	
+	var identificadorDeFuncion 
+	$(function(){
+		//log(Number(speedSimulation))
+		var speedSimulationWithTolerance = (Number(speedSimulation)+2)
+		var miliSeconds = (Number(speedSimulationWithTolerance)*60000)/1
+		identificadorDeFuncion = setTimeout(comparateDate, miliSeconds);
+		//log(miliSeconds)
+	})
+
+	function comparateDate(){
+		//log(dateForStatusServer.format("DD/MM/YYYY HH:mm") +' == '+ currentDateForStatusServer.format("DD/MM/YYYY HH:mm"))
+		var component = ''
+		if(dateForStatusServer.format("DD/MM/YYYY HH:mm") == currentDateForStatusServer.format("DD/MM/YYYY HH:mm")){
+			$("#statusServer").empty()
+			component = '<span id="menssageStatusServer" class="badge badge-danger ml-2" data-toggle="popover" data-trigger="focus" data-content="The server is stopped, contact your system administrator."><!--<i class="fas fa-toggle-off mr-1"></i>-->Off</span>'
+			$("#statusServer").append(component)
+		}else{
+			$("#statusServer").empty()
+			component = '<span id="menssageStatusServer" class="badge badge-success ml-2" data-toggle="popover" data-trigger="focus" data-content="Running server"><!--<i class="fas fa-toggle-on mr-1"></i>-->On</span>'
+			$("#statusServer").append(component)
+		}
+		$("#menssageStatusServer").mouseover(function() {
+			$('#menssageStatusServer').popover('toggle')
+		}).mouseout(function() {
+			$('#menssageStatusServer').popover('toggle')
+		});
+		clearTimeout(identificadorDeFuncion);
+	}
+</script>

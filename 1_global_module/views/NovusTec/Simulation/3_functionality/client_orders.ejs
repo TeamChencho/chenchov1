@@ -1,0 +1,400 @@
+<script type="text/javascript">
+  var listPrice = null
+  var orderComplete = []
+  var objectListPricesProductsTeam = []
+</script>
+<script type="text/javascript">
+  function ajaxClientOrders() {
+    //log("AJAX CLIENT ORDERS")
+    $.ajax({
+      type: "POST",  
+      url: "/simulation/client_orders/<%= simulation.id %>/<%= team.id %>", 
+      success: function(response){  
+        //console.log(response.data)
+        var listPrice = response.listPrice
+        orderComplete = []
+        objectListPricesProductsTeam = response.listPrice
+
+        for(var i = 0; i < response.data.length; i++){
+          var data = response.data[i]
+
+          var actualOrder = []
+          var finalPrice = 0.0
+          for(var j = 0; j < data["order"].length; j++){
+            for(var k = 0; k < listPrice.length; k++){
+              if(data["order"][j]["model"] === listPrice[k]["name"]){
+                  actualOrder.push({
+                    model: data["order"][j]["model"],
+                    quantity: data["order"][j]["quantity"],
+                    finalPrice: data["order"][j]["quantity"] * listPrice[k]["finalPrice"]
+                  })
+                  finalPrice += data["order"][j]["quantity"] * listPrice[k]["finalPrice"]
+                break
+              }
+            }
+          }
+
+          orderComplete.push({
+            id: response.data[i]["objectId"],
+            percentage: response.data[i]["negotiationValue"],
+            order: actualOrder,
+            finalPrice
+          })
+        }
+          
+        //log(orderComplete)
+        reloadTableClientOrders(response.data,response.listPrice)
+      }, error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        console.log("error uno")
+        if(textStatus == "") {
+          alert("Error with connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+</script>
+<script type="text/javascript">
+  function ajaxClientOrdersTeam() {
+    //log("AJAX CLIENT ORDERS")
+    $.ajax({
+      type: "POST",  
+      url: "/simulation/client_orders_team/<%= simulation.id %>/<%= team.id %>", 
+      success: function(response){  
+        //console.log(response.data)
+        reloadTableClientOrdersTeam(response.data)
+      }, error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        console.log("error uno")
+        if(textStatus == "") {
+          alert("Error with connection. Please check your internet connection")
+        }
+      }
+    })
+  }
+</script>
+<script type="text/javascript">
+	$("#orders_btn").click(function() {
+    if(simulationStarted && simulationStarted === "STARTED"){
+      windowOpened = true
+
+      $('#clientOrdersModal').modal('show')
+      $('#clientOrdersTitle').html("Client Orders")
+
+      $('#clientOrdersModal').on('shown.bs.modal  ', function (e) {
+        ajaxClientOrders()
+        ajaxClientOrdersTeam()
+      })
+
+      $('#clientOrdersModal').on('hidden.bs.modal', function (e) {
+        log("Cerrando")
+        $("#clientOrdersModalTableDiv").css("display","none")
+        $("#clientTeamOrdersModalDataTable").css("display","none")
+        windowOpened = false
+      })
+    }
+  })
+</script>
+
+<script type="text/javascript">
+	function reloadTableClientOrders(data,price){
+    log(objectListPricesProductsTeam)
+    listPrice = price
+    //log(listPrice)
+    //log("Recargando tabla")
+    
+    if ($.fn.DataTable.isDataTable("#clientOrdersModalDataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#clientOrdersModalDataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#clientOrdersModalDataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Client</th>'
+        thead += '<th>Order</th>'
+        thead += '<th>Expected Time</th>'
+        thead += '<th>Action</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Client</th>'
+        tfooter += '<th>Order</th>'
+        tfooter += '<th>Expected Time</th>'
+        tfooter += '<th>Action</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#clientOrdersModalDataTable').append(thead);
+    $('#clientOrdersModalDataTable').append(tfooter);
+
+    $.fn.dataTable.moment( 'DD-MM-YYYY' );
+    $('#clientOrdersModalDataTable').dataTable({
+      processing: true,
+      lengthMenu: [ 10, 25, 50, 75, 100 ],
+      order: [[ 0, "asc" ]],
+      deferRender: true,
+      data: data,
+      columns: [
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return data["clientPtr"]["nombre"] + " " + data["clientPtr"]["apellidoPaterno"] + " " + data["clientPtr"]["apellidoMaterno"]
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            var result = ""
+            result += "<ol style='font-size:10px;'>"
+            for(var i = 0; i < data["order"].length;i++){
+              
+                result += "<li>"
+                  result += "<b>T</b>: " + data["order"][i]["model"] + " <b>Q</b>: x" + data["order"][i]["quantity"]
+                result += "</li>"
+              
+              
+            }
+            result += "</ol>"
+            return result
+          }
+        },
+        { data: null, render: function ( data, type, row ) { return moment(data["expectedTime"]).format("DD/MM/YYYY") }},
+        {
+          data: null,
+          render: function(data, type, row) {
+            //log(data["order"])
+            var data_to_add = ""
+
+            data_to_add = "<div class='row ml-2 mr-2' style='width:180px'>"
+            data_to_add += '<div class="col-md-10">'
+            data_to_add += '<input id="total_value_'+data["objectId"]+'"type="number" min="0.0" step="any" class="form-control input-md" placeholder="Revenue">'
+            data_to_add += '</div>'
+            data_to_add += "<div class='col-md-2'>"
+            data_to_add += '<button id="client_order_assign_btn" type"button" onclick="clientOrderAssign(\'' + data["objectId"] + '\')" type="button" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Assign Order"><i class="fas fa-bullseye"></i></button>'
+            data_to_add += "</div>"
+
+            data_to_add += "</div>"
+
+            return data_to_add
+          }
+        }
+      ]
+    }); 
+    $("#clientOrdersModalTableDiv").css("display","block")
+  }
+
+</script>
+
+<script type="text/javascript">
+  function reloadTableClientOrdersTeam(data){
+    log(objectListPricesProductsTeam)
+
+    //log("Recargando tabla")
+    
+    if ($.fn.DataTable.isDataTable("#clientTeamOrdersModalDataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#clientTeamOrdersModalDataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#clientTeamOrdersModalDataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Client</th>'
+        thead += '<th>Order</th>'
+        thead += '<th>Expected Time</th>'
+        thead += '<th>Revenue</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Client</th>'
+        tfooter += '<th>Order</th>'
+        tfooter += '<th>Expected Time</th>'
+        tfooter += '<th>Revenue</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#clientTeamOrdersModalDataTable').append(thead);
+    $('#clientTeamOrdersModalDataTable').append(tfooter);
+
+    $.fn.dataTable.moment( 'DD-MM-YYYY' );
+    $('#clientTeamOrdersModalDataTable').dataTable({
+      processing: true,
+      lengthMenu: [ 10, 25, 50, 75, 100 ],
+      order: [[ 0, "asc" ]],
+      deferRender: true,
+      data: data,
+      columns: [
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return data["clientPtr"]["nombre"] + " " + data["clientPtr"]["apellidoPaterno"] + " " + data["clientPtr"]["apellidoMaterno"]
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            var result = ""
+            result += "<ol style='font-size:10px;'>"
+            for(var i = 0; i < data["order"].length;i++){
+              
+                result += "<li>"
+                  result += "<b>T</b>: " + data["order"][i]["model"] + " <b>Q</b>: x" + data["order"][i]["quantity"]
+                result += "</li>"
+            }
+            result += "</ol>"
+            return result
+          }
+        },
+        { data: null, render: function ( data, type, row ) { return moment(data["expectedTime"]).format("DD/MM/YYYY") }},
+        { data: null, render: function ( data, type, row ) { 
+            return data["revenue"] ? "$"+Number(data["revenue"]).toFixed(2) : ""
+          }
+        }
+      ]
+    }); 
+    //$("#clientTeamOrdersModalDataTable").css("display","block")
+  }
+
+</script>
+
+<script type="text/javascript">
+  function clientOrderAssign(orderId){
+    log(orderComplete)
+    var revenue = $("#total_value_"+orderId).val()
+    //log(revenue)
+    //log(listPrice)
+    if(!revenue){
+      Swal.fire(
+        'Negotiations Failed!',
+        'There is no value for revenue. Try your best as a good salesman!',
+        'error'
+      )
+      return
+    }
+
+    var currentOrder = null
+    for(var i = 0; i < orderComplete.length; i++){
+      
+      if(orderComplete[i]["id"] === orderId){
+        currentOrder = orderComplete[i]
+        break
+      }
+    }
+    //log(currentOrder)
+    var minValue = currentOrder.finalPrice - ((currentOrder.finalPrice * currentOrder.percentage) / 100)
+    var maxValue = currentOrder.finalPrice + ((currentOrder.finalPrice * currentOrder.percentage) / 100)
+    
+    /*log(revenue)
+    log(minValue)
+    log(maxValue)*/
+    var timerCheck = getRandomIntOrder(10,60) * 1000
+    log("Timer " + timerCheck)
+
+    Swal.fire({
+      title: 'Checking with client the final value',
+      buttonsStyling: true,
+      showCancelButton: true,
+      allowOutsideClick: false,
+      customClass: {
+        confirmButton: 'btn btn-primary btn-lg',
+        cancelButton: 'btn btn-danger btn-lg',
+        loader: 'custom-loader'
+      },
+      loaderHtml: '<div class="spinner-border text-primary"></div>',
+      preConfirm: () => {
+        Swal.showLoading()
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            if(revenue < minValue || revenue > maxValue ){
+              Swal.fire(
+                'Error!',
+                'Client does not accept the final value. Try again',
+                'error'
+              )
+              
+            }else{
+              orderAssing(orderId,revenue)
+            }
+            
+            resolve(true)
+          }, timerCheck)
+        })
+      }
+    })
+  }
+
+  function orderAssing(orderId,revenue){
+    Swal.fire({
+      title: 'Assign',
+      text: "Do you want to assign this order to your team?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Assign'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: "POST",
+          data: {
+            revenue:revenue
+          },
+          url: "/simulation/client_orders_assign/<%= simulation.id %>/<%= team.id %>/"+orderId,
+          success: function(response) {
+            //log(response.data)
+            ajaxClientOrders()
+            ajaxClientOrdersTeam()
+            Swal.fire(
+              'Assigned!',
+              'The order has been assigned successfully',
+              'success'
+            )
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            Swal.fire(
+              'Error!',
+              'An error occurred while performing the action, please try again',
+              'error'
+            )
+          }
+        })
+
+      }
+    })
+  }
+</script>
+
+<script type="text/javascript">
+  $("#pills-team-orders-tab").on('click',function (e){
+    ajaxClientOrdersTeam()
+  })
+
+  $("#pills-new-orders-tab").on('click',function (e){
+    ajaxClientOrders()
+  })
+
+  /*$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+    if(e.target.href == "http://localhost:7878/simulation/3Et0Qss7w1/681hXE3tXx#nav-team-clients-orders"){
+      ajaxClientOrdersTeam()
+    }else{
+      ajaxClientOrders()
+    }
+  })*/
+
+</script>
+
+<script type="text/javascript">
+function getRandomIntOrder(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+</script>

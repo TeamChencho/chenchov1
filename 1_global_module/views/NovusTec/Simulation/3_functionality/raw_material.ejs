@@ -1,0 +1,368 @@
+<script type="text/javascript">
+  var folioReceiptNumber = undefined
+  $('#pills-tab-inventory-receive-raw-material a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
+    let tabInfo = $(e.target).data('info')
+    tabSelected ( tabInfo )
+  })
+  
+  function tabSelected( tab ) {
+    switch (tab) {
+      case "raw_material_inventory_simulation_modal_raw_material":
+        ajaxRawMaterial()
+        break;
+      case "receive_orders_raw_material_simulation_modal_raw_material":
+        ajaxReceiveOrder ()
+        break;
+      default:
+        break;
+    }
+  }
+</script>
+
+<script type="text/javascript">
+
+  function ajaxRawMaterial() {
+    //log("AJAX MATERIA PRIMA")
+    messageLoadingRawMaterialInventory()
+    $("#messageRawMaterialIncentory").show()
+    $.ajax({
+      type: "GET",  
+      //url: "/administrador/master_data/raw_material_inventory/datos", 
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/raw_material/inventory/data",
+      success: function(response){  
+        //console.log(response.data)
+        reloadTableRawMaterial(response.data)
+        $("#messageRawMaterialIncentory").hide()
+      }, error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        messageErrorRawMaterialInventory()
+        console.log("error uno")
+        if(textStatus == "") {
+          alert("Error con la conexión de base de datos. Favor de verificar tu conexión a Internet")
+        }
+      }
+    })
+  }
+
+  function reloadTableRawMaterial(data) {
+    log("Recargando tabla")
+
+    if ($.fn.DataTable.isDataTable("#rawMaterialModalDataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#rawMaterialModalDataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#rawMaterialModalDataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Image</th>'
+        thead += '<th>SKU</th>'
+        thead += '<th>Part No.</th>'
+        thead += '<th>Name</th>'
+        thead += '<th>Quantity</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Image</th>'
+        tfooter += '<th>SKU</th>'
+        tfooter += '<th>Part No.</th>'
+        tfooter += '<th>Name</th>'
+        tfooter += '<th>Quantity</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#rawMaterialModalDataTable').append(thead);
+    $('#rawMaterialModalDataTable').append(tfooter);
+
+    $.fn.dataTable.moment( 'DD-MM-YYYY' );
+    $('#rawMaterialModalDataTable').dataTable({
+      processing: true,
+      lengthMenu: [ 10, 25, 50, 75, 100 ],
+      order: [[ 0, "asc" ]],
+      deferRender: true,
+      data: data,
+      columns: [
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            
+            var image = "Image not available"
+            if (data["RawMaterial"]["productPtr"]["imagen"] != undefined) {
+              if (data["RawMaterial"]["productPtr"]["imagen"].length != 0) {
+                image = "<img src=" + data["RawMaterial"]["productPtr"]["imagen"].replace('public','') + " style='width:20%'>"
+              }
+            }
+            return image
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return data["RawMaterial"]["productPtr"]["codigo"] 
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return data["RawMaterial"]["productPtr"]["noparte"] 
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return data["RawMaterial"]["productPtr"]["nombre"] 
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return new Intl.NumberFormat().format( data["quantity"] )
+          }
+        }
+      ]
+    }); 
+    $("#rawMaterialModalTableDiv").css("display","block")
+  }
+
+</script>
+
+<script type="text/javascript">
+
+  function ajaxReceiveOrder () {
+    messageLoadingRawMaterialInventory()
+    $("#messageRawMaterialIncentory").show()
+    $.ajax({
+      type    : "GET",
+      url     : "/simulation/<%= simulation.id %>/<%= team.id %>/raw_material/received_orders/data",
+      success : function( response ) {
+        //log(response)
+        reloadTableReceiveOrders (response.data)
+        $("#messageRawMaterialIncentory").hide()
+        folioReceiptNumber = response.folioReceiptNumber
+      },error : function(XMLHttpRequest, textStatus, errorThrown) {
+        messageErrorRawMaterialInventory()
+        log(textStatus)
+      }
+    })
+  }
+
+  function reloadTableReceiveOrders ( data ) {
+    
+    if($.fn.DataTable.isDataTable("#rawMaterialModalDataTableReceiveOrders")){
+      $("#rawMaterialModalDataTableReceiveOrders").dataTable().fnDestroy()
+      $("#rawMaterialModalDataTableReceiveOrders").empty()
+    }
+
+    var circleGree = '<span class="bg-succes mt-2" style="border-radius: 50%;height: 7px; width: 7px;display: inline-block;background: #1cc88a;vertical-align: top;"></span>'
+    var circleRed = '<span class="bg-succes mt-2" style="border-radius: 50%;height: 7px; width: 7px;display: inline-block;background: #e74a3b;vertical-align: top;"></span>'
+    var thead   = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Order Folio Number</th>'
+        thead += '<th>Date Of Purchase</th>'
+        thead += '<th>Delivery Date</th>'
+        thead += '<th>Days Delay Receipt</th>'
+        thead += '<th>Product Name</th>'
+        thead += '<th>Suppliers Name</th>'
+        thead += '<th>Quantity Raw Material</th>'
+        thead += '<th>Action</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Order Folio Number</th>'
+        tfooter += '<th>Date Of Purchase</th>'
+        tfooter += '<th>Delivery Date</th>'
+        tfooter += '<th>Days Delay Receipt</th>'
+        tfooter += '<th>Product Name</th>'
+        tfooter += '<th>Suppliers Name</th>'
+        tfooter += '<th>Quantity Raw Material</th>'
+        tfooter += '<th>Action</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $("#rawMaterialModalDataTableReceiveOrders").append(thead)
+    $("#rawMaterialModalDataTableReceiveOrders").append(tfooter)
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $("#rawMaterialModalDataTableReceiveOrders").DataTable({
+      processing: true,
+      lengthMenu: [ 10, 25, 50, 75, 100 ],
+      order: [[ 0, "asc" ]],
+      deferRender: true,
+      fixedColumns: true,
+      data: data,
+      columns:[
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return foliFormat(data['simulationOrderPurchaingPtr']['folioNumber'])
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            var text = ''
+            
+            if( data['simulationOrderPurchaingPtr']['datePurchase'] ){
+              var currentTime = moment(Number(data['simulationOrderPurchaingPtr']['datePurchase'] ))
+              text = currentTime.format("DD/MM/YYYY")
+            }
+            return text
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            var text = ''
+            if( data['simulationOrderPurchaingPtr']['deliveryDate'] ){ 
+              var currentTime = moment(Number(data['simulationOrderPurchaingPtr']['deliveryDate'] ))
+              text = currentTime.format("DD/MM/YYYY")
+            }
+            return text
+          }
+        },
+        {
+          class:'text-center',
+          data: null,
+          render: function ( data, type, row ) {
+            var component = ''
+            var text = ''
+            if(data['simulationOrderPurchaingPtr']['deliveryDate']){
+
+              var fecha1 = moment(Number(data['simulationOrderPurchaingPtr']['deliveryDate'] ));
+              var fecha2 = currenDateForRawmaterial;
+              var daysLate = fecha2.diff(fecha1, 'days')
+
+              if(daysLate == 1 || daysLate == 2){
+                component = '<span class="text-warning font-weight-bold">'+daysLate+' Day(s)</span>'
+              }else if(daysLate > 2){
+                component = '<span class="text-danger font-weight-bold">'+daysLate+' Day(s)</span>'
+              }else{
+                component = '<span class="font-weight-bold">-</span>'
+              }
+            }
+            return component
+          
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return data["simulationOrderSupplierPtr"]["DMRawMaterialPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return data["simulationOrderSupplierPtr"]["SDMSupplierPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            return new Intl.NumberFormat().format( data["totalAmountRawMaterial"] )
+          }
+        },
+        {
+          data: null,
+          render: function ( data, type, row ) {
+            var RawMterialAndSuppliers = data["simulationOrderSupplierPtr"]["DMRawMaterialPtr"]["nombre"]+','+data["simulationOrderSupplierPtr"]["SDMSupplierPtr"]["nombre"]
+            var idSimulationsOrdersSuppliers = data["simulationOrderSupplierPtr"]["objectId"]
+            var idSuppliers = data["simulationOrderSupplierPtr"]["SDMSupplierPtr"]["objectId"]
+            var button = ''
+            button = "<div class='row ml-2 mr-4' style='width:180px'>"
+                button += "<div class='col-md-3'>"
+                    button += '<span data-toggle="modal"> <button type"button" onclick="receiveOrders(\'' + data["objectId"] + '\',\'' + data["simulationOrderSupplierPtr"]["DMRawMaterialPtr"]["objectId"] + '\','+data["totalAmountRawMaterial"]+',\''+RawMterialAndSuppliers+'\', \''+data['simulationOrderPurchaingPtr']['deliveryDate']+'\',\''+idSimulationsOrdersSuppliers+'\',\''+idSuppliers+'\')" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Receive Order"><i class="fas fa-box"></i></button> </span>'
+                button += "</div>"
+            button += "</div>"
+            return button
+          }
+        }
+      ]
+    })
+  }
+
+  function receiveOrders ( objectIdBox, rawMaterialPtr, quantityRawMaterial ,RawMterialAndSuppliers, daysReceiptDelay, idSimulationsOrdersSuppliers, idSuppliers) {
+
+    Swal.fire({
+      title: 'Receive order!',
+      text:'Are you sure you want to receive the order?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Receive',
+      icon:'warning'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        var fecha1 = moment(Number(daysReceiptDelay));
+        var fecha2 = currenDateForRawmaterial;
+        var daysLate = fecha2.diff(fecha1, 'days')
+        var newRawMterialAndSuppliers = RawMterialAndSuppliers.split(',')
+        var messageLog1 = 'He received '+daysLate+' days late and with the number'
+        var messageLog2 = 'on the receipt folio in the box of '+quantityRawMaterial+' pieces of raw material "'+newRawMterialAndSuppliers[0]+'"from the supplier "'+newRawMterialAndSuppliers[1]+'"'
+
+        messageLoadingRawMaterialInventory()
+        $("#messageRawMaterialIncentory").show()
+        $.ajax({
+          type: "POST",
+          url: "/simulation/<%= simulation.id %>/<%= team.id %>/raw_material/received_orders/receive",
+          data: {
+                  "messageLogsPart1"         : messageLog1,//'Received the box of '+quantityRawMaterial+' pieces of the raw material "'+newRawMterialAndSuppliers[0]+'" from the supplier "'+newRawMterialAndSuppliers[1]+'"',
+                  "messageLogsPart2"         : messageLog2,
+                  "objectIdBox"         : objectIdBox,
+                  "rawMaterialPtr"      : rawMaterialPtr,
+                  "quantityRawMaterial" : quantityRawMaterial,
+                  "daysReceiptDelay"    : daysLate,
+                  "receiptDate"         : currenDateForRawmaterial.valueOf(),
+                  "OrdersSuppliers"     : idSimulationsOrdersSuppliers,
+                  "idSuppliers"         : idSuppliers
+                },
+          success : function( response ) {
+            //log(response)
+            ajaxReceiveOrder()
+            $("#messageRawMaterialIncentory").hide()
+          },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+            messageErrorRawMaterialInventory()
+            log(textStatus)
+          }
+        })
+
+      } 
+    })
+
+  }
+</script>
+
+<script type="text/javascript">
+  function messageLoadingRawMaterialInventory(){
+       $("#messageRawMaterialIncentory").removeClass("bg-danger")
+       $("#messageRawMaterialIncentory").removeClass("bg-success")
+       $("#messageRawMaterialIncentory").addClass("bg-info")  
+       $("#messageRawMaterialIncentory").text("")
+       $("#messageRawMaterialIncentory").text("Loading...")
+    }
+
+    function messageErrorRawMaterialInventory(){
+       $("#messageRawMaterialIncentory").removeClass("bg-info")
+       $("#messageRawMaterialIncentory").removeClass("bg-success")
+       $("#messageRawMaterialIncentory").addClass("bg-danger")  
+       $("#messageRawMaterialIncentory").text("")
+       $("#messageRawMaterialIncentory").text("*Sorry, there was an error try again")
+    }
+
+    function messageSaveRawMaterialInventory(){
+       $("#messageRawMaterialIncentory").removeClass("bg-info")
+       $("#messageRawMaterialIncentory").removeClass("bg-danger")
+       $("#messageRawMaterialIncentory").addClass("bg-success")  
+       $("#messageRawMaterialIncentory").text("")
+       $("#messageRawMaterialIncentory").text("*You have received the raw material you can see it in the raw material tab")
+    }
+
+</script>

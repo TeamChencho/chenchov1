@@ -1,0 +1,411 @@
+<%- contentFor('head')%>
+<% include ./css %>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<%- contentFor('body')%>
+
+<body class="nk-body body-wider bg-light-alt">
+ 
+  <div class="nk-wrap">
+
+    <main class="nk-pages nk-pages-centered bg-theme">
+       
+      <div class="ath-container">
+
+        <div class="row">
+          <div class="col-md-12">
+            <% if(error){ %>
+            <div class="alert alert-danger alert-dismissable" id="error_login">
+              <strong>¡Error!</strong> <%= error %>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!--<div class="ath-header text-center">
+          <a href="./" class="ath-logo"><img src="/assets/images/logo.png" srcset="/assets/images/logo.png" alt="VamosJuntos" style="height: 50%; width: 50%"></a>
+        </div>-->
+        
+        <!--Login-->
+        <div class="ath-body" id="contenedor_login">
+          <h5 class="ath-heading title">System Access<small class="tc-default"><%= environment %></small></h5>
+          <form action="/acceso/iniciar_sesion" method="POST">
+            <div class="field-item">
+              <div class="field-wrap">
+                <input name="correo" id="correo" type="text" class="input-bordered correo" placeholder="E-mail">
+              </div>
+            </div>
+            <div class="field-item">
+              <div class="field-wrap">
+                <input id="contrasena" name="contrasena" type="password" class="input-bordered" placeholder="Password">
+              </div>
+            </div>
+            <button id="submit" type="submit" class="btn btn-primary btn-block btn-md" style="background:#C3398D; border-color: #C3398D;" onclick="spinnerStart()">Log In</button>
+            <hr class=" m-3 ">
+            <button onclick="goRegister('/registro')" type="button" id="boton_registro" class="btn_lock btn-primary btn-block btn-md" data-toggle="popover" data-content="If you have already been registered in the system and it is the first time you enter, please register your password, or if you want to belong to the system, please register to obtain information on this button" >Register</button>
+
+            <div class="text-center mt-3">
+                <button type="button" class="small" style="background: #ffff; border:0px; outline: none !important; color:#e83e8c !important;" onclick="verFormEnviarCodigo()">I forgot my password</button>
+              </div>
+          </form>
+        </div>
+
+        <!--Recuperación de contraseña-->
+        <div class="ath-body" id="contenedor_recuperar_contrasena" hidden>
+          <h5 class="ath-heading title"><%- environment ? environment : "" %><small class="tc-default">Recover password</small></h5>
+
+          <!--Envíar código de recuperacion de contraseña a correo-->
+          <form id="form_enviar_codigo" >
+              <div class="text-center mb-3">
+                <i id="boton_regreso" onclick="botonRegresoLogin()" class="fas fa-arrow-circle-left fa-2x text-center text-primary" style="cursor:pointer;"></i>
+              </div>
+              <div class="field-item">
+                  <label for="">Enter the email with which you are registered in the system, to send you a recovery code..</label>
+                  <div class="field-wrap">
+                      <input name="correo" type="text" id="correo_enviar_codigo" class="input-bordered" placeholder="Email">
+                  </div>
+                    <button type="button" class="small col text-right" style="background: #ffff; border:0px; outline: none !important; color:#e83e8c !important;" onclick="verFormVerificarCodigo(true)">I already have a code</button>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block btn-md" id="btn_send">Send Code</button>
+          </form>
+
+          <!--Verificar el código-->
+          <form id="form_verificar_codigo" hidden>
+              <div class="text-center mb-3">
+                <i id="boton_regreso" onclick="botonRegresarFormEnviarCodigo()" class="fas fa-arrow-circle-left fa-2x text-right text-primary" style="cursor:pointer;"></i>
+              </div>
+              <div class="field-item">
+                  <label for="">Enter the recovery code you received in your email.</label>
+                  <div class="field-wrap">
+                      <input name="correo" id="correo_verificar_codigo" type="text" hidden class="input-bordered" value="" placeholder="Enter your email">
+                  </div>
+                  <div class="field-wrap mt-3">
+                      <input name="codigo" id="valor_verificar_codigo" type="text" class="input-bordered" placeholder="Enter the Code">
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block btn-md" id="btn_validate">Validate Code</button>              
+          </form>
+
+          <!--Actualizar contraseña-->
+          <form id="form_actualizar_contrasena" hidden>
+              <div id="componentes_contrasena">
+
+                  <div class="text-center mb-3">
+                    <i id="boton_regreso" onclick="botonRegresarFormEnviarCodigo()" class="fas fa-arrow-circle-left fa-2x text-right text-primary" style="cursor:pointer;"></i>
+                  </div>
+                  <div class="field-item">
+                      <label for="">Enter your new password to perform the password update.</label>
+                      <input type="hidden" value="" id="correo_electronico" name="correo">
+                      <input type="hidden" value="" id="codigo_validacion" name="codigo">
+                      <div class="field-wrap">
+                        <input id="correo_usuario_contrasena" name="contrasena" type="password" class="input-bordered" required="" placeholder="New Password">
+                        <div class=" alert alert-danger" id="mensaje_formato_incorrecto_contraseña" hidden  ></div>
+                      </div>
+                      <div class="field-wrap mt-3">
+                        <input id="correo_usuario_confirmar_contasena" type="password" class="input-bordered" required="" placeholder="Confirm Password">
+                        <div class=" alert alert-danger" id="mensaje_no_coincidencia_contraseña" hidden  ></div>
+                      </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block btn-md">To Update</button>  
+              </div> 
+              <div class="d-flex justify-content-center" >
+                <div class="spinner-border" role="status" id="spinner" hidden>
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>           
+          </form>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+  <div class="preloader"><span class="spinner spinner-round"></span></div>
+</body>
+
+<% include ../Utilities/spinner%> 
+
+<%- contentFor('scripts')%>
+<% include ./scripts %>
+
+<script type="text/javascript">
+  var log = console.log
+  $(document).ready(function(e){
+    var error= '<%=error%>'
+    log(error)
+
+    if(!error){
+      $("#spinner").modal('hide')
+      $('[data-toggle="popover"]').popover({
+        html:true,
+        title:'Are you new? <span id="closePopover" class="close closePopover">&times;</span>' })
+      $('[data-toggle="popover"]').popover('show')
+
+      $('#correo').attr("disabled",true)
+      $('#contrasena').attr("disabled",true)
+      $('#submit').attr("disabled",true)
+      $('#boton_registro').addClass('highlight');
+       $("#boton_registro").focus();
+
+      $('#closePopover').on('click',function(e){
+        $('.popover').popover('hide')
+        $('#correo').removeAttr("disabled")
+        $('#contrasena').removeAttr("disabled")
+        $('#submit').removeAttr("disabled")
+        $('#boton_registro').removeClass('highlight');
+      })
+
+      $("#boton_registro").focusout( function() {
+        $('.popover').popover('hide')
+        $('#correo').removeAttr("disabled")
+        $('#contrasena').removeAttr("disabled")
+        $('#submit').removeAttr("disabled")
+        $('#boton_registro').removeClass('highlight');
+        $("#correo").focus()
+      });
+      
+    }
+  })
+</script>
+
+<script type="text/javascript">
+  function goRegister(hrf){
+    window.location.href = hrf;
+  }
+</script>
+
+<!--Trim() para el input de correo-->
+<script type="text/javascript">
+  $(".correo").bind('keydown keypress keyup change paste',function(e){
+    var data = $("#correo").val()
+    //console.log(data)
+    $("#correo").val(data.trim())
+
+  })
+</script>
+
+<script type="text/javascript">
+  function spinnerStart (){
+    $("#spinner").modal('show')
+    $("#spinner .vertical-alignment-helper .modal-dialog ").addClass("modal-dialog-centered")
+    $("#spinner .vertical-alignment-helper .modal-dialog .modal-content").addClass("bg-white") 
+    $("#spinner .vertical-alignment-helper .modal-dialog .modal-content .class-text-h5").text("User Search")
+    if(!navigator.onLine) {
+        // el navegador no está conectado a la red
+        $("#spinner").modal('hide')
+        Swal.fire({
+          title: 'Error!',
+          text: "Without connection, check your internet connection",
+          icon: 'warning',
+          showCancelButton: false,
+          cancelButtonText: 'OK'
+        }).then((result) => {
+          $("#spinner").modal('hide')
+        })
+    } 
+  }
+</script>
+
+<!--Funciones de recuperación de contraseña-->
+<script type="text/javascript">
+
+    function restablecerComponentesRecuperacioContrasena(){
+      $("#contenedor_login").removeAttr("hidden")
+      $("#contenedor_recuperar_contrasena").attr("hidden",true)
+      $("#form_verificar_codigo").attr("hidden",true)
+      $("#form_actualizar_contrasena").attr("hidden",true)
+      $("#form_enviar_codigo").removeAttr("hidden")
+
+      $("correo_enviar_codigo").val('')
+      $("correo_verificar_codigo").val('')
+      $("valor_verificar_codigo").val('')
+      $("correo_electronico").val('')
+      $("codigo_validacion").val('')
+      $("correo_usuario_contrasena").val('')
+      $("correo_usuario_confirmar_contasena").val('')
+      $("#form_enviar_codigo").trigger("reset")
+    }
+
+    function verFormEnviarCodigo(){
+      $("#error_login").attr("hidden",true)
+      $("#contenedor_login").attr("hidden",true)
+      $("#contenedor_recuperar_contrasena").removeAttr("hidden")
+    }
+
+    function botonRegresoLogin(){
+      $("#contenedor_login").removeAttr("hidden")
+      $("#contenedor_recuperar_contrasena").attr("hidden",true)
+      $("#correo_enviar_codigo").val('')
+    }
+
+    function verFormVerificarCodigo(verCorreo){
+      $("#form_enviar_codigo").attr("hidden",true)
+      $("#form_verificar_codigo").removeAttr("hidden")
+
+      if(verCorreo){
+        $("#correo_verificar_codigo").val('')
+        $("#correo_verificar_codigo").removeAttr("hidden")
+      }else{
+        $("#correo_verificar_codigo").attr("hidden",true)
+      }
+    }
+    
+    function botonRegresarFormEnviarCodigo(){
+      $("#form_enviar_codigo").removeAttr("hidden")
+      $("#form_verificar_codigo").attr("hidden",true)
+      $("#form_actualizar_contrasena").attr("hidden",true)
+      
+
+      $("#correo_verificar_codigo").val('')
+      $("#valor_verificar_codigo").val('')
+
+      $("#correo_electronico").val('')
+      $("#codigo_validacion").val('')
+      $("#correo_usuario_contrasena").val('')
+      $("#correo_usuario_confirmar_contasena").val('')
+    }
+
+    function verFormActualizarContrasena(){
+      $("#form_verificar_codigo").attr("hidden",true)
+      $("#form_actualizar_contrasena").removeAttr("hidden")
+    }
+    
+</script>
+
+<!--Funciones de formularios-->
+<script type="text/javascript">
+
+    $("#form_enviar_codigo").submit(function (e) {
+        e.preventDefault()
+        $("#btn_send").attr('disabled', true)
+        //log($(this).serialize())
+        var correo = $("#correo_enviar_codigo").val()
+        $("#correo_verificar_codigo").val(correo)
+        $.ajax({
+            type    : 'POST',
+            url     : '/acceso/enviar_codigo_recuperacion',
+            data    : $(this).serialize(),
+            success : function(response){
+                //log(response)
+                Swal.fire(
+                  'Code!',
+                  'A recovery code has been sent, please check that it has arrived.',
+                  'warning'
+                )
+                $("#btn_send").removeAttr('disabled')
+                verFormVerificarCodigo(false)
+            },error : function(XMLHttpRequest, textStatus, errorThrown) {
+                //log(XMLHttpRequest, textStatus, errorThrown)
+                Swal.fire(
+                  '¡Error!',
+                  XMLHttpRequest.responseJSON.error + '. Please try again.',
+                  'error'
+                )
+                $("#btn_send").removeAttr('disabled')
+            }
+        })
+
+    })
+
+    $("#form_verificar_codigo").submit(function (e) {
+        e.preventDefault()
+        //log($(this).serialize())
+        $("#btn_validate").attr('disabled', true)
+        $.ajax({
+            type    : 'POST',
+            url     : '/acceso/validar_codigo_recuperacion',
+            data    : $(this).serialize(),
+            success : function(response){
+                //log(response)
+                verFormActualizarContrasena()
+                var correo = $("#correo_verificar_codigo").val()
+                var codigo = $("#valor_verificar_codigo").val()
+
+                $("#correo_electronico").val(correo)
+                $("#codigo_validacion").val(codigo)
+                $("#form_verificar_codigo").trigger("reset");
+                $("#btn_validate").removeAttr('disabled')
+            },error : function(XMLHttpRequest, textStatus, errorThrown) {
+                //log(XMLHttpRequest, textStatus, errorThrown)
+                Swal.fire(
+                  '¡Error!',
+                  XMLHttpRequest.responseJSON.error + '. Please try again.',
+                  'error'
+                )
+                $("#btn_validate").removeAttr('disabled')
+                
+                if(XMLHttpRequest.responseJSON.codigoCaducado){
+                  botonRegresarFormEnviarCodigo()
+                }
+            }
+        })
+        
+    })
+
+    $("#form_actualizar_contrasena").submit(function (e){
+        e.preventDefault()
+        //log($(this).serialize())
+        $("#mensaje_formato_incorrecto_contraseña").attr("hidden",true)
+        $('#mensaje_no_coincidencia_contraseña').attr('hidden',true)
+
+        var expreRegular  =   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+        var contrasena1   =   $("#correo_usuario_contrasena").val()
+        var contrasena2   =   $("#correo_usuario_confirmar_contasena").val()
+
+        if(!expreRegular.test(contrasena1)){
+            $('#mensaje_formato_incorrecto_contraseña').text("The password does not have the indicated format, the password must contain at least one number, one uppercase letter, one lowercase letter and at least 8 characters.")
+            $("#mensaje_formato_incorrecto_contraseña").removeAttr("hidden")
+
+          return setTimeout(function (){
+                    $("#mensaje_formato_incorrecto_contraseña").attr("hidden",true)
+                  },8000)
+        }
+
+        if( contrasena1 == contrasena2 ){
+          //log('actualizacion completa ')
+
+            $("#spinner").removeAttr("hidden")
+            $("#componentes_contrasena").attr("hidden",true)
+          $.ajax({
+              type    : 'POST',
+              url     : '/acceso/actualizar_contrasena',
+              data    : $(this).serialize(),
+              success : function(response){
+                Swal.fire( 
+                  'Updated!',
+                  'Your password has been successfully updated',
+                  'success',
+                  )
+                  restablecerComponentesRecuperacioContrasena()
+                  $("#form_actualizar_contrasena").trigger("reset");
+                  $("#componentes_contrasena").removeAttr("hidden")
+                  $("#spinner").attr("hidden",true)
+                  
+              },error : function(XMLHttpRequest, textStatus, errorThrown) {
+                  //log(XMLHttpRequest, textStatus, errorThrown)
+                  Swal.fire(
+                    '¡Error!',
+                    XMLHttpRequest.responseJSON.error + '. Please try again.',
+                    'error'
+                  )
+                  $("#componentes_contrasena").removeAttr("hidden")
+                  $("#spinner").attr("hidden",true)
+                  if(XMLHttpRequest.responseJSON.codigoCaducado){
+                    botonRegresarFormEnviarCodigo()
+                  }
+              }
+          })
+        }else{
+              $('#mensaje_no_coincidencia_contraseña').removeAttr('hidden')
+              $('#mensaje_no_coincidencia_contraseña').text("The passwords do not match, please try again.")
+            // setTimeout(function (){
+            //   $('#mensaje_no_coincidencia_contraseña').attr('hidden',true)
+            // },4000)
+        }
+    })
+
+</script>

@@ -1,0 +1,174 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+   <!-- <div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">
+      <div class="card shadow mb-4">
+        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add student</h6>
+        </a>
+        <div class="collapse" id="collapseCardExample">
+          <div class="card-body">
+            <form class="form-horizontal" id="form_agregar">
+              <fieldset>
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <!--<div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">-->
+      <div class="card shadow mb-4" hidden>
+        <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Customers</h6>
+        </a>
+
+        <div class="collapse" id="collapseImportar">
+          <div class="card-header">
+            <div class="col-md-12">
+              <a href="/templates/PlantillaClientes.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal" id="form_importar_customer" action="/advisers/simulations/master_data/customers/importar_clientes/<%= simulation.id %>"  method="POST" enctype="multipart/form-data">
+              <fieldset>
+                <div class="form-group row">
+                  <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+                  <div class="col-md-9">
+                    <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md "  data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        
+      </div>
+   <!-- </div>-->
+  </div>
+</div>
+
+<div class="modal fade" id="editModalCustomer" tabindex="-1" role="dialog" aria-labelledby="editModalCustomerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalCustomerLabel">Edit Customer</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+            X
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_customer">
+        <div class="modal-body">
+          <input type="hidden" id="objectId_customer_editar" name="objectId">
+          <!-- Text input-->
+          <div class="form-group row">
+            <label for="customer_nombre_editar" class="col-form-label col-sm-2">Name</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                <input id="customer_nombre_editar" name="nombre" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_apellido_paterno_editar" class="col-form-label col-sm-2">Last name</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+              <input id="customer_apellido_paterno_editar" name="apellidoPaterno" type="text" class="form-control textarea-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_apellido_materno_editar" class="col-form-label col-sm-2">Second Last name</label>
+            <div class="col-md-10">
+              <input id="customer_apellido_materno_editar" name="apellidoMaterno" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_calle_editar" class="col-form-label col-sm-2">Street</label>
+            <div class="col-md-10">
+              <input id="customer_calle_editar" name="calle" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_numero_editar" class="col-form-label col-sm-2">Number</label>
+            <div class="col-md-10">
+              <input id="customer_numero_editar" name="numero" type="number" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_suburbio_editar" class="col-form-label col-sm-2">Suburb</label>
+            <div class="col-md-10">
+              <input id="customer_suburbio_editar" name="suburbio" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_codigo_postal_editar" class="col-form-label col-sm-2">PostalCode</label>
+            <div class="col-md-10">
+              <input id="customer_codigo_postal_editar" name="codigoPostal" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_ciudad_editar" class="col-form-label col-sm-2">City</label>
+            <div class="col-md-10">
+              <input id="customer_ciudad_editar" name="ciudad" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_estado_editar" class="col-form-label col-sm-2">State</label>
+            <div class="col-md-10">
+              <input id="customer_estado_editar" name="estado" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+           <span id="mensaje_error_telefono_cliente" class="text-danger"></span>
+          <div class="form-group row">
+            <label for="customer_telefono_editar" class="col-form-label col-sm-2">Phone</label>
+            <div class="col-md-10">
+              <input id="customer_telefono_editar" name="telefono" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_email_editar" class="col-form-label col-sm-2">Email</label>
+            <div class="col-md-10">
+              <input id="customer_email_editar" name="email" type="email" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_credito_monetario_editar" class="col-form-label col-sm-2">Credit money</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+              <input id="customer_credito_monetario_editar" name="creditoMonetario" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="customer_tipo_cliente_editar" class="col-form-label col-sm-2">Client type</label>
+            <div class="col-md-10">
+              <input id="customer_tipo_cliente_editar" name="tipoCliente" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

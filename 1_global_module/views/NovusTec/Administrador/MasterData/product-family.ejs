@@ -1,0 +1,140 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+  <div class="card shadow mb-4">
+    <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add Product Family</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse" id="collapseCardExample">
+      <div class="card-body">
+        <form class="form-horizontal" id="form_agregar_familia">
+          <fieldset>
+            <!-- Text input-->
+            <div class="form-group row">
+              <label for="nombre_familia_agregar" class="col-form-label col-sm-2">Family name</label>
+              <div class="col-md-10">
+                <input id="nombre_familia_agregar" name="nombre" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="codigo_familia_agregar" class="col-form-label col-sm-2">Family Code</label>
+              <div class="col-md-10">
+                <input id="codigo_familia_agregar" name="codigo" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="imagen_familia_agregar" class="col-form-label col-sm-2">Family Image</label>
+              <div class="col-md-10">
+                <input id="imagen_familia_agregar" name="imagen" type="file" class="form-control input-md" required="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="videos_familia_agregar" class="col-form-label col-sm-2">Videos (6 files for upload)</label>
+              <div class="col-md-10">
+                <input id="imagen_familia_agregar_2" name="videos" type="file" class=" form-control input-md" multiple >
+                <!--<input class="" type="file" name="videos" id="videos_familia_agregar" multiple data-buttonText="Your label here." >-->
+                <!--<ul id="listaDeArchivos" class="list-group overflow-auto" style=" height: 150px; border-radius: 5px; border: solid 1px rgb(194, 193, 193)">
+                </ul>-->
+              </div>
+            </div>
+
+            <div id="productFamilyRM" class="form-group row">
+
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-12">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editModalProductoFamilia" tabindex="-1" role="dialog" aria-labelledby="editModalProductoFamiliaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalProductoFamiliaLabel">Edit Product Family</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_producto_family">
+        <div class="modal-body">
+          <input type="hidden" id="objectId_producto_mafilia_editar" name="objectId">
+          <!-- Text input-->
+          <div class="form-group row">
+            <label for="producto_mafilia_nombre_editar" class="col-form-label col-sm-2">Name</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                <input id="producto_mafilia_nombre_editar" name="nombre" type="text" class="form-control textarea-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="producto_mafilia_codigo_editar" class="col-form-label col-sm-2">Code</label>
+            <div class="col-md-10">
+              <input id="producto_mafilia_codigo_editar" name="codigo" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="imagen_familia_editar" class="col-form-label col-sm-2">Imagen de Familia</label>
+            <div class="col-md-10">
+              <input id="imagen_familia_editar" name="imagen" type="file" class="form-control input-md" >
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editVideos" tabindex="-1" role="dialog" aria-labelledby="editVideosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editVideosLabel">Product Family Videos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id="form_editar_videos_producto_family">
+            <input type="hidden" id="code_product_family" name="codigo" >
+            <input type="hidden" id="objectId_producto_mafilia_agregar_videos" name="objectId">
+            <!-- Text input-->
+            <div class="form-group row">
+              <label for="videos_familia_agregar" class="col-form-label col-sm-4">Videos (6 files for upload)</label>
+              <div class="col-md-8">
+                <input id="imagen_familia_agregar_2" name="videos" type="file" class=" form-control input-md" multiple >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+          </form>
+
+          <div id="videos_array" class="pt-3 overflow-auto" style="height: 400px;">
+          </div>
+
+        </div>
+
+      
+    </div>
+  </div>
+</div>

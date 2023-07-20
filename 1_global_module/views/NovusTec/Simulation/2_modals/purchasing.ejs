@@ -1,0 +1,357 @@
+<!-- Modal -->
+<div class="modal fade" id="purchasingModal" tabindex="-1" role="dialog" aria-labelledby="bomModalLabel" aria-hidden="true" style="overflow-y: scroll;">
+  <div class="modal-dialog " role="document" style="max-width: 1440px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clientOrdersModalTitle">Purchasing</h5>
+        <div class="ml-5">
+          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="pills-suppliers-RM-tab" data-toggle="pill" href="#pills-suppliers-RM" role="tab" aria-controls="pills-suppliers-RM" aria-selected="true">Suppliers-Raw Material</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-request-RM-tab" data-toggle="pill" href="#pills-request-RM" role="tab" aria-controls="pills-request-RM" aria-selected="false">Request Raw Material</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-status-orders-tab" data-toggle="pill" href="#pills-status-orders" role="tab" aria-controls="pills-status-orders" aria-selected="false">Status Orders</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-5">
+          <p class="mr-5 mt-2 font-weight-bold align-self-end text-dark text-center" >Current Money : <span id="span_money_team_purchasing_raw_material" ></span></p>      
+        </div>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="tab-content" id="pills-tabContent">
+          <!--Content Suppliers-Raw Material-->
+          <div class="tab-pane fade show active" id="pills-suppliers-RM" role="tabpanel" aria-labelledby="pills-suppliers-RM-tab">
+
+            <form class="form-group " id="form_purchasing">
+              <div id="text_message" class="text-white text-center mb-2 font-weight-bold"></div>
+              <div class="d-flex justify-content-end mb-2">
+                <button id="btn_submit_purchasing" type="submit" class="btn btn-primary">Save</button>
+              </div>
+
+              <div class="content">
+                <div id="PurchasingTableDiv">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="PurchasinDataTable" width="100%" cellspacing="0">
+
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div id="content_purchasing" class="d-flex justify-content-end mb-2 mt-3">
+                <button id="btn_submit_purchasing" type="submit" class="btn btn-primary mr-2">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+
+          </div>
+          <!--Content Request Raw Material-->
+          <div class="tab-pane fade" id="pills-request-RM" role="tabpanel" aria-labelledby="pills-request-RM-tab">
+            <div id="text_message_puchasing" class="text-white text-center mb-2 font-weight-bold"></div>
+            <div class="row">
+              <div class="col-md-4" style="border-right: 1px solid rgb(207, 207, 207);">
+                <!--Search Header of the table-->
+                <div class="row justify-content-center text-center align-items-center">
+                  <label for="" class="text-info">
+                    *Table Search Header</label>
+                </div>
+                <div class="row justify-content-center text-center align-items-center ml-3 mb-3 br-1">
+                  <div class=" mt-2 mr-1" style="width:40%;">
+                    <input class="form-control sear_quantityRM" id="sear_quantityRM" type="text" placeholder="Quantity Raw M.">
+                  </div>
+                  <div class=" mt-2 mr-1">
+                    <select class="form-control selectpicker name_Raw_Material" id="name_Raw_Material" type="text" placeholder="Raw material" data-width="100px"></select>
+                  </div>
+                  <div class=" mt-2">
+                    <button type="button" class="btn btn-info searchInfo" id="searchInfo" style="width:100%;">Search</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <div class="row justify-content-center text-center align-items-center">
+                  <label for="" class="text-info">
+                    *Purchasing Cart Suggestion Options
+                  </label>
+                </div>
+                <div class="row">
+                  <div id="calculatePurchasing" class="container" >
+                        <div class="row " id="contentSearch">
+                          <label for="ProductFamily" class="col-form-label mr-1">Product : </label>
+                          <select class="selectpicker" id="ProductFamily" name="productFamily" placeholder="Perform explosion the explosion of materials" data-width="80px" data-live-search="true" data-width="fit">
+                          </select>
+                          <label for="ProductQuantity" class="mr-1 ml-2 mt-2">Product Quantity : </label>
+                          <input class=" input-md border pt-2 pb-2 pl-2 pr-2 text-muted" style="border-radius:5px; width:12%;" type="number" id="ProductQuantity" name="ProductQuantity" value="1" min="1" onkeypress="return event.charCode >= 48" style="width:20%;">
+                          <div class="form-check  ml-3 mr-4 mt-2">
+                            <input type="checkbox" class="form-check-input" id="checkboxInvetary">
+                            <label class="form-check-label" for="checkboxInvetary">Take Inventory In Account</label>
+                          </div>
+                          <div class=" justify-content-end ">
+                            <span class="row"><button type="button" id="calculatePurchasingOrder" disabled class="btn btn-primary mt-1">Suggest Purchase <i class="fas fa-question text-info mr-1 text-light" data-trigger="hover" data-toggle="popover" data-content="This option is only to suggest the quantity of products from the cheapest suppliers, but you can skip it and make the purchases as you like"></i></button></span>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row ml-3 mr-3 mb-4" style="border-top: 1px solid rgb(207, 207, 207);">
+
+            </div>
+            
+            <div class="container-fluid"><!--class="container">-->
+              <!--<hr class="pr-2 pl-2" >-->
+              <!--Body request Raw Material-->
+              <div class="row mt-1 justify-content-center">
+
+                <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-7">-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 " id="containerDataTableRequestRM">
+
+                  <div class="table-responsive" style="height:550px;">
+                    <table class="table table-bordered " id="dataTableRequestRM" cellspacing="0" width="100%" style="height:400px;">
+
+                    </table>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-0" id="contentPurchasingCart">
+                  <!--<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">-->
+                  <div class="row justify-content-center text-center align-items-center mb-3" hidden id="contentMessages">
+                    <label for="" class="col-form-label col-sm-5 mr-3 font-weight-bold text-justify" style="border-radius: 5px; border: 1px solid #d1d3e2;" id="missingProduct" hidden></label>
+                    <label for="" class="col-form-label col-sm-5 ml-3 font-weight-bold text-justify" style="border-radius: 5px; border: 1px solid #d1d3e2;" id="completeProduct" hidden></label>
+                  </div>
+                  <button type="button" class="btn btn-secondary" style=" position: absolute; right:99%; height: 14%; margin-top: 6%; border-radius: 0%; border: 0px;" id="btnWatchPurchasinngCart" hidden>
+                    <i class="fa fa-arrow-right"></i>
+                    <br>
+                    Qty.
+                    <br>
+                    <label for="" id="numberRM">0</label>
+                  </button>
+                  
+                  <div id="contentPurchasingCart2" hidden>
+                    <div class="card shadow " id="componentPurchasinngCart" style="height:560px;">
+                      <div class="card-header">
+                        <div class="form-row">
+                            <h5 class="mx-auto font-weight-bold"> Purchasing Cart</h5>
+                            <div class="float-md-right">
+                              <label class="form-label font-weight-bold" for="folioNumber">
+                                Folio Number - 
+                              </label>
+                              <label class="form-label" id="folioNumber">000</label>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="card-body" >
+                        <div id="table_Purchasing_Cart">
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-row align-items-center">
+                              <div class="col-auto">
+                                <div class="mt-2">
+                                  <label class="form-label font-weight-bold" for="totalCostTransport">
+                                    Total transport cost :
+                                  </label>
+                                  <label class="form-label" id="costoTotalTransport">0</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="col-auto">
+                                <div class="mt-0">
+                                  <label class="form-label font-weight-bold" for="totalCostRawMaterial">
+                                    Total raw material cost :
+                                  </label>
+                                  <label class="form-label" id="totalCostRawMaterial">0</label>
+                                </div>
+                              </div>
+                              <div class="col block">
+                                <div class="d-flex justify-content-end mt-2">
+                                  <button type="button" id="create_order_purchasing" class="btn btn-primary font-weight-bold">Purchase Order</button>
+                                  <button type="button" id="delete_order_purchasing" class="btn btn-danger font-weight-bold ml-3">Delete All Order</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="col-auto">
+                                <div class="mt-0">
+                                  <label class="form-label font-weight-bold" for="totalCostPurchasing">
+                                    Purchasing total :
+                                  </label>
+                                  <label class="form-label" id="totalCostPurchasing">$0</label>
+                                </div>
+                              </div>
+                            </div>
+                            <!--<div class="form-row align-items-center">
+                              <div class="col block">
+                                <div class="d-flex justify-content-end mt-2">
+                                  <button type="button" id="create_order_purchasing" class="btn btn-primary font-weight-bold">purchase Order</button>
+                                </div>
+                              </div>
+                            </div>-->
+                          </div>
+                        </div>
+                        <div class="pl-4 pr-4 pt-3 pb-3 bg-white shadow-lg p-3 mb-5 bg-white rounded" style="position:absolute; top:35%; right:25%;" id="modalPurchasingCart" hidden>
+                          
+                            <button type="button" class="close" id="closeModalPurchasing" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          <div>
+                            <div class="form-group">
+                              <label for="inputDeleteRM">Quanty Raw Material Delete</label>
+                              <input type="hidden" id="idTable">
+                              <input type="hidden" id="inputDeleteRMMax">
+                              <input type="number" class="form-control" id="inputDeleteRM" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1" value="1">
+                            </div>
+                          </div>
+                          <div class="row justify-content-end align-items-end">
+                            <button type="button" class=" btn btn-danger" id="btnDeleteCartRM">
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary pl-3 pr-3" style=" position: absolute; right:0px; height: 14%; margin-top: 2.4%; border-radius: 0%; border: 0px;" id="btnWatchPurchasinngCart2">
+                  <i class="fa fa-shopping-cart row align-items-center text-center justify-content-center"></i>
+                  <br>
+                  Qty.
+                  <br>
+                  <label class="row align-items-center text-center justify-content-center" for="" id="numberRM2">0</label>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+           <!--Status orders-->
+          <div class="tab-pane fade" id="pills-status-orders" role="tabpanel" aria-labelledby="pills-status-orders-tab">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="statusOrdersDataTable" width="100%" cellspacing="0">
+                
+              </table>
+            </div>
+          </div>
+
+          <!--Spinner-->
+          <div class="pl-4 pr-4 pt-3 pb-3 bg-white shadow-lg p-3 mb-5 bg-white rounded" style="position:absolute; top:25%; right:38%;" id="modalSpinner" hidden >
+            <div class="vertical-alignment-helper">
+              <div class="modal-dialog vertical-align-center" role="document">
+                <div class="modal-content" id="modal-content-spinner" style="border: 0px solid rgba(255, 255, 255, 0.2);">
+                  <h5 class="text-center mt-3 ">Processing information</h5>
+                  <div class="modal-body text-center text-center">
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-secondary text-center" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-success text-center" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger text-center" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-warning text-center" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-info text-center" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-light text-center" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-dark text-center" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.7)">
+  <div class="modal-dialog" role="document" style="max-width: 1440px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderDetailModalLabel">Details</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row ">
+          <p class="font-weight-bold text-dark ml-3">Total Cost Order: <span class="text-white pl-2 pr-2 bg-success" id="total_Cost_Order"></span></p>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTableOrderDetails" width="100%" cellspacing="0">
+            
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="purchaseWarning" tabindex="-1" role="dialog" aria-labelledby="purchaseWarningLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.7)" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="purchaseWarningLabel">Purchase Warning - <span id="titleWarningCalculate"></span></h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-center text-center justify-content-center">
+          <span class="font-weight-bold">Insufficient Funds</span>
+        </div>
+        <div class=" table-responsive ">
+          <table class="table table-bordered" id="dataTableWarningProducts" width="100%" cellspacing="0">
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade spinner3" id="spinner3" tabindex="-1" role="dialog" aria-labelledby="spinner3Label" aria-hidden="true" style="background-color: rgba(0,0,0,0.7)" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <button type="button" class="close closeSpinner3" id="closeSpinner3" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true"></span>
+      </button>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>

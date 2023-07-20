@@ -1,0 +1,205 @@
+<script type="text/javascript">
+    var dataLogs = undefined
+    var logsToTable = undefined
+    $("#team_activity_log_btn").on('click',function (e){
+        $("#modalTeamActivityLog").modal("show")
+        ajaxTeamActivityLog ()
+    })
+
+    function ajaxTeamActivityLog (){
+        $.ajax({
+            type    : "GET",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/team_activity_log/data",
+            success : function( response ) {
+                //log(response)
+                dataLogs = response.data 
+                createComponentsModalTeamActivityLog(response.userTeamData, response.menuData)
+            },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                log(XMLHttpRequest.responseJSON.error)
+            }
+        })
+    }
+
+    function createComponentsModalTeamActivityLog(dataUser, dataMenu){
+        var dataMenuUser = []
+        var dataArrayMenu = []
+
+            for (let i = 0; i < dataMenu.length; i++) {
+                dataArrayMenu.push(dataMenu[i]['optionSimulation'])
+            }
+
+            for (let i = 0; i < dataUser.length; i++) {
+                dataMenuUser.push(dataUser[i]['userName'])
+            }
+
+            var componetMenu = ''
+            
+            for (let i = 0; i < dataArrayMenu.length; i++) {
+
+                var active = ''
+                if (i==0) {
+                    active ='active'
+                }
+                componetMenu += '<li class="nav-item">'
+                                    +'<a class="nav-link '+active+'" id="pills-raw-material-tab" data-info="'+dataArrayMenu[i]+'" data-toggle="pill" href="#" role="tab" aria-controls="pills-raw-material" aria-selected="true" onclick="reloadComponetsActivityLogs(\''+dataArrayMenu[i]+'\',\''+dataMenuUser+'\')">'
+                                        +dataArrayMenu[i]
+                                    +'</a>'
+                                +'</li>'
+                /*componetMenu += '<li class="nav-item">'
+                                    +'<a class="nav-link '+active+'" id="pills-raw-material-tab" data-info="'+dataUser[i]['userName']+'" data-toggle="pill" href="#" role="tab" aria-controls="pills-raw-material" aria-selected="true" onclick="reloadComponetsActivityLogs(\''+dataUser[i]['userPtr']['objectId']+'\',\''+dataArrayMenu+'\')">'
+                                        +dataUser[i]['userName'].replace('undefined','')
+                                    +'</a>'
+                                +'</li>'*/
+            }
+
+            $('#nameUserTeam').empty()
+            $('#nameUserTeam').append(componetMenu)
+        var firstTab = $('#nameUserTeam li:first a').tab('show')
+            firstTab.click()
+    }
+
+    function reloadComponetsActivityLogs(nameActivity, dataArrayMenu){
+            logsToTable = dataLogs.filter(function(current){
+                            return current['optionSimulation'] == nameActivity
+                          })
+
+        var newArrayMenuUser = _.unique(logsToTable,function(current){
+                                    return current['userName']
+                                })
+        //var dataMenu2 = dataMenu.split(',')
+        var options = ''
+            for (let i = 0; i < newArrayMenuUser.length; i++) {
+
+                var id = ''
+                var border = ''
+                if(i==0){
+                    id='first-button-type-activity'
+                    //border='border-top'
+                }
+                options += '<button class="btn-block shadow-sm p-2  pl-2 border-bottom '+border+' butttoOptionsSimulation" style="cursor: pointer; background:#ffff; margin:0px; border:0px;" onclick="reloadDataTableLog(\''+newArrayMenuUser[i]['userName']+'\',\''+nameActivity+'\')" id="'+id+'">'
+                                +newArrayMenuUser[i]['userName'].replace('undefined','')
+                            +'</button>'
+            }
+
+            $('#options').empty()
+            $('#options').append(options)
+            initialTable()
+            $("#options #first-button-type-activity").click()
+            $("#options #first-button-type-activity").focus()
+    }
+
+    function reloadDataTableLog(nameUser, optionSimulation){
+        var newArrayLogs = logsToTable.filter(function(current){
+            return current['userName'] == nameUser && current['optionSimulation'] == optionSimulation
+        })
+
+        if($.fn.DataTable.isDataTable("#dataTableDetailsLogs")){
+            $("#dataTableDetailsLogs").dataTable().fnDestroy()
+            $("#dataTableDetailsLogs").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead class=" border border-primary">'
+            thead += '<tr>'
+                thead += '<th>DATE</th>'
+                thead += '<th>ACTIVITY DESCRIPTION</th>'
+            thead +='</tr>'
+        thead += '</thead>'
+        /*tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Team</th>'
+                tfooter += '<th>Quantity Amount</th>'
+                tfooter += '<th>Current Money</th>'
+            tfooter +='</tr>'
+        tfooter += '</tfoot>'*/
+
+        $("#dataTableDetailsLogs").append(thead)
+        //$("#dataTableDetailsLogs").append(tfooter)
+        $.fn.dataTable.moment('DD-MM-YYYY')
+        $("#dataTableDetailsLogs").DataTable({
+            processing: true,
+            lengthMenu: [500,200,100,50,10],
+            searching: true,
+			bPaginate: true,
+			bInfo: false,
+			ordering: true,
+            order: [[ 0, "desc" ]],
+            scrollY:"400px",
+            scrollCollapse: true,
+			paging: true,
+            columnDefs : [{
+                "targets": 0,
+                "className": "border border-top-0 border-left-0 border-right-0",
+            },{
+                "targets": 1,
+                "className": " border border-top-0 border-left-0 border-right-0",
+            }],
+            data: newArrayLogs,
+            columns: [
+                {
+                   // className: "text-center pt-4",
+                    data: null,
+                    render : function(data, type, row) {
+                        var currentTime = moment(data["createdAt"])
+						return '<small class="text-muted font-weight-bold">'+currentTime.format("DD/MM/YYYY HH:mm")+'</small>'
+                    }
+                },
+                {
+                    //className: "text-center",
+                    data: null,
+                    render : function(data, type, row) {
+                        var description = data['activity']
+                        if(data['description']){
+                            description = data['description']
+                        }
+                        var deletString = description.replace('Get the','Consult the')
+                        var newDeleteString = deletString.replace('Get All','Consult all')
+                            newDeleteString = deletString.replace('Get fixed ','Consult fixed')
+                            newDeleteString = deletString.replace('Get all','Consult all')
+                            deletString = newDeleteString.replace('the the','the')
+                        return '<span class=" text-info font-weight-bold">'+deletString+'</span>'
+                    }
+                }
+            ],
+            "language": {
+                "emptyTable": "<span class='text-warning font-weight-bold'>There are no moves in this activity </span>"
+            }
+        })
+
+    }
+
+    function initialTable(){
+        if($.fn.DataTable.isDataTable("#dataTableDetailsLogs")){
+            $("#dataTableDetailsLogs").dataTable().fnDestroy()
+            $("#dataTableDetailsLogs").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead class=" border border-primary">'
+            thead += '<tr>'
+                thead += '<th>DATE</th>'
+                thead += '<th>ACTIVITY DESCRIPTION</th>'
+            thead +='</tr>'
+        thead += '</thead>'
+        $("#dataTableDetailsLogs").append(thead)
+        //$("#dataTableDetailsLogs").append(tfooter)
+        $.fn.dataTable.moment('DD-MM-YYYY')
+        $("#dataTableDetailsLogs").DataTable({
+            processing: true,
+            lengthMenu: [500],
+            searching: false,
+			bPaginate: false,
+			bInfo: false,
+			ordering: false,
+            scrollY:"400px",
+            scrollCollapse: true,
+			paging: false
+        })
+
+    }
+
+</script>

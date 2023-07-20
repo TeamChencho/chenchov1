@@ -1,0 +1,738 @@
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+
+    $("#productio_line_btn").on( 'click', function(e) {
+        $("#messageProductionTemplate").hide()
+        $("#messageProductionLineActivatedTemplate").hide()
+        getTemplatesActivated ()
+        getTemplates ()
+        $("#productionLinesModalSimulation").modal("show")
+    })
+
+    $('#productio_line_btn').on('hidden.bs.modal', function(e) {
+        windowOpened = false
+    })
+
+</script>
+
+<script type="text/javascript">
+    function getTemplatesActivated () {
+        $("#messagePhases").hide()
+        $("#messageProductionLineActivatedTemplate").show()
+        $.ajax({
+            type    : "GET",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/production_line_template/template_activated/data",
+            success : function( response ) {
+                //log( response )
+                reloadTableProductionLineTemplates (response.data)
+                $("#messageProductionLineActivatedTemplate").hide()
+            },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                $("#messageProductionLineActivatedTemplate").hide()
+                log(XMLHttpRequest.responseJSON.error)
+            }
+        })
+    }
+
+    function reloadTableProductionLineTemplates ( dataTemplate ) {
+        if($.fn.DataTable.isDataTable("#dataTableProductionLineTemplate")){
+            $("#dataTableProductionLineTemplate").dataTable().fnDestroy()
+            $("#dataTableProductionLineTemplate").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Production Line Name</th>'
+                thead += '<th>Template Name</th>'
+                thead += '<th>Efficiency Percentage</th>'
+                thead += '<th>Production Quantity</th>'
+                thead += '<th>Phases</th>'
+                thead += '<th>Actions</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Production Line Name</th>'
+                tfooter += '<th>Template Name</th>'
+                tfooter += '<th>Efficiency Percentage</th>'
+                tfooter += '<th>Production Quantity</th>'
+                tfooter += '<th>Phases</th>'
+                tfooter += '<th>Actions</th>'
+            tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $("#dataTableProductionLineTemplate").append(thead)
+        $("#dataTableProductionLineTemplate").append(tfooter)
+
+        $.fn.dataTable.moment('DD-MM-YYYY')
+       var tableTemplate = $("#dataTableProductionLineTemplate").DataTable({
+            processing: true,
+            lengthMenu: [ 10, 25, 50, 75, 100 ],
+            order: [[ 0, "asc" ]],
+            deferRender: true,
+            data: dataTemplate,
+            columns: [
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        return data["productionLineName"]
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        return data["templateName"]
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        var efficiencyPercentage = data["productionLine"]["efficiencyPercentage"] ? data["productionLine"]["efficiencyPercentage"] : '0' 
+                        log(efficiencyPercentage)
+                        var input = ''
+                        var id = 'input_line_production_'+data["objectId"]
+
+                        input += '<div class="input-group mb-3">'
+                            input += '<input type="number" class="form-control" aria-describedby="inputGroupPrepend" id="'+id+'" min="0" value="'+efficiencyPercentage+'">'
+                            input += '<div class="input-group-append">'
+                                input += '<span class="input-group-text">%</span>'
+                            input += '</div>'
+
+                            input += '<div class="input-group-append">'
+                                input += '<button onClick="saveEfficiencyPercentage(\''+id+'\',\''+data["productionLine"]["objectId"]+'\')" ty="button" class="btn btn-primary">Save</span>'
+                            input += '</div>'
+                        input += '</div>'
+                        
+                        return input
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        log(data["productionLine"]["templateSDMPtr"])
+                        return data["productionLine"]["templateSDMPtr"]["productionQuantity"] ? data["productionLine"]["templateSDMPtr"]["productionQuantity"] : 'Not Available' 
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        let content = ''
+                        content += "<div class='col-md-4'>"
+                            content += '<button type="button" class="ListPhases btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" title="Phases"><i class="fas fa-clipboard-list"></i></button>'
+                        content += "</div>"
+                        
+                        return content
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        let content = ''
+                        if(data["templateActive"]==true){
+                            content += "<div class='col-md-4'>"
+                                content += '<button onclick="archiveTemplate(\''+data["productionLineName"]+'\',\''+data['objectiIdTemplateActivated']+'\',\''+data['objectId']+'\',false,\''+"Deactivate"+'\',\''+"deactivated"+'\')" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive"></i></button>'
+                            content += "</div>"
+                        }
+                        else{
+                            content += "<div class='col-md-4'>"
+                                content += '<button onclick="archiveTemplate(\''+data["productionLineName"]+'\',\''+data['objectiIdTemplateActivated']+'\',\''+data['objectId']+'\',true,\''+"Activate"+'\',\''+"activated"+'\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+                            content += "</div>"
+                        }
+                        return  content
+                    }
+                }
+            ]
+        })
+
+        $("#dataTableProductionLineTemplate tbody" ).on("click", "button.ListPhases", function () {
+            let dataTable = tableTemplate.row($(this).parents('tr')).data();
+            $("#phasesTemplate").modal("show")
+            tabsPhases ( dataTable )
+
+        })
+    }
+
+    function tabsPhases (dataFases){
+        let idTemplate = dataFases["objectId"]
+        let dataPhasesTempo =  dataFases["phases"]
+        let content = ''
+        $("#production-line-template-phases-modal-simulation-pills-tab").empty()
+        for ( var i  = 0 ; i < dataPhasesTempo.length; i++){
+            let active = ''
+            let selecte = 'false'
+            if( i == 0 ) {
+                active = 'active'
+                selecte = 'true'
+            } 
+            content += '<a class="nav-link '+active+' mb-2" id="v-pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'-tab" data-toggle="pill" href="#production-line-template-phases-modal-simulation-pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'" role="tab" aria-controls="v-pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'" aria-selected="'+selecte+'" data-info="production-line-template-phases-modal-simulation-pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'" data-infotab="pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'-production-line-phases-tab">'+dataPhasesTempo[i]["phaseName"]+'</a>'
+            
+        }
+        $("#production-line-template-phases-modal-simulation-pills-tab").append(content)
+
+        $("#production-line-template-phases-modal-simulation-pills-tabContent").empty()
+        content = ''
+        var dataFirst = ''
+        var tabFirst = ''
+        for ( var i  = 0 ; i < dataPhasesTempo.length; i++){
+            let active = ''
+            if ( i == 0 ) {
+                active = 'show active'
+                dataFirst = 'production-line-template-phases-modal-simulation-pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]
+                tabFirst = 'pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'-production-line-phases-tab'
+            }
+            content += '<div class="tab-pane fade '+active+'" id="production-line-template-phases-modal-simulation-pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'" role="tabpanel" aria-labelledby="v-pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'-tab">'
+                content += '<div class="row text-center justify-content-center" style="text-align:center">'
+                    content += '<ul class="nav nav-pills mb-3" id="pills-'+idTemplate+'-'+dataPhasesTempo[i]["objectId"]+'-production-line-phases-tab" role="tablist">'
+                        content += '<li class="nav-item" role="presentation">'
+                            content += "<a class='nav-link active fixedAsset' data-toggle='pill' role='tab' href='#' aria-selected='true' onClick='reloadTableDataFixedAssetsPhases("+JSON.stringify(dataPhasesTempo[i]['fixedAssets'])+")' style='cursor:pointer;'>Fixed Asset</a>"
+                        content += '</li>'
+                        content += '<li class="nav-item" role="presentation">'
+                            var su = JSON.stringify(dataPhasesTempo[i]['employees']).replace(/\"/g,"&quot;")
+                            content += '<a class="nav-link" data-toggle="pill"  role="tab" href="#" aria-selected="false" onClick="reloadTableDataEmployeesPhases('+su+');" style="cursor:pointer;" >Profile</a>'
+                        content += '</li>'
+                    content += '</ul>'
+                    //content += "<button class='btn btn-primary ml-1 mr-1 fixedAsset' onClick='reloadTableDataFixedAssetsPhases("+JSON.stringify(dataPhasesTempo[i]['fixedAssets'])+")'> Fixed Assets </button>"
+                    //var su = JSON.stringify(dataPhasesTempo[i]['employees']).replace(/\"/g,"&quot;")
+                    //content += '<button onClick="reloadTableDataEmployeesPhases('+su+');" class="btn btn-primary ml-1 mr-1"> Employees </button>'
+                content += '</div>'
+            content += '</div>'
+        }
+        $("#production-line-template-phases-modal-simulation-pills-tabContent").append(content)
+
+        $('#production-line-template-phases-modal-simulation-pills-tabContent #'+dataFirst+' #'+tabFirst+' .fixedAsset').click()
+
+        $('#production-line-template-phases-modal-simulation-pills-tab a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+            //log($(e.target).data("info"))
+            let tabSelected = $(e.target).data("info")
+            let tabfixedAsset = $(e.target).data("infotab")
+            $('#production-line-template-phases-modal-simulation-pills-tabContent #'+tabSelected+' #'+tabfixedAsset+' .fixedAsset').click()
+        })
+
+    }
+
+    function reloadTableDataFixedAssetsPhases (dataPhasesFixedAssets) {
+        //log(dataPhasesFixedAssets)
+        if($.fn.DataTable.isDataTable("#dataTablePhases")){
+            $("#dataTablePhases").dataTable().fnDestroy()
+            $("#dataTablePhases").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Fixed Asset</th>'
+                thead += '<th>Description</th>'
+                thead += '<th>Actions</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Fixed Asset</th>'
+                tfooter += '<th>Description</th>'
+                tfooter += '<th>Actions</th>'
+            tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $("#dataTablePhases").append(thead)
+        $("#dataTablePhases").append(tfooter)
+
+        $.fn.dataTable.moment('DD-MM-YYYY')
+        $("#dataTablePhases").DataTable({
+            //sScrollY: "400px",
+            processing: true,
+            lengthMenu: [ 10, 25, 50, 75, 100 ],
+            order: [[ 0, "asc" ]],
+            deferRender: true,
+            data: dataPhasesFixedAssets,
+            columns: [
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        return data["fixedAssetTDMSprt"]["fixedAssetPtr"]["nombre"]
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        return data["fixedAssetTDMSprt"]["fixedAssetPtr"]["descripcion"]
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        let content = ''
+                        if(data["active"]==true){
+                            content += "<div class='col-md-4'>"
+                                content += '<button onclick="archivarDataProductionLineTemplate(\''+data["fixedAssetTDMSprt"]["fixedAssetPtr"]["nombre"]+'\',\''+data['objectId']+'\',\''+data["type"]+'\',false,\''+"Withdraw"+'\',\''+"withdraw"+'\')" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Withdraw"><i class="fas fa-archive"></i></button>'
+                            content += "</div>"
+                        }
+                        else{
+                            content += "<div class='col-md-4'>"
+                                content += '<button onclick="archivarDataProductionLineTemplate(\''+data["fixedAssetTDMSprt"]["fixedAssetPtr"]["nombre"]+'\',\''+data['objectId']+'\',\''+data["type"]+'\',true,\''+"Introduce"+'\',\''+"introduce"+'\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Introduce"><i class="fas fa-archive"></i></button>'
+                            content += "</div>"
+                        }
+                        return content
+                    }
+                }
+            ]
+        })
+
+    }
+
+    function reloadTableDataEmployeesPhases (dataPhasesEmployees) {
+        //log(dataPhasesEmployees)
+        if($.fn.DataTable.isDataTable("#dataTablePhases")){
+            $("#dataTablePhases").dataTable().fnDestroy()
+            $("#dataTablePhases").empty()
+        }
+
+        var thead   = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+            thead += '<tr>'
+                thead += '<th>Employee</th>'
+                thead += '<th>Salary Tabulator</th>'
+                thead += '<th>Actions</th>'
+            thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+            tfooter += '<tr>'
+                tfooter += '<th>Employee</th>'
+                tfooter += '<th>Salary Tabulator</th>'
+                tfooter += '<th>Actions</th>'
+            tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $("#dataTablePhases").append(thead)
+        $("#dataTablePhases").append(tfooter)
+
+        $.fn.dataTable.moment('DD-MM-YYYY')
+        $("#dataTablePhases").DataTable({
+            processing: true,
+            lengthMenu: [ 10, 25, 50, 75, 100 ],
+            order: [[ 0, "asc" ]],
+            deferRender: true,
+            data: dataPhasesEmployees,
+            columns: [
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        return data["employeeTDMSprt"]["name"]
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        return data["employeeTDMSprt"]["salaryTabulatorPtr"]["department"]
+                    }
+                },
+                {
+                    data: null,
+                    render : function(data, type, row) {
+                        let content = ''
+                        if(data["active"]==true){
+                            content += "<div class='col-md-4'>"
+                                content += '<button onclick="archivarDataProductionLineTemplate(\''+data["employeeTDMSprt"]["name"]+'\',\''+data['objectId']+'\',\''+data["type"]+'\',false,\''+"Fire"+'\',\''+"fire"+'\')" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Fire"><i class="fas fa-archive"></i></button>'
+                            content += "</div>"
+                        }
+                        else{
+                            content += "<div class='col-md-4'>"
+                                content += '<button onclick="archivarDataProductionLineTemplate(\''+data["employeeTDMSprt"]["name"]+'\',\''+data['objectId']+'\',\''+data["type"]+'\',true,\''+"Hire"+'\',\''+"hire"+'\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Hire"><i class="fas fa-archive"></i></button>'
+                            content += "</div>"
+                        }
+                        return content
+                    }
+                }
+            ]
+        })
+    }
+
+    function  archivarDataProductionLineTemplate ( nameData, objectId, type, seActiva, titleMessage, text) {
+        var typeMessage = 'fixed asset'
+        if(type == "EMPLOYEE"){typeMessage = 'employee'}
+        Swal.fire({
+            title: titleMessage+'!',
+            text: "Do you want to "+text+" this "+typeMessage+"?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: titleMessage
+            }).then((result) => {
+                if (result.value) {
+                    $("#messagePhases").show()
+                    messageLoadingPhases("loading...")
+                    $.ajax({
+                        type    : "POST",
+                        url     : "/simulation/<%= simulation.id %>/<%= team.id %>/production_line_template/data_phase/archive",
+                        data    : {
+                                        'messageLogs': titleMessage+' the '+typeMessage+' '+nameData+' from the production line',
+                                        'objectId'  : objectId,
+                                        'type'      : type,
+                                        'seActiva'  : seActiva
+                                    },
+                        success : function( response ) {
+                            //log(response)
+                            getTemplatesActivated ()
+                            $("#phasesTemplate").modal("hide")
+                            messageSuccesPhases("Success")
+                            Swal.fire(
+                            'Update!',
+                            'The data has been update succesfully',
+                            'success'
+                            )
+                        },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                            log(XMLHttpRequest.responseJSON.error)
+                            messageErrorPhases(XMLHttpRequest.responseJSON.error)
+                            Swal.fire(
+                                'Error!',
+                                'An error ocurred while performing the action, please try again',
+                                'success'
+                            )
+                        }
+                    })
+                }
+            })
+        
+    }
+
+    function archiveTemplate (nombreTemplate, objectId, templateId, seActiva, titleMessage, text) {
+        Swal.fire({
+            title: titleMessage+'!',
+            text: "Do you want to "+text+" this template?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: titleMessage
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type    : "POST",
+                        url     : "/simulation/<%= simulation.id %>/<%= team.id %>/production_line_template/template_activated/archive",
+                        data    : {
+                                        'messageLogs':text.charAt(0).toUpperCase()+text.slice(1)+' the production line "'+nombreTemplate+'"',
+                                        'objectId'  : objectId,
+                                        'seActiva'  : seActiva,
+                                        'templateId': templateId
+                                    },
+                        success : function( response ) {
+                            //log(response)
+                            getTemplatesActivated ()
+                            Swal.fire(
+                            titleMessage,
+                            'The data has been '+text+' template',
+                            'success'
+                            )
+                        },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                            log(XMLHttpRequest.responseJSON.error)
+                            messageErrorPhases(XMLHttpRequest.responseJSON.error)
+                            Swal.fire(
+                                'Error!',
+                                XMLHttpRequest.responseJSON.error+', please try again',
+                                'error'
+                            )
+                        }
+                    })
+                }
+            })
+      
+    }
+</script>
+
+<script type="text/javascript">
+    function messageLoadingPhases( text ) {
+        $("#messagePhases").empty()   
+        $("#messagePhases").removeClass("bg-success")
+        $("#messagePhases").removeClass("bg-danger")
+        $("#messagePhases").addClass("bg-info")
+        $("#messagePhases").text(text)
+    }
+
+    function messageSuccesPhases ( text ) {
+        $("#messagePhases").empty()   
+        $("#messagePhases").removeClass("bg-info")
+        $("#messagePhases").removeClass("bg-danger")
+        $("#messagePhases").addClass("bg-success")
+        $("#messagePhases").text(text)
+    }
+
+    function messageErrorPhases ( text ) {
+        $("#messagePhases").empty()   
+        $("#messagePhases").removeClass("bg-success")
+        $("#messagePhases").removeClass("bg-info")
+        $("#messagePhases").addClass("bg-danger")
+        $("#messagePhases").text(text)
+    }
+</script>
+
+<script type="text/javascript">
+    function getTemplates () {
+        $.ajax({
+            type    : "GET",
+            url     : "/simulation/<%= simulation.id %>/<%= team.id %>/production_line_template/data",
+            success : function( response ) {
+                //log(response)
+                createTabs (response.data, response.dataPhases, response.dataFixedAssets, response.dataEmployees )
+            },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                log(textStatus)
+            }
+        })
+    }
+
+    function createTabs ( data, dataPhases, dataFixedAssets, dataEmployees ) {
+       // log(data)
+            //crear tabs de plantllas de producción
+        let content = ''
+        $("#production-line-template-modal-simulation-pills-tab").empty()
+        for ( var i  = 0 ; i < data.length; i++){
+            let active = ''
+            if( i == 0 ) {
+                active = 'active'
+            } 
+            content += '<a class="nav-link '+active+' mb-2" id="v-pills-'+data[i]["objectId"]+'-tab" data-toggle="pill" href="#production-line-template-modal-simulation-pills-'+data[i]["objectId"]+'" role="tab" aria-controls="v-pills-'+data[i]["objectId"]+'" aria-selected="true">'+data[i]["name"]+'</a>'
+            
+        }
+        $("#production-line-template-modal-simulation-pills-tab").append(content)
+
+            //crear contenedores del los tabs
+     $("#production-line-template-modal-simulation-pills-tabContent").empty()
+        content = ''
+        for ( var i  = 0 ; i < data.length; i++){
+            let active = ''
+            if ( i == 0 ) {
+                active = 'show active'
+            }
+            content += '<div class="tab-pane fade '+active+'" id="production-line-template-modal-simulation-pills-'+data[i]["objectId"]+'" role="tabpanel" aria-labelledby="v-pills-'+data[i]["objectId"]+'-tab">'
+                content += '<form id="form_template_'+data[i]["objectId"]+'">'
+                    content += '<div class="row" style="width: 100%;">'
+                        content += '<span class="text-center font-weight-bold mt-1 mb-3" style="width: 100%;"> Template '+data[i]["name"]+'</span>'
+                    content += '</div>'
+                    content += '<input type="hidden" name="objectIdTemplate" value="'+data[i]["objectId"]+'"/>'
+                    content += createComponentsTabForContainer ( data[i]["objectId"], data[i]["phases"], dataPhases, data[i]["quantityFixedAssets"], dataFixedAssets, dataEmployees )
+                    content += '<div class="d-flex justify-content-end mb-2">'
+                        content += '<button id="btn_submit_purchasing" type="button" onclick="submitButton(\''+data[i]["objectId"]+'\')" class="btn btn-primary">Activate</button>'
+                    content += '</div>'
+                content += '</form>'
+            content += '</div>'
+        }
+        $("#production-line-template-modal-simulation-pills-tabContent").append(content)
+
+    }
+
+    function createComponentsTabForContainer ( objectId, attrPhases, dataPhases, attrFixedAssets, dataFixedAssets, dataEmployees ) {
+        let content = ''
+            //create fases
+            content += '<div class="row pl-2 pr-2">'
+                content += '<ul class="nav nav-pills mb-3" id="pills-tab-'+objectId+'" role="tablist">'
+        for ( var i  = 0 ; i < attrPhases.length; i++){
+            let phaseFound = dataPhases.find(current => current["objectId"] == attrPhases[i])
+            let numberStep = i+1
+            let title = ''
+            let idcomponent =''
+            let popover
+            var active = ''
+            if ( i == 0 ) { active = 'active'}
+            if(phaseFound['description']){ 
+                title= phaseFound['description']; 
+                idcomponent='pills-'+objectId+'-'+phaseFound["objectId"]+'-tab' 
+                var descritionTempo = title.replace('\'',`\u005C\'`)
+                popover ='onmouseover="watchDescription(\''+idcomponent+'\',\''+descritionTempo+'\')" onmouseout="closeDescription(\''+idcomponent+'\')"'
+            }else{
+                idcomponent='pills-'+objectId+'-'+phaseFound["objectId"]+'-tab' 
+                var descritionTempo = 'Description not available'
+                popover ='onmouseover="watchDescription(\''+idcomponent+'\',\''+descritionTempo+'\')" onmouseout="closeDescription(\''+idcomponent+'\')"'
+            }
+                    content += '<li class="nav-item col-6 col-md-3 mb-3" role="presentation">'
+                        content += '<a class="nav-link '+active+' card bg-secondary text-center text-white font-weight-bold pl-2 pr-2 pt-2 pb-2" '+popover+' style="height:100%; width: 100%;"  id="pills-'+objectId+'-'+phaseFound["objectId"]+'-tab" data-toggle="pill" href="#pills-'+objectId+'-'+phaseFound["objectId"]+'" role="tab" aria-controls="pills-'+objectId+'-'+phaseFound["objectId"]+'" aria-selected="true" selected>'
+                            content += 'Step '+numberStep+' : '+phaseFound["name"]
+                        content += '</a>'
+                    content += '</li>'
+        }
+                content += '</ul>'
+            content += '</div>'
+
+            // crete inputs empleados y activos fijos
+            content += '<div class="row tab-content pt-2 pb-2 mr-2 ml-2 border border-left-0 border-right-0 border-bottom-0" id="pills-Phases-Content-'+objectId+'">'
+        for (let i = 0; i < attrPhases.length; i++) {
+            let dataArrayFixedAsset = attrFixedAssets[i]
+            var active = ''
+            if ( i == 0 ) {
+                active = 'show active'
+            }
+                content += '<div class="tab-pane fade '+active+'" id="pills-'+objectId+'-'+attrPhases[i]+'" role="tabpanel" aria-labelledby="pills-'+objectId+'-'+attrPhases[i]+'-tab" style="width: 100%;">'
+                    //content += objectId+' - '+attrPhases[i]
+                    content += '<div class="row align-items-center justify-content-center ">'
+                        content += '<span class="text-center font-weight-bold mt-1 mb-3" style="width: 100%;"> Add quantity Fixed Assets</span>'
+                    content += '</div>'
+                    for (const key in dataArrayFixedAsset) {
+                        let fixedAssetFound = dataFixedAssets.find(current => current["objectId"] == key)
+                        content += '<div class="form-group row">'
+                            content += '<label for="fixedAsset-'+fixedAssetFound["objectId"]+'" class="col-sm-6 col-form-label">'+fixedAssetFound["nombre"]+'</label>'
+                            content += '<div class="col-sm-6">' 
+                                content += '<input type="number" onmouseout="hideMessageInputs(\'fixed_asset\',\''+objectId+'\',\''+attrPhases[i]+'\',\''+key+'\')" onmouseover="setMessageInputs(\'fixed_asset\',\''+objectId+'\',\''+attrPhases[i]+'\',\''+key+'\')" class="form-control" min="1" value="1" name="phase_'+attrPhases[i]+'[fixedAsset_'+fixedAssetFound["objectId"]+'] " id="fixedAsset-'+fixedAssetFound["objectId"]+'">'
+                                content += '<div id="message_fixed_asset_'+objectId+'_'+attrPhases[i]+'_'+key+'" style="display:none;" class="text-info">A minimum of '+dataArrayFixedAsset[key]+' fixed assets is needed</div>'
+                            content += '</div>'
+                        content += '</div>'
+                    }
+                    content += '<div class="row align-items-center justify-content-center border border-left-0 border-right-0 border-bottom-0 mr-1 ml-1">'
+                        content += '<span class="text-center font-weight-bold mt-3 mb-3" style="width: 100%;"> Add quantity Employees</span>'
+                    content += '</div>'
+                    
+                    let phase = dataPhases.find(current => current["objectId"] == attrPhases[i])
+                    let attrEmploye = phase["quantityEmployees"]
+                    for (const key in attrEmploye) {
+                        let employee = dataEmployees.find(current => current["objectId"] == key)
+                        content += '<div class="form-group row pl-1">'
+                            content += '<label for="employee-' + employee["objectId"] + '" class="col-sm-6 col-form-label">'+employee["department"]+'</label>'
+                            content += '<div class="col-sm-6">'
+                                content += '<input type="number" onmouseout="hideMessageInputs(\'employee\',\''+objectId+'\',\''+attrPhases[i]+'\',\''+key+'\')" onmouseover="setMessageInputs(\'employee\',\''+objectId+'\',\''+attrPhases[i]+'\',\''+key+'\')" class="form-control" min="1" value="1" name="phase_'+attrPhases[i]+'[employee_'+employee["objectId"]+'] " id="employee-' + employee["objectId"] + '">'
+                                content += '<div id="message_employee_'+objectId+'_'+attrPhases[i]+'_'+key+'" style="display:none;" class="text-info">A minimum of '+attrEmploye[key]+' employee(s) is needed</div>'
+                            content += '</div>'
+                        content += '</div>'
+                    }
+
+
+                content += '</div>'
+        }
+            content += '</div>'
+        
+        return content
+
+    }
+
+    function submitButton(objectId){
+        if($("#nameTemplate").val() != ""){
+            $("#messageProductionTemplate").show()
+            messageLoadingProductionTemplate("Loading ...")
+            let form = $("#form_template_"+objectId)
+            let data = "nameTemplate="+$("#nameTemplate").val()+"&"+form.serialize()
+            $.ajax({
+                type: "POST",
+                url: "/simulation/<%= simulation.id %>/<%= team.id %>/production_line_template/save",
+                data: data+'&messageLogs=Created the production template "'+$("#nameTemplate").val()+'"',
+                success: function(response) {
+                    log(response)
+                    getTemplates()
+                    getTemplatesActivated ()
+                    messageSuccesProductionTemplate("The template has been activated")
+                    $("#nameTemplate").val('')
+                    /*setTimeout(function() {
+                        $("#messageProductionTemplate").hide()
+                    },4000);*/
+                },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                    messageErrorProductionTemplate(XMLHttpRequest.responseJSON.error)
+                    /*setTimeout(function() {
+                        $("#messageProductionTemplate").hide()
+                    },12000);*/
+                }
+            })
+        }else{
+            Swal.fire(
+                'Warning!',
+                'Did not enter a name, try again',
+                'warning'
+            )
+        }
+    }
+
+    function setMessageInputs(typeInput, templateId, phaseId, elemtId){
+        if (typeInput == "employee") {
+            document.getElementById('message_employee_'+templateId+'_'+phaseId+'_'+elemtId).style.display = "block";
+        } else if (typeInput == "fixed_asset") {
+            document.getElementById('message_fixed_asset_'+templateId+'_'+phaseId+'_'+elemtId).style.display = "block";
+        }
+    }
+
+    function hideMessageInputs(typeInput, templateId, phaseId, elemtId){
+        if (typeInput == "employee") {
+            document.getElementById('message_employee_'+templateId+'_'+phaseId+'_'+elemtId).style.display = "none";
+
+        } else if (typeInput == "fixed_asset") {
+            document.getElementById('message_fixed_asset_'+templateId+'_'+phaseId+'_'+elemtId).style.display = "none";
+        }
+    }
+
+    function watchDescription(idcomponent,description){
+        //log(idcomponent)
+        //log(description)
+        $('#'+idcomponent).popover({
+            content: `${description}`
+        })
+        $('#'+idcomponent).popover('show')
+
+        $('#'+idcomponent).on('click',function (e){
+            $('#'+idcomponent).popover('show')
+        })
+    }
+
+    function closeDescription(idcomponent){
+        $('#'+idcomponent).popover('hide')
+    }
+
+</script>
+
+<script type="text/javascript">
+    function messageLoadingProductionTemplate ( text ) {
+        $("#messageProductionTemplate").empty()   
+        $("#messageProductionTemplate").removeClass("bg-success")
+        $("#messageProductionTemplate").removeClass("bg-danger")
+        $("#messageProductionTemplate").addClass("bg-info")
+        $("#messageProductionTemplate").text(text)
+    }
+
+    function messageSuccesProductionTemplate ( text ) {
+        $("#messageProductionTemplate").empty()   
+        $("#messageProductionTemplate").removeClass("bg-info")
+        $("#messageProductionTemplate").removeClass("bg-danger")
+        $("#messageProductionTemplate").addClass("bg-success")
+        $("#messageProductionTemplate").text(text)
+    }
+
+    function messageErrorProductionTemplate ( text ) {
+        $("#messageProductionTemplate").empty()   
+        $("#messageProductionTemplate").removeClass("bg-success")
+        $("#messageProductionTemplate").removeClass("bg-info")
+        $("#messageProductionTemplate").addClass("bg-danger")
+        $("#messageProductionTemplate").text(text)
+    }
+</script>
+
+<script type="text/javascript">
+$('#phasesTemplate').on('hidden.bs.modal', function (e) {
+      $('#phasesTemplate').css('z-index', "");
+      $('.modal-backdrop').css('z-index', 1040);
+      $('body').addClass("modal-open");
+  });
+</script>
+
+<script type="text/javascript">
+function saveEfficiencyPercentage( id, objectId ){
+    var numerEfficiency = $("#"+id+"").val()
+    log(numerEfficiency)
+    log(objectId)
+    $.ajax({
+                type: "POST",
+                url: "/simulation/<%= simulation.id %>/<%= team.id %>/production_line_template/save/efficiency_percentage",
+                data: { 'efficiencyPercentage': numerEfficiency, 'objectId': objectId },
+                success: function(response) {
+                    log(response)
+                    getTemplatesActivated()
+                },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                    messageErrorProductionTemplate(XMLHttpRequest.responseJSON.error)
+                    //setTimeout(function() {
+                     //   $("#messageProductionTemplate").hide()
+                    //},12000);
+                }
+            })
+}
+</script>

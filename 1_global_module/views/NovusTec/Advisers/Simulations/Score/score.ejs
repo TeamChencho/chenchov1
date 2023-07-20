@@ -1,0 +1,34 @@
+<div class="container">
+  <!-- Multiple Radios (inline) -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="simulation_speed"><strong>Score Speed</strong></label>
+    <div class="col-md-12"> 
+      <label class="radio-inline" for="simulation_speed-0">
+        <input type="radio" name="simulation_speed" id="simulation_speed-0" onclick="speedScore(1000000)" checked>
+        1 min
+      </label> 
+      <label class="radio-inline" for="simulation_speed-1">
+        <input type="radio" name="simulation_speed" id="simulation_speed-1" onclick="speedScore(300000)">
+        5 min
+      </label> 
+      <label class="radio-inline" for="simulation_speed-3">
+        <input type="radio" name="simulation_speed" id="simulation_speed-3" onclick="speedScore(600000)">
+        10 min
+      </label>
+      <label class="radio-inline" for="simulation_speed-3">
+        <input type="radio" name="simulation_speed" id="simulation_speed-3" onclick="speedScore(900000)">
+        15 min
+      </label>
+      <label class="radio-inline" for="simulation_speed-3">
+        <input type="radio" name="simulation_speed" id="simulation_speed-3" onclick="speedScore(1800000)">
+        30 min
+      </label>
+      <label class="radio-inline" for="simulation_speed-2">
+        <input type="radio" name="simulation_speed" id="simulation_speed-2" onclick="speedScore(3600000)">
+        60 min
+      </label> 
+    </div>
+  </div>
+  <div class="row" id="cardsScore">
+  </div>
+</div>

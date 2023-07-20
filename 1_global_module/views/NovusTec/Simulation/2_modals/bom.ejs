@@ -1,0 +1,53 @@
+<!-- Modal -->
+<div class="modal fade" id="bomModal" tabindex="-1" role="dialog" aria-labelledby="bomModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clientOrdersModalTitle">BOM</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center bg-info font-weight-bold text-white" style="width:100%;" id="messageLoading"></p>
+        <div class="row" id="component_BOM">
+          <div class="col-3  border border-left-0 border-top-0 border-bottom-0">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <!--<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>-->
+            </div>
+          </div>
+          <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+             <!-- <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"></div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div> 
+
+<div class="modal fade" id="watchVideos" tabindex="-1" role="dialog" aria-labelledby="editVideosLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.7)">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editVideosLabel">Product Family Videos</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+        <div class="modal-body">
+
+          <div id="videos_array" class="pt-3 overflow-auto" style="height: 400px;">
+          </div>
+
+        </div>
+
+      
+    </div>
+  </div>
+</div>

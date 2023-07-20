@@ -1,0 +1,225 @@
+<!-- Topbar -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+  <!-- Sidebar Toggle (Topbar) -->
+  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+    <i class="fa fa-bars"></i>
+  </button>
+  
+  <ul class="navbar-nav ">
+    <!-- Nav Item - Alerts -->
+    <li class="dropdown no-arrow mt-1">
+      <!--<a class="nav-link dropdown-toggle btn btn-primary" href="#" id="alertsDropdownLogs" title="History Team" role="button" onClick="getAllDataSimulationLogs()"-->
+      <button class="btn btn-primary" style="background:#248CC6; border-radius: 5px; color: white; padding: 3px; padding-left: 6px; padding-right: 6px;" href="#" id="alertsDropdownLogs" title="History Team And Simualtion" role="button" onClick="getAllDataSimulationLogs()"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-clipboard-list mr-1"></i>History
+          <!-- Counter - Alerts -->
+          <span class="badge badge-danger badge-counter" id="numberLogs" ></span>
+      </button>
+      <!-- Dropdown - Alerts -->
+      <div class="dropdown-list dropdown-menu dropdown-menu-left shadow animated--grow-in"
+          aria-labelledby="alertsDropdownLogs">
+          <h6 class="dropdown-header">
+            History Team And Simualtion
+          </h6>
+          <div class="text-center bg-info font-weight-bold text-white" id="loadingRowContentTableSimulationLog"> Loading... </div>
+          <div class="row mr-2 ml-2" id="rowContentTableSimulationLog">
+            <div class="table-responsive" style="height: 400px;">
+              <table class="table cell-border pr-2 pl-2" id="tableSimulationLog" width="100%" cellspacing="0" >
+              </table>
+            </div>
+            <button class="btn btn-info btn-block mb-2 mt-2 font-weight-bold " id="btnSeeMoresSimulationLogs">See More</button>
+          </div>
+      </div>
+    </li>
+    <!-- Nav Item - Alerts -->
+    <li class="dropdown no-arrow mt-1">
+      <!--<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" title="Events" role="button" onClick="getAllEventsToStartProcessing()"-->
+      <button class="btn btn-primary" style="background:#248CC6; border-radius: 5px; color: white; padding: 3px; padding-left: 6px; padding-right: 6px; margin-left: 8px; margin-right: 16px;" href="#" id="alertsDropdown" title="Events" role="button" onClick="getAllEventsToStartProcessing()"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-clock mr-1"></i>Events
+          <!-- Counter - Alerts -->
+          <span class="badge badge-danger badge-counter" id="numberEventsTime" ></span>
+      </button>
+      <!-- Dropdown - Alerts -->
+      <div class="dropdown-list dropdown-menu dropdown-menu-left shadow animated--grow-in"
+          aria-labelledby="alertsDropdown">
+          <h6 class="dropdown-header">
+              Events (the following events are in real time)
+          </h6>
+          <div class="text-center bg-info font-weight-bold text-white" id="loadingRowContentTableEventsSimulation"> Loading... </div>
+          <div class="row mr-2 ml-2" id="rowContentTableEventsSimulation">
+            <div class="table-responsive" style="height: 400px;">
+              <table class="table cell-border pr-2 pl-2" id="tableEventsSimulation" width="100%" cellspacing="0">
+              </table>
+            </div>
+          </div>
+          <!--<a class="dropdown-item d-flex align-items-center" href="#">
+              <div class="mr-3">
+                  <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                  </div>
+              </div>
+              <div>
+                  <div class="small text-gray-500">December 12, 2019</div>
+                  <span class="font-weight-bold">A new monthly report is ready to download!</span>
+              </div>
+          </a>
+          <a class="dropdown-item d-flex align-items-center" href="#">
+              <div class="mr-3">
+                  <div class="icon-circle bg-success">
+                      <i class="fas fa-donate text-white"></i>
+                  </div>
+              </div>
+              <div>
+                  <div class="small text-gray-500">December 7, 2019</div>
+                  $290.29 has been deposited into your account!
+              </div>
+          </a>
+          <a class="dropdown-item d-flex align-items-center" href="#">
+              <div class="mr-3">
+                  <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                  </div>
+              </div>
+              <div>
+                  <div class="small text-gray-500">December 2, 2019</div>
+                  Spending Alert: We've noticed unusually high spending for your account.
+              </div>
+          </a>-->
+      </div>
+    </li>
+  </ul>
+
+  <div class="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-search">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <strong style="color:black;"><span id="expiredTime"></span></strong>
+          <div id="statusServer">
+            <div class="ml-2 spinner-border text-info" role="status" id="loadingBadge" style="width:18px; height:18px; ">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+    <div class="row">
+      <div class="col-md-12">
+        <strong style="color:black; margin-left: 8px;"><span id="spanCurrentMoneyTopBar">Current money: $00.00</span></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Topbar Navbar -->
+  <ul class="navbar-nav ml-auto">
+
+    <!-- Nav Item - User Information -->
+    <li class="nav-item">
+      <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal" style="color: rgba(0, 0, 0, 0.5) !important">
+        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+        <span class="d-none d-sm-block">Log Out!</span>
+      </a>
+    </li>
+
+    <!-- <li class="nav-item dropdown no-arrow"> -->
+      <!-- <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+        <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small">Ride Qro</span>-->
+        <!-- <img class="img-profile " src="/assets/images/logo_app_movilidad_rideqro.png" style="width: 5rem"> -->
+      <!-- </a> -->
+      <!-- Dropdown - User Information -->
+      <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown"> -->
+        <!--<a class="dropdown-item" href="#">
+          <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+          Profile
+        </a>
+        <a class="dropdown-item" href="#">
+          <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+          Settings
+        </a>
+        <a class="dropdown-item" href="#">
+          <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+          Activity Log
+        </a>
+        <div class="dropdown-divider"></div>-->
+        <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"> -->
+          <!-- <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> -->
+          <!-- Cerrar Sesión -->
+        <!-- </a> -->
+      <!-- </div> -->
+    <!-- </li> -->
+  </ul>
+</nav>
+<!-- End of Topbar -->
+
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">End Current Session?</h5>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+            X
+          <!--<span aria-hidden="true" style="margin-top: -13px;margin-left: -7px;">&times;</span>-->
+        </button>
+      </div>
+      <div class="modal-body">Select "Log Out" if you are ready to end your actual session</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="/acceso/cerrar_sesion">Log Out</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="moreDataSimulationLogs" tabindex="-1" role="dialog" aria-labelledby="moreDataSimulationLogsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="moreDataSimulationLogsLabel">History </h5>
+        <div class="ml-5">
+          <ul class="nav nav-pills mb-3" id="pills-tabs-simulation-history" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-simulation-History-Team-tab" data-toggle="pill" href="#pills-simulation-History-Team" role="tab" aria-controls="pills-simulation-History-Team" aria-selected="true">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-simulation-History-Simulation-tab" data-toggle="pill" href="#pills-simulation-History-Simulation" role="tab" aria-controls="pills-simulation-History-Simulation" aria-selected="false">Simulation</a>
+            </li>
+          </ul>
+        </div>
+        <button type="button" class="close style_button_close"  data-dismiss="modal" aria-label="Close">
+          X
+          <!--<span aria-hidden="true" style="margin-top: -13px;margin-left: -7px;">&times;</span>-->
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-simulation-History-Team" role="tabpanel" aria-labelledby="pills-simulation-History-Team-tab">
+            <div class="table-responsive" style="height: 600px;">
+              <table class="table cell-border pr-2 pl-2" id="tableMoreTeamLog" width="100%" cellspacing="0" >
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-simulation-History-Simulation" role="tabpanel" aria-labelledby="pills-simulation-History-Simulation-tab">
+            <div class="table-responsive" style="height: 600px;">
+              <table class="table cell-border pr-2 pl-2" id="tableMoreSimulationLog" width="100%" cellspacing="0" >
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>

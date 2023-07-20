@@ -1,0 +1,80 @@
+<!-- Modal -->
+  <div class="modal fade" id="clientOrdersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="clientOrdersModalTitle"></h5>
+          <button type="button" class="close style_button_close mb-0"  data-dismiss="modal" aria-label="Close">
+            X
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div id="clientOrdersModalTableDiv" style="display:none;">
+                
+                <div class="mb-3">
+                  <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="pills-new-orders-tab" data-toggle="pill" href="#pills-new-orders" role="tab" aria-controls="pills-new-orders" aria-selected="true">New Orders</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="pills-team-orders-tab" data-toggle="pill" href="#pills-team-orders" role="tab" aria-controls="pills-team-orders" aria-selected="false">Team Orders</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!--<nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-clients-orders-tab" data-toggle="tab" href="#nav-clients-orders" role="tab" aria-controls="nav-clients-orders" aria-selected="true">New Orders</a>
+                    <a class="nav-item nav-link" id="nav-team-clients-orders-tab" data-toggle="tab" href="#nav-team-clients-orders" role="tab" aria-controls="nav-team-clients-orders" aria-selected="false">Team Orders</a>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-clients-orders" role="tabpanel" aria-labelledby="nav-clients-orders-tab">
+                    <p class="text-center bg-info font-weight-bold text-white">In order to see more orders verify your BOM availability</p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="clientOrdersModalDataTable" width="100%" cellspacing="0">
+                        
+                      </table>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="nav-team-clients-orders" role="tabpanel" aria-labelledby="nav-team-clients-orders-tab">
+                    <table class="table table-bordered" id="clientTeamOrdersModalDataTable" width="100%" cellspacing="0">
+                        
+                      </table>
+                  </div>
+                </div>-->
+
+                <div class="tab-content" id="pills-tabContent">
+                  <!--Content Suppliers-Raw Material-->
+                  <div class="tab-pane fade show active" id="pills-new-orders" role="tabpanel" aria-labelledby="pills-new-orders-tab">
+                    <p class="text-center bg-info font-weight-bold text-white">In order to see more orders verify your BOM availability</p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="clientOrdersModalDataTable" width="100%" cellspacing="0">
+                        
+                      </table>
+                    </div>
+                  </div>
+                  <!--Content Request Raw Material-->
+                  <div class="tab-pane fade" id="pills-team-orders" role="tabpanel" aria-labelledby="pills-team-orders-tab">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="clientTeamOrdersModalDataTable" width="100%" cellspacing="0">
+                          
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+                    
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        </div>
+      </div>
+    </div>
+  </div>

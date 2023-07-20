@@ -1,0 +1,141 @@
+<%- contentFor('head')%>
+<% include ./../css %>
+<style type="text/css">
+body,
+	#game-container {
+		margin: 0;
+		padding: 0;
+	}
+
+	#game-container {
+		min-width: 100vw;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#game-container>canvas {
+		border-radius: 5px;
+	}
+</style>
+
+<%- contentFor('body')%>
+<body>
+	<div id="game-container"></div>
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="portalsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Warp Zone</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+	        	<div class="col-md-12">
+	        		Main Factory
+	        		<hr>
+	        	</div>
+	        	<div class="col-md-12" style="margin-top: 16px;">
+	        		<button id="btnPortalRawMaterialArea" class="btn btn-block btn-primary">Raw Material Area</button>
+	        	</div>
+	        	<div class="col-md-12" style="margin-top: 16px;">
+	        		<button id="btnPortalAssemblyArea" class="btn btn-block btn-primary">Assembly Area</button>
+	        	</div>
+	        	<div class="col-md-12" style="margin-top: 16px;">
+	        		<button id="btnPortalConstructionArea" class="btn btn-block btn-primary">Construction Area</button>
+	        	</div>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="windowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="titleWindowModal"></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+	        	<div class="col-md-12">
+	        		My windows modal
+	        	</div>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script type="text/javascript">
+	let log              = console.log
+	let portalOpened     = false
+	let windowOpened     = false
+
+	let robot            = null
+	let portalGroup      = null //Portals
+	let metalComputer    = null
+	let assemblyComputer = null
+
+	function helloWorld(){
+		log("Hellof World")
+	}
+</script>
+<script src="/games/game10/sceneMain.js"></script>
+<script src="/games/game10/sceneFloorUp.js"></script>
+<script src="/games/game10/sceneFloorMain.js"></script>
+<!--Start Main template scripts -->
+<script src="/games/game10/util/UiBlock.js"></script>
+<script src="/games/game10/util/align.js"></script>
+<script src="/games/game10/util/alignGrid.js"></script>
+<script src="/games/game10/util/TextUtil.js"></script>
+<!--Game Settings-->
+<script src="/games/game10/scene1/GameConfig.js"></script>
+<script src="/games/game10/scene1/Constants.js"></script>
+<script src="/games/game10/scene1/LoadAssets.js"></script>
+<script src="/games/game10/sceneFloorUp/GameConfigFloorUp.js"></script>
+<script src="/games/game10/sceneFloorUp/ConstantsFloorUp.js"></script>
+<script src="/games/game10/sceneFloorUp/LoadAssetsFloorUp.js"></script>
+<script src="/games/game10/sceneFloorMain/GameConfigFloorMain.js"></script>
+<script src="/games/game10/sceneFloorMain/ConstantsFloorMain.js"></script>
+<script src="/games/game10/sceneFloorMain/LoadAssetsFloorMain.js"></script>
+<!--Characters-->
+<script src="/games/game10/globalObjects/BlueRobotPlayer.js"></script>
+<script src="/games/game10/globalObjects/GamePad.js"></script>
+<script src="/games/game10/globalObjects/EventDispatcher.js"></script>
+<script src="/games/game10/scene1/objects/Background.js"></script>
+<script src="/games/game10/scene1/objects/Floor.js"></script>
+<script src="/games/game10/scene1/objects/Factory.js"></script>
+<script src="/games/game10/scene1/objects/Bluerobot.js"></script>
+<script src="/games/game10/scene1/objects/Car.js"></script>
+<script src="/games/game10/scene1/objects/SceneText.js"></script>
+<script src="/games/game10/sceneFloorMain/objects/FactoryBackground.js"></script>
+<script src="/games/game10/sceneFloorMain/objects/FloorFactoryFloorMain.js"></script>
+<script src="/games/game10/sceneFloorMain/objects/PortalGate.js"></script>
+<script src="/games/game10/sceneFloorMain/objects/MetalGroup.js"></script>
+<script src="/games/game10/sceneFloorMain/objects/AssembleGroup.js"></script>
+<script src="/games/game10/sceneFloorMain/objects/ConstructionGroup.js"></script>
+<!--End Main template scripts-->
+<script src="/games/game10/main.js"></script>

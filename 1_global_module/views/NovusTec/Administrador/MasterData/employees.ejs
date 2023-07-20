@@ -1,0 +1,243 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+   <!-- <div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">
+      <div class="card shadow mb-4">
+        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add student</h6>
+        </a>
+        <div class="collapse" id="collapseCardExample">
+          <div class="card-body">
+            <form class="form-horizontal" id="form_agregar">
+              <fieldset>
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <!--<div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">-->
+      <div class="card shadow mb-4">
+        <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Employees</h6>
+        </a>
+
+        <div class="collapse" id="collapseImportar">
+          <div class="m-3">
+            <span class="text-info font-weight-bold">It is recommended to split the employees into different files with different employees, this to upload the employees in different administration departments in the simulation</span>
+          </div>
+          <div class="card-header">
+            <div class="col-md-12">
+              <a href="/templates/PlantillaEmpleados.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal" id="form_importar_employees" action="/administrador/master_data/employees/importar_empleados"  method="POST" enctype="multipart/form-data">
+              <fieldset>
+                <div class="form-group row">
+                  <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+                  <div class="col-md-9">
+                    <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md "  data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="select_salary_tabulator"  class="col-form-label col-md-2 pt-2">Department</label>
+                    <div class="col-md-9">
+                      <select id="select_salary_tabulator" data-live-search="true" name="salaryTabulatorPtr" class="form-control selectpicker" required>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+
+            <button type="button" class="btn btn-primary" hidden disabled id="btn_restablecer_empleyoyes"> Restablecer employees</button>
+          </div>
+        
+      </div>
+   <!-- </div>-->
+  </div>
+</div>
+
+<div class="modal fade" id="editModalEmployees" tabindex="-1" role="dialog" aria-labelledby="editModalEmployeesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalEmployeesLabel">Edit Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_employees">
+        <div class="modal-body">
+          <input type="hidden" id="objectId_employee_editar" name="objectId">
+          <!-- Text input-->
+          <div class="form-group row">
+            <label for="employee_id_empleado_editar" class="col-form-label col-sm-2">Employee ID</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                <input id="employee_id_empleado_editar" name="idEmpleado" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_nombre_editar" class="col-form-label col-sm-2">Name</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+              <input id="employee_nombre_editar" name="nombre" type="text" class="form-control textarea-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_apellido_paterno_editar" class="col-form-label col-sm-2">Last name</label>
+            <div class="col-md-10">
+              <input id="employee_apellido_paterno_editar" name="apellidoPaterno" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_apellido_materno_editar" class="col-form-label col-sm-2">Second Last name</label>
+            <div class="col-md-10">
+              <input id="employee_apellido_materno_editar" name="apellidoMaterno" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_dia_inicio_editar" class="col-form-label col-sm-2">Start day</label>
+            <div class="col-md-10">
+              <input id="employee_dia_inicio_editar" name="diaInicio" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_imss_editar" class="col-form-label col-sm-2">IMSS</label>
+            <div class="col-md-10">
+              <input id="employee_imss_editar" name="imss" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_rfc_editar" class="col-form-label col-sm-2">RFC</label>
+            <div class="col-md-10">
+              <input id="employee_rfc_editar" name="rfc" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_curp_editar" class="col-form-label col-sm-2">Curp</label>
+            <div class="col-md-10">
+              <input id="employee_curp_editar" name="curp" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_estado_civil_editar" class="col-form-label col-sm-2">Civil state</label>
+            <div class="col-md-10">
+              <input id="employee_estado_civil_editar" name="estadoCivil" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_sexo_editar" class="col-form-label col-sm-2">Sex</label>
+            <div class="col-md-10">
+              <input id="employee_sexo_editar" name="sexo" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_calle_editar" class="col-form-label col-sm-2">Street</label>
+            <div class="col-md-10">
+              <input id="employee_calle_editar" name="calle" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_numero_editar" class="col-form-label col-sm-2">Number</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+              <input id="employee_numero_editar" name="numero" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_suburbio_editar" class="col-form-label col-sm-2">Suburb</label>
+            <div class="col-md-10">
+              <input id="employee_suburbio_editar" name="suburbio" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_estado_editar" class="col-form-label col-sm-2">State</label>
+            <div class="col-md-10">
+              <input id="employee_estado_editar" name="estado" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_ciudad_editar" class="col-form-label col-sm-2">City</label>
+            <div class="col-md-10">
+              <input id="employee_ciudad_editar" name="ciudad" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_salario_hora_editar" class="col-form-label col-sm-2">Hour Salary</label>
+            <div class="col-md-10">
+              <input id="employee_salario_hora_editar" name="salarioHora" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_giro_editar" class="col-form-label col-sm-2">Turn</label>
+            <div class="col-md-10">
+              <input id="employee_giro_editar" name="giro" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_email_editar" class="col-form-label col-sm-2">Email</label>
+            <div class="col-md-10">
+              <input id="employee_email_editar" name="email" type="email" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <span id="mensaje_error_telefono_empleado" class="text-danger"></span>
+          <div class="form-group row">
+            <label for="employee_telefono_editar" class="col-form-label col-sm-2">Phone</label>
+            <div class="col-md-10">
+              <input id="employee_telefono_editar" name="telefono" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_trabajo_editar" class="col-form-label col-sm-2">Job</label>
+            <div class="col-md-10">
+              <input id="employee_trabajo_editar" name="trabajo" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employee_fecha_nacimiento_editar" class="col-form-label col-sm-2">Born date</label>
+            <div class="col-md-10">
+              <input id="employee_fecha_nacimiento_editar" name="fechaNacimiento" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

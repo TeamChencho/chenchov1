@@ -1,0 +1,2208 @@
+<script type="text/javascript">
+  var firstEntry = true
+  $.fn.dataTable.ext.search.push(
+      function( settings, data, dataIndex ) {
+          var min = parseInt( $('.sear_quantityRM').val(), 10 );
+          var age = parseFloat( data[13] ) || 0; // use data for the qantity min column
+          if ( isNaN( min ) || age <= min  )
+          {
+              return true;
+          }
+          return false;
+      }
+  );
+
+  $(".tabulator-footer").hide()
+
+  var printIcon = function(cell, formatterParams, onRendered){ //Button delete purchasing cart in Tabulator<
+    return '<i class=" btn btn-danger fas fa-trash-alt text-white" title="Delete All"></i>';
+  }; 
+
+  var warningIcon = function(cell, formatterParams, onRendered){ //Button delete purchasing cart in Tabulator<
+    return '<i class="fa fa-exclamation-circle text-warning" title="Insufficient Founds"></i>';
+  }; 
+
+  var warningIcon2 = function(cell, formatterParams, onRendered){ //Button delete purchasing cart in Tabulator
+    var x = cell.getRow().getData().insufficientFound;
+    //log(x)
+    if ( x == true ){
+      return '<i class="fa fa-exclamation-circle text-warning" title="Insufficient Founds"></i>';
+     }
+    else{ return '' }
+    /*something*/;
+  }; 
+  
+  var deleteIcon = function(cell, formatterParams, onRendered){ //Button delete purchasing cart in Tabulator<
+    return '<i class=" btn btn-danger fas fa-minus-circle text-white" title="Quantity Delete"></i>'; 
+  };
+
+  var shoppingCart = []  
+  var dataAllSupliersRM = []
+  var productFamilyActives = []
+  var suplliersCheap = []
+  var varControll = false
+  var cellWarning = {headerSort:false,formatter: warningIcon2}
+  var cellQuantityDelete = {field:"objectIdPurchasing",width:100,headerSort:false,formatter: deleteIcon, cellClick:function(e, cell){
+          //log(cell.getData())
+          openModalPurchasinCart(cell.getRow().getData().objectIdPurchasing, cell.getRow().getData().totalAmountRM)
+        }
+      }
+    
+
+  var dataPurchasing = new Tabulator("#table_Purchasing_Cart", {
+    height:"350px",
+    data:shoppingCart, 
+    fitColumns:true,
+    placeholder:"Nothing in the purchasing cart",
+    columns:[
+      cellWarning,
+      {title:"Name Raw Material", field:"material", headerSort:true, },
+      {title:"Supplier", field:"supllier", headerSort:true},
+      {title:"Price", field:"price", headerSort:false},
+      {title:"Quantity", field:"totalAmountRM", formatter:"money", formatterParams:{
+          decimal:",",
+          precision:false,
+      },headerSort:false, topCalc:function(values, data, calcParams){
+          var totalProductCart = 0
+            values.forEach(function(value){
+              totalProductCart   +=   parseInt(value)
+            });
+            $("#numberRM").text(new Intl.NumberFormat().format(totalProductCart))
+            $("#numberRM2").text(new Intl.NumberFormat().format(totalProductCart))
+          if(totalProductCart==0){
+            $("#btnWatchPurchasinngCart2").addClass("bg-secondary")
+            $("#btnWatchPurchasinngCart").addClass("bg-secondary")
+            $("#btnWatchPurchasinngCart2").removeClass("bg-primary")
+            $("#btnWatchPurchasinngCart").removeClass("bg-primary")
+          }else{
+            $("#btnWatchPurchasinngCart2").removeClass("bg-secondary")
+            $("#btnWatchPurchasinngCart").removeClass("bg-secondary")
+            $("#btnWatchPurchasinngCart2").addClass("bg-primary")
+            $("#btnWatchPurchasinngCart").addClass("bg-primary")
+          }
+        }
+      },
+      {title:"Total Price", field:"totalCostRM", headerSort:false, topCalc:function(values, data, calcParams){
+          let totalCostRM     =   0
+          values.forEach(function(value){
+            let priceString   =   value.substr( 1, value.length)
+            let price         =   deleteComma(priceString)
+                totalCostRM   +=  parseFloat(price) 
+          });
+          $("#totalCostRawMaterial").text(formatter.format(totalCostRM))
+        }
+      },
+      {title:"Transport", field:"transport", headerSort:false, },
+      {title:"Transport Amount", field:"transportAmount", headerSort:true, formatter:"money", formatterParams:{
+          decimal:",",
+          precision:false,
+      }},
+      {title:"Price Transport", field:"transportPrice", headerSort:false},
+      {title:"% Transport", field:"percentage", headerSort:false},
+      {title:"Total Cost Transport", field:"totalCostTransport", headerSort:false, bottomCalc:"avg", topCalc:function(values, data, calcParams){
+          let totalCostTransport    =   0
+          values.forEach(function(value){
+            let priceString         =   value.substr( 1, value.length)
+            let price               =   deleteComma(priceString)
+                totalCostTransport  +=  parseFloat(price) 
+          });
+          $("#costoTotalTransport").text(formatter.format(totalCostTransport))
+        }
+      },
+      cellQuantityDelete,
+      {title: "", headerSort:false, width:100, formatter: printIcon, cellClick:function(e, cell){
+              shoppingCart            = shoppingCart.filter(shoppingCart => shoppingCart.objectIdPurchasing != cell.getRow().getData().objectIdPurchasing);
+              cell.getRow().delete()
+          let costoTotalTransport     = deleteComma($("#costoTotalTransport").text().substr(1,$("#costoTotalTransport").text().length))
+          let totalCostRawMaterial    = deleteComma($("#totalCostRawMaterial").text().substr(1,$("#totalCostRawMaterial").text().length))
+
+          $("#totalCostPurchasing").text(formatter.format(parseFloat(costoTotalTransport) + parseFloat(totalCostRawMaterial)))
+          var currentMoney = $('#span_money_team_purchasing_raw_material').text()
+          if(parseFloat(costoTotalTransport) + parseFloat(totalCostRawMaterial)<Number(deleteSignsMoney(currentMoney))){
+            for (let i = 0; i < shoppingCart.length; i++) {
+              delete shoppingCart[i]['insufficientFound']
+            }
+            dataPurchasing.setData(shoppingCart);
+            closeMessage('completeProduct')
+            closeMessage('missingProduct')
+          }else{
+            $('#missingProduct').empty()
+            $('#missingProduct').append('<div class="row justify-content-end text-end text-muted font-weight-normal pr-3 small"><label onclick="closeMessage(\'missingProduct\')" style="cursor: pointer;">X</label></div>'
+                                        +'<span class="align-items-center justify-content-center text-center mb-2 row" style="margin-top:-10px;">Insufficient funds</span>')
+            $('#missingProduct').removeAttr("hidden")
+            $('#missingProduct').addClass("text-warning")
+
+            closeMessage('completeProduct')
+          }
+          //addToCart(shoppingCart)
+        }
+      },
+    ],
+  }); 
+</script>
+
+<script type="text/javascript">
+  $("#purchasing_btn").on('click', function(e) {
+    if(simulationStarted && simulationStarted === "STARTED"){
+      windowOpened = true
+      //$('#pills-tab a[href="#pills-suppliers-RM"]').tab('show')
+      $('#pills-tab li:first-child a').tab('show')
+      $("#pills-tab").hide()
+      $("#btn_submit_purchasing").hide()
+      $('#content_purchasing').hide()
+      $("#text_message").hide()
+      $("#text_message_puchasing").hide()
+      $("#purchasingModal").modal("show")
+      messageSave()
+      getComponentsPurchasing()
+    }
+  })
+
+  $('#purchasingModal').on('hidden.bs.modal', function(e) {
+    log("Cerrando")
+    $("#calculatePurchasingOrder").attr('disabled',true)
+    $('#totalCostPurchasing').text(formatter.format(0))
+    shoppingCart = []
+    dataPurchasing.clearData();
+    windowOpened = false
+  })
+
+  $('#pills-status-orders-tab').on('click',function(){
+    getOrdersPending()
+  })
+</script>
+
+<script type="text/javascript">
+  function getComponentsPurchasing() {
+    $.ajax({
+      type: "GET",
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/purchasing/data",
+      success: function(response) {
+        log("response")
+        if(firstEntry){
+            createDefaultSuppliersFisrtEntry(response.data ,response.dataMateriaPtr)
+        }else{
+            if( response.data.length == 0 ){
+                messageErrorLoading()
+            }else{
+                suplliersCheap = getCheap(response.data, response.dataMateriaPtr,false)
+                createComponentsPurchasing(response.data, response.dataMateriaPtr)
+                reloadTableRequestRM(response.data ,response.dataMateriaPtr)
+                reloadSeleckpiker(response.dataMateriaPtr)
+                if(response.money == undefined || Number( response.money ) <= 0){
+                    $("#span_money_team_purchasing_raw_material").text( formatter.format( 0 ) )
+                    $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(0))
+                }else{
+                    $("#span_money_team_purchasing_raw_material").text( formatter.format( response.money ) )
+                    $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format( response.money ))
+                }
+            }
+            $("#pills-tab").show()
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        messageErrorLoading()
+        log(textStatus)
+      }
+    })
+  }
+
+  function createDefaultSuppliersFisrtEntry (data ,dataMateriaPtr){
+    
+    var dataSupliersRMCheapFisrtEntry = getCheap(data,dataMateriaPtr,false)
+    var objectIdSupliersSimualtionTeam = []
+    for (let i = 0; i < dataSupliersRMCheapFisrtEntry.length; i++) {
+      objectIdSupliersSimualtionTeam.push(dataSupliersRMCheapFisrtEntry[i]['objectId'])
+    }
+    $.ajax({
+      type: "POST",
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/purchasing/save_default_suppliers_first_entry",
+      data: {objectIdSupliersSimualtionTeam},
+      success : function( response ) {
+        //log(response)
+        firstEntry = false
+        getComponentsPurchasing()
+      },error: function(XMLHttpRequest, textStatus, errorThrown) {
+        messageErrorLoading()
+        log(textStatus)
+      }
+    })
+
+  }
+</script>
+
+<script type="text/javascript">
+  function createComponentsPurchasing(purchasing, dataMateriaPtr) {
+    var selectCheck = false
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    })
+
+    log("recargando tabla")
+    if ($.fn.DataTable.isDataTable("#PurchasinDataTable")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#PurchasinDataTable").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#PurchasinDataTable').empty();
+    }
+
+    var thead = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+    thead += '<tr>'
+    thead += '<th>Raws Materials</th>'
+    thead += '<th>Suppliers</th>'
+    thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+    tfooter += '<tr>'
+    tfooter += '<th>Raws Materials</th>'
+    tfooter += '<th>Suppliers</th>'
+    tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#PurchasinDataTable').append(thead);
+    $('#PurchasinDataTable').append(tfooter);
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $('#PurchasinDataTable').dataTable({
+      processing: true,
+      lengthMenu: [100, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: dataMateriaPtr,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            return data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+
+            const provedoresDuplicados = purchasing.filter((dato) => {
+              return dato["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] == data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"]
+            })
+
+            var   noDuplicados            = []
+            const noDuplicadoDefaultTrue  = provedoresDuplicados.filter(dato => dato["default"] == true )
+            var   noDuplicadoDefaultFalse = provedoresDuplicados.filter(dato => dato["default"] == false )
+                  noDuplicadoDefaultFalse = noDuplicadoDefaultFalse.reduce((acc, current) => {
+                                              const x = acc.find(item => item["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["objectId"] === current["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["objectId"]);
+                                              if (!x) {
+                                                return acc.concat([current]);
+                                              } else {
+                                                return acc;
+                                              }
+                                            }, []);
+
+            for (var i = 0; i < noDuplicadoDefaultFalse.length; i++){
+              var noExiste =  noDuplicadoDefaultTrue.filter(function (dato) { 
+                                return dato["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["objectId"] == noDuplicadoDefaultFalse[i]["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["objectId"]; 
+                              })
+              if (noExiste.length== 0){
+                 noDuplicados.push(noDuplicadoDefaultFalse[i])
+               }
+            }
+
+            for (var i= 0;i<noDuplicadoDefaultTrue.length; i++){
+              noDuplicados.push(noDuplicadoDefaultTrue[i])
+            }
+
+            var content = ''
+            content += '<div class="col-md-14">'
+              content += '<div class="row container">'
+                content += '<div class="col-5 font-weight-bold">'
+                  content += 'Supplier'
+                content += '</div>'
+                content += '<div class="col-2 font-weight-bold">'
+                  content += 'Cost'
+                content += '</div>'
+                content += '<div class="col-2 font-weight-bold">'
+                  content += 'Minimum quantity'
+                content += '</div>' 
+                content += '<div class="col-3 font-weight-bold">'
+                  content += 'Transport'
+                content += '</div>'
+              content += '</div>  '
+              content += '<div class="row container form-group" id="contet-RadioButtons">'
+                for (var i = 0; i < noDuplicados.length; i++) {
+                  content += '<div class="col-5">'
+                    content += '<div class="form-check">'
+                      if (noDuplicados[i]["default"] === true) {
+                        selectCheck = true
+                        content += '<input class="form-check-input" type="radio" required checked name="' + data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] + '" id="gridRadios_' + data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] + '" value="' + noDuplicados[i]["provedorMateriaPrimaSDMPtr"]["objectId"] + '">'
+                      } else {
+                        content += '<input class="form-check-input" type="radio" required name="' + data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] + '" id="gridRadios_' + data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] + '" value="' + noDuplicados[i]["provedorMateriaPrimaSDMPtr"]["objectId"]+ '">'
+                      }
+                      content += '<label class="form-check-label" for="gridRadios_' + data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] + '">'
+                      content += noDuplicados[i]["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["nombre"]
+                      content += '</label>'
+                    content += '</div>'
+                  content += '</div>'
+                  content += '<div class="col-2 align-items-center text-center">'
+                    content += '<div class="form-group">'
+                      content += '<p>' + formatter.format(noDuplicados[i]["provedorMateriaPrimaSDMPtr"]["costo"]) + '</p>'
+                    content += '</div>'
+                  content += '</div>'
+                  content += '<div class="col-2 align-items-center text-center">'
+                    content += '<div class="form-group">'
+                      content += '<p>' + noDuplicados[i]["provedorMateriaPrimaSDMPtr"]["cantidadMinima"] + '</p>'
+                    content += '</div>'
+                  content += '</div>'
+                  content += '<div class="col-3 align-items-center text-center">'
+                    content += '<div class="form-group">'
+                      content += '<select name="transprote" class="form-control ">'
+                        //trasports options
+                        for (var j = 0; j < provedoresDuplicados.length; j++){
+                          if(provedoresDuplicados[j]["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["objectId"]===noDuplicados[i]["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["objectId"]){
+                            if(provedoresDuplicados[j]["default"] == true){
+                              content += '<option name="transprote" value="'+provedoresDuplicados[j]["transporteSDMPtr"]["objectId"]+'" selected="selected"><p>'+provedoresDuplicados[j]["transporteSDMPtr"]["tipoEnvio"]+' - Delivery days '+provedoresDuplicados[j]["transporteSDMPtr"]["diasEntrega"]+', '+formatter.format(provedoresDuplicados[j]["transporteSDMPtr"]["precio"])+' </p></option>'
+                            }else{
+                              content += '<option name="transprote" value="'+provedoresDuplicados[j]["transporteSDMPtr"]["objectId"]+'"><p>'+provedoresDuplicados[j]["transporteSDMPtr"]["tipoEnvio"]+' - Delivery days '+provedoresDuplicados[j]["transporteSDMPtr"]["diasEntrega"]+', '+formatter.format(provedoresDuplicados[j]["transporteSDMPtr"]["precio"])+' </p></option>'
+                            }
+                          }
+                        }
+                      content += '</select>'  
+                    content += '</div>'
+                  content += '</div>'
+                }
+              content += '</div>'
+            content += '</div>'
+            return content
+          }
+        }
+
+      ]
+    });
+
+    $("#btn_submit_purchasing").show()
+    $('#content_purchasing').show()
+
+    //$("#PurchasinDataTable").css("display", "block")
+    $("#text_message").hide()
+    if(selectCheck==true){
+      $("#text_message").show()
+      message2Save()
+    }
+
+  }
+</script>
+
+<script type="text/javascript">
+  $("#form_purchasing").submit(function(event) {
+    event.preventDefault();
+    $("#text_message").show()
+    menssageWait()
+
+    var posicion = $("#text_message").offset().top;
+    $("html, #purchasingModal").animate({
+        scrollTop: posicion
+    }, 100); 
+
+    $.ajax({
+      type: "POST",
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/purchasing/save",
+      data: $(this).serialize()+'&messageLogs=Save default raw material suppliers',
+      success: function(response) {
+        log("response")
+        message2Save()
+        //$("#text_message").hide()
+
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        messageError()
+        log(textStatus)
+      }
+    })
+  })
+</script>
+
+<script type="text/javascript">
+  function menssageWait() {
+    $("#text_message").removeClass("bg-success")
+    $("#text_message").removeClass("bg-danger")
+    $("#text_message").removeClass("bg-info")
+    $("#text_message").empty()
+    $("#text_message").addClass("bg-warning")
+    $("#text_message").text("* Saving the information wait ...")
+  }
+
+  function message2Save() {
+    $("#text_message").show()
+    $("#text_message").removeClass("bg-warning")
+    $("#text_message").removeClass("bg-danger")
+    $("#text_message").removeClass("bg-info")
+    $("#text_message").empty()
+    $("#text_message").addClass("bg-success")
+    $("#text_message").text("* Saved data, you can make use of it")
+  }
+
+  function messageError() {
+    $("#text_message").removeClass("bg-warning")
+    $("#text_message").removeClass("bg-success")
+    $("#text_message").removeClass("bg-info")
+    $("#text_message").empty()
+    $("#text_message").addClass("bg-danger")
+    $("#text_message").text("* Sorry there was a problem, please try again")
+  }
+
+  function messageSave() {
+    $("#text_message").show()
+    $("#text_message").removeClass("bg-warning")
+    $("#text_message").removeClass("bg-danger")
+    $("#text_message").removeClass("bg-success")
+    $("#text_message").empty()
+    $("#text_message").addClass("bg-info")
+    $("#text_message").text("Loading...")
+  }
+  
+  function messageErrorLoading() {
+    $("#text_message").removeClass("bg-warning")
+    $("#text_message").removeClass("bg-success")
+    $("#text_message").removeClass("bg-info")
+    $("#text_message").empty()
+    $("#text_message").addClass("bg-danger")
+    $("#text_message").text("*Sorry, there are no transports affiliated with raw materials, please contact the  Adviser")
+  }
+</script>
+
+<script type="text/javascript">
+  function reloadTableRequestRM(data, obstractRawMaterial ){
+    var dataSupliersRMCheap = getCheap(data,obstractRawMaterial,true)
+    dataAllSupliersRM = data
+    log("Reload table dataTableRequestRM")
+    if ($.fn.DataTable.isDataTable("#dataTableRequestRM")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTableRequestRM").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTableRequestRM').empty();
+    }
+
+    var thead   = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Raw Material</th>'
+        thead += '<th>Suppliers</th>'
+        thead += '<th>Price</th>'
+        //thead += '<th>Price percentage</th>'
+        thead += '<th>Total amount</th>'
+        thead += '<th>Total cost</th>'
+        //thead += '<th>Quantity Max</th>'
+        thead += '<th>Transport</th>'
+        thead += '<th>Days</th>'
+        thead += '<th>Transport price</th>'
+        thead += '<th>Percentage</th>'
+        thead += '<th>Transport Amount</th>'
+        thead += '<th>Transport total costo</th>'
+        thead += '<th>Purchase quantity</th>'
+        thead += '<th>Action</th>'
+        thead += '<th>Quantity min raw material</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Raw Material</th>'
+        tfooter += '<th>Suppliers</th>'
+        tfooter += '<th>Price</th>'
+        //tfooter += '<th>Price percentage</th>'
+        tfooter += '<th>Total amount</th>'
+        tfooter += '<th>Total cost</th>'
+        //tfooter += '<th>Quantity Max</th>'
+        tfooter += '<th>Transport</th>'
+        tfooter += '<th>Days</th>'
+        tfooter += '<th>Transport price</th>'
+        tfooter += '<th>Percentage</th>'
+        tfooter += '<th>Transport Amount</th>'
+        tfooter += '<th>Transport total costo</th>'
+        tfooter += '<th>Purchase quantity</th>'
+        tfooter += '<th>Action</th>'
+        tfooter += '<th>Quantity min raw material</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTableRequestRM').append(thead)
+    $('#dataTableRequestRM').append(tfooter)
+
+    $.fn.dataTable.moment('DD-MM-YYYY')
+    var numerUno = 0
+    var table = $('#dataTableRequestRM').DataTable({
+      "searching": true,
+      "dom": 'lrtip',
+      "fnRowCallback": function( nRow, data, iDisplayIndex, iDisplayIndexFull ) {
+
+        var found = dataSupliersRMCheap.find(function(element){
+                      return element["objectId"] == data["objectId"]
+                    })
+
+        if ( data["default"] == true )
+        {
+          $('td', nRow).css('background-color', '#ffdf00')
+          $('td', nRow).css('color', '#000000')
+        }
+
+        if(found != undefined ){
+          $('td', nRow).css('background-color', '#BBD2EC')
+          $('td', nRow).css('color', '#000000')
+        }
+      },
+      processing: true,
+      lengthMenu: [1000,100, 75, 25],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: data,
+      columns: [{
+          data: null,
+          render: function(data, type, row) {
+            return data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return formatter.format(data["provedorMateriaPrimaSDMPtr"]["costo"])
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return '<span id="rm_total_amount_'+data["objectId"]+'">'+new Intl.NumberFormat().format( data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"] )+'</span>'//data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return '<span id="total_cost_prodcut'+data["objectId"] + '">'+formatter.format( parseInt(data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]) * parseInt(data["provedorMateriaPrimaSDMPtr"]["costo"]) )+'</span>'
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["transporteSDMPtr"]["tipoEnvio"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["transporteSDMPtr"]["diasEntrega"]+" Day(s)"
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return formatter.format(data["transporteSDMPtr"]["precio"])
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["transporteSDMPtr"]["porcentajePrecio"]+"%"
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            let existMond             = parseInt(data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]) % parseInt(data["transporteSDMPtr"]["cantidadMax"])
+            let totalAmountTransport  = parseInt(data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]) / parseInt(data["transporteSDMPtr"]["cantidadMax"])
+
+            if(existMond != 0){totalAmountTransport += 1}  
+            return '<span id="total_amount_transport'+data["objectId"] + '">'+Math.trunc(totalAmountTransport)+'</span>'
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row, index) {
+            let existMond             = parseInt(data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]) % parseInt(data["transporteSDMPtr"]["cantidadMax"])
+            let totalAmountTransport  = parseInt(data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]) / parseInt(data["transporteSDMPtr"]["cantidadMax"])
+
+            if(existMond != 0){totalAmountTransport += 1} 
+
+            let iva         = ( ( parseInt(data["transporteSDMPtr"]["precio"]) * parseInt( data["transporteSDMPtr"]["porcentajePrecio"] ) ) / 100)
+            let costoTotal  = ( parseInt( data["transporteSDMPtr"]["precio"] ) + iva ) * Math.trunc( totalAmountTransport )
+
+            return '<span id="total_cost_transport'+data["objectId"] + '">'+formatter.format(costoTotal)+'</span>'
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row, index) {
+            return '<input type="number" class="catidadComprar form-control" aria-describedby="inputGroupPrepend" id="input_purchasing_cart'+data["objectId"]+'" min="'+data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]+'" value="'+new Intl.NumberFormat().format( data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"] )+'" required>'
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            //let json = JSON.stringify(data).replace(/\"/g,"&quot;")
+            return '<button type="button" class="addTaCart btn btn-primary font-weight-bold" data-toggle="tooltip" data-placement="bottom" title="Add to cart"> <i class="fas fa-cart-plus"></i></button>'
+            //return '<button type="button" class="addTaCart btn btn-primary font-weight-bold" data-toggle="tooltip" onclick="addToCart('+json+')" data-placement="bottom" title="Add to cart"> <i class="fas fa-cart-plus"></i></button>'
+          }
+        },
+        { "visible": false ,
+          data: null,
+          render: function(data, type, row) {
+            return data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]
+          }
+        }
+      ]
+    })
+
+    $('.searchInfo').on( 'click', function () {
+        //table.columns( 0 ).search( $(".selectpicker").val() ).columns( 13 ).search( $(".sear_quantityRM").val(), true, false ).draw(false)
+        table.columns( 0 ).search( $("#name_Raw_Material").val() ).draw()
+
+        table.rows({"search":"applied" }).every( function () {
+            var data = this.data();
+            $("#input_purchasing_cart"+data["objectId"]).val($('.sear_quantityRM').val())
+            $('#input_purchasing_cart'+data["objectId"]).trigger("change");
+        });
+      
+    } );
+
+    $( "#dataTableRequestRM tbody" ).on( "change keydown keypress keyup", "input", function (evnt,index) {
+      $('#completeProduct').attr("hidden",true)
+      $('#missingProduct').attr("hidden",true)
+      $(this).val($(this).val().replace(/[^0-9]/g, ''));
+      if( $(this).val() != '' ){
+        var data                  = table.row($(this).parents('tr')).data();
+        var quantityProduct       = $(this).val();
+        var totalCostTransport    = 0
+        var totalCostRawMaterial  = 0
+        var iva                   = 0 
+        var priceTransport        = 0
+        var costTotalTransport    = 0
+        var totalAmountTransport  = 0
+
+        $(this).parents("tr").children("td").each(function(i) {
+          switch (i) { 
+            case 2:
+              let priceProductoWithCommas     =   $(this).text().substr( 1, ( $(this).text().length))
+              let priceProduct                =   deleteComma(priceProductoWithCommas)
+                  totalCostRawMaterial        =   parseInt(priceProduct) * parseInt(quantityProduct)
+              break;
+            case 7:
+              let priceTransportWithCommas    =   $(this).text().substr( 1, ( $(this).text().length))
+                  priceTransport              =   parseInt(deleteComma(priceTransportWithCommas))              
+              break;
+            case 8:
+              let ivaWithoutPorcentaje        =   $(this).text().substr( 0, ( $(this).text().length - 1 ))
+                  iva                         =   ( ( priceTransport * parseInt( ivaWithoutPorcentaje ) ) / 100)
+              break;
+            case 10:
+                  existMond                   =   parseInt(quantityProduct) % parseInt(data["transporteSDMPtr"]["cantidadMax"])
+                  totalAmountTransport        =   parseInt(quantityProduct) / parseInt(data["transporteSDMPtr"]["cantidadMax"])
+
+                  if(existMond != 0){totalAmountTransport += 1}
+                  costTotalTransport          =   ( priceTransport + iva ) * Math.trunc(totalAmountTransport)
+              break;
+          }
+        })
+        //var name = $(this).prop("name");
+        //table.row($(this).parents('tr')).cell(parseInt(name),10).data(totalCost).draw();
+        $('#total_cost_prodcut'+data["objectId"]).text(formatter.format(totalCostRawMaterial))
+        $('#total_cost_transport'+data["objectId"]).text(formatter.format(costTotalTransport))
+        $('#total_amount_transport'+data["objectId"]).text(new Intl.NumberFormat().format( Math.trunc(totalAmountTransport)  ))
+        $('#rm_total_amount_'+data["objectId"]).text(new Intl.NumberFormat().format( quantityProduct ))
+      }
+    });
+
+    $( "#dataTableRequestRM tbody" ).on( "click", "button.addTaCart", function () {
+      //cellWarning = {headerSort:false}
+      $('#completeProduct').attr("hidden",true)
+      $('#missingProduct').attr("hidden",true)
+      var data      = table.row($(this).parents('tr')).data();
+      var found     = false
+      var inputVal  = $('#input_purchasing_cart'+data["objectId"]).val()
+      var idTableRMCart = ''
+      if( parseInt(inputVal) >=  parseInt(data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]) ){
+
+          var rawMaterialFoundInCart  = shoppingCart.filter(function(current){
+            return current["objectIdPurchasing"] == data["objectId"]
+          })
+
+          if(rawMaterialFoundInCart.length == 0){
+            /*shoppingCart.forEach(element => {
+              if( data["objectId"] == element["objectIdPurchasing"] ){
+                //found = true
+                $(this).parents("tr").children("td").each(function(i) {
+                  switch (i) { 
+                    case 3:
+                        element["totalAmountRM"]        = parseInt($(this).text()) + parseInt(element["totalAmountRM"])
+                      break;
+                    case 4:  
+                        element["totalCostRM"]          = formatter.format(String( parseFloat(data["provedorMateriaPrimaSDMPtr"]["costo"]) * parseFloat(element["totalAmountRM"]) ) )          
+                      break;
+                    case 9:                
+                        existMond                       = parseInt(element["totalAmountRM"]) % parseInt(data["transporteSDMPtr"]["cantidadMax"])
+                        totalAmountTransport            = parseInt(element["totalAmountRM"]) / parseInt(data["transporteSDMPtr"]["cantidadMax"])
+
+                        if( existMond != 0  ){  totalAmountTransport += 1 }    
+                        element["transportAmount"]      = Math.trunc(  totalAmountTransport  )
+                      break;
+                    case 10:
+                      let priceTransportWithCommas      = element["transportPrice"].substr( 1, ( element["transportPrice"].length ))
+                          priceTransport                = parseInt(deleteComma(priceTransportWithCommas))
+
+                      let ivaWithoutPorcentaje          = element["percentage"].substr( 0, ( element["percentage"].length - 1 ))
+                          iva                           = ( ( priceTransport * parseInt( ivaWithoutPorcentaje ) ) / 100)
+        
+                          element["totalCostTransport"] = formatter.format(( priceTransport + iva ) * parseInt(element["transportAmount"]))
+                      break;
+                  }
+                })
+                          
+                return true
+              }
+            })*/
+
+            let totalAmountRM = ''
+            let totalCostRM = ''
+            let transport = ''
+            let transportAmount = ''
+            let transportPrice = ''
+            let percentage = ''
+            let totalCostTransport = ''
+
+            $(this).parents("tr").children("td").each(function(i) {
+              switch (i) { 
+                case 3:
+                  totalAmountRM        = removeCommas($(this).text())
+                  break;
+                case 4:  
+                  totalCostRM         = $(this).text()
+                  break;
+                case 5:
+                  transport           = $(this).text()
+                  break;
+                case 7:
+                  transportPrice      = $(this).text()
+                  break;
+                case 8: 
+                  percentage          = $(this).text() 
+                  break;
+                case 9:
+                  transportAmount     = removeCommas($(this).text())
+                  break;
+                case 10:
+                  totalCostTransport  = $(this).text()
+                  break;
+              }
+            })
+            var object =  {
+                            objectIdPurchasing  : data["objectId"],
+                            objectIdTransport   : data["transporteSDMPtr"]["objectId"],
+                            objectIdProveedor   : data["provedorMateriaPrimaSDMPtr"]["proveedorPtr"],
+                            deliveryDays        : data["transporteSDMPtr"]["diasEntrega"],
+                            typeTransport       : data["transporteSDMPtr"]["tipoEnvio"],
+                            material            : data["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["nombre"],
+                            supllier            : data["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["nombre"],
+                            price               : formatter.format(data["provedorMateriaPrimaSDMPtr"]["costo"]),
+                            totalAmountRM       : totalAmountRM,
+                            totalCostRM         : totalCostRM,
+                            transport           : transport,
+                            transportAmount     : transportAmount,
+                            transportPrice      : transportPrice,
+                            percentage          : percentage,
+                            totalCostTransport  : totalCostTransport,
+                          }
+            
+
+            var currentMoney = $('#span_money_team_purchasing_raw_material').text()
+            var totalPurchasing = $('#totalCostPurchasing').text()
+            currentMoney = Number(deleteSignsMoney (currentMoney))
+            totalPurchasing = deleteSignsMoney (totalPurchasing)
+           // log(totalPurchasing,totalCostRM,totalCostTransport)
+            totalPurchasing = Number(totalPurchasing)+(Number(deleteSignsMoney(totalCostRM))+Number(deleteSignsMoney(totalCostTransport)))
+            //log(totalPurchasing,currentMoney)
+            if(totalPurchasing > currentMoney){
+              object.insufficientFound = true
+              $('#missingProduct').empty()
+              $('#missingProduct').append('<div class="row justify-content-end text-end text-muted font-weight-normal pr-3 small"><label onclick="closeMessage(\'missingProduct\')" style="cursor: pointer;">X</label></div>'
+                                          +'<span class="align-items-center justify-content-center text-center mb-2 row" style="margin-top:-10px;">Insufficient funds</span>')
+              $('#missingProduct').removeAttr("hidden")
+              $('#missingProduct').addClass("text-warning")
+
+              closeMessage('completeProduct')
+            }else{
+              delete object['insufficientFound']
+            }
+
+            shoppingCart.push(object)
+            addToCart(shoppingCart)
+              
+          }else{
+            Swal.fire({
+                title: 'Sorry!',
+                text:'This raw material already exists in the cart, do you want to add more raw material?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Ok'
+            }).then((result)=>{
+                if(result.isConfirmed){
+                    //$("#input_purchasing_cart"+data["objectId"]).val(data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"])
+                    var CTTempo = 0
+                    var CRMTempo = 0
+                    shoppingCart.forEach(element => {
+                        if( data["objectId"] == element["objectIdPurchasing"] ){
+                          //found = true
+                          idTableRMCart = element["objectIdPurchasing"]
+                          $(this).parents("tr").children("td").each(function(i) {
+                            switch (i) { 
+                              case 3:
+                                  element["totalAmountRM"]        = parseInt(removeCommas($(this).text())) + parseInt(element["totalAmountRM"])
+                                break;
+                              case 4:  
+                                  CRMTempo = element["totalCostRM"] 
+                                  element["totalCostRM"]          = formatter.format(String( parseFloat(data["provedorMateriaPrimaSDMPtr"]["costo"]) * parseFloat(element["totalAmountRM"]) ) )     
+                                break;
+                              case 9:                
+                                  existMond                       = parseInt(element["totalAmountRM"]) % parseInt(data["transporteSDMPtr"]["cantidadMax"])
+                                  totalAmountTransport            = parseInt(element["totalAmountRM"]) / parseInt(data["transporteSDMPtr"]["cantidadMax"])
+
+                                  if( existMond != 0  ){  totalAmountTransport += 1 }    
+                                  element["transportAmount"]      = Math.trunc(  totalAmountTransport  )
+                                break;
+                              case 10:
+                                let priceTransportWithCommas      = element["transportPrice"].substr( 1, ( element["transportPrice"].length ))
+                                    priceTransport                = parseInt(deleteComma(priceTransportWithCommas))
+
+                                let ivaWithoutPorcentaje          = element["percentage"].substr( 0, ( element["percentage"].length - 1 ))
+                                    iva                           = ( ( priceTransport * parseInt( ivaWithoutPorcentaje ) ) / 100)
+                
+                                    CTTempo = element["totalCostTransport"]
+                                    element["totalCostTransport"] = formatter.format(( priceTransport + iva ) * parseInt(element["transportAmount"]))
+                                break;
+                            }
+                          })
+                                    
+                          return true
+                        }
+                    })
+
+                    //log(shoppingCart)
+                    var founData = shoppingCart.find(function (current){
+                      return current["objectIdPurchasing"] == idTableRMCart
+                    })
+                    //log(founData)
+                    if(founData){
+
+                      var currentMoney = $('#span_money_team_purchasing_raw_material').text()
+                      var totalPurchasing = $('#totalCostPurchasing').text()
+                      var totalTempo = Number(deleteSignsMoney (CTTempo))+Number(deleteSignsMoney (CRMTempo))
+                      
+                      currentMoney = Number(deleteSignsMoney (currentMoney))
+                      totalPurchasing = deleteSignsMoney (totalPurchasing)
+
+                      //log(totalPurchasing,founData['totalCostRM'],founData['totalCostTransport'])
+                      totalPurchasing = (Number(totalPurchasing)-Number(totalTempo))+(Number(deleteSignsMoney(founData['totalCostRM']))+Number(deleteSignsMoney(founData['totalCostTransport'])))
+                      //log(totalPurchasing,currentMoney)
+
+                      if(totalPurchasing > currentMoney){
+                        for (let i = 0; i < shoppingCart.length; i++) {
+                          if(shoppingCart[i]['objectIdPurchasing'] == founData['objectIdPurchasing']){
+                            shoppingCart[i].insufficientFound = true
+                            break
+                          }
+                        }
+                        $('#missingProduct').empty()
+                        $('#missingProduct').append('<div class="row justify-content-end text-end text-muted font-weight-normal pr-3 small"><label onclick="closeMessage(\'missingProduct\')" style="cursor: pointer;">X</label></div>'
+                                                    +'<span class="align-items-center justify-content-center text-center mb-2 row"  style="margin-top:-10px;">Insufficient funds</span>')
+                        $('#missingProduct').removeAttr("hidden")
+                        $('#missingProduct').addClass("text-warning")
+
+                        closeMessage('completeProduct')
+                      }else{
+                        for (let i = 0; i < shoppingCart.length; i++) {
+                          if(shoppingCart[i]['objectIdPurchasing'] == founData['objectIdPurchasing']){
+                            delete shoppingCart[i]['insufficientFound']
+                            break
+                          }
+                        }
+                      }
+                    }
+
+
+                    addToCart(shoppingCart)
+                }
+            })
+          }
+
+      }else{
+        Swal.fire(
+            "We're sorry!",
+            'It cannot be added to the shopping cart, it needs more raw material, since the supplier has a minimum purchase of '+data["provedorMateriaPrimaSDMPtr"]["cantidadMinima"],
+            'warning'
+          )
+      }
+
+    } )
+
+    $("#calculatePurchasingOrder").removeAttr('disabled')
+
+  }
+
+  function deleteComma(data){
+    var dataWithoutComma   = ''
+    for ( var i  = 0 ; i <  data.length;  i++ ){
+      if( data[i] != "," ){
+        dataWithoutComma  += data[i] 
+      }
+    }
+    return dataWithoutComma
+  }
+
+  function reloadSeleckpiker(data){
+    var option=''
+    option += '<option value=""></option>'
+    for (var i=0; i<data.length; i++){
+      option += '<option value="'+data[i]["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["nombre"]+'">'+data[i]["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["nombre"]+'</option>'
+    }
+    $('#name_Raw_Material').html(option).selectpicker('refresh');
+  }
+  
+  $("#create_order_purchasing").on('click', function(e) {
+    Swal.fire({
+      title: 'Purchase order!',
+      text:'Are you sure you want to make this product purchase?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'To Purchase',
+      icon: 'warning',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let spanMoney           = $("#span_money_team_purchasing_raw_material").text()
+        var currentMoney        = parseFloat( deleteCommaCostoFixedAsset( spanMoney.substr( 1, spanMoney.length ) ) )
+        let labelCostTotal      = $("#totalCostPurchasing").text()
+        var currentCostTotal    = parseFloat( deleteCommaCostoFixedAsset( labelCostTotal.substr( 1, labelCostTotal.length ) ) )  
+        let dataFinancialLog    = crarObjectFinacialLog( currentCostTotal, currentMoney, currentMoney - currentCostTotal, 'EXPENSE', 'PURCHASING RAW MATERIAL'  ) 
+        if(currentCostTotal < currentMoney){
+          if(shoppingCart.length != 0){
+            messageLoadingPurchasing()
+            $.ajax({
+              type: "POST",
+              url: "/simulation/<%= simulation.id %>/<%= team.id %>/order_purchasing/save",
+              data: {"json":shoppingCart, "totalCost" : currentCostTotal, "dataFinancialLog" : dataFinancialLog, messageLogs:'Made a purchase order for '+$('#numberRM').text()+' material(s) for '+formatter.format(currentCostTotal)+' of raw material with folio number - '+$("#folioNumber").text()},
+              dataType: "json",
+              success: function(response) {
+                $("#folioNumber").text(foliFormat(response.folioNumber))
+                if( response.money == undefined || Number( response.money ) <= 0){
+                      $("#span_money_team_purchasing_raw_material").text(formatter.format(0))
+                      $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(0))
+                  }else{
+                      $("#span_money_team_purchasing_raw_material").text(formatter.format(response.money))
+                      $('#spanCurrentMoneyTopBar').text( 'Current money : ' + formatter.format(response.money))
+                  }
+                
+                log("response")
+                Swal.fire(
+                  "Success!",
+                  'The order has been sent successfully',
+                  'success'
+                )
+                shoppingCart = []
+                dataPurchasing.clearData();
+                $("#totalCostPurchasing").text(formatter.format(0))
+                messagePurchasing()
+                setTimeout(closeMessagePurchasing,6000);
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+                log(textStatus)
+                $("#text_message").hide()
+                Swal.fire(
+                  "We're sorry!",
+                  'Some problem happened, try again',
+                  'warning'
+                )
+              }
+            })
+          }else{
+            Swal.fire(
+                  "We're sorry!",
+                  'The order cannot be created as there is nothing in the purchasing cart',
+                  'error'
+                )
+          }
+        }else{
+            Swal.fire(
+                    "We're sorry!",
+                    'Money is not enough to buy',
+                    'warning'
+                )
+        }
+      } 
+    })
+  
+  })
+
+  $('#delete_order_purchasing').on('click',function(e){
+    Swal.fire({
+                  title: 'Delete!',
+                  text:'Are you sure you want to delete all content from the purchasing cart?',
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes',
+                  icon: 'warning',
+              }).then((result)=>{
+                  if(result.isConfirmed){
+                    shoppingCart = []
+                    dataPurchasing.clearData();
+                    $('#totalCostPurchasing').text(formatter.format(0))
+                  }
+                })
+  })
+
+</script>
+
+<script type="text/javascript">
+  function addToCart( shoppingCart ) {
+    //var columns = reloadTablePurchasinCartRM() 
+    dataPurchasing.clearData();
+    //dataPurchasing.setColumns(columns);
+    dataPurchasing.addRow(shoppingCart);
+
+    let costoTotalTransport   = deleteComma($("#costoTotalTransport").text().substr(1,$("#costoTotalTransport").text().length))
+    let totalCostRawMaterial  = deleteComma($("#totalCostRawMaterial").text().substr(1,$("#totalCostRawMaterial").text().length))
+
+    $("#totalCostPurchasing").text(formatter.format(parseFloat(costoTotalTransport) + parseFloat(totalCostRawMaterial)))
+  }
+
+  function reloadTablePurchasinCartRM(){
+    return [
+        cellWarning,
+        {title:"Name Raw Material", field:"material", headerSort:true, },
+        {title:"Supplier", field:"supllier", headerSort:true},
+        {title:"Price", field:"price", headerSort:false},
+        {title:"Quantity", field:"totalAmountRM", headerSort:false,topCalc:function(values, data, calcParams){
+            var totalProductCart = 0
+              values.forEach(function(value){
+                totalProductCart   +=   parseInt(value)
+              });
+              $("#numberRM").text(new Intl.NumberFormat().format(totalProductCart))
+              $("#numberRM2").text(new Intl.NumberFormat().format(totalProductCart))
+            if(totalProductCart==0){
+              $("#btnWatchPurchasinngCart2").addClass("bg-secondary")
+              $("#btnWatchPurchasinngCart").addClass("bg-secondary")
+              $("#btnWatchPurchasinngCart2").removeClass("bg-primary")
+              $("#btnWatchPurchasinngCart").removeClass("bg-primary")
+            }else{
+              $("#btnWatchPurchasinngCart2").removeClass("bg-secondary")
+              $("#btnWatchPurchasinngCart").removeClass("bg-secondary")
+              $("#btnWatchPurchasinngCart2").addClass("bg-primary")
+              $("#btnWatchPurchasinngCart").addClass("bg-primary")
+            }
+          }
+        },
+        {title:"Total Price", field:"totalCostRM", headerSort:false, topCalc:function(values, data, calcParams){
+            let totalCostRM     =   0
+            values.forEach(function(value){
+              let priceString   =   value.substr( 1, value.length)
+              let price         =   deleteComma(priceString)
+                  totalCostRM   +=  parseFloat(price) 
+            });
+            $("#totalCostRawMaterial").text(formatter.format(totalCostRM))
+          }
+        },
+        {title:"Transport", field:"transport", headerSort:false, },
+        {title:"Transport Amount", field:"transportAmount", headerSort:true},
+        {title:"Price Transport", field:"transportPrice", headerSort:false},
+        {title:"percentage Transport", field:"percentage", headerSort:false},
+        {title:"Total Cost Transport", field:"totalCostTransport", headerSort:false, bottomCalc:"avg", topCalc:function(values, data, calcParams){
+            let totalCostTransport    =   0
+            values.forEach(function(value){
+              let priceString         =   value.substr( 1, value.length)
+              let price               =   deleteComma(priceString)
+                  totalCostTransport  +=  parseFloat(price) 
+            });
+            $("#costoTotalTransport").text(formatter.format(totalCostTransport))
+          }
+        },
+        cellQuantityDelete,
+        {title: "", headerSort:false, width:100, formatter: printIcon, cellClick:function(e, cell){
+                shoppingCart            = shoppingCart.filter(shoppingCart => shoppingCart.objectIdPurchasing != cell.getRow().getData().objectIdPurchasing);
+                cell.getRow().delete()
+            let costoTotalTransport     = deleteComma($("#costoTotalTransport").text().substr(1,$("#costoTotalTransport").text().length))
+            let totalCostRawMaterial    = deleteComma($("#totalCostRawMaterial").text().substr(1,$("#totalCostRawMaterial").text().length))
+
+            $("#totalCostPurchasing").text(formatter.format(parseFloat(costoTotalTransport) + parseFloat(totalCostRawMaterial)))
+          }
+        },
+      ]
+    
+  }
+</script>
+
+<script type="text/javascript">
+  function messageLoadingPurchasing(){
+      $("#text_message_puchasing").show()
+      $("#text_message_puchasing").removeClass("bg-warning")
+      $("#text_message_puchasing").removeClass("bg-danger")
+      $("#text_message_puchasing").removeClass("bg-success")
+      $("#text_message_puchasing").empty()
+      $("#text_message_puchasing").addClass("bg-info")
+      $("#text_message_puchasing").text("Loading...")
+  } 
+
+  function messagePurchasing() {
+    $("#text_message_puchasing").show()
+    $("#text_message_puchasing").removeClass("bg-warning")
+    $("#text_message_puchasing").removeClass("bg-danger")
+    $("#text_message_puchasing").removeClass("bg-info")
+    $("#text_message_puchasing").empty()
+    $("#text_message_puchasing").addClass("bg-success")
+    $("#text_message_puchasing").text("* Saved data, you can make use of it")
+    
+  }
+
+  function closeMessagePurchasing(){
+    $("#text_message_puchasing").hide()
+  }
+</script>
+
+<script type="text/javascript">
+  function getCheap ( data, obstractRawMaterial,pillRRM ) {
+    var suppliersCheapPtr = []
+    for (var i = 0; i < obstractRawMaterial.length; i++){
+      if(pillRRM){
+        var suppliers = data.filter(function(item){
+                          return (item["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] == obstractRawMaterial[i]["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"]) && (item["default"] == false)
+                        })
+      }else{
+        var suppliers = data.filter(function(item){
+                          return (item["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"] == obstractRawMaterial[i]["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"])
+                        })
+      }
+      
+      if(suppliers.length >0){
+        var suppliersToSave = suppliers.reduce(function(prev, current){
+                                return (parseInt(prev["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]) > parseInt(current["provedorMateriaPrimaSDMPtr"]["cantidadMinima"])) ? prev : current
+                              })
+        if(suppliersToSave != undefined){
+          
+            var greaterMaterialrQuantity      = suppliersToSave["provedorMateriaPrimaSDMPtr"]["cantidadMinima"]
+          for (var j= 0; j < suppliers.length ; j++){
+
+            var costRM1                       = parseInt(suppliers[j]["provedorMateriaPrimaSDMPtr"]["costo"])
+            var costTransport1                = parseInt(suppliers[j]["transporteSDMPtr"]["precio"])
+            var ivaTransport1                 = parseInt(suppliers[j]["transporteSDMPtr"]["porcentajePrecio"])
+            
+            var costRM2                       = parseInt(suppliersToSave["provedorMateriaPrimaSDMPtr"]["costo"])
+            var costTransport2                = parseInt(suppliersToSave["transporteSDMPtr"]["precio"])
+            var ivaTransport2                 = parseInt(suppliersToSave["transporteSDMPtr"]["porcentajePrecio"])
+
+            var existMond1                    =   parseInt(greaterMaterialrQuantity) % parseInt(suppliers[j]["transporteSDMPtr"]["cantidadMax"])
+            var totalAmountTransport1         =   parseInt(greaterMaterialrQuantity) / parseInt(suppliers[j]["transporteSDMPtr"]["cantidadMax"])
+            if(existMond1 != 0){totalAmountTransport1 += 1}
+
+            var existMond2                    =   parseInt(greaterMaterialrQuantity) % parseInt(suppliersToSave["transporteSDMPtr"]["cantidadMax"])
+            var totalAmountTransport2         =   parseInt(greaterMaterialrQuantity) / parseInt(suppliersToSave["transporteSDMPtr"]["cantidadMax"])
+            if(existMond2 != 0){totalAmountTransport2 += 1}
+
+            var precioTotal1                  = (costRM1*greaterMaterialrQuantity)+(( (((ivaTransport1*costTransport1)/100)) *Math.trunc(totalAmountTransport1))+costTransport1)
+            var precioTotal2                  = (costRM2*greaterMaterialrQuantity)+(( (((ivaTransport2*costTransport2)/100)) *Math.trunc(totalAmountTransport2))+costTransport2)
+            
+            if(precioTotal2 > precioTotal1){
+              suppliersToSave = suppliers[j]
+            }
+          }
+          suppliersCheapPtr.push(suppliersToSave)
+        }
+      }
+    }
+    //suplliersCheap = suppliersCheapPtr
+    return suppliersCheapPtr
+  }
+</script>
+
+<!--Funciones para el tab de Status Orders-->
+<script type="text/javascript">
+  function getOrdersPending () {
+    $.ajax({
+      type    : "GET",
+      url     : "/simulation/<%= simulation.id %>/<%= team.id %>/order_purchasing/data",
+      success : function( response ) {
+        //log(response)
+        reloadTableStatusOrders (response.data)
+      },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+        log(textStatus)
+      }
+    })
+  }
+
+  function reloadTableStatusOrders (data) {
+    if($.fn.DataTable.isDataTable("#statusOrdersDataTable")){
+      $("#statusOrdersDataTable").dataTable().fnDestroy()
+      $("#statusOrdersDataTable").empty()
+    }
+
+    var thead   = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Order</th>'
+        thead += '<th>Order Details</th>'
+        thead += '<th>Order Status</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Order</th>'
+        tfooter += '<th>Order Details</th>'
+        tfooter += '<th>Order Status</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $("#statusOrdersDataTable").append(thead)
+    $("#statusOrdersDataTable").append(tfooter)
+
+    var tableOrderDetails = $("#statusOrdersDataTable").DataTable({
+      processing: true,
+      lengthMenu: [ 10, 25, 50, 75, 100 ],
+      order: [[ 0, "asc" ]],
+      deferRender: true,
+      data: data,
+      columns: [
+        {
+          data: null,
+          render: function(data, type, row) {
+            return '<span class="font-weight-bold" >Order '+data["folioNumber"]+'</span>'
+          }
+        },
+        {
+          data:null,
+          render: function(data, type, row) {
+            var butoDetails = ''
+                butoDetails = "<div class='row ml-2 mr-4' style='width:180px'>"
+                                butoDetails += "<div class='col-md-3'>"
+                                    butoDetails += '<span> <button type"button" class="btn btn-info btn-circle orderDetails" id="orderDetails" data-toggle="tooltip" data-placement="bottom" title="Order Details"><i class="fas fa-search"></i></button> </span>'
+                                butoDetails += "</div>"
+                            butoDetails += "</div>"
+            return butoDetails
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var span = ''
+            var status = data["statusOrder"]
+            if( status == "PENDING" ){
+              span = '<span class="badge badge-danger">Pending</span>'
+            }else if( status == "ON GOING" ) {
+              span = '<span class="badge badge-warning">On Going</span>'
+            }
+
+            return span
+          }
+        }
+      ]
+    })
+
+    $("#statusOrdersDataTable tbody" ).on('click','button.orderDetails',function(){
+      let data = tableOrderDetails.row($(this).parents('tr')).data();
+      //log(data)
+      reloadTableOrderDetails ( data.data)
+      $("#orderDetailModal").modal("show")
+    })
+  }
+
+  function reloadTableOrderDetails ( data ) {
+    setTotalCostOrder ( data )
+    if($.fn.DataTable.isDataTable("#dataTableOrderDetails")){
+      $("#dataTableOrderDetails").dataTable().fnDestroy()
+      $("#dataTableOrderDetails").empty()
+    }
+
+    var thead   = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Suppliers</th>'
+        thead += '<th>Raw Material</th>'
+        thead += '<th>Progress Delivery Days</th>'
+        thead += '<th>Delivery Date</th>'
+        thead += '<th>Amount Raw Material</th>'
+        thead += '<th>Price</th>'
+        thead += '<th>Total Cost</th>'
+        thead += '<th>Transport</th>'
+        thead += '<th>Transport Amount</th>'
+        thead += '<th>Price Transport</th>'
+        thead += '<th>Percentage Transport </th>'
+        thead += '<th>Total Cost Transport</th>'
+        thead += '<th>Status</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Suppliers</th>'
+        tfooter += '<th>Raw Material</th>'
+        tfooter += '<th>Progress Delivery Days</th>'
+        tfooter += '<th>Delivery Date</th>'
+        tfooter += '<th>Amount Raw Material</th>'
+        tfooter += '<th>Price</th>'
+        tfooter += '<th>Total Cost</th>'
+        tfooter += '<th>Transport</th>'
+        tfooter += '<th>Transport Amount</th>'
+        tfooter += '<th>Price Transport</th>'
+        tfooter += '<th>Percentage Transport </th>'
+        tfooter += '<th>Total Cost Transport</th>'
+        tfooter += '<th>Status</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $("#dataTableOrderDetails").append(thead)
+    $("#dataTableOrderDetails").append(tfooter)
+
+    $.fn.dataTable.moment('DD-MM-YYYY');
+    $("#dataTableOrderDetails").DataTable({
+      processing: true,
+      lengthMenu: [ 10, 25, 50, 75, 100 ],
+      order: [[ 0, "asc" ]],
+      deferRender: true,
+      data: data,
+      columns: [
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["SDMSupplierPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["DMRawMaterialPtr"]["nombre"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var progesBar = ''
+            var message   = ''
+            var max       = '100'
+            var title     = data["deliveryDays"]+" delivery day(s)"
+
+            if(data["totalDeliveryDays"]){
+              max = data["totalDeliveryDays"]
+            }
+
+            var percentege = ((Number( data["totalDeliveryDays"] )-Number( data["deliveryDays"] ))*100)/max
+            //log(percentege)
+            var color = ''
+            var style = ''
+            if(percentege >=0 && percentege <= 50 ){color = 'bg-danger'}
+            else if(percentege >=51 && percentege <= 80 ){style = 'background:#dd5228;'}
+            else if(percentege >=81 && percentege <= 99 ){color = 'bg-warning'}
+            else if(percentege == 100 ){color = 'bg-success'}
+
+            /*if(percentege == 0){
+              title = "Delivered"
+              message = "Delivered"
+            }*/
+
+            
+
+            var label = '<label style="font-size:.8rem;">Receive in '+(Number( data["totalDeliveryDays"] )-Number( data["deliveryDays"] ))+'/'+data["totalDeliveryDays"]+'</label>'
+            if(Number( data["deliveryDays"] ) == 0){
+              label = '<label style="font-size:.8rem;">Received</label>'
+            }
+            progesBar += label
+            progesBar += '<div class="progress" title="'+title+'">'
+              progesBar += '<div class="progress-bar '+color+' text-success" role="progressbar" style="width: '+percentege+'%; '+style+'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">'+message+'</div>'
+            progesBar += '</div>'
+            //return data["deliveryDays"]+" delivery day(s)"
+            return progesBar
+          }
+        },
+        {
+          className:"text-center",
+          data: null,
+          render: function(data, type, row) {
+            var deliveryDate = ''
+            /*
+              log(data["deliveryDays"])
+              var dateTempo1 = moment( data["simulationOrderPurchaingPtr"]["datePurchase"] ).format("DD/MM/YYYY")
+              var dateTempo2 = moment( data["simulationOrderPurchaingPtr"]["deliveryDate"] ).format("DD/MM/YYYY")
+              log(dateTempo1 +' => ' +dateTempo2)
+            */
+            if( Number( data["deliveryDays"] ) == 0 ){
+              var dateTempo = moment( data["simulationOrderPurchaingPtr"]["deliveryDate"] ).format("DD/MM/YYYY")
+              deliveryDate = dateTempo
+            }else{
+              deliveryDate = "-"
+            }
+            return deliveryDate
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return new Intl.NumberFormat().format( data["totalAmountRawMaterial"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return formatter.format( data["simulationOrderPurchaingPtr"]["priceRawMaterial"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return formatter.format( data["simulationOrderPurchaingPtr"]["totalCostRawMaterial"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["simulationOrderPurchaingPtr"]["typeTransport"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return new Intl.NumberFormat().format( data["simulationOrderPurchaingPtr"]["transportAmount"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return formatter.format( data["simulationOrderPurchaingPtr"]["transportPrice"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["simulationOrderPurchaingPtr"]["percentagePriceTransport"]+"%"
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return formatter.format( data["simulationOrderPurchaingPtr"]["totalCostTransport"] )
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            var span = ''
+            var status = data["simulationOrderPurchaingPtr"]["status"]
+            if( status == "PENDING" ){
+              span = '<span class="badge badge-danger">Pending</span>'
+            }else if( status == "ON GOING" ) {
+              span = '<span class="badge badge-warning">On Going</span>'
+            }else if( status == "FINISHED" ) {
+              span = '<span class="badge badge-success">Finished</span>'
+            }
+
+            return span
+          }
+        }
+      ]
+    })
+    
+  }
+
+  function setTotalCostOrder ( data ) {
+    var total = 0
+    for( var i = 0 ; i < data.length ; i++ ) {
+      total += ( parseFloat( data[i]['simulationOrderPurchaingPtr']['totalCostTransport'] ) + parseFloat( data[i]['simulationOrderPurchaingPtr']['totalCostRawMaterial'] ) )
+    }
+    $("#total_Cost_Order").text(formatter.format(total.toString()))
+  }
+
+  $('#orderDetailModal').on('hidden.bs.modal', function (e) {
+      $('#orderDetailModal').css('z-index', "");
+      $('.modal-backdrop').css('z-index', 1040);
+      $('body').addClass("modal-open");
+      getOrdersPending()
+  });
+</script>
+
+<!--Función para crear objeto financial log-->
+<script type="text/javascript">
+  function crarObjectFinacialLog ( amountMoney, beforeAmount, afterAmount, type, status ) {
+    let dataFinancialLog =  {
+                              //'simulationDate'  : , 
+                              'amountMoney'     : amountMoney,
+                              'beforeAmount'    : beforeAmount,
+                              'afterAmount'     : afterAmount,
+                              'type'            : type,
+                              'status'          : status,
+                            }
+    return dataFinancialLog
+  }
+</script>
+
+<!--Rellenar select request raw material-->
+<script type="text/javascript">
+  $('#pills-request-RM-tab').on('click',function (e) {
+
+    $('#completeProduct').attr("hidden",true)
+    $('#missingProduct').attr("hidden",true)
+    $.ajax({
+      type: "GET",
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/purchasing/data_product_family",
+      success : function( response ) {
+        //log(response)
+        $("#folioNumber").text(foliFormat(response.folioNumber))
+        productFamilyActives =  response.data
+        var options
+        var optionDefault
+        for (let i = 0; i < response.data.length; i++) {
+          if(i == 0){
+            optionDefault = response.data[i]["objectId"]
+          }
+          options += '<option value="' +response.data[i]["objectId"] + '" >'+response.data[i]["SMDproductoFamiliaPtr"]["nombre"]+'</option>'
+        }
+        //log(options)
+        $("#ProductFamily").html(options).selectpicker('refresh')
+        $("#ProductFamily").selectpicker('val',optionDefault)
+      },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+        log(textStatus.responseJSON.error)
+      }
+    })
+  })
+</script>
+
+<!--Sugerencia de compra-->
+<script>
+  $('#ProductQuantity').on('change keydown keypress keyup',function(e){
+    var quantityP = $('#ProductQuantity').val()
+    //log(quantityP +" == "+ 0)
+    if(quantityP == 0){
+      $('#ProductQuantity').val("1")
+    }
+  })
+
+  $('#calculatePurchasingOrder').on('click',function(e){
+    Swal.fire({
+      title:'Add suggested products!',
+      text: 'When making the suggestion, the raw material found in the shopping cart will be deleted, to add the suggested ones, are you sure you want to do this?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      icon: 'warning',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        $("#calculatePurchasingOrder").attr('disabled',true)
+        setTimeout(()=>{
+          openModalSpinner()
+          setTimeout(()=>{
+
+              //console.log("inside timeout");
+              var isTrueCheckBox = $('#checkboxInvetary').is(':checked')
+              //log(isTrueCheckBox)
+              if(isTrueCheckBox == true){
+                //log("con inventario")
+                startCalculateWithAcount()
+              }else{
+                startCalculate ()
+              }
+
+          },100);
+        },100);
+
+      }
+    })
+    
+  })
+
+  function startCalculate () {
+    /*$("#spinner3").fadeOut(1);
+    $("#spinner3").modal('hide')
+    $('#spinner3').modal('toggle');*/
+    $('#completeProduct').attr("hidden",true)
+    $('#missingProduct').attr("hidden",true)
+    var idProductFamily       = $('#ProductFamily').val()                   
+    var quetityProductFamily  = $('#ProductQuantity').val()
+    var currentMoney          = $('#span_money_team_purchasing_raw_material').text()
+    var products              = {}
+    var jsonProduct           = {}
+    var jsonTempoComponets    = {}
+
+    var productFound = productFamilyActives.find(function(current){
+      return current["objectId"] == idProductFamily
+    })
+
+    if(productFound){
+
+      originComponents = productFound["component"]
+      products = {
+        'id': productFound["objectId"],
+        'name': productFound["SMDproductoFamiliaPtr"]["nombre"],
+        'rawMaterial': originComponents
+      }
+
+      var componentsTempo = products['rawMaterial']
+
+      for(key in componentsTempo ){
+        jsonTempoComponets[key] = Number(componentsTempo[key]) * Number(quetityProductFamily)
+      }
+      
+    }
+
+    products.rawMaterial = jsonTempoComponets
+    var currentMoneyTempo = deleteSignsMoney (currentMoney)
+
+    separateProducts (originComponents, products, suplliersCheap, Number(currentMoneyTempo),Number(quetityProductFamily),[])
+  }
+
+  function separateProducts (originComponents,jsonProduct, suplliersCheap, currentMoney, quetityProductFamily, dataInvetory) {
+    
+    /*$("#spinner3").modal("hide")
+    $('#closeSpinner3').trigger()*/
+    var products              = getPriceProduct (jsonProduct['rawMaterial'],suplliersCheap)
+    var productsTempo          = {}
+    var originComponentsTempo      = {}
+    var originComponentsTempoPurchassing = {}
+    var originComponentsTempoNotPurchassing = {}
+    var endProcess = false
+    var quantityComponentsPurchasing = 0
+    var quantityComponentsNotPurchasing = 0
+    //log(products)
+    if(products.totalAmountMoney <= currentMoney){
+      //for (let i = 0; i < products.arrayProducts.length; i++) {
+        //cellWarning = {headerSort:false}
+        shoppingCart = products.arrayProducts
+        addToCart(shoppingCart)
+        $('#completeProduct').empty()
+        $('#completeProduct').append('<div class="row justify-content-end text-end text-muted font-weight-normal pr-3 small"><label onclick="closeMessage(\'completeProduct\')" style="cursor: pointer;">X</label></div>'+
+                                      "success! if enough to buy the materials for the "+quetityProductFamily+" product(s)")
+        $('#completeProduct').removeAttr("hidden")
+        $('#completeProduct').addClass("text-success")
+        closeModalSpinner()
+        //$("#numberRM").text(products.totalProduct)
+        //$("#numberRM2").text(products.totalProduct)
+        /*
+          missingProduct
+          completeProduct
+        */
+      //}
+    }
+    else{
+      for (let i = 0; i < quetityProductFamily; i++) {
+        for( key in originComponents){
+          var QuantityInventoryTempo = 0
+          var inventaryTempo = dataInvetory.find(function(current){
+            return key == current['RawMaterial']["productPtr"]["objectId"]
+          })
+          if ( inventaryTempo ) {
+            QuantityInventoryTempo = inventaryTempo['quantity']
+          }
+
+          originComponentsTempo[key] =  (originComponents[key] * (i+1)) - Number(QuantityInventoryTempo)
+        }
+        productsTempo = getPriceProduct (originComponentsTempo,suplliersCheap)
+        if(productsTempo.totalAmountMoney <= currentMoney){
+          quantityComponentsPurchasing++
+        }else{
+          quantityComponentsNotPurchasing++
+        }
+      }
+
+      //cellWarning = {headerSort:false,formatter: warningIcon}
+
+      shoppingCart = productsTempo.arrayProducts
+      for (let i = 0; i < shoppingCart.length; i++) {
+        shoppingCart[i].insufficientFound = true
+      }
+      addToCart(shoppingCart)
+      $('#completeProduct').empty()
+      $('#completeProduct').append('<div class="row justify-content-end text-end text-muted font-weight-normal pr-3 small"><label onclick="closeMessage(\'completeProduct\')" style="cursor: pointer;">X</label></div>'+
+                                    "you can only buy "+quantityComponentsPurchasing+" product(s)")
+      $('#completeProduct').removeAttr("hidden")
+      $('#completeProduct').addClass("text-success")
+
+      $('#missingProduct').empty()
+      $('#missingProduct').append('<div class="row justify-content-end text-end text-muted font-weight-normal pr-3 small"><label onclick="closeMessage(\'missingProduct\')" style="cursor: pointer;">X</label></div>'
+                                  +'<span data-toggle="modal" data-target="#purchaseWarning" title="Details" style="cursor: pointer;"><i class="fa-lg fas fa-exclamation-circle mr-2" ></i> </span>' + quantityComponentsNotPurchasing+" products cannot be completed due to insufficient funds")
+      $('#missingProduct').removeAttr("hidden")
+      $('#missingProduct').addClass("text-warning")
+      closeModalSpinner()
+
+      fillModalWarning (quantityComponentsNotPurchasing, originComponents, suplliersCheap)
+
+    }
+  }
+
+  function getPriceProduct(jsonProduct, suplliersCheap){
+    //log(suplliersCheap)
+    var totalProduct = 0
+    var arrayObjectsProducts  = []
+
+    var totalCostTransport    = 0
+    var totalCostRawMaterial  = 0
+    var iva                   = 0 
+    var priceTransport        = 0
+    var costTotalTransport    = 0
+    var totalAmountTransport  = 0
+
+    var totalAmountTempo = 0
+    for( key in jsonProduct){
+      var suplierFound = suplliersCheap.find(function (current) {
+          //log(key +" == "+ current["provedorMateriaPrimaSDMPtr"]["objectId"])
+        return key == current["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"]
+      })
+      //log("provedor "+suplierFound)
+      if(suplierFound){
+        //log("proveedor encontrado "+suplierFound)
+        let priceProductoWithCommas  =   suplierFound["provedorMateriaPrimaSDMPtr"]["costo"]
+        let priceProduct             =   deleteComma(priceProductoWithCommas)
+        //log(priceProduct+" * "+ jsonProduct[key])
+            totalCostRawMaterial     =   parseInt(priceProduct) * parseInt(jsonProduct[key])
+          
+        let priceTransportWithCommas =   suplierFound["transporteSDMPtr"]["precio"]
+            priceTransport           =   parseInt(deleteComma(priceTransportWithCommas))
+        
+        let ivaWithoutPorcentaje     =   suplierFound["transporteSDMPtr"]["porcentajePrecio"]
+            iva                      =   ( ( priceTransport * parseInt( ivaWithoutPorcentaje ) ) / 100)
+
+        let existMond                =   parseInt(jsonProduct[key]) % parseInt(suplierFound["transporteSDMPtr"]["cantidadMax"])
+            totalAmountTransport     =   parseInt(jsonProduct[key]) / parseInt(suplierFound["transporteSDMPtr"]["cantidadMax"])
+
+        if(existMond != 0){totalAmountTransport += 1}
+            costTotalTransport       =   ( priceTransport + iva ) * Math.trunc(totalAmountTransport)
+        //Para identificar si alcanza el dinero que se pagara con el actual que cuenta el equipo
+        var amountMoney              = totalCostRawMaterial + costTotalTransport
+            totalAmountTempo += amountMoney
+
+        //Se crea el objeto de esta compra
+        var object =  {
+                        objectIdPurchasing  : suplierFound["objectId"],
+                        objectIdTransport   : suplierFound["transporteSDMPtr"]["objectId"],
+                        objectIdProveedor   : suplierFound["provedorMateriaPrimaSDMPtr"]["proveedorPtr"],
+                        deliveryDays        : suplierFound["transporteSDMPtr"]["diasEntrega"],
+                        typeTransport       : suplierFound["transporteSDMPtr"]["tipoEnvio"],
+                        material            : suplierFound["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["nombre"],
+                        supllier            : suplierFound["provedorMateriaPrimaSDMPtr"]["proveedorPtr"]["nombre"],
+                        price               : formatter.format(suplierFound["provedorMateriaPrimaSDMPtr"]["costo"]),
+                        totalAmountRM       : jsonProduct[key],
+                        totalCostRM         : formatter.format(String( totalCostRawMaterial)),
+                        transport           : suplierFound["transporteSDMPtr"]["tipoEnvio"],
+                        transportAmount     : Math.trunc(totalAmountTransport),
+                        transportPrice      : formatter.format(suplierFound["transporteSDMPtr"]["precio"]),
+                        percentage          : suplierFound["transporteSDMPtr"]["porcentajePrecio"]+'%',
+                        totalCostTransport  : formatter.format(String(costTotalTransport)),
+                      }
+
+        arrayObjectsProducts.push(object)
+        totalProduct += jsonProduct[key]
+      }
+    }
+
+    var jsonToReturn = {
+      totalAmountMoney: totalAmountTempo,
+      arrayProducts: arrayObjectsProducts,
+      totalProduct: totalProduct,
+    }
+    return jsonToReturn
+  }
+
+  function fillModalWarning(quantityComponentsNotPurchasing, originComponents, suplliersCheap){
+    var componets = []
+    for(key in originComponents){
+      var dataFound = suplliersCheap.find(function (current){
+        return key == current["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["objectId"]
+      })
+      if(dataFound){
+        componets.push({
+                        'name': dataFound["provedorMateriaPrimaSDMPtr"]["materiaPrimaPtr"]["nombre"],
+                        'quantity': Number(originComponents[key])*Number(quantityComponentsNotPurchasing),
+                        })
+      }
+      
+    }
+    $('#titleWarningCalculate').text( quantityComponentsNotPurchasing + ' product(s)')
+    if ($.fn.DataTable.isDataTable("#dataTableWarningProducts")) {
+      //$("#table_report").DataTable().clear().draw();
+      $("#dataTableWarningProducts").dataTable().fnDestroy();
+      //$("#table_report").dataTable();
+      $('#dataTableWarningProducts').empty();
+    }
+
+    var thead   = ""
+    var tfooter = ""
+
+    thead += '<thead>'
+      thead += '<tr>'
+        thead += '<th>Raw Material</th>'
+        thead += '<th>Quantity</th>'
+      thead += '</tr>'
+    thead += '</thead>'
+    tfooter += '<tfoot>'
+      tfooter += '<tr>'
+        tfooter += '<th>Raw Material</th>'
+        tfooter += '<th>Quantity</th>'
+      tfooter += '</tr>'
+    tfooter += '</tfoot>'
+
+    $('#dataTableWarningProducts').append(thead)
+    $('#dataTableWarningProducts').append(tfooter)
+
+    $.fn.dataTable.moment('DD-MM-YYYY')
+    $('#dataTableWarningProducts').dataTable({
+      processing: true,
+      lengthMenu: [100, 50, 75],
+      order: [
+        [0, "asc"]
+      ],
+      deferRender: true,
+      data: componets,
+      columns: [
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["name"]
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return data["quantity"]
+          }
+        }
+      ]
+    });
+
+  }
+
+  function closeMessage (nameComponent) {
+    $('#'+nameComponent).attr("hidden",true)
+  }
+
+</script>
+
+<script type="text/javascript">
+  function deleteSignsMoney(money){
+    var moneysing = money.replace('$','')
+    moneysing = moneysing.replace('.00','')
+    var moneySingTempo = ''
+    for (let j = 0; j < moneysing.length; j++) {
+      if(moneysing[j] != ','){
+        moneySingTempo += moneysing[j]
+      }
+    }
+    return moneySingTempo
+  }
+
+  $('#btnWatchPurchasinngCart2').on('click',function(e){
+    $("#contentMessages").removeAttr('hidden')
+    $('#containerDataTableRequestRM').removeClass("col-xl-12")
+    //$('#containerDataTableRequestRM').addClass(" col-xl-7")
+    $('#containerDataTableRequestRM').addClass("col-xl-0")
+    $('#containerDataTableRequestRM').attr("hidden",true)
+
+    $('#contentPurchasingCart2').removeAttr("hidden")
+    $('#contentPurchasingCart').removeClass(" col-xl-0")
+    //$('#contentPurchasingCart').addClass(" col-xl-5")
+    $('#contentPurchasingCart').addClass("col-xl-11")
+
+    $('#btnWatchPurchasinngCart2').attr("hidden",true)
+    $('#btnWatchPurchasinngCart').removeAttr("hidden")
+  })
+
+  $('#btnWatchPurchasinngCart').on('click',function(e){
+    $('#missingProduct').attr("hidden",true)
+    $('#completeProduct').attr("hidden",true)
+    $('#containerDataTableRequestRM').addClass("col-xl-12")
+    //$('#containerDataTableRequestRM').removeClass(" col-xl-7")
+    $('#containerDataTableRequestRM').removeClass(" col-xl-0")
+    $('#containerDataTableRequestRM').removeAttr("hidden")
+
+    $('#contentPurchasingCart2').attr("hidden",true)
+    $('#contentPurchasingCart').addClass(" col-xl-0")
+    //$('#contentPurchasingCart').removeClass(" col-xl-0")
+    $('#contentPurchasingCart').removeClass(" col-xl-11")
+
+    $('#btnWatchPurchasinngCart').attr("hidden",true)
+    $('#btnWatchPurchasinngCart2').removeAttr("hidden")
+  })
+
+  $('#closeModalPurchasing').on('click',function(e){
+    $("#contentMessages").attr('hidden',true)
+    closeModalPurchasing()
+  })
+  
+  function closeModalPurchasing (){
+    $('#modalPurchasingCart').attr("hidden",true)
+    $('#table_Purchasing_Cart').css('opacity','')
+    $('#table_Purchasing_Cart').css('background','')
+  }
+
+  function openModalPurchasinCart (idTable,maxValue){
+    $('#idTable').val(idTable)
+    $('#inputDeleteRM').val(maxValue)
+    $('#inputDeleteRM').attr('max',maxValue)
+    $('#inputDeleteRMMax').val(maxValue)
+    $('#modalPurchasingCart').removeAttr("hidden")
+    $('#table_Purchasing_Cart').css('opacity','0.6')
+    $('#table_Purchasing_Cart').css('background','#000')
+  }
+
+  $('#inputDeleteRM').on('keyup copy',function(e){
+    
+    var quantityToDelete = Number($("#inputDeleteRM").val())
+    var quantityMaxtoDelete = Number($("#inputDeleteRMMax").val())
+    if(quantityToDelete > quantityMaxtoDelete){
+      $("#inputDeleteRM").val(quantityMaxtoDelete)
+    }
+    
+  })
+
+  $('#btnDeleteCartRM').on('click',function(e){
+    var idRMTable = $('#idTable').val()
+    var quantityDeleteInput = $('#inputDeleteRM').val()
+    btnDeleteCartRM(idRMTable, quantityDeleteInput)
+  })
+
+  function btnDeleteCartRM (idT,quantityDelete){
+    var idRMTable = idT
+    var quantityDeleteInput = quantityDelete
+    var totalAmount = 0
+    var currentMoney = $('#span_money_team_purchasing_raw_material').text()
+    var deleteObjcet =  false
+    for (let i = 0; i < shoppingCart.length; i++) {
+      if(shoppingCart[i]["objectIdPurchasing"] == idRMTable){
+
+        if(shoppingCart[i]['totalAmountRM'] == quantityDeleteInput){
+          deleteObjcet =  true
+        }else{
+          var quantity = Number(shoppingCart[i]["totalAmountRM"]) - Number(quantityDeleteInput)
+          var newDataPurchasing = recalculatePurchasing(idRMTable,quantity,dataAllSupliersRM)
+          //log(newDataPurchasing)
+          shoppingCart[i]["totalAmountRM"] = Number(newDataPurchasing['newQuantityRM'])
+          shoppingCart[i]["transportAmount"] = Math.trunc( newDataPurchasing['newTotalAmountTransport'] )
+          shoppingCart[i]["totalCostRM"] = formatter.format(newDataPurchasing['newTotalCostRawMaterial'])
+          shoppingCart[i]["totalCostTransport"] = formatter.format(newDataPurchasing['newCostTotalTransport'])
+
+          totalAmount += (newDataPurchasing['newTotalCostRawMaterial'] + newDataPurchasing['newCostTotalTransport'])
+        }
+
+      }else{
+        var totalCostRMTempo = deleteSignsMoney(shoppingCart[i]['totalCostRM'])
+        var totalCostTransportTempo = deleteSignsMoney(shoppingCart[i]['totalCostTransport'])
+        totalAmount += (Number(totalCostRMTempo) + Number(totalCostTransportTempo))
+      }
+    }
+    
+    //log(Number(totalAmount) +" <= "+ Number(deleteSignsMoney(currentMoney)))
+    if(Number(totalAmount) <= Number(deleteSignsMoney(currentMoney))){
+      //cellWarning = {headerSort:false}
+      for (let i = 0; i < shoppingCart.length; i++) {
+        delete shoppingCart[i]['insufficientFound']
+      }
+      closeMessage('completeProduct')
+      closeMessage('missingProduct')
+    }else{
+      $('#missingProduct').empty()
+      $('#missingProduct').append('<div class="row justify-content-end text-end text-muted font-weight-normal pr-3 small"><label onclick="closeMessage(\'missingProduct\')" style="cursor: pointer;">X</label></div>'
+                                  +'<span class="align-items-center justify-content-center text-center mb-2 row" style="margin-top:-10px;">Insufficient funds</span>')
+      $('#missingProduct').removeAttr("hidden")
+      $('#missingProduct').addClass("text-warning")
+
+      closeMessage('completeProduct')
+    }/*else{
+      //cellWarning = {headerSort:false,formatter: warningIcon}
+      for (let i = 0; i < shoppingCart.length; i++) {
+        shoppingCart[i].insufficientFound = true
+      }
+    }*/
+
+    if(deleteObjcet){
+      shoppingCart = shoppingCart.filter((item) => item.objectIdPurchasing != idRMTable);
+    }
+
+    addToCart(shoppingCart)
+    closeModalPurchasing()
+  }
+  
+  function recalculatePurchasing(idRMTable,quantityRM, dataAllSupliersRM){
+    //log(idRMTable,quantityRM, dataAllSupliersRM)
+    var totalCostRawMaterial  = 0
+    var iva                   = 0 
+    var priceTransport        = 0
+    var costTotalTransport    = 0
+    var totalAmountTransport  = 0
+    //log(dataAllSupliersRM)
+    var suplierFound = dataAllSupliersRM.find(function (current) {
+      //log(idRMTable +" == "+ current["objectId"])
+      return idRMTable == current["objectId"]
+    })
+    //log('found '+suplierFound)
+    if(suplierFound){
+      //log("encontrado")
+      let priceProductoWithCommas  =   suplierFound["provedorMateriaPrimaSDMPtr"]["costo"]
+      let priceProduct             =   deleteComma(priceProductoWithCommas)
+      //log(priceProduct+" * "+ jsonProduct[key])
+          totalCostRawMaterial     =   parseInt(priceProduct) * parseInt(quantityRM)
+        
+      let priceTransportWithCommas =   suplierFound["transporteSDMPtr"]["precio"]
+          priceTransport           =   parseInt(deleteComma(priceTransportWithCommas))
+      
+      let ivaWithoutPorcentaje     =   suplierFound["transporteSDMPtr"]["porcentajePrecio"]
+          iva                      =   ( ( priceTransport * parseInt( ivaWithoutPorcentaje ) ) / 100)
+
+      let existMond                =   parseInt(quantityRM) % parseInt(suplierFound["transporteSDMPtr"]["cantidadMax"])
+          totalAmountTransport     =   parseInt(quantityRM) / parseInt(suplierFound["transporteSDMPtr"]["cantidadMax"])
+
+      if(existMond != 0){totalAmountTransport += 1}
+          costTotalTransport       =   ( priceTransport + iva ) * Math.trunc(totalAmountTransport)
+    }
+
+    return {
+      newTotalAmountTransport : totalAmountTransport,
+      newCostTotalTransport: costTotalTransport,
+      newTotalCostRawMaterial: totalCostRawMaterial,
+      newQuantityRM :quantityRM
+    }
+  }
+
+</script>
+
+<script>
+  function startCalculateWithAcount(){
+    $.ajax({
+      type: "GET",
+      url: "/simulation/<%= simulation.id %>/<%= team.id %>/purchasing/raw_material/inventory/data",
+      success : function( response ) {
+        //log(response)
+        claculateInvetaryWithPurchasing(response.data)
+      },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+        log(textStatus.responseJSON.error)
+      }
+    })
+  }
+
+  function claculateInvetaryWithPurchasing (dataInvetory){
+    $('#completeProduct').attr("hidden",true)
+    $('#missingProduct').attr("hidden",true)
+    var idProductFamily       = $('#ProductFamily').val()                   
+    var quetityProductFamily  = $('#ProductQuantity').val()
+    var currentMoney          = $('#span_money_team_purchasing_raw_material').text()
+    var products              = {}
+    var jsonProduct           = {}
+    var jsonTempoComponets    = {}
+
+    var productFound = productFamilyActives.find(function(current){
+      return current["objectId"] == idProductFamily
+    })
+
+    if(productFound){
+      originComponents    = productFound["component"]
+      products            = {
+                              'id': productFound["objectId"],
+                              'name': productFound["SMDproductoFamiliaPtr"]["nombre"],
+                              'rawMaterial': originComponents
+                            }
+      var componentsTempo = products['rawMaterial']
+
+      for(key in componentsTempo ){
+        var totalQuantity           = 0
+        var QuantityInventoryTempo  = 0
+        var RMFound                 = dataInvetory.find(function(current){
+                                        return current['RawMaterial']["productPtr"]["objectId"] == key
+                                      })
+        if ( RMFound ) {
+          QuantityInventoryTempo = RMFound['quantity']
+        }
+        totalQuantity = ( Number(componentsTempo[key] ) * Number( quetityProductFamily ) ) - Number( QuantityInventoryTempo )
+        if( totalQuantity <= 0 ){
+          totalQuantity = 0
+        }
+        jsonTempoComponets[key] = totalQuantity //Number(componentsTempo[key]) * Number(quetityProductFamily)
+      }
+      
+    }
+    var newJsonComponets = function (jsonTempoComponets){
+      var newData       = {}
+      var QuantityData  = 0
+      for(key in jsonTempoComponets){
+        if(jsonTempoComponets[key] > 0){
+          newData[key] = jsonTempoComponets[key]
+          QuantityData++
+        }
+      }
+      return { newData: newData, QuantityData: QuantityData}
+    }
+    var tempo = newJsonComponets(jsonTempoComponets)
+    //log(tempo)
+    if(tempo.QuantityData > 0){
+      products.rawMaterial = tempo.newData
+      //log(products)
+      var currentMoneyTempo = deleteSignsMoney (currentMoney)
+
+    separateProducts (originComponents, products, suplliersCheap, Number(currentMoneyTempo),Number(quetityProductFamily),dataInvetory)
+    }else{
+      $('#spinner').modal('hide')
+      Swal.fire(
+            "We're sorry!",
+            'For this quantity of products it is not necessary since the quantity of the inventory is sufficient',
+            'warning'
+          )
+    }
+    
+  }
+
+  function openModalSpinner (){
+    $('#modalSpinner').removeAttr("hidden")
+    $('#pills-request-RM').css('opacity','0.1')
+    $('#pills-request-RM').css('background','#ffffff')
+  }
+
+  function closeModalSpinner (){
+    $('#modalSpinner').attr("hidden",true)
+    $('#pills-request-RM').css('opacity','')
+    $('#pills-request-RM').css('background','')
+    $("#calculatePurchasingOrder").removeAttr('disabled')
+  }
+
+</script>
+
+<script type="text/javascript">
+  function removeCommas(numerData){
+    var returnNumber = ''
+    for (let i = 0; i < numerData.length; i++) {
+      if(numerData.charAt(i) != ','){
+        returnNumber+= numerData[i]
+      }
+    }
+
+    return returnNumber
+  }
+
+</script>
+
+<script type="text/javascript">
+  function foliFormat (number) {
+    var numberData = number.toString()
+    var format = ''
+    if(numberData.length < 3){
+      switch (numberData.length) {
+        case  1:
+          format = '00'+numberData
+          break;
+        case 2:
+          format = '0'+numberData
+          break;
+      }
+    }else{
+      format = numberData
+    }
+    return format
+  }
+</script>

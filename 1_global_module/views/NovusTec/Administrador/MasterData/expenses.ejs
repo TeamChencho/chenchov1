@@ -1,0 +1,118 @@
+<div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+   <!-- <div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">
+      <div class="card shadow mb-4">
+        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add student</h6>
+        </a>
+        <div class="collapse" id="collapseCardExample">
+          <div class="card-body">
+            <form class="form-horizontal" id="form_agregar">
+              <fieldset>
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <!--<div class="col-xl-6 col-lg-6 col-sm-6 col-xs-12">-->
+      <div class="card shadow mb-4">
+        <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Import Expenses</h6>
+        </a>
+
+        <div class="collapse" id="collapseImportar">
+          <div class="card-header">
+            <div class="col-md-12">
+              <a href="/templates/PlantillaGastos.csv" type="button" class="btn btn-primary btn-block mb-2 mt-2">Download CSV template</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal" id="form_importar_expenses" action="/administrador/master_data/expenses/importar_gastos"  method="POST" enctype="multipart/form-data">
+              <fieldset>
+                <div class="form-group row">
+                  <label for="archivo_agregar" class="col-form-label col-sm-2">Upload CSV</label>
+                  <div class="col-md-9">
+                    <input id="archivo_agregar" name="archivo" type="file" class="form-control input-md "  data-buttonBefore="true" data-placeholder="No selected file" required="" accept=".csv">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Import</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        
+      </div>
+   <!-- </div>-->
+  </div>
+</div>
+<div class="modal fade" id="editModalExpense" tabindex="-1" role="dialog" aria-labelledby="editModalExpenseLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalExpenseLabel">Edit expense</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" id="form_editar_expense">
+        <div class="modal-body">
+          <input type="hidden" id="objectId_expesnse_editar" name="objectId">
+          <!-- Text input-->
+          <div class="form-group row">
+            <label for="expesnse_cuenta_editar" class="col-form-label col-sm-2">Account</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend" style="width: 100%;">
+                <input id="expesnse_cuenta_editar" name="cuenta" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="expesnse_importar_editar" class="col-form-label col-sm-2">Import</label>
+            <div class="input-group col-sm-10">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input id="expesnse_importar_editar" name="importar" type="number" min="1" class="form-control textarea-md" required="">
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="expesnse_periodo_editar" class="col-form-label col-sm-2">Period</label>
+            <div class="col-md-10">
+              <input id="expesnse_periodo_editar" name="periodo" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="expesnse_tipo_editar" class="col-form-label col-sm-2">Type</label>
+            <div class="col-md-10">
+              <input id="expesnse_tipo_editar" name="tipo" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="expesnse_porcentaje_editar" class="col-form-label col-sm-2">Percentage</label>
+            <div class="col-md-10">
+              <input id="expesnse_porcentaje_editar" name="porcentaje" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,706 @@
+<%- contentFor('head')%>
+<% include ./../css %>
+
+<%- contentFor('body')%>
+<body id="page-top" class="sidebar-toggled">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <% include ./../sidebar %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./../top-bar %>        
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Simulations</h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <% if(error){ %>
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Error!</strong> <%= error %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+              <div class="card shadow mb-4">
+                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add Simulation</h6>
+                </a>
+                
+                <div class="collapse" id="collapseCardExample">
+                  <div class="card-body">
+                    <form class="form-horizontal" id="form_add_simulation">
+                      <fieldset>
+                        <!-- Text input-->
+                        <div class="form-group row">
+                          <label for="simulationName" class="col-form-label col-sm-2">Simulation Name</label>
+                          <div class="col-md-10">
+                            <input id="simulationName" name="simulationName" type="text" class="form-control input-md" required="">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="group_select" class="col-form-label col-sm-2">Groups</label>
+                          <div class="col-md-10">
+                            <select id="group_select" name="group" class="form-control selectpicker" data-live-search="true" required="">
+                              <option value="">Nothing Selected</option>
+                              <% for(var i = 0; i < groups.length; i++){ %>
+                                <option value="<%= groups[i].get('grupoPtr').id %>"><%= groups[i].get('grupoPtr').get('codigo') %> - <%= groups[i].get('grupoPtr').get('nombre') %></option>
+                              <% } %>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="datetimeStartTime" class="col-form-label col-sm-2">Start Time</label>
+                          <div class="col-md-10">
+                            <div class='input-group date' id='datetimeStartTime'>
+                                <input id="startDateHidden" type="hidden" name="startDateHidden">
+                                <input type='text' id="startDateText" name="startDateText" class="form-control" disabled="" />
+                                <span class="input-group-addon" style="margin-top: 4px; margin-left: 4px;">
+                                  <i class="far fa-calendar-alt fa-2x"></i>
+                                </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="" class="col-form-label col-sm-2">
+                            Initial Income</label> 
+                          <div class="col-md-10">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                              </div>
+                              <input type="text" class="form-control" id="amount" name="amount" onchange="changeAmountFormat()" aria-label="Amount (to the nearest dollar)" required>
+                              <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label for="" class="col-form-label col-sm-2">Activate Depreciation</label> 
+                          <div class="col-md-4">
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" value="depreciacion" name="depreciacion" id="flexCheckDepreciacion" checked>
+                              <label class="form-check-label" for="flexCheckDepreciacion">
+                                Si
+                              </label>
+                            </div>
+                          </div>
+
+                          <label for="" class="col-form-label col-sm-2">Activate Taxes</label> 
+                          <div class="col-md-4">
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" value="iva" name="impuestos" id="flexCheckDefault" checked>
+                              <label class="form-check-label" for="flexCheckDefault">
+                                I.V.A
+                              </label>
+                            </div> 
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" value="isr" name="impuestos" id="flexCheckChecked" checked>
+                              <label class="form-check-label" for="flexCheckChecked">
+                                ISR
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" value="ieps" name="impuestos" id="flexCheckIeps" checked>
+                              <label class="form-check-label" for="flexCheckIeps">
+                                IEPS
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!--<div class="form-group row">
+                          <label for="" class="col-form-label col-sm-2">Sueldo de empleados</label> 
+                          <div class="col-md-10">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                              </div>
+                              <input type="number" step="any" class="form-control" id="salary" min="1" name="salary" aria-label="Salary (to the nearest dollar)" required>
+                              <div class="input-group-append">
+                                <span class="input-group-text">/hr</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>-->
+
+                        <div class="form-group row">
+                          <label for="" class="col-form-label col-sm-2">Quantity Of Administrative Employees</label> 
+                          <div class="col-md-4">
+                            <input type="number" class="form-control" min="1" id="employees" name="employees" aria-label="Salary (to the nearest dollar)" required>
+                          </div>
+
+                          <label for="" class="col-form-label col-sm-2">Quantity Of Shifts</label> 
+                          <div class="col-md-4">
+                            <input type="number" class="form-control" min="1" max="3"  value="1" id="turns" name="turns" aria-label="Turns" required>
+                          </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Simulations Data</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  
+  <% include ../../Utilities/spinner%>
+
+</body>
+
+<%- contentFor('scripts')%>
+<% include ./../scripts %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="http://underscorejs.org/underscore-min.js"></script>
+<script>
+  var log = console.log
+  var table 
+  var tableSimulation = null
+  var dataAllSimulation = []
+
+  $(document).ready(function() { 
+    $('#datetimeStartTime').datetimepicker({
+      format: 'DD/MM/YYYY',
+      sideBySide: true, 
+      enabledHours: [0],
+      stepping: 1440,
+    })
+
+    $('#datetimeStartTime').on('dp.change', function(e){ 
+      var date = moment(e.date)
+      console.log(date.valueOf())
+      $("#startDateHidden").val(date.valueOf())
+    })
+    
+    var dateCurrent = new Date()
+    var dateNow =  moment(dateCurrent)
+    $("#startDateHidden").val(dateNow.valueOf())
+    $("#startDateText").val(dateNow.format('DD/MM/YYYY'))
+    
+    reloadTable()
+  });
+
+  function changeAmountFormat() {
+    var amount = $('#amount').val().replace(",", "");      
+    console.log("format number")
+    var value = new Intl.NumberFormat('es-MX').format(amount)
+    console.log(value)
+    $("#amount").val(value)
+  }
+
+  async function reloadTable() {
+    //log("Recargando tabla")
+    /*await $.ajax({
+      type: "GET",
+      url: "/advisers/simulations/data",
+      success: function(response) {*/
+        //log(response.data)
+        //dataAllSimulation = response.data
+
+        if ($.fn.DataTable.isDataTable("#dataTable")) {
+          //$("#table_report").DataTable().clear().draw();
+          $("#dataTable").dataTable().fnDestroy();
+          //$("#table_report").dataTable();
+          $('#dataTable').empty();
+        }
+
+        var thead = ""
+        var tfooter = ""
+
+        thead += '<thead>'
+        thead += '<tr>'
+        thead += '<th>Name</th>'
+        thead += '<th>Paused/Running</th>'
+        thead += '<th>Status</th>'
+        thead += '<th>Lock</th>'
+        thead += '<th>Group</th>'
+        thead += '<th>Speed</th>'
+        thead += '<th>Created At</th>'
+        thead += '<th>Action</th>'
+        thead += '</tr>'
+        thead += '</thead>'
+        tfooter += '<tfoot>'
+        tfooter += '<tr>'
+        tfooter += '<th>Name</th>'
+        tfooter += '<th>Paused/Running</th>'
+        tfooter += '<th>Status</th>'
+        tfooter += '<th>Lock</th>'
+        tfooter += '<th>Group</th>'
+        tfooter += '<th>Speed</th>'
+        tfooter += '<th>Created At</th>'
+        tfooter += '<th>Action</th>'
+        tfooter += '</tr>'
+        tfooter += '</tfoot>'
+
+        $('#dataTable').append(thead);
+        $('#dataTable').append(tfooter);
+
+        $.fn.dataTable.moment('DD-MM-YYYY');
+       tableSimulation = $('#dataTable').dataTable({
+          processing: true,
+          lengthMenu: [100, 10, 25, 50, 75],
+          //order: [[2, "desc"]],
+          deferRender: true,
+          ajax: "/advisers/simulations/data",
+          //data: response.data,
+          columns: [
+            {data: null,render: function(data, type, row) {return data["simulationName"]}},
+            {data: null,
+             className : "text-center align-items-center justify-content-center",
+             render: function(data, type, row) {
+               
+                dataAllSimulation.push(data)
+                dataAllSimulation = _.unique(dataAllSimulation, function(current){
+                  return current["objectId"]
+                })
+
+                var  componetes = ''
+                if(data["status"] == 'RUNNING'){
+                      componetes += '<button id="boton_encender_apagar" onclick="onOffSimulation(\''+data["objectId"]+'\', false, \''+data["groupPtr"]['nombre']+'\' )" type="button" title="To pause" class="btn"><i style="font-size: 2rem;" class=" text-success fas fa-toggle-on"></i></button>'
+                }else{
+                      componetes += '<button id="boton_encender_apagar" onclick="onOffSimulation(\''+data["objectId"]+'\', true, \''+data["groupPtr"]['nombre']+'\')" type="button" title="To run" class="btn"><i style="font-size: 2rem;" class=" text-danger fas fa-toggle-off"></i></button>'
+                }
+                return componetes
+             }
+            },
+            {data: "status"},
+            {data: null,render : function(data, type, row){ 
+              var lock = data["lock"] ?    data["lock"] : ''
+              var span = ''
+              if( lock == true ){
+                span += '<span class="badge badge-success">True</span>'
+              }else{
+                span += '<span class="badge badge-danger">False</span>'
+              }
+              return span
+            }},
+            {data: null,render: 
+              function(data, type, row) {return data["groupPtr"]["codigo"] + " - " + data["groupPtr"]["nombre"]
+            }},
+            {data: null,render: function(data, type, row) {
+              switch(data["speedSimulation"]){
+                case 60:
+                default:
+                  return "1x"
+                case 30:
+                return "2x"
+                case 15:
+                return "4x"
+                case 7:
+                return "8x"
+                case 3:
+                return "16x"
+                case 3:
+                return "32x"
+              }
+            }},
+            {data: null,render: function(data, type, row) {return moment(data["createdAt"]).format('DD-MM-YYYY')}},
+            {
+              data: null,
+              render: function(data, type, row) {
+                var data_to_add = ""
+
+                data_to_add = "<div class='row ml-2 mr-4' style='width:180px'>"
+
+                data_to_add += "<div class='col-md-4'>"
+                data_to_add += '<a href="/advisers/simulations/detail_simulation/'+data["objectId"]+'" target="_blank" class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Detail Simulation"><i class="fas fa-search" ></i></a>'
+                data_to_add += "</div>"
+
+                  if (data["active"]) {
+                    data_to_add += "<div class='col-md-4'>"
+                    data_to_add += '<button id="active" type"button" onclick="ActivateData(\'' + data["objectId"] + '\',false)" type="button" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="bottom" title="Deactivate"><i class="fas fa-archive" ></i></button>'
+                    data_to_add += "</div>"
+                  } else {
+                    data_to_add += "<div class='col-md-4'>"
+                    data_to_add += '<button id="active" type"button" onclick="ActivateData(\'' + data["objectId"] + '\',true)" type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Activate"><i class="fas fa-archive"></i></button>'
+                    data_to_add += "</div>"
+                  }
+                  data_to_add += "<div class='col-md-4'>"
+                  data_to_add += '<button id="elimniar" type"button" onclick="EraseData(\'' + data["objectId"] + '\')" type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-eraser"></i></button>'
+                  data_to_add += "</div>"
+
+                data_to_add += "</div>"
+
+                return data_to_add
+              }
+            }
+          ]
+        });
+
+      /*},
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+      }
+    });*/
+
+    return true
+  }
+</script>
+
+<script>
+  // Agregar usuario
+  $("#form_add_simulation").submit(function(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Add!',
+      text: 'Do you want to add this simulation?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Add'
+    }).then((result) => {
+      if (result.value) {
+        var objectIdGrupo = $("#group_select").val()
+        var emptyComponent = $('#employees').val()
+        if(emptyComponent != ''){
+          $('.class-text-h5').text('Processing information')
+          $("#spinner").fadeIn(1);
+          $("#spinner").modal('show')
+          $('.modal-backdrop').show()
+          
+          log($(this).serialize())
+
+          log($("#startDateText").val())
+          $.ajax({
+            type: "POST",
+            data: $(this).serialize(),
+            url: "/advisers/simulations/add_simulation",
+            success: function(response) {
+              //log(response.data)
+              //reloadTable()
+              tableSimulation.DataTable().ajax.reload()
+              $("#form_add_simulation").trigger("reset");
+              $("#spinner").fadeOut(1);
+              $('.modal-backdrop').hide()
+              $('.modal-open').css({'overflow': 'visible'});
+              Swal.fire(
+                'Added!',
+                'Simulation has been added successfully',
+                'success'
+              )
+              
+              var dateCurrent = new Date()
+              var dateNow =  moment(dateCurrent)
+              $("#startDateHidden").val(dateNow.valueOf())
+              $("#startDateText").val(dateNow.format('DD/MM/YYYY'))
+
+              $("#group_select").selectpicker('val',objectIdGrupo)
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              $("#collapseCardExample").collapse('hide');
+              $("#spinner").fadeOut(1);
+              $('.modal-backdrop').hide()
+              $('.modal-open').css({'overflow': 'visible'});
+              Swal.fire(
+                '¡Error!',
+                XMLHttpRequest.responseJSON.error + '. Try again',
+                'error'
+              )
+            }
+          })
+        }else{
+          Swal.fire(
+                'Warning!',
+                'Sorry the simulation cannot be added because there are no employees, contact the administrator',
+                'warning'
+              )
+        }
+      }
+    })
+  });
+
+  function ActivateData(objectId, seActiva) {
+    if (seActiva) {
+      Swal.fire({
+        title: 'Activate!',
+        text: "Do you want to activate this simulation?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Activate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/advisers/simulations/data_archive",
+            success: function(response) {
+              //log(response.data)
+              //reloadTable()
+              tableSimulation.DataTable().ajax.reload()
+              Swal.fire(
+                'Activated!',
+                'The simulation has been activated successfully',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'success'
+              )
+            }
+          })
+
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Deactivate!',
+        text: "Do you want to deactivate this simulation?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Deactivate'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type: "POST",
+            data: {
+              "objectId": objectId,
+              "seActiva": seActiva
+            },
+            url: "/advisers/simulations/data_archive",
+            success: function(response) {
+              //log(response.data)
+              //reloadTable()
+              tableSimulation.DataTable().ajax.reload()
+              Swal.fire(
+                'Deactivated!',
+                'The simulation has been succesfully deactivated',
+                'success'
+              )
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              Swal.fire(
+                '¡Error!',
+                'An error occurred while performing the action, please try again',
+                'success'
+              )
+            }
+          })
+        }
+      })
+    }
+  }
+
+  function EraseData(objectId) {
+    Swal.fire({
+      title: 'Delete!',
+      text: "Do you want to delete this simulation?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6', 
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        $('.class-text-h5').text('Processing information, do not close the window it will take several minutes')
+        $("#spinner").fadeIn(1);
+        $("#spinner").modal('show')
+        $('.modal-backdrop').show()
+
+        $.ajax({
+          type: "POST",
+          data: {
+            "objectId": objectId
+          },
+          url: "/advisers/simulations/data_erase",
+          success: function(response) {
+            //log(response.data)
+            //reloadTable()
+            tableSimulation.DataTable().ajax.reload()
+            $("#spinner").fadeOut(1);
+            $('.modal-backdrop').hide()
+            $('.modal-open').css({'overflow': 'visible'});
+
+            Swal.fire(
+              'Deleted!',
+              'The simulation has been succesfully deleted',
+              'success'
+            )
+
+
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#spinner").fadeOut(1);
+            $('.modal-backdrop').hide()
+            $('.modal-open').css({'overflow': 'visible'});
+            Swal.fire(
+              'Error!',
+              'An error ocurred while performing the action, please try again',
+              'success'
+            )
+          }
+        })
+      }
+    })
+  }
+</script>
+
+<!--Script collapse-->
+<script type="text/javascript">
+  $('#collapseCardExample').on('shown.bs.collapse', function () {
+    $.ajax({
+      type: "GET",
+      url: "/advisers/simulations/get_employes",
+      success: function(response) {
+        if(response.data.length >0 ){
+          $("#employees").attr("max", response.data.length)
+          $("#employees").attr("min", '1')
+          $("#employees").val("1")
+          $("#employees").removeAttr("disabled")
+          $('#employees').removeAttr('title')
+        }else{
+          $("#employees").attr("disabled", true)
+          //$("#employees").attr("placeholder","There are no employees, contact the administrator")
+          $('#employees').attr("title",'There are no employees, contact the administrator')
+        }
+      },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+        log(textStatus.responseJSON.error)
+      }
+    })
+
+  })
+</script>
+
+<!--On and Off simulation-->
+<script type="text/javascript">
+  async function onOffSimulation ( objectId, sePausa, namesimulation ){
+
+    var quantity = await quantitySimualtion( objectId )
+    
+    var title = ''
+    var textComplement = ''
+    var textFinaly = ''
+    if(sePausa == false){
+      title = 'Pause'
+      textFinaly = 'Paused'
+    }else{
+      textFinaly = 'Running'
+      title = 'Run'
+      if( quantity == 2){
+        textComplement = "Hello <%=currentUser.get('nombre')%>! You're allowed to run 3 simulations per group. Be careful! You're about to start your 3rd simullation for group "+namesimulation+".  "
+      }else if( quantity >= 3){
+        textComplement = "Hello <%=currentUser.get('nombre')%> You're allowed to run just 3 simuations. As you are running the 4th one for group "+namesimulation+" the oldest simulation will be stopped 🙂.  "
+      }
+    }
+    
+    Swal.fire({
+            title: `${title}!`,
+            text: `${textComplement}Are you sure you want to ${title.toLowerCase()} this simulation?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: title,
+            showLoaderOnConfirm: true,
+            preConfirm: function (login) {
+              return $.ajax({
+                              type    : "POST",
+                              url: "/advisers/simulations/simulations/pause",
+                              data : { 'objectId' : objectId, 'sePausa' :  sePausa },
+                              success: async(response) => {
+                                dataAllSimulation = []
+                                await tableSimulation.DataTable().ajax.reload() //reloadTable()                         
+                              },error : function( XMLHttpRequest, textStatus, errorThrown ) {
+                                log( XMLHttpRequest, textStatus, errorThrown )
+                                return Swal.fire('Error',
+                                          XMLHttpRequest.responseJSON.error + '. Recargue de nuevo la página',
+                                          'error'
+                                )
+                              }
+                            })
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+              Swal.fire(textFinaly+'!', 'The simulation is '+textFinaly.toLowerCase(), 'success')
+            }
+          })
+
+  }
+
+  function quantitySimualtion(objectId){
+    //log(dataAllSimulation)
+
+    var simulationCurrent = dataAllSimulation.find(function ( current ) {
+      return current["objectId"] == objectId
+    })
+
+    var quantity = dataAllSimulation.filter(function ( current ) {
+      return current['groupPtr']["objectId"] == simulationCurrent['groupPtr']["objectId"] && current['status'] == "RUNNING"
+    })
+
+    return quantity.length
+  }
+</script>

@@ -1,0 +1,228 @@
+<div type="hidden" class="col-xl-12 col-lg-12 col-sm-12 col-xs-12" hidden>
+  <div class="card shadow mb-4">
+    <a href="#collapseImportar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseImportar">
+      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Add Production Lines Phases</h6>
+    </a>
+
+    <div class="collapse" id="collapseImportar">
+      <div class="card-body">
+        <form class="form-horizontal" id="form_production_line_phase">
+          <fieldset>
+            <!-- Text input-->
+            <div class="form-group row">
+              <label for="phase_name_tab_production_line_phase" class="col-form-label col-sm-2">Phase Name</label>
+              <div class="col-md-10">
+                <input id="phase_name_tab_production_line_phase" name="name" type="text" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="hours_finish_phase_product_family_tab_production_line_template" class="col-form-label col-sm-2"> Quantity Hours To Finish This Phase</label>
+              <div class="col-md-10">
+                <input id="hours_finish_phase_product_family_tab_production_line_template" name="hoursfinishPhase" val="1" type="number" min="1" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="phase_description_product_family_tab_production_line_template" class="col-form-label col-sm-2"> Phase Description</label>
+              <div class="col-md-10">
+                <textarea class="form-control" name="description" id="phase_description_product_family_tab_production_line_template" cols="" rows="4" placeholder="Add a description for the phase" ></textarea>
+              </div>
+            </div>
+
+            <div class="form-group row mt-2" style="margin-bottom: 0px">
+              <label for="phase_name_tab_production_line_phase" class="col-form-label ml-2" style="margin-bottom: 0px">Select Type Employeed :</label>
+            </div>
+            <hr style="margin-top:0px">
+
+            <div class="form-group row">
+
+              <div class='col-form-label col-sm-4 font-weight-bold'>
+                Type Employees
+              </div>
+              <div class='col-form-label col-sm-4 font-weight-bold'>
+                <p>Selection</p>
+              </div>
+              <div class='col-form-label col-sm-4 font-weight-bold'>
+                <p>Quantity Employees</p>
+              </div>
+            </div>
+
+            <div id="type_emplado_production_line_phases">
+              <!--<div class="form-group row">
+                <label for="phase_amount_employees_tab_production_line_phase" class="col-form-label col-sm-2">Quantity Employees</label>
+                <div class="col-md-10">
+                  <input id="phase_amount_employees_tab_production_line_phase" name="quantityEmployees" type="number" min="1" class="form-control input-md" required="">
+                </div>
+              </div>-->
+            </div>
+
+            <div class="form-group row mt-2" style="margin-bottom: 0px">
+              <label for="phase_name_tab_production_line_phase" class="col-form-label ml-2" style="margin-bottom: 0px">Select Fixed Assets For Phase :</label>
+            </div>
+            <hr style="margin-top:0px">
+
+            <div class="form-group row">
+
+              <div class='col-form-label col-sm-4 font-weight-bold'>
+                Name Fixed Asset
+              </div>
+              <div class='col-form-label col-sm-4 font-weight-bold'>
+                <p>Selection</p>
+              </div>
+              <div class='col-form-label col-sm-4 font-weight-bold'>
+                <p>Quantity Fixed Asset</p>
+              </div>
+            </div>
+
+            <div id="list_fixed_Asset_production_line_phase">
+
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-12">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ListFisxedAssetModal" tabindex="-1" role="dialog" aria-labelledby="ListFisxedAssetModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ListFisxedAssetModalLabel">List Fixed Assets</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            Name Fixed Asset
+          </div>
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            <p>Quantity Fixed Asset</p>
+          </div>
+        </div>
+
+        <div id="contentListFixedAsset">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ListQuantityEmployeesModal" tabindex="-1" role="dialog" aria-labelledby="ListQuantityEmployeesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ListQuantityEmployeesModalLabel">List Employees</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            Type Employee
+          </div>
+          <div class='col-form-label col-sm-6 font-weight-bold'>
+            <p>Quantity Employee</p>
+          </div>
+        </div>
+
+        <div id="contentListQuantityEmployees">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="EditFisxedAssetModalProductionLinePhase" tabindex="-1" role="dialog" aria-labelledby="EditFisxedAssetModalProductionLinePhaseLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="EditFisxedAssetModalProductionLinePhaseLabel">Edit Fixed Assets</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-content" id="form_edit_phase_fixed_asset">
+          <input type="hidden" name="objectId" id="objectId_phase" value="">
+          <div class="form-group row">
+            <label for="edit_phase_name_tab_production_line_phase" class="col-form-label col-sm-6">Phase Name</label>
+            <div class="col-md-10">
+              <input id="edit_phase_name_tab_production_line_phase" name="name" type="text" class="form-control input-md" required="" disabled>
+            </div>
+          </div>
+
+          <hr>
+          <div class="form-group row">
+            <label for="edit_phase_description_product_family_tab_production_line_template" class="col-form-label col-sm-6"> Phase Description</label>
+            <div class="col-md-10">
+              <textarea class="form-control" name="description" id="edit_phase_description_product_family_tab_production_line_template" cols="" rows="4" placeholder="Add a description for the phase"></textarea>
+            </div>
+          </div>
+          <!--<div class="form-group row">
+            <label for="edit_phase_amount_employees_tab_production_line_phase" class="col-form-label col-sm-6">Quantity Employees</label>
+            <div class="col-md-10">
+              <input id="edit_phase_amount_employees_tab_production_line_phase" name="quantityEmployees" type="number" min="1" class="form-control input-md" required="">
+            </div>
+          </div>-->
+          <hr>
+          <div class="form-group row">
+
+            <div class='col-form-label col-sm-6 font-weight-bold'>
+              Type Employees
+            </div>
+            <div class='col-form-label col-sm-6 font-weight-bold'>
+              <p>Quantity Employees</p>
+            </div>
+          </div>
+
+          <div id="contentQuantityEmployees">
+
+          </div>
+          <hr>
+          <div class="form-group row">
+            <label for="edit_hours_finish_phase_product_family_tab_production_line_template" class="col-form-label col-sm-6"> Quantity Hours To Finish This Phase</label>
+            <div class="col-md-10">
+              <input id="edit_hours_finish_phase_product_family_tab_production_line_template" name="hoursfinishPhase" val="1" type="number" min="1" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class='col-form-label col-sm-6 font-weight-bold'>
+              Name Fixed Asset
+            </div>
+            <div class='col-form-label col-sm-6 font-weight-bold'>
+              <p>Quantity Fixed Asset</p>
+            </div>
+          </div>
+          <div id="contentEditFixedAssetProductionLinePhase">
+
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Save</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
